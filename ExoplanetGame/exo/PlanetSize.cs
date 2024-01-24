@@ -4,18 +4,12 @@ using System.Text;
 namespace Exoplanet.exo;
 
 [Serializable]
-public class Size
+public class PlanetSize(int width, int height)
 {
-    public int Width { get; }
-    public int Height { get; }
+    public int Width { get; } = width;
+    public int Height { get; } = height;
 
-    public Size(int width, int height)
-    {
-        Width = width;
-        Height = height;
-    }
-
-    public Size() : this(0, 0)
+    public PlanetSize() : this(0, 0)
     {
     }
 
@@ -29,7 +23,7 @@ public class Size
         return sb.ToString();
     }
 
-    public static Size? Parse(string s)
+    public static PlanetSize? Parse(string? s)
     {
         string[] token = s.Trim().Split('|');
 
@@ -37,7 +31,7 @@ public class Size
         {
             int w = int.Parse(token[1]);
             int h = int.Parse(token[2]);
-            return new Size(w, h);
+            return new PlanetSize(w, h);
         }
 
         return null;

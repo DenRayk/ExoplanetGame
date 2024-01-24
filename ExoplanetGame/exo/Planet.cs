@@ -14,7 +14,7 @@ public interface Planet
 
     Measure Scan(Robot robot);
 
-    Size GetSize();
+    PlanetSize GetSize();
 
     void Remove(Robot robot);
 
