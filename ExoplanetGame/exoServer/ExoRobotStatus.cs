@@ -6,10 +6,10 @@ public class ExoRobotStatus(float temp, int energy, Position pos, RobotProfil rp
     : RobotStatus
 {
     private float energy = energy;
-    protected int heaterLevel = 0;
-    protected int coolerLevel = 0;
-    protected bool mustRotate = false;
-    public RobotProfil rp = rp;
+    public int heaterLevel { get; set; } = 0;
+    public int coolerLevel { get; set; } = 0;
+    public bool mustRotate { get; set; } = false;
+    public RobotProfil rp { get; set; } = rp;
 
     public ExoRobotStatus(float workTemp, int energy, RobotProfil rp)
         : this(workTemp, energy, new Position(0, 0, Direction.SOUTH), rp)

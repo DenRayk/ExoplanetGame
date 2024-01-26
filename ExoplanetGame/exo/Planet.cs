@@ -10,7 +10,7 @@ public interface Planet
 
     Position Move(Robot robot);
 
-    Direction Rotate(Robot robot, Rotation rotation);
+    Direction? Rotate(Robot robot, Rotation rotation);
 
     Measure Scan(Robot robot);
 

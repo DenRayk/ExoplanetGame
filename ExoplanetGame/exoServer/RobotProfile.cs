@@ -124,12 +124,4 @@ public class RobotProfil
 
         return rp;
     }
-
-    public static void Main(string[] args)
-    {
-        RobotProfil rp = new();
-        Console.WriteLine(rp.ToString());
-        rp = Parse(rp.ToString());
-        Console.WriteLine(rp.ToString());
-    }
 }

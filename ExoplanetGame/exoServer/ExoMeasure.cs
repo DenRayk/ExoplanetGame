@@ -12,8 +12,8 @@ namespace Exoplanet.exoServer
         : Measure(ground, temperature)
     {
         private static readonly long serialVersionUID = 2L;
-        protected int xDrift = xDrift;
-        protected int yDrift = yDrift;
+        public int xDrift { get; set; } = xDrift;
+        public int yDrift { get; set; } = yDrift;
 
         public ExoMeasure(Ground ground, float temperature)
             : this(ground, temperature, 0, 0)
@@ -28,6 +28,18 @@ namespace Exoplanet.exoServer
         public void AddTemp(float temp)
         {
             temperature += temp;
+        }
+
+        public Ground Ground
+        {
+            get => ground;
+            set => ground = value;
+        }
+
+        public float Temperature
+        {
+            get => temperature;
+            set => temperature = value;
         }
     }
 }

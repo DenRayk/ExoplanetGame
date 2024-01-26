@@ -59,8 +59,22 @@ public class ExoPlanet : Planet
 
     public ExoPlanet(int level, bool noDelay)
     {
-        string[] topoStr = { "GSS3PFSGGL", "SP34PSFFLL", "SG3PMSFLLF", "SS23MGSFFG", "FGS24SSGFG", "FF33GGSGFF" };
-        string[] tempStr = { "4444555667", "4444456788", "4445457987", "3444356766", "1233445555", "0124445444" };
+        string[] topoStr = [
+            "GSS3PFSGGL",
+            "SP34PSFFLL",
+            "SG3PMSFLLF",
+            "SS23MGSFFG",
+            "FGS24SSGFG",
+            "FF33GGSGFF"];
+
+        string[] tempStr = [
+            "4444555667",
+            "4444456788",
+            "4445457987",
+            "3444356766",
+            "1233445555",
+            "0124445444"];
+
         InitFromString(topoStr, tempStr, 0.0F);
         robobtPositions = new Dictionary<Robot, ExoRobotStatus>();
         advanced = level > 0;
@@ -139,16 +153,7 @@ public class ExoPlanet : Planet
                     }
                 }
 
-                float t;
-
-                if (temp == null)
-                {
-                    t = tempGround[(int)g];
-                }
-                else
-                {
-                    t = GetTempFromChar(temp[y][x]);
-                }
+                float t = temp == null ? tempGround[(int)g] : GetTempFromChar(temp[y][x]);
 
                 if (t != -999.9F)
                 {
@@ -220,67 +225,65 @@ public class ExoPlanet : Planet
 
         try
         {
-            using (StreamReader reader = new(filename))
+            using StreamReader reader = new(filename);
+            try
             {
-                try
+                name = reader.ReadLine();
+                PlanetSize planetSize = PlanetSize.Parse(reader.ReadLine());
+                string[] topoStr = new string[planetSize.Height];
+
+                for (int i = 0; i < planetSize.Height; ++i)
                 {
-                    name = reader.ReadLine();
-                    PlanetSize planetSize = PlanetSize.Parse(reader.ReadLine());
-                    string[] topoStr = new string[planetSize.Height];
-
-                    for (int i = 0; i < planetSize.Height; ++i)
-                    {
-                        topoStr[i] = reader.ReadLine();
-                    }
-
-                    string temp = reader.ReadLine();
-                    string[] tempStr = null;
-                    float offset = 0.0f;
-                    string[] token = temp.Split('=');
-                    if (token[0] == "temp")
-                    {
-                        switch (token[1])
-                        {
-                            case "auto":
-                                break;
-
-                            case "manuell":
-                                tempStr = new string[planetSize.Height];
-                                for (int i = 0; i < planetSize.Height; ++i)
-                                {
-                                    tempStr[i] = reader.ReadLine();
-                                }
-                                break;
-
-                            default:
-                                offset = float.Parse(token[1]);
-                                tempStr = new string[planetSize.Height];
-                                for (int i = 0; i < planetSize.Height; ++i)
-                                {
-                                    tempStr[i] = reader.ReadLine();
-                                }
-                                break;
-                        }
-                    }
-
-                    InitFromString(topoStr, tempStr, offset);
-                    StringBuilder profil = new();
-
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        profil.Append(line + "\n");
-                    }
-
-                    standardProfil = RobotProfil.Parse(profil.ToString());
-                    rc = true;
+                    topoStr[i] = reader.ReadLine();
                 }
-                finally
+
+                string temp = reader.ReadLine();
+                string[] tempStr = null;
+                float offset = 0.0f;
+                string[] token = temp.Split('=');
+                if (token[0] == "temp")
                 {
-                    if (reader != null)
+                    switch (token[1])
                     {
-                        reader.Close();
+                        case "auto":
+                            break;
+
+                        case "manuell":
+                            tempStr = new string[planetSize.Height];
+                            for (int i = 0; i < planetSize.Height; ++i)
+                            {
+                                tempStr[i] = reader.ReadLine();
+                            }
+                            break;
+
+                        default:
+                            offset = float.Parse(token[1]);
+                            tempStr = new string[planetSize.Height];
+                            for (int i = 0; i < planetSize.Height; ++i)
+                            {
+                                tempStr[i] = reader.ReadLine();
+                            }
+                            break;
                     }
+                }
+
+                InitFromString(topoStr, tempStr, offset);
+                StringBuilder profil = new();
+
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    profil.Append(line + "\n");
+                }
+
+                standardProfil = RobotProfil.Parse(profil.ToString());
+                rc = true;
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
                 }
             }
         }
@@ -341,7 +344,7 @@ public class ExoPlanet : Planet
         throw new NotImplementedException();
     }
 
-    public Direction Rotate(Robot robot, Rotation rotation)
+    public Direction? Rotate(Robot robot, Rotation rotation)
     {
         throw new NotImplementedException();
     }
