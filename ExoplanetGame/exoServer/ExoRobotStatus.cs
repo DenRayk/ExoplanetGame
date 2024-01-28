@@ -1,32 +1,41 @@
 ﻿using Exoplanet.exo;
 
+//Good
 namespace Exoplanet.exoServer;
 
-public class ExoRobotStatus(float temp, int energy, Position pos, RobotProfil rp)
-    : RobotStatus
+public class ExoRobotStatus : RobotStatus
 {
-    private float energy = energy;
+    public float workTemp { get; set; }
+    public float energy { get; set; }
+
     public int heaterLevel { get; set; } = 0;
     public int coolerLevel { get; set; } = 0;
     public bool mustRotate { get; set; } = false;
-    public RobotProfil rp { get; set; } = rp;
+
+    public Position pos { get; set; }
+    public RobotProfil rp { get; set; }
+
+    public ExoRobotStatus(float workTemp, int energy, Position pos, RobotProfil rp)
+    {
+        this.workTemp = workTemp;
+        this.energy = energy;
+        this.rp = rp;
+        this.pos = pos;
+    }
 
     public ExoRobotStatus(float workTemp, int energy, RobotProfil rp)
-        : this(workTemp, energy, new Position(0, 0, Direction.SOUTH), rp)
     {
     }
 
-    public ExoRobotStatus(Position pos, RobotProfil rp)
-        : this(35.0F, 100, pos, rp)
+    public ExoRobotStatus(Position pos, RobotProfil rp) : this(35.0F, 100, pos, rp)
     {
     }
 
-    public ExoRobotStatus(RobotProfil rp)
-        : this(35.0F, 100, rp)
+    public ExoRobotStatus(RobotProfil rp) : this(35.0F, 100, rp)
     {
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj == this) return true;
 
@@ -34,38 +43,15 @@ public class ExoRobotStatus(float temp, int energy, Position pos, RobotProfil rp
         {
             return pos.Equals(obj);
         }
-        ExoRobotStatus ers = (ExoRobotStatus)obj;
-        return pos.Equals(ers.GetPos());
-    }
 
-    public Position GetPos()
-    {
-        return pos;
-    }
+        var ers = obj as ExoRobotStatus;
 
-    public void SetPos(Position pos1)
-    {
-        pos = pos1;
-    }
-
-    public void SetWorkTemp(float workTemp)
-    {
-        temp = workTemp;
-    }
-
-    public void SetEnergy(float energy)
-    {
-        this.energy = energy;
-    }
-
-    public float GetEnergyF()
-    {
-        return energy;
+        return pos.Equals(ers?.pos);
     }
 
     public float GetWorkTemp()
     {
-        return temp;
+        return workTemp;
     }
 
     public int GetEnergy()

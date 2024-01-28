@@ -1,371 +1,178 @@
-﻿using Exoplanet.exo;
-using Exoplanet.exoServer;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Net.Sockets;
+using System.Net;
+using ExoServer;
 
-public class ExoPlanet : Planet
+//Good
+namespace Exoplanet.exoServer;
+
+public class ExoServer
 {
-    private const int OP_LAND = 0;
-    private const int OP_MOVE = 1;
-    private const int OP_ROTATE = 2;
-    private const int OP_SCAN = 3;
-    private const int OP_CHARGE = 4;
+    private ExoPlanet exoPlanet;
+    private Thread serverRemote;
+    private TcpListener remListener;
+    private static int maxRobot = 5;
 
-    private string name = "Default-Planet";
-    protected bool advanced;
-    private bool expert;
-    private float adjustFactor = 4.0F;
-    private bool noDelay;
-
-    private static float[][] tempTable = new float[][]
+    public ExoServer(int remotePort, string? topoText, string? topoObj, bool noDelay)
     {
-        [-100.0F, 50.0F],
-        [-50.0F, 50.0F],
-        [-20.0F, 30.0F],
-        [0.0F, 20.0F],
-        [20.0F, 19.0F],
-        [50.0F, 30.0F],
-        [100.0F, 50.0F],
-        [400.0F, 300.0F],
-        [800.0F, 400.0F],
-        [1100.0F, 300.0F]
-    };
-
-    private static float[] tempGround = new float[] { -999.9F, 15.0F, 17.0F, 19.0F, 10.0F, 20.0F, 10.0F, 800.0F };
-
-    private Measure[][]? topo;
-    private PlanetSize? planetSize;
-    private Dictionary<Robot, ExoRobotStatus> robobtPositions;
-    private RobotProfil standardProfil;
-
-    private static int[] _switchTableDirection;
-    private static int[] _switchTableGround;
-
-    public Measure[][]? GetTopo()
-    {
-        return topo;
-    }
-
-    public string GetName()
-    {
-        return name;
-    }
-
-    public void SetNoDelay(bool noDelay)
-    {
-        this.noDelay = noDelay;
-    }
-
-    public ExoPlanet(int level, bool noDelay)
-    {
-        string[] topoStr = [
-            "GSS3PFSGGL",
-            "SP34PSFFLL",
-            "SG3PMSFLLF",
-            "SS23MGSFFG",
-            "FGS24SSGFG",
-            "FF33GGSGFF"];
-
-        string[] tempStr = [
-            "4444555667",
-            "4444456788",
-            "4445457987",
-            "3444356766",
-            "1233445555",
-            "0124445444"];
-
-        InitFromString(topoStr, tempStr, 0.0F);
-        robobtPositions = new Dictionary<Robot, ExoRobotStatus>();
-        advanced = level > 0;
-        expert = level == 2;
-        standardProfil = new RobotProfil();
-        this.noDelay = noDelay;
-    }
-
-    public ExoPlanet(int level, string filename, bool fromText, bool noDelay)
-    {
-        Console.WriteLine("filename=" + filename);
-        if (!fromText)
+        if (topoText != null)
         {
-            LoadTopoObj(filename);
+            exoPlanet = new ExoPlanet(topoText, true, noDelay);
+        }
+        else if (topoObj != null)
+        {
+            exoPlanet = new ExoPlanet(topoObj, false, noDelay);
         }
         else
         {
-            LoadTopoFromTextfile(filename);
+            exoPlanet = new ExoPlanet(noDelay);
         }
 
-        robobtPositions = new Dictionary<Robot, ExoRobotStatus>();
-        advanced = level > 0;
-        expert = level == 2;
-        this.noDelay = noDelay;
-    }
-
-    private void InitFromString(string[] topoStr, string[] temp, float offset)
-    {
-        topo = new ExoMeasure[topoStr.Length][];
-
-        for (int y = 0; y < topo.Length; ++y)
+        serverRemote = new Thread(() =>
         {
-            topo[y] = new ExoMeasure[topoStr[y].Length];
-
-            for (int x = 0; x < topoStr[y].Length; ++x)
-            {
-                Ground g = GroundFromChar(topoStr[y][x]);
-                int xDrift = 0;
-                int yDrift = 0;
-
-                if (g == Ground.WASSER)
-                {
-                    switch (topoStr[y][x])
-                    {
-                        case '1':
-                            yDrift = -1;
-                            break;
-
-                        case '2':
-                            xDrift = 1;
-                            break;
-
-                        case '3':
-                            yDrift = 1;
-                            break;
-
-                        case '4':
-                            xDrift = -1;
-                            break;
-
-                        case '5':
-                            yDrift = -2;
-                            break;
-
-                        case '6':
-                            xDrift = 2;
-                            break;
-
-                        case '7':
-                            yDrift = 2;
-                            break;
-
-                        case '8':
-                            xDrift = -2;
-                            break;
-                    }
-                }
-
-                float t = temp == null ? tempGround[(int)g] : GetTempFromChar(temp[y][x]);
-
-                if (t != -999.9F)
-                {
-                    t += offset;
-                }
-
-                topo[y][x] = new ExoMeasure(g, t, xDrift, yDrift);
-            }
-        }
-
-        planetSize = new PlanetSize(topoStr[0].Length, topo.Length);
-    }
-
-    //TODO: Reimplement this method with JSONSerializer
-    [Obsolete("Obsolete")]
-    public bool LoadTopoObj(string filename)
-    {
-        bool rc = false;
-
-        try
-        {
-            using FileStream fileStream = new(filename, FileMode.Open);
-            BinaryFormatter binaryFormatter = new();
-
             try
             {
-                object o = binaryFormatter.Deserialize(fileStream);
-                if (o is string)
+                remListener = new TcpListener(IPAddress.Any, remotePort);
+                remListener.Start();
+
+                Console.WriteLine($"ExoServer: Waiting on Port {remotePort} for text-based connections");
+
+                while (serverRemote!.ThreadState == ThreadState.Running)
                 {
-                    name = (string)o;
-                    o = binaryFormatter.Deserialize(fileStream);
-                    if (o is PlanetSize)
+                    if (remListener.Pending())
                     {
-                        planetSize = (PlanetSize)o;
-                        topo = (ExoMeasure[][])binaryFormatter.Deserialize(fileStream);
-                        standardProfil = (RobotProfil)binaryFormatter.Deserialize(fileStream);
-                        rc = true;
+                        var roboClient = remListener.AcceptTcpClient();
+                        if (exoPlanet.getRobotCount() < maxRobot)
+                        {
+                            RobotProxy robotProxy = new RobotProxy(roboClient, exoPlanet);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Error: maxRobot={maxRobot}");
+                            roboClient.Close();
+                        }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
             finally
             {
-                fileStream.Close();
+                remListener?.Stop();
+                Console.WriteLine("ExoServer - RemoteControl shutdown...");
             }
-        }
-        catch (FileNotFoundException ex)
-        {
-            Console.WriteLine(ex.StackTrace);
-        }
-        catch (IOException ex)
-        {
-            Console.WriteLine(ex.StackTrace);
-        }
-        catch (SerializationException ex)
-        {
-            Console.WriteLine(ex.StackTrace);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.StackTrace);
-        }
+        });
 
-        return rc;
+        serverRemote.Start();
     }
 
-    public bool LoadTopoFromTextfile(string filename)
+    public void AdminScan()
     {
-        bool rc = false;
-
-        try
+        using (var scn = new StreamReader(Console.OpenStandardInput()))
         {
-            using StreamReader reader = new(filename);
-            try
+            string cmd;
+            while (!(cmd = scn.ReadLine()).Equals("exit", StringComparison.OrdinalIgnoreCase))
             {
-                name = reader.ReadLine();
-                PlanetSize planetSize = PlanetSize.Parse(reader.ReadLine());
-                string[] topoStr = new string[planetSize.Height];
+                string? str;
+                float factor;
+                string[] token = cmd.Split(" ");
+                string str1 = token[0];
 
-                for (int i = 0; i < planetSize.Height; ++i)
+                switch (str1.ToLowerInvariant())
                 {
-                    topoStr[i] = reader.ReadLine();
+                    case "adjust":
+                        factor = 4.0F;
+                        if (token.Length == 2)
+                            factor = float.Parse(token[1]);
+
+                        exoPlanet.AdjustTemperature(factor);
+                        break;
+
+                    case "prop":
+                        str = Environment.GetEnvironmentVariable(token[1]);
+                        Console.WriteLine($"{token[0]}: {str}");
+                        break;
+
+                    case "save":
+                        if (token.Length == 2)
+                        {
+                            exoPlanet.SaveTopoObj(token[1]);
+                            break;
+                        }
+
+                        Console.WriteLine("Falsche Argumentanzahl");
+                        break;
+
+                    case "delay":
+                        exoPlanet.SetNoDelay(false);
+                        break;
+
+                    case "nodelay":
+                        exoPlanet.SetNoDelay(true);
+                        break;
                 }
 
-                string temp = reader.ReadLine();
-                string[] tempStr = null;
-                float offset = 0.0f;
-                string[] token = temp.Split('=');
-                if (token[0] == "temp")
-                {
-                    switch (token[1])
-                    {
-                        case "auto":
-                            break;
-
-                        case "manuell":
-                            tempStr = new string[planetSize.Height];
-                            for (int i = 0; i < planetSize.Height; ++i)
-                            {
-                                tempStr[i] = reader.ReadLine();
-                            }
-                            break;
-
-                        default:
-                            offset = float.Parse(token[1]);
-                            tempStr = new string[planetSize.Height];
-                            for (int i = 0; i < planetSize.Height; ++i)
-                            {
-                                tempStr[i] = reader.ReadLine();
-                            }
-                            break;
-                    }
-                }
-
-                InitFromString(topoStr, tempStr, offset);
-                StringBuilder profil = new();
-
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    profil.Append(line + "\n");
-                }
-
-                standardProfil = RobotProfil.Parse(profil.ToString());
-                rc = true;
+                Console.WriteLine("Ungueltiges Kommando");
             }
-            finally
+
+            serverRemote.Interrupt();
+            exoPlanet.Exit();
+        }
+    }
+
+    private static void Main(string[] args)
+    {
+        Console.WriteLine("exoplanet 1.0 beta rising up ...");
+        var remotePort = 7777;
+        var noDelay = false;
+        string topoText = null;
+        string topoObj = null;
+
+        foreach (var arg in args)
+        {
+            var tokens = arg.Split('=');
+
+            if (tokens.Length == 2)
             {
-                if (reader != null)
+                var str = tokens[0].ToLowerInvariant();
+
+                switch (str)
                 {
-                    reader.Close();
+                    case "topoobj":
+                        topoObj = tokens[1];
+                        break;
+
+                    case "topotext":
+                        topoText = tokens[1];
+                        break;
+
+                    case "maxrobot":
+                        maxRobot = int.Parse(tokens[1]);
+                        break;
+
+                    case "remoteport":
+                        remotePort = int.Parse(tokens[1]);
+                        break;
+
+                    case "nodelay":
+                        noDelay = bool.Parse(tokens[1]);
+                        break;
+
+                    default:
+                        Console.WriteLine("Unbekanntes Argument: " + arg);
+                        return;
                 }
             }
-        }
-        catch (FileNotFoundException ex)
-        {
-            Console.WriteLine(ex.StackTrace);
-        }
-        catch (IOException ex)
-        {
-            Console.WriteLine(ex.StackTrace);
+            else
+            {
+                Console.WriteLine("Ungueltiges Argument: " + arg);
+                return;
+            }
         }
 
-        return rc;
-    }
-
-    private float GetTempFromChar(char c)
-    {
-        int i = c - '0';
-        Random rand = new();
-        return i is >= 0 and < 10 ? tempTable[i][0] - (tempTable[i][1] * (float)rand.NextDouble()) : -999.9f;
-    }
-
-    private Ground GroundFromChar(char g)
-    {
-        return g switch
-        {
-            '1' => Ground.WASSER,
-            '2' => Ground.WASSER,
-            '3' => Ground.WASSER,
-            '4' => Ground.WASSER,
-            '5' => Ground.WASSER,
-            '6' => Ground.WASSER,
-            '7' => Ground.WASSER,
-            '8' => Ground.WASSER,
-            'W' => Ground.WASSER,
-            'F' => Ground.FELS,
-            'G' => Ground.GEROELL,
-            'L' => Ground.LAVA,
-            'M' => Ground.MORAST,
-            'P' => Ground.PFLANZEN,
-            'S' => Ground.SAND,
-            _ => Ground.NICHTS
-        };
-    }
-
-    public Measure Land(Robot robot, Position position)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Position GetPosition(Robot robot)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Position Move(Robot robot)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Direction? Rotate(Robot robot, Rotation rotation)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Measure Scan(Robot robot)
-    {
-        throw new NotImplementedException();
-    }
-
-    public PlanetSize GetSize()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Remove(Robot robot)
-    {
-        throw new NotImplementedException();
-    }
-
-    public RobotStatus Charge(Robot robot, int value)
-    {
-        throw new NotImplementedException();
+        Console.WriteLine("maxRobots=" + ExoServer.maxRobot);
+        ExoServer exoSrv = new ExoServer(remotePort, topoText, topoObj, noDelay);
+        exoSrv.AdminScan();
     }
 }

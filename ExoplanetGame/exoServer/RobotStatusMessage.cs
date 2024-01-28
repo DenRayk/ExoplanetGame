@@ -1,9 +1,21 @@
 ﻿using Exoplanet.exo;
 
+//Good
 namespace Exoplanet.exoServer;
 
-public class RobotStatusMsg(float temperature, int energy, string msg) : RobotStatus
+public class RobotStatusMsg : RobotStatus
 {
+    private float temperature;
+    private int energy;
+    private string msg;
+
+    public RobotStatusMsg(float temperature, int energy, string msg)
+    {
+        temperature = temperature;
+        energy = energy;
+        msg = msg;
+    }
+
     public float GetWorkTemp()
     {
         return temperature;

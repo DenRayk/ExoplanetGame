@@ -1,4 +1,5 @@
-﻿namespace Exoplanet.exoServer;
+﻿//Good
+namespace Exoplanet.exoServer;
 
 public enum RobotAttribute
 {

@@ -17,6 +17,8 @@ public class ExoPlanet : Planet
     private string name = "Default-Planet";
     private float adjustFactor = 4.0F;
 
+    private bool noDelay;
+
     private static float[,] tempTable = {
         { -100.0F, 50.0F },
         { -50.0F, 50.0F },
@@ -30,7 +32,7 @@ public class ExoPlanet : Planet
         { 1100.0F, 300.0F }
     };
 
-    private static float[] tempGround = [-999.9F, 15.0F, 17.0F, 19.0F, 10.0F, 20.0F, 10.0F, 800.0F];
+    private static float[] tempGround = { -999.9F, 15.0F, 17.0F, 19.0F, 10.0F, 20.0F, 10.0F, 800.0F };
 
     private ExoMeasure[][] topo;
     private PlanetSize size;
@@ -43,7 +45,7 @@ public class ExoPlanet : Planet
         return topo;
     }
 
-    public ExoPlanet(int level, bool noDelay)
+    public ExoPlanet(bool noDelay)
     {
         string[] topoStr = { "GSS3PFSGGL", "SP34PSFFLL", "SG3PMSFLLF", "SS23MGSFFG", "FGS24SSGFG", "FF33GGSGFF" };
         string[] tempStr = { "4444555667", "4444456788", "4445457987", "3444356766", "1233445555", "0124445444" };
@@ -53,7 +55,7 @@ public class ExoPlanet : Planet
         standardProfil = new RobotProfil();
     }
 
-    public ExoPlanet(int level, string filename, bool fromText, bool noDelay)
+    public ExoPlanet(string? filename, bool fromText, bool noDelay)
     {
         Console.WriteLine("filename=" + filename);
 
@@ -88,7 +90,7 @@ public class ExoPlanet : Planet
     }
 
     [Obsolete("Obsolete")]
-    public bool LoadTopoObj(string filename)
+    public bool LoadTopoObj(string? filename)
     {
         bool rc = false;
 
@@ -120,7 +122,7 @@ public class ExoPlanet : Planet
         return rc;
     }
 
-    public bool LoadTopoFromTextfile(string filename)
+    public bool LoadTopoFromTextfile(string? filename)
     {
         bool rc = false;
 
@@ -276,9 +278,9 @@ public class ExoPlanet : Planet
         if (nx >= 0 && nx < size.Width && ny >= 0 && ny < size.Height)
         {
             ExoMeasure m = topo[ny][nx];
-            if (m.Ground != Ground.LAVA)
+            if (m.getGround() != Ground.LAVA)
             {
-                float dt = (baseValue - m.Temperature) / adjustFactor;
+                float dt = (baseValue - m.getTemperature()) / adjustFactor;
                 m.AddTemp(dt);
             }
         }
@@ -295,7 +297,7 @@ public class ExoPlanet : Planet
         HashSet<Robot> set = new HashSet<Robot>(robotPositions.Keys);
         foreach (Robot r in set)
         {
-            r.crash();
+            r.Crash();
         }
 
         robotPositions.Clear();
@@ -365,7 +367,7 @@ public class ExoPlanet : Planet
 
         foreach (Robot r in set)
         {
-            pos[i++] = ((ExoRobotStatus)robotPositions[r]).GetPos();
+            pos[i++] = robotPositions[r].pos;
         }
 
         return pos;
@@ -387,7 +389,7 @@ public class ExoPlanet : Planet
 
     private bool CheckPos(Robot rob, Position pos)
     {
-        if (topo[pos.GetY()][pos.GetX()].Ground == Ground.NICHTS)
+        if (topo[pos.GetY()][pos.GetX()].getGround() == Ground.NICHTS)
         {
             return false;
         }
@@ -397,7 +399,7 @@ public class ExoPlanet : Planet
 
             foreach (Robot r in set)
             {
-                if (r == rob || !((ExoRobotStatus)robotPositions[r]).GetPos().Equals(pos))
+                if (r == rob || !robotPositions[r].pos.Equals(pos))
                 {
                     continue;
                 }
@@ -420,7 +422,7 @@ public class ExoPlanet : Planet
             }
         }
 
-        robot.crash();
+        robot.Crash();
         return null;
     }
 
@@ -431,11 +433,11 @@ public class ExoPlanet : Planet
         {
             if (ers.mustRotate && UpdateStatus(robot, 1, true))
             {
-                robot.statusChanged(new RobotStatusMsg(ers.GetWorkTemp(), ers.GetEnergy(), "STUCK_IN_MUD"));
-                return ers.GetPos();
+                robot.StatusChanged(new RobotStatusMsg(ers.GetWorkTemp(), ers.GetEnergy(), "STUCK_IN_MUD"));
+                return ers.pos;
             }
 
-            Position pos = ers.GetPos();
+            Position pos = ers.pos;
             int x = pos.GetX();
             int y = pos.GetY();
             bool move = true;
@@ -447,7 +449,7 @@ public class ExoPlanet : Planet
             if (motStat <= 50 && new Random().NextDouble() > motStat / 100.0)
             {
                 move = false;
-                robot.statusChanged(new RobotStatusMsg(ers.GetWorkTemp(), ers.GetEnergy(), "MOVE_STOP"));
+                robot.StatusChanged(new RobotStatusMsg(ers.GetWorkTemp(), ers.GetEnergy(), "MOVE_STOP"));
             }
 
             double r = new Random().NextDouble();
@@ -466,7 +468,7 @@ public class ExoPlanet : Planet
 
             if (leftKO ^ rightKO)
             {
-                robot.statusChanged(new RobotStatusMsg(ers.GetWorkTemp(), ers.GetEnergy(), "MOVE_DIRECTION_CHANGED"));
+                robot.StatusChanged(new RobotStatusMsg(ers.GetWorkTemp(), ers.GetEnergy(), "MOVE_DIRECTION_CHANGED"));
             }
             else
             {
@@ -545,7 +547,7 @@ public class ExoPlanet : Planet
             }
             else
             {
-                robot.crash();
+                robot.Crash();
                 robotPositions.Remove(robot, out ers);
             }
         }
@@ -555,13 +557,13 @@ public class ExoPlanet : Planet
 
     private void moveAdvanced(ExoRobotStatus ers)
     {
-        Position pos = ers.GetPos();
+        Position pos = ers.pos;
         int x = pos.GetX();
         int y = pos.GetY();
 
         if (x >= 0 && y >= 0 && x < size.Width && y < size.Height)
         {
-            if (topo[y][x].Ground == Ground.WASSER && topo[y][x].Temperature > 0.0F)
+            if (topo[y][x].getGround() == Ground.WASSER && topo[y][x].getTemperature() > 0.0F)
             {
                 int xDrift = topo[y][x].xDrift;
                 int yDrift = topo[y][x].yDrift;
@@ -570,7 +572,7 @@ public class ExoPlanet : Planet
                 pos.SetX(x);
                 pos.SetY(y);
             }
-            else if (topo[y][x].Ground == Ground.MORAST && topo[y][x].Temperature > 0.0F)
+            else if (topo[y][x].getGround() == Ground.MORAST && topo[y][x].getTemperature() > 0.0F)
             {
                 ers.mustRotate = true;
             }
@@ -581,7 +583,7 @@ public class ExoPlanet : Planet
     {
         if (x >= 0 && y >= 0 && x < size.Width && y < size.Height)
         {
-            return topo[y][x].Ground == Ground.WASSER;
+            return topo[y][x].getGround() == Ground.WASSER;
         }
 
         return false;
@@ -589,7 +591,7 @@ public class ExoPlanet : Planet
 
     public Direction? Rotate(Robot robot, Rotation rotation)
     {
-        ExoRobotStatus ers = (ExoRobotStatus)robotPositions[robot];
+        ExoRobotStatus ers = robotPositions[robot];
         if (ers != null)
         {
             bool rotate = true;
@@ -599,10 +601,10 @@ public class ExoPlanet : Planet
             if (rotStat <= 50 && new Random().NextDouble() > rotStat / 100.0)
             {
                 rotate = false;
-                robot.statusChanged(new RobotStatusMsg(ers.GetWorkTemp(), ers.GetEnergy(), "ROTATE_STOP"));
+                robot.StatusChanged(new RobotStatusMsg(ers.GetWorkTemp(), ers.GetEnergy(), "ROTATE_STOP"));
             }
 
-            Position pos = ers.GetPos();
+            Position pos = ers.pos;
             Direction dir = pos.GetDir();
             int d = (int)dir;
             if (rotate)
@@ -621,7 +623,7 @@ public class ExoPlanet : Planet
 
             dir = (Direction)d;
             pos.SetDir(dir);
-            ers.SetPos(pos);
+            ers.pos = pos;
             robotPositions[robot] = ers;
             if (UpdateStatus(robot, 2, true))
             {
@@ -641,10 +643,10 @@ public class ExoPlanet : Planet
             if (new Random().NextDouble() > ers.rp.GetStatus(RobotPart.SENSOR) / 100.0)
             {
                 scan = false;
-                robot.statusChanged(new RobotStatusMsg(ers.GetWorkTemp(), ers.GetEnergy(), "SCAN_STOP"));
+                robot.StatusChanged(new RobotStatusMsg(ers.GetWorkTemp(), ers.GetEnergy(), "SCAN_STOP"));
             }
 
-            Position pos = ers.GetPos();
+            Position pos = ers.pos;
             int x = pos.GetX();
             int y = pos.GetY();
 
@@ -678,14 +680,14 @@ public class ExoPlanet : Planet
 
     public void Remove(Robot robot)
     {
-        Console.WriteLine("remove:" + robot.getLanderName());
+        Console.WriteLine("remove:" + robot.GetLanderName());
         robotPositions.TryRemove(robot, out ExoRobotStatus ers);
     }
 
     public Position GetPosition(Robot robot)
     {
         ExoRobotStatus ers = (ExoRobotStatus)robotPositions[robot];
-        return ers != null ? new Position(ers.GetPos()) : null;
+        return ers != null ? new Position(ers.pos) : null;
     }
 
     public RobotStatus Charge(Robot robot, int duration)
@@ -695,9 +697,9 @@ public class ExoPlanet : Planet
             ExoRobotStatus ers = (ExoRobotStatus)robotPositions[robot];
             if (ers != null)
             {
-                int x = ers.GetPos().GetX();
-                int y = ers.GetPos().GetY();
-                Ground g = topo[y][x].Ground;
+                int x = ers.pos.GetX();
+                int y = ers.pos.GetY();
+                Ground g = topo[y][x].getGround();
                 float deltaE = 0.0F;
 
                 switch (g)
@@ -712,7 +714,7 @@ public class ExoPlanet : Planet
                         break;
                 }
 
-                float e = ers.GetEnergyF();
+                float e = ers.energy;
 
                 for (int i = 0; i < duration; ++i)
                 {
@@ -722,7 +724,7 @@ public class ExoPlanet : Planet
                         e = 100.0F;
                     }
 
-                    ers.SetEnergy(e);
+                    ers.energy = e;
                     if (!UpdateStatus(robot, 4, false))
                     {
                         return null;
@@ -741,8 +743,8 @@ public class ExoPlanet : Planet
         bool robOK = true;
         ExoRobotStatus ers = (ExoRobotStatus)robotPositions[rob];
 
-        int x = ers.GetPos().GetX();
-        int y = ers.GetPos().GetY();
+        int x = ers.pos.GetX();
+        int y = ers.pos.GetY();
         Measure m = GetMeasure(x, y);
         float wt = ers.GetWorkTemp();
         int deltaHeater = 10;
@@ -752,7 +754,7 @@ public class ExoPlanet : Planet
         deltaCooler = ers.rp.GetStatus(RobotPart.COOLER) / 10;
 
         wt = wt + (m.getTemperature() - wt) / 2.0F + (float)(ers.heaterLevel * deltaHeater) - (float)(ers.coolerLevel * deltaCooler);
-        float e = ers.GetEnergyF();
+        float e = ers.energy;
         e -= ers.rp.GetAttr(RobotAttribute.evCool) * (float)ers.coolerLevel;
         e -= ers.rp.GetAttr(RobotAttribute.evHeat) * (float)ers.heaterLevel;
 
@@ -777,13 +779,13 @@ public class ExoPlanet : Planet
 
             if (ers.heaterLevel == 1)
             {
-                rob.statusChanged(new RobotStatusMsg(wt, (int)e, "WARN_MIN_TEMP|HEATER_ON"));
+                rob.StatusChanged(new RobotStatusMsg(wt, (int)e, "WARN_MIN_TEMP|HEATER_ON"));
             }
         }
         else if (ers.heaterLevel > 0)
         {
             ers.heaterLevel = 0;
-            rob.statusChanged(new RobotStatusMsg(wt, (int)e, "HEATER_OFF"));
+            rob.StatusChanged(new RobotStatusMsg(wt, (int)e, "HEATER_OFF"));
         }
 
         if (wt > ers.rp.GetAttr(RobotAttribute.tMaxWarn))
@@ -792,23 +794,23 @@ public class ExoPlanet : Planet
 
             if (ers.coolerLevel == 1)
             {
-                rob.statusChanged(new RobotStatusMsg(wt, (int)e, "WARN_MAX_TEMP|COOLER_ON"));
+                rob.StatusChanged(new RobotStatusMsg(wt, (int)e, "WARN_MAX_TEMP|COOLER_ON"));
             }
         }
         else if (ers.coolerLevel > 0)
         {
             ers.coolerLevel = 0;
-            rob.statusChanged(new RobotStatusMsg(wt, (int)e, "COOLER_OFF"));
+            rob.StatusChanged(new RobotStatusMsg(wt, (int)e, "COOLER_OFF"));
         }
 
-        ers.SetWorkTemp(wt);
+        ers.workTemp = wt;
 
         if (e < ers.rp.GetAttr(RobotAttribute.eMinWarn))
         {
-            rob.statusChanged(new RobotStatusMsg(wt, (int)e, "WARN_LOW_ENERGY"));
+            rob.StatusChanged(new RobotStatusMsg(wt, (int)e, "WARN_LOW_ENERGY"));
         }
 
-        ers.SetEnergy(e);
+        ers.energy = e;
 
         StringBuilder sb = new();
         bool changed = false;
@@ -820,7 +822,7 @@ public class ExoPlanet : Planet
             //float limit = ers.rp.GetAttr(part);
             float limit = 0;
 
-            if (r < (double)limit)
+            if (r < limit)
             {
                 if (changed)
                 {
@@ -835,7 +837,7 @@ public class ExoPlanet : Planet
 
         if (changed)
         {
-            rob.statusChanged(new RobotStatusMsg(wt, (int)e, sb.ToString()));
+            rob.StatusChanged(new RobotStatusMsg(wt, (int)e, sb.ToString()));
         }
 
         return robOK;
@@ -853,11 +855,36 @@ public class ExoPlanet : Planet
 
     public PlanetSize GetSize()
     {
-        throw new NotImplementedException();
+        return size;
     }
 
     protected RobotProfil GetNewRobotProfil()
     {
         return RobotProfil.Parse(standardProfil.ToString());
+    }
+
+    public void AdjustTemperature(float factor)
+    {
+        adjustFactor = factor;
+
+        for (var y = 0; y < size.Height; y++)
+        {
+            for (var x = 0; x < size.Width; x++)
+            {
+                var m = topo[y][x];
+
+                if (m.getGround() == Ground.LAVA)
+                {
+                    float t = GetTempFromChar('9');
+                    m.SetTemp(t);
+                    AdjustNeighbors(x, y, t);
+                }
+            }
+        }
+    }
+
+    public void SetNoDelay(bool noDelay)
+    {
+        this.noDelay = noDelay;
     }
 }

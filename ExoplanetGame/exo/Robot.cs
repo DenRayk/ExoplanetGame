@@ -4,11 +4,11 @@ namespace Exoplanet.exo;
 
 public interface Robot
 {
-    void initRun(Planet planet, string name, Position position, string status, RobotStatus robotStatus, TcpClient tcpClient);
+    void InitRun(Planet planet, string name, Position position, string status, RobotStatus robotStatus);
 
-    void crash();
+    void Crash();
 
-    void statusChanged(RobotStatus robotStatus);
+    void StatusChanged(RobotStatus robotStatus);
 
-    string getLanderName();
+    string GetLanderName();
 }

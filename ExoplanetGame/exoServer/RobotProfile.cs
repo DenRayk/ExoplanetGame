@@ -5,13 +5,12 @@ namespace Exoplanet.exoServer;
 [Serializable]
 public class RobotProfil
 {
-    private static readonly long serialVersionUID = 2L;
     private int[] partStatus;
     private Dictionary<RobotAttribute, float> attr;
 
     public RobotProfil()
     {
-        RobotPart[] parts = (RobotPart[])Enum.GetValues(typeof(RobotPart));
+        var parts = (RobotPart[])Enum.GetValues(typeof(RobotPart));
         partStatus = new int[parts.Length];
 
         for (int i = 0; i < parts.Length; ++i)
@@ -73,7 +72,7 @@ public class RobotProfil
         StringBuilder sb = new();
         sb.Append("PART-STATUS=");
 
-        for (int i = 0; i < partStatus.Length; ++i)
+        for (var i = 0; i < partStatus.Length; ++i)
         {
             if (i > 0)
             {
@@ -85,7 +84,7 @@ public class RobotProfil
 
         sb.Append('\n');
 
-        foreach (KeyValuePair<RobotAttribute, float> kvp in attr)
+        foreach (var kvp in attr)
         {
             sb.Append(kvp.Key.ToString());
             sb.Append('=');
@@ -98,27 +97,27 @@ public class RobotProfil
 
     public static RobotProfil Parse(string s)
     {
-        string[] token = s.Trim().Split("\n");
+        var token = s.Trim().Split("\n");
         RobotProfil rp = new();
 
         if (token.Length <= 0) return rp;
 
-        string[] p = token[0].Split("=");
+        var p = token[0].Split("=");
 
         if (p[0].Equals("PART-STATUS"))
         {
-            string[] val = p[1].Split('|');
+            var val = p[1].Split('|');
 
-            for (int i = 0; i < val.Length; ++i)
+            for (var i = 0; i < val.Length; ++i)
             {
                 rp.partStatus[i] = int.Parse(val[i]);
             }
         }
 
-        for (int i = 1; i < token.Length; ++i)
+        for (var i = 1; i < token.Length; ++i)
         {
             p = token[i].Split('=');
-            RobotAttribute key = Enum.Parse<RobotAttribute>(p[0]);
+            var key = Enum.Parse<RobotAttribute>(p[0]);
             rp.attr[key] = float.Parse(p[1]);
         }
 
