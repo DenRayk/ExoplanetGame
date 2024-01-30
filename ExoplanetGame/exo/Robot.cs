@@ -1,6 +1,4 @@
-﻿using System.Net.Sockets;
-
-namespace Exoplanet.exo;
+﻿namespace Exoplanet.exo;
 
 public interface Robot
 {

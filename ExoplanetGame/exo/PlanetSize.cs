@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Text;
 
 namespace Exoplanet.exo;
 
@@ -27,13 +26,10 @@ public class PlanetSize(int width, int height)
     {
         string[] token = s.Trim().Split('|');
 
-        if (token is ["SIZE", _, _])
-        {
-            int w = int.Parse(token[1]);
-            int h = int.Parse(token[2]);
-            return new PlanetSize(w, h);
-        }
+        if (token is not ["SIZE", _, _]) return null;
 
-        return null;
+        int w = int.Parse(token[1]);
+        int h = int.Parse(token[2]);
+        return new PlanetSize(w, h);
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace RemoteRobot.exo;
+﻿namespace RemoteRobot.exo;
 
 public interface Planet
 {

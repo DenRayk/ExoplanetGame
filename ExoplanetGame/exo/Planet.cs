@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Exoplanet.exo;
+﻿namespace Exoplanet.exo;
 
 public interface Planet
 {

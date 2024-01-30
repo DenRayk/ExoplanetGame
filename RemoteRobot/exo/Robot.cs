@@ -1,6 +1,4 @@
-﻿using System.Net.Sockets;
-
-namespace RemoteRobot.exo;
+﻿namespace RemoteRobot.exo;
 
 public interface Robot
 {

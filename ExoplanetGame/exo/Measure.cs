@@ -1,13 +1,11 @@
 ﻿namespace Exoplanet.exo;
 
 using System;
-using System.Runtime.Serialization;
 using System.Text;
 
 [Serializable]
 public class Measure(Ground ground, float temperature)
 {
-    private static readonly long serialVersionUID = 2L;
     protected Ground ground = ground;
     protected float temperature = temperature;
     public static readonly float TEMP_UNKNOWN = -999.9F;
@@ -40,7 +38,7 @@ public class Measure(Ground ground, float temperature)
         return sb.ToString();
     }
 
-    public static Measure Parse(string s)
+    public static Measure? Parse(string s)
     {
         string[] token = s.Trim().Split('|');
         if (token is not ["MEASURE", _, _]) return null;
@@ -50,7 +48,7 @@ public class Measure(Ground ground, float temperature)
             float temp = float.Parse(token[2]);
             return new Measure(g, temp);
         }
-        catch (Exception var4)
+        catch (Exception)
         {
             Console.WriteLine("Can't parse measurement");
         }

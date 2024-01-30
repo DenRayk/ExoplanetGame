@@ -3,7 +3,6 @@
 [Serializable]
 public class Position
 {
-    private static readonly long serialVersionUID = -2782482662823778148L;
     private int x;
     private int y;
     private Direction dir;
@@ -68,13 +67,19 @@ public class Position
 
     public override bool Equals(object? obj)
     {
-        if (obj == this)
-        {
-            return true;
-        }
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == GetType() && Equals((Position)obj);
+    }
 
-        Position? p = (Position)obj!;
-        return p.x == x && p.y == y;
+    protected bool Equals(Position other)
+    {
+        return x == other.x && y == other.y;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(x, y);
     }
 
     public override string ToString()
