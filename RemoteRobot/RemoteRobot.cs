@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using RemoteRobot.exo;
+using RemoteRobot.message;
 using RemoteRobot.tcp;
 
 namespace RemoteRobot
 {
     internal class RemoteRobot
     {
-        private TcpClient controlServerClient;
-        private TcpClient exoPlanetClient;
+        private ExoTcpClient controlServerClient;
+        private ExoTcpClient exoPlanetClient;
         private PlanetSize planetSize;
         private List<Position> allRobotPositions;
         private Position robotPosition;
@@ -29,14 +29,6 @@ namespace RemoteRobot
         {
             allRobotPositions = new List<Position>();
 
-            Console.WriteLine("Please enter IP-Address of Control Center:");
-            string controlServerIP = Console.ReadLine();
-
-            if (string.IsNullOrEmpty(controlServerIP))
-                controlServerIP = "localhost";
-
-            StartControlServerClient(controlServerIP);
-
             Console.WriteLine("Please enter IP-Address of Exo-Planet:");
             string exoPlanetIP = Console.ReadLine();
 
@@ -44,55 +36,22 @@ namespace RemoteRobot
                 exoPlanetIP = "localhost";
 
             StartExoPlanetClient(exoPlanetIP);
-
-            Console.WriteLine("Enter Command:");
-            string command = Console.ReadLine();
-            ProcessUserInput(command);
-        }
-
-        private void StartControlServerClient(string ip)
-        {
-            controlServerClient = new TcpClient(ip, 6666);
-
-            controlServerClient.AddEventHandler(new TcpClientEventHandler()
-            {
-                OnMessage = line => ProcessReceivedDataFromControlServer(line),
-                OnOpen = () => Console.WriteLine("Connected to ControlServer."),
-                OnClose = () =>
-                {
-                    Console.WriteLine("Disconnected from ControlServer.");
-                    Console.WriteLine("Reconnecting...");
-                    controlServerClient.Connect();
-                }
-            });
-
-            controlServerClient.Connect();
         }
 
         private void StartExoPlanetClient(string ip)
         {
-            exoPlanetClient = new TcpClient(ip, 7777);
+            // Create an instance of ExoTcpClient
+            controlServerClient = new ExoTcpClient(ip, 7777);
 
-            exoPlanetClient.AddEventHandler(new TcpClientEventHandler()
-            {
-                OnMessage = line => ProcessReceivedDataFromExoPlanet(line),
-                OnOpen = () => Console.WriteLine("Connected to Exo-Planet."),
-                OnClose = () =>
-                {
-                    Console.WriteLine("Disconnected from Exo-Planet.");
-                    Console.WriteLine("Reconnecting...");
-                    exoPlanetClient.Connect();
-                }
-            });
-
-            exoPlanetClient.Connect();
+            // Subscribe to the MessageReceived event to handle incoming messages
+            controlServerClient.MessageReceived += processReceivedDataFromExoPlanet;
         }
 
-        private void ProcessReceivedDataFromExoPlanet(string line)
+        private void processReceivedDataFromExoPlanet(string receivedData)
         {
-            Console.WriteLine("Received: " + line);
+            Console.WriteLine("Received: " + receivedData);
 
-            ReceivedMessage receivedMessage = GenerateReceivedMessage(line);
+            ReceivedMessage receivedMessage = GenerateReceivedMessage(receivedData);
 
             switch (receivedMessage.GetDataType())
             {
@@ -122,18 +81,13 @@ namespace RemoteRobot
                 case DataType.UNKNOWN:
                     break;
             }
-
-            if (receivedMessage.GetDataType() == DataType.SIZE)
-                return;
-
-            SendRobotDataToControlServer();
         }
 
         private ReceivedMessage GenerateReceivedMessage(string receivedData)
         {
             ReceivedMessage receivedMessage = new ReceivedMessage();
 
-            List<string> splittedData = new List<string>(receivedData.Split(':'));
+            string[] splittedData = receivedData.Split(':');
 
             switch (splittedData[0])
             {
@@ -147,6 +101,7 @@ namespace RemoteRobot
                     break;
 
                 case "moved":
+                case "pos":
                     receivedMessage.SetDataType(DataType.POSITION);
                     break;
 
@@ -156,10 +111,6 @@ namespace RemoteRobot
 
                 case "crashed":
                     receivedMessage.SetDataType(DataType.CRASHED);
-                    break;
-
-                case "pos":
-                    receivedMessage.SetDataType(DataType.POSITION);
                     break;
 
                 case "charged":
@@ -179,7 +130,7 @@ namespace RemoteRobot
             switch (receivedMessage.GetDataType())
             {
                 case DataType.SIZE:
-                    receivedMessage.GetMessageData().SetSize(Size.Parse(splittedData[1]));
+                    receivedMessage.GetMessageData().SetSize(PlanetSize.Parse(splittedData[1]));
                     break;
 
                 case DataType.MEASURE:
@@ -191,11 +142,12 @@ namespace RemoteRobot
                     break;
 
                 case DataType.DIRECTION:
-                    receivedMessage.GetMessageData().SetDirection(Enum.Parse<Direction>(splittedData[1]));
+                    Direction.TryParse(splittedData[1], out Direction newDirection);
+                    receivedMessage.GetMessageData().SetDirection(newDirection);
                     break;
 
                 case DataType.ROBOTSTATUS:
-                    // TODO receivedMessage.GetMessageData().SetRobotstatus();
+                    // TODO: receivedMessage.GetMessageData().SetRobotStatus();
                     break;
 
                 case DataType.CRASHED:
@@ -206,137 +158,12 @@ namespace RemoteRobot
             return receivedMessage;
         }
 
-        private void ProcessUserInput(string command)
-        {
-            if (command == "move")
-            {
-                SendRobotDataToPlanet(command);
-            }
-            else if (command.Contains("land:"))
-            {
-                string[] splittedUserInput = command.Split(':');
-
-                try
-                {
-                    if (Position.Parse(splittedUserInput[1]) == null)
-                    {
-                        Console.WriteLine("Unknown command!");
-                        return;
-                    }
-
-                    robotPosition = Position.Parse(splittedUserInput[1]);
-
-                    SendRobotDataToPlanet(command);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Unknown command!");
-                }
-            }
-            else if (command == "scan")
-            {
-                SendRobotDataToPlanet(command);
-            }
-            else if (command.Contains("rotate:"))
-            {
-                string[] splittedUserInput = command.Split(':');
-
-                try
-                {
-                    if (Enum.TryParse(splittedUserInput[1], out Rotation rotation))
-                    {
-                        SendRobotDataToPlanet(command);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Unknown command!");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Unknown command!");
-                }
-            }
-            else if (command == "exit")
-            {
-                SendRobotDataToPlanet(command);
-                DestroyRobot();
-            }
-            else if (command == "getpos")
-            {
-                SendRobotDataToPlanet(command);
-            }
-            else if (command.Contains("charge:"))
-            {
-                string[] splittedUserInput = command.Split(':');
-
-                try
-                {
-                    if (double.TryParse(splittedUserInput[1].Replace(",", "."), out double chargeValue))
-                    {
-                        SendRobotDataToPlanet(command);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Unknown command!");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Unknown command!");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Unknown command!");
-            }
-
-            Console.WriteLine("Enter Command:");
-            string cmd = Console.ReadLine();
-            ProcessUserInput(cmd);
-        }
-
-        private void SendRobotDataToPlanet(string command)
-        {
-            Console.WriteLine("Send: " + command);
-            exoPlanetClient.Send(command);
-        }
-
-        private void SendRobotDataToControlServer()
-        {
-            StringBuilder messageToSend = new StringBuilder();
-
-            messageToSend.Append("RobotInformation:");
-            messageToSend.Append(robotPosition.ToString());
-            messageToSend.Append(":");
-            messageToSend.Append(robotMeasure.ToString());
-
-            Console.WriteLine("Send: " + messageToSend.ToString());
-            controlServerClient.Send(messageToSend.ToString());
-        }
-
         private void DestroyRobot()
         {
             Console.WriteLine("See you later alligator <3");
-            controlServerClient.Close();
-            exoPlanetClient.Close();
+            controlServerClient.Stop();
+            exoPlanetClient.Stop();
             Environment.Exit(0);
-        }
-
-        private void ProcessReceivedDataFromControlServer(string receivedData)
-        {
-            Console.WriteLine("Received: " + receivedData);
-
-            List<string> splittedData = new List<string>(receivedData.Split(':'));
-
-            splittedData.RemoveAt(0);
-
-            allRobotPositions.Clear();
-
-            foreach (string position in splittedData)
-            {
-                allRobotPositions.Add(Position.Parse(position));
-            }
         }
 
         public static void Main(string[] args)
