@@ -6,16 +6,15 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Exoplanet.exoServer
+namespace Exoplanet
 {
     internal class ExoplanetServer
     {
-        private static TcpListener server;
-        private static bool isRunning = true;
+        private readonly TcpListener server = new(IPAddress.Any, 9999);
+        private bool isRunning = true;
 
-        private static void Main(string[] args)
+        public void Start()
         {
-            server = new TcpListener(IPAddress.Any, 9999);
             server.Start();
             Console.WriteLine("Exoplanet server started...");
 
@@ -24,14 +23,14 @@ namespace Exoplanet.exoServer
                 TcpClient client = server.AcceptTcpClient();
                 Console.WriteLine("Robot connected.");
 
-                Thread clientThread = new Thread(HandleClient!);
+                Thread clientThread = new Thread(HandleClient);
                 clientThread.Start(client);
             }
         }
 
-        private static void HandleClient(object obj)
+        private void HandleClient(object? obj)
         {
-            TcpClient client = (TcpClient)obj;
+            TcpClient client = (TcpClient)obj!;
             NetworkStream stream = client.GetStream();
             byte[] buffer = new byte[1024];
 
@@ -63,6 +62,12 @@ namespace Exoplanet.exoServer
 
             client.Close();
             Console.WriteLine("Robot disconnected.");
+        }
+
+        public void Stop()
+        {
+            isRunning = false;
+            server.Stop();
         }
     }
 }

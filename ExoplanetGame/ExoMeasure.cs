@@ -5,10 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Good
-namespace Exoplanet.exoServer
+namespace Exoplanet
 {
-    [Serializable]
     public class ExoMeasure(Ground ground, int xDrift, int yDrift)
         : Measure(ground)
     {
