@@ -19,7 +19,7 @@ public class Measure(Ground ground)
         return sb.ToString();
     }
 
-    public Ground Parse(string data)
+    public Measure Parse(string data)
     {
         string[] parts = data.Split('|');
         if (parts.Length != 2)
@@ -31,6 +31,6 @@ public class Measure(Ground ground)
         {
             throw new ArgumentException("Invalid measure data: " + data);
         }
-        return (Ground)Enum.Parse(typeof(Ground), parts[1]);
+        return (Measure)Enum.Parse(typeof(Ground), parts[1]);
     }
 }
