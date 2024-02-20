@@ -1,96 +1,55 @@
-﻿namespace RemoteRobot.exo;
+﻿using System.Text;
+
+namespace Exoplanet.exo;
 
 [Serializable]
 public class Position
 {
-    private int x;
-    private int y;
-    private Direction dir;
+    public int X { get; set; }
+    private int Y { get; set; }
+    private Direction Direction { get; set; }
 
     public Position(int x, int y)
     {
-        this.x = x;
-        this.y = y;
-        dir = Direction.NORTH;
+        X = x;
+        Y = y;
+        Direction = Direction.NORTH;
     }
 
-    public Position(int x, int y, Direction dir)
+    public Position(int x, int y, Direction direction)
     {
-        this.x = x;
-        this.y = y;
-        this.dir = dir;
+        X = x;
+        Y = y;
+        Direction = direction;
     }
 
-    public Position(Position? pos)
+    protected bool Equals(Position other)
     {
-        if (pos != null)
-        {
-            x = pos.x;
-            y = pos.y;
-            dir = pos.dir;
-        }
-        else
-        {
-            dir = Direction.NORTH;
-        }
-    }
-
-    public int GetX()
-    {
-        return x;
-    }
-
-    public void SetX(int x)
-    {
-        this.x = x;
-    }
-
-    public int GetY()
-    {
-        return y;
-    }
-
-    public void SetY(int y)
-    {
-        this.y = y;
-    }
-
-    public Direction GetDir()
-    {
-        return dir;
-    }
-
-    public void SetDir(Direction dir)
-    {
-        this.dir = dir;
+        return X == other.X && Y == other.Y;
     }
 
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((Position)obj);
-    }
-
-    protected bool Equals(Position other)
-    {
-        return x == other.x && y == other.y;
+        if (obj.GetType() != this.GetType()) return false;
+        return Equals((Position)obj);
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(x, y);
+        return HashCode.Combine(X, Y);
     }
 
     public override string ToString()
     {
-        System.Text.StringBuilder sb = new();
+        StringBuilder sb = new();
         sb.Append("POSITION|");
-        sb.Append(x);
+        sb.Append(X);
         sb.Append('|');
-        sb.Append(y);
+        sb.Append(Y);
         sb.Append('|');
-        sb.Append(dir.ToString());
+        sb.Append(Direction.ToString());
         return sb.ToString();
     }
 
@@ -102,8 +61,7 @@ public class Position
 
         int x = int.Parse(token[1]);
         int y = int.Parse(token[2]);
-        Direction d = Enum.Parse<Direction>(token[3]);
-
+        Direction d = (Direction)Enum.Parse(typeof(Direction), token[3]);
         return new Position(x, y, d);
     }
 }

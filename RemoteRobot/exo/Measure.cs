@@ -1,58 +1,36 @@
-﻿namespace RemoteRobot.exo;
+﻿namespace Exoplanet.exo;
 
 using System;
 using System.Text;
 
-[Serializable]
-public class Measure(Ground ground, float temperature)
+public class Measure(Ground ground)
 {
-    protected Ground ground = ground;
-    protected float temperature = temperature;
-    public static readonly float TEMP_UNKNOWN = -999.9F;
+    public Ground Ground { get; set; }
 
-    public Measure(Ground ground) : this(ground, -999.9F)
+    public Measure() : this(Ground.NICHTS)
     {
-    }
-
-    public Measure() : this(Ground.NICHTS, TEMP_UNKNOWN)
-    {
-    }
-
-    public Ground getGround()
-    {
-        return ground;
-    }
-
-    public float getTemperature()
-    {
-        return temperature;
     }
 
     public override string ToString()
     {
         StringBuilder sb = new();
         sb.Append("MEASURE|");
-        sb.Append(ground.ToString());
-        sb.Append('|');
-        sb.Append(temperature);
+        sb.Append(Ground.ToString());
         return sb.ToString();
     }
 
-    public static Measure? Parse(string s)
+    public Ground Parse(string data)
     {
-        string[] token = s.Trim().Split('|');
-        if (token is not ["MEASURE", _, _]) return null;
-        try
+        string[] parts = data.Split('|');
+        if (parts.Length != 2)
         {
-            Ground g = Enum.Parse<Ground>(token[1]);
-            float temp = float.Parse(token[2]);
-            return new Measure(g, temp);
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Can't parse measurement");
+            throw new ArgumentException("Invalid measure data: " + data);
         }
 
-        return null;
+        if (parts[0] != "MEASURE")
+        {
+            throw new ArgumentException("Invalid measure data: " + data);
+        }
+        return (Ground)Enum.Parse(typeof(Ground), parts[1]);
     }
 }

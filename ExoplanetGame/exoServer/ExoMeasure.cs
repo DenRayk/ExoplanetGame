@@ -9,25 +9,15 @@ using System.Threading.Tasks;
 namespace Exoplanet.exoServer
 {
     [Serializable]
-    public class ExoMeasure(Ground ground, float temperature, int xDrift, int yDrift)
-        : Measure(ground, temperature)
+    public class ExoMeasure(Ground ground, int xDrift, int yDrift)
+        : Measure(ground)
     {
         public int xDrift { get; set; } = xDrift;
         public int yDrift { get; set; } = yDrift;
 
-        public ExoMeasure(Ground ground, float temperature)
-            : this(ground, temperature, 0, 0)
+        public ExoMeasure(Ground ground)
+            : this(ground, 0, 0)
         {
-        }
-
-        public void SetTemp(float temp)
-        {
-            temperature = temp;
-        }
-
-        public void AddTemp(float temp)
-        {
-            temperature += temp;
         }
     }
 }

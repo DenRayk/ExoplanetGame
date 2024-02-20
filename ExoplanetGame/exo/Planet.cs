@@ -15,6 +15,4 @@ public interface Planet
     PlanetSize GetSize();
 
     void Remove(Robot robot);
-
-    RobotStatus Charge(Robot robot, int value);
 }
