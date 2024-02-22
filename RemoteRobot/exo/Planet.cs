@@ -16,5 +16,5 @@ public interface Planet
 
     void Remove(Robot robot);
 
-    RobotStatus Charge(Robot robot, int value);
+    //RobotStatus Charge(Robot robot, int value);
 }
