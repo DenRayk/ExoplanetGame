@@ -2,30 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Exoplanet
 {
-    internal class ExoplanetServer
+    internal class RobotProxy
     {
-        private readonly TcpListener server = new(IPAddress.Any, 9999);
-        private bool isRunning = true;
+        private Exoplanet exoplanet;
 
-        public void Start()
+        public RobotProxy(TcpClient client, Exoplanet exoplanet)
         {
-            server.Start();
-            Console.WriteLine("Exoplanet server started...");
-
-            while (isRunning)
-            {
-                TcpClient client = server.AcceptTcpClient();
-                Console.WriteLine("Robot connected.");
-
-                Thread clientThread = new Thread(HandleClient);
-                clientThread.Start(client);
-            }
+            Thread clientThread = new Thread(HandleClient);
+            clientThread.Start(client);
         }
 
         private void HandleClient(object? obj)
@@ -62,12 +51,6 @@ namespace Exoplanet
 
             client.Close();
             Console.WriteLine("Robot disconnected.");
-        }
-
-        public void Stop()
-        {
-            isRunning = false;
-            server.Stop();
         }
     }
 }
