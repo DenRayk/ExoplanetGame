@@ -9,34 +9,37 @@ namespace Exoplanet
 {
     internal class RobotProxy
     {
-        private Exoplanet exoplanet;
+        private static int nextRobotID = 1;
 
-        public RobotProxy(TcpClient client, Exoplanet exoplanet)
+        private readonly TcpClient tcpClient;
+        private NetworkStream networkStream;
+        private Exoplanet exoplanet;
+        private int robotID;
+
+        public RobotProxy(TcpClient tcpClient, Exoplanet exoplanet)
         {
+            this.tcpClient = tcpClient;
+            this.exoplanet = exoplanet;
             Thread clientThread = new Thread(HandleClient);
-            clientThread.Start(client);
+            clientThread.Start();
+            robotID = nextRobotID++;
         }
 
-        private void HandleClient(object? obj)
+        private void HandleClient()
         {
-            TcpClient client = (TcpClient)obj!;
-            NetworkStream stream = client.GetStream();
+            networkStream = tcpClient.GetStream();
             byte[] buffer = new byte[1024];
 
+            SendToRobot("init:" + exoplanet.getPlanetSize());
             while (true)
             {
                 int bytesRead;
 
                 try
                 {
-                    bytesRead = stream.Read(buffer, 0, buffer.Length);
+                    bytesRead = networkStream.Read(buffer, 0, buffer.Length);
                 }
                 catch
-                {
-                    break;
-                }
-
-                if (bytesRead == 0)
                 {
                     break;
                 }
@@ -44,13 +47,17 @@ namespace Exoplanet
                 string dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead);
                 Console.WriteLine("Received from robot: " + dataReceived);
 
-                // Echo back to the robot
-                byte[] response = Encoding.ASCII.GetBytes("Received: " + dataReceived);
-                stream.Write(response, 0, response.Length);
+                SendToRobot(dataReceived);
             }
 
-            client.Close();
+            tcpClient.Close();
             Console.WriteLine("Robot disconnected.");
+        }
+
+        private void SendToRobot(string message)
+        {
+            byte[] buffer = Encoding.ASCII.GetBytes(message);
+            networkStream.Write(buffer, 0, buffer.Length);
         }
     }
 }
