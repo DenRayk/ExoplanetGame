@@ -2,7 +2,7 @@
 
 public interface Planet
 {
-    Measure Land(Robot robot, Position position);
+    Measure Land(Robot robot, Position landPosition);
 
     Position GetPosition(Robot robot);
 
