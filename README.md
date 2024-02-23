@@ -1,6 +1,8 @@
 # ExoplanetGame
 
 ## Text-Protokoll zwischen RemoteRobot-Clients und ExoPlanet-Server
+C = Client,
+S = Server
 
 | Richtung | Kommando                | Beschreibung |
 |----------|-------------------------|--------------|
