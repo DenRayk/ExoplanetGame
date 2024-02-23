@@ -159,7 +159,7 @@ namespace Exoplanet
 
         public Measure Scan(Robot robot)
         {
-            throw new NotImplementedException();
+            return GetMeasure(robots[robot].X, robots[robot].Y);
         }
 
         public PlanetSize GetSize()

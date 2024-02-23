@@ -80,6 +80,11 @@ namespace Exoplanet
                         SendToRobot($"moved: {position}");
                         break;
 
+                    case "scan":
+                        measure = exoplanet.Scan(this);
+                        SendToRobot($"scanned: {measure}");
+                        break;
+
                     case "exit":
                         exoplanet.Remove(this);
                         break;
