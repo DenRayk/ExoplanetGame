@@ -16,7 +16,7 @@
 
 ## Beispiele
 
-- land:POSITION|100|200|NORTH
+- land:POSITION|1|2|NORTH
 - scan
 - move
 - rotate:LEFT
