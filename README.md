@@ -1,5 +1,7 @@
 # ExoplanetGame
 
+## Text-Protokoll zwischen RemoteRobot-Clients und ExoPlanet-Server
+
 | Richtung | Kommando                | Beschreibung |
 |----------|-------------------------|--------------|
 | C <= S   | init:SIZE\|width\|height | Sendet Server direkt nach Verbindungsaufbau mit der Größe des ExoPlaneten |
