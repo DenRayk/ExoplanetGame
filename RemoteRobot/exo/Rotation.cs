@@ -1,4 +1,4 @@
-﻿namespace Exoplanet.exo;
+﻿namespace RemoteRobot.exo;
 
 public enum Rotation
 {
