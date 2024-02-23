@@ -10,8 +10,9 @@ namespace Exoplanet
 
         private readonly TcpClient tcpClient;
         private NetworkStream networkStream;
-        private Exoplanet exoplanet;
         private Thread clientThread;
+
+        private Exoplanet exoplanet;
         private int robotID;
 
         public RobotProxy(TcpClient tcpClient, Exoplanet exoplanet)

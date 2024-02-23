@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exoplanet", "ExoplanetGame\Exoplanet.csproj", "{96E103F9-42EB-4F38-932E-27F783CC34C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exoplanet", "Exoplanet\Exoplanet.csproj", "{96E103F9-42EB-4F38-932E-27F783CC34C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteRobot", "RemoteRobot\RemoteRobot.csproj", "{A02C620C-8CDC-466F-A17F-BA386014438C}"
 EndProject

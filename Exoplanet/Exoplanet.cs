@@ -9,7 +9,7 @@ namespace Exoplanet
 {
     internal class Exoplanet : Planet
     {
-        private Dictionary<Robot, Position> robots = new();
+        private Dictionary<Robot, Position?> robots = new();
         private PlanetSize planetSize;
         private Measure[][] topography;
 
@@ -58,7 +58,7 @@ namespace Exoplanet
             {
                 robots.Add(robot, landPosition);
 
-                return GetMeasure(landPosition.X, landPosition.Y);
+                if (landPosition != null) return GetMeasure(landPosition.X, landPosition.Y);
             }
             robot.Crash();
             return null;
