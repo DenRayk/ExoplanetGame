@@ -71,6 +71,10 @@ namespace Exoplanet
                         measure = exoplanet.Land(this, position);
                         SendToRobot("landed:" + measure);
                         break;
+
+                    default:
+                        SendToRobot(command);
+                        return;
                 }
             }
             catch (Exception e)
