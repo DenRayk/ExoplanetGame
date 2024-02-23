@@ -33,14 +33,14 @@ namespace RemoteRobot
                 case "landed":
                     Console.WriteLine($"Landed: ground = {parameters[1]}");
                     break;
-                case "scaned":
+                case "scanned":
                     Console.WriteLine($"Scanned: ground = {parameters[1]}");
                     break;
                 case "moved":
                     Console.WriteLine($"Moved: position = x:{parameters[1]}, y:{parameters[2]}, direction = {parameters[3]}");
                     break;
                 case "rotated":
-                    Console.WriteLine($"Rotated: direction = {parameters[1]}");
+                    Console.WriteLine($"Rotated: direction = {parameters[0]}");
                     break;
                 case "crashed":
                     Console.WriteLine("Crashed");
