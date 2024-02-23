@@ -96,7 +96,35 @@ namespace Exoplanet
 
         public Position Move(Robot robot)
         {
-            throw new NotImplementedException();
+            Position robotPosition = robots[robot];
+            Position newPosition = new Position(robotPosition.X, robotPosition.Y, robotPosition.Direction);
+
+            switch (robotPosition.Direction)
+            {
+                case Direction.NORTH:
+                    newPosition.Y--;
+                    break;
+
+                case Direction.EAST:
+                    newPosition.X++;
+                    break;
+
+                case Direction.SOUTH:
+                    newPosition.Y++;
+                    break;
+
+                case Direction.WEST:
+                    newPosition.X--;
+                    break;
+            }
+
+            if (CheckPosition(robot, newPosition))
+            {
+                robots[robot] = newPosition;
+                return newPosition;
+            }
+            robot.Crash();
+            return null;
         }
 
         public Direction? Rotate(Robot robot, Rotation rotation)

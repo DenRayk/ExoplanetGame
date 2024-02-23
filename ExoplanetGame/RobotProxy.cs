@@ -75,6 +75,11 @@ namespace Exoplanet
                         SendToRobot($"rotated: {rotation}");
                         break;
 
+                    case "move":
+                        position = exoplanet.Move(this);
+                        SendToRobot($"moved: {position}");
+                        break;
+
                     case "exit":
                         exoplanet.Remove(this);
                         break;
