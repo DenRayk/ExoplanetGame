@@ -7,7 +7,7 @@ public class Position
 {
     public int X { get; set; }
     public int Y { get; set; }
-    private Direction Direction { get; set; }
+    public Direction Direction { get; set; }
 
     public Position(int x, int y)
     {

@@ -56,20 +56,27 @@ namespace Exoplanet
             {
                 Measure measure;
                 Rotation rotation;
-                Direction direction;
+                Direction? direction;
                 Position? position = null;
 
                 switch (tokens[0])
                 {
-                    case "exit":
-                        exoplanet.Remove(this);
-                        break;
-
                     case "land":
                         if (tokens.Length != 2) return;
                         position = Position.Parse(tokens[1]);
                         measure = exoplanet.Land(this, position);
-                        SendToRobot("landed:" + measure);
+                        SendToRobot($"landed: {measure}");
+                        break;
+
+                    case "rotate":
+                        if (tokens.Length != 2) return;
+                        rotation = (Rotation)Enum.Parse(typeof(Rotation), tokens[1]);
+                        exoplanet.Rotate(this, rotation);
+                        SendToRobot($"rotated: {rotation}");
+                        break;
+
+                    case "exit":
+                        exoplanet.Remove(this);
                         break;
 
                     default:

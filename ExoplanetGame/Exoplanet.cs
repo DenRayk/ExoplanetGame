@@ -101,7 +101,32 @@ namespace Exoplanet
 
         public Direction? Rotate(Robot robot, Rotation rotation)
         {
-            throw new NotImplementedException();
+            Position robotPosition = robots[robot];
+
+            if (rotation == Rotation.LEFT)
+            {
+                robotPosition.Direction = robotPosition.Direction switch
+                {
+                    Direction.NORTH => Direction.WEST,
+                    Direction.WEST => Direction.SOUTH,
+                    Direction.SOUTH => Direction.EAST,
+                    Direction.EAST => Direction.NORTH,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+            else
+            {
+                robotPosition.Direction = robotPosition.Direction switch
+                {
+                    Direction.NORTH => Direction.EAST,
+                    Direction.EAST => Direction.SOUTH,
+                    Direction.SOUTH => Direction.WEST,
+                    Direction.WEST => Direction.NORTH,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+
+            return robotPosition.Direction;
         }
 
         public Measure Scan(Robot robot)
