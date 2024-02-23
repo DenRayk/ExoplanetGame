@@ -1,14 +1,29 @@
 ﻿using System.Net.Sockets;
 using System.Text;
+using Exoplanet.exo;
 
 namespace RemoteRobot
 {
-    internal class RemoteRobot
+    internal class RemoteRobot : Robot
     {
-        private static void Main(string[] args)
+        public void InitRun(Planet planet, string name, Position position, string status)
         {
-            RemoteRobotServer remoteRobotServer = new();
-            remoteRobotServer.Start();
+            throw new NotImplementedException();
+        }
+
+        public void Crash()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetLanderName()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void HandleResponse(string response)
+        {
+            //throw new NotImplementedException();
         }
     }
 }
