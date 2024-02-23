@@ -1,10 +1,9 @@
-﻿namespace Exoplanet.exo
+﻿namespace RemoteRobot.exo;
+
+public enum Direction
 {
-    public enum Direction
-    {
-        NORTH,
-        EAST,
-        SOUTH,
-        WEST
-    }
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST
 }

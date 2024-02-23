@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Exoplanet.exo;
+namespace RemoteRobot.exo;
 
 [Serializable]
 public class Position
