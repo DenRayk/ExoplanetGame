@@ -5,11 +5,7 @@ using System.Text;
 
 public class Measure(Ground ground)
 {
-    public Ground Ground { get; set; }
-
-    public Measure() : this(Ground.NICHTS)
-    {
-    }
+    public Ground Ground { get; set; } = ground;
 
     public override string ToString()
     {

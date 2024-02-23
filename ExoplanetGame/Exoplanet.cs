@@ -9,14 +9,13 @@ namespace Exoplanet
 {
     internal class Exoplanet : Planet
     {
-        private Dictionary<Robot, Position> robots = new Dictionary<Robot, Position>();
+        private Dictionary<Robot, Position> robots = new();
         private PlanetSize planetSize;
         private Measure[][] topography;
 
         public Exoplanet()
         {
-            string[] topography = new string[]
-            {
+            string[] topographyStr = {
                 "GSSWPFSGGL",
                 "SPW4PSFFLL",
                 "SGWPMSFLLF",
@@ -25,7 +24,7 @@ namespace Exoplanet
                 "FFWWGGSGFF"
             };
 
-            initfromString(topography);
+            initfromString(topographyStr);
         }
 
         private void initfromString(string[] strings)
@@ -53,7 +52,7 @@ namespace Exoplanet
             return planetSize;
         }
 
-        public Measure Land(Robot robot, Position landPosition)
+        public Measure Land(Robot robot, Position? landPosition)
         {
             if (!robots.ContainsKey(robot) && CheckPosition(robot, landPosition))
             {
@@ -67,15 +66,27 @@ namespace Exoplanet
 
         private Measure GetMeasure(int x, int y)
         {
-            if (x < 0 || y < 0 || x >= planetSize.Width || y >= planetSize.Height) return new Measure();
+            if (x < 0 || y < 0 || x >= planetSize.Width || y >= planetSize.Height) return new Measure(Ground.NICHTS);
 
             Measure m = topography[y][x];
             return new Measure(m.Ground);
         }
 
-        private bool CheckPosition(Robot robot, Position landPosition)
+        private bool CheckPosition(Robot robot, Position? landPosition)
         {
-            throw new NotImplementedException();
+            if (landPosition != null && topography[landPosition.Y][landPosition.X].Ground == Ground.NICHTS)
+            {
+                return false;
+            }
+
+            foreach (Robot r in robots.Keys)
+            {
+                if (r != robot && this.robots[r].Equals(landPosition))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public Position GetPosition(Robot robot)

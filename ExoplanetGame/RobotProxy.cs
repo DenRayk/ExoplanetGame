@@ -25,7 +25,7 @@ namespace Exoplanet
 
         private void HandleClient()
         {
-            this.networkStream = tcpClient.GetStream();
+            networkStream = tcpClient.GetStream();
             SendToRobot("init:" + exoplanet.getPlanetSize());
 
             while (clientThread.IsAlive)
@@ -54,15 +54,22 @@ namespace Exoplanet
 
             try
             {
-                Measure m;
-                Rotation r;
-                Direction d;
-                Position pos = null;
+                Measure measure;
+                Rotation rotation;
+                Direction direction;
+                Position? position = null;
 
                 switch (tokens[0])
                 {
                     case "exit":
                         exoplanet.Remove(this);
+                        break;
+
+                    case "land":
+                        if (tokens.Length != 2) return;
+                        position = Position.Parse(tokens[1]);
+                        measure = exoplanet.Land(this, position);
+                        SendToRobot("landed:" + measure);
                         break;
                 }
             }
@@ -87,11 +94,6 @@ namespace Exoplanet
             string dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead);
             Console.WriteLine($"Received from robot {robotID}: {dataReceived}");
             return dataReceived;
-        }
-
-        public void InitRun(Planet planet, string name, Position position, NetworkStream networkStream)
-        {
-            throw new NotImplementedException();
         }
 
         public void Crash()
