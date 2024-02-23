@@ -91,7 +91,7 @@ namespace Exoplanet
 
         public Position GetPosition(Robot robot)
         {
-            throw new NotImplementedException();
+            return robots[robot];
         }
 
         public Position Move(Robot robot)

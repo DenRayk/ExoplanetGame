@@ -68,6 +68,11 @@ namespace Exoplanet
                         SendToRobot($"landed: {measure}");
                         break;
 
+                    case "getpos":
+                        position = exoplanet.GetPosition(this);
+                        SendToRobot($"position: {position}");
+                        break;
+
                     case "rotate":
                         if (tokens.Length != 2) return;
                         rotation = (Rotation)Enum.Parse(typeof(Rotation), tokens[1]);
