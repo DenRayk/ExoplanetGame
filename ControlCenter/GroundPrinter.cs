@@ -11,7 +11,6 @@ namespace ControlCenter
     {
         public static void printGround(Ground ground)
         {
-
             switch (ground)
             {
                 case Ground.NICHTS:
@@ -38,10 +37,11 @@ namespace ControlCenter
                 case Ground.LAVA:
                     Console.BackgroundColor = ConsoleColor.Red;
                     break;
+                default:
+                    Console.BackgroundColor = ConsoleColor.White;
+                    break;
             }
-            Console.WriteLine($"   ", Console.BackgroundColor);
-
-
+            Console.Write($"   ", Console.BackgroundColor);
         }
     }
 }
