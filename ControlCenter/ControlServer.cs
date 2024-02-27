@@ -1,33 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using System.Reflection.Emit;
 
-namespace Exoplanet
+namespace ControlCenter
 {
-    internal class ExoServer : TcpListener
+    internal class ControlServer : TcpListener
     {
         private readonly int maxRobots = 5;
-        private readonly Exoplanet exoPlanet;
         private static readonly int port = 9999;
+        private int robotCount = 0;
 
-        public ExoServer() : base(IPAddress.Any, port)
+
+        public ControlServer() : base(IPAddress.Any, port)
         {
-            exoPlanet = new Exoplanet();
-
             Start();
 
             while (Active)
             {
-                if (exoPlanet.getRobotCount() < maxRobots)
+                if (robotCount < maxRobots)
                 {
                     TcpClient client = AcceptTcpClient();
                     Console.WriteLine("Robot connected.");
-                    RobotProxy robotProxy = new(client, exoPlanet);
+                    robotCount++;
                 }
                 else
                 {
@@ -38,10 +36,10 @@ namespace Exoplanet
 
         private static void Main(string[] args)
         {
-            Console.WriteLine("Exoplanet rising up...");
+            Console.WriteLine("Control Center rising up...");
 
-            ExoServer exoServer = new();
-            exoServer.Start();
+            ControlServer controlServer = new();
+            controlServer.Start();
         }
     }
 }
