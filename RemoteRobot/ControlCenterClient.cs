@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Net.Sockets;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RemoteRobot
 {
-    internal class ExoPlanetClient : TcpClient
+    internal class ControlCenterClient : TcpClient
     {
         private readonly IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
-        private readonly int port = 9999;
+        private readonly int port = 8888;
         private readonly NetworkStream stream;
 
-        public ExoPlanetClient()
+        public ControlCenterClient()
         {
             Connect(ipAddress, port);
             stream = GetStream();
