@@ -11,9 +11,8 @@ namespace ControlCenter
     internal class ControlServer : TcpListener
     {
         private readonly int maxRobots = 5;
-        private static readonly int port = 9999;
+        private static readonly int port = 8888;
         private int robotCount = 0;
-
 
         public ControlServer() : base(IPAddress.Any, port)
         {
