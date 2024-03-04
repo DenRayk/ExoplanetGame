@@ -25,3 +25,11 @@ S = Server
 - move
 - rotate:LEFT
 - exit
+
+
+## Build Order
+
+Build order should be:
+1. Exoplanet
+2. ControlCenter
+3. RemoteRobot(s)
