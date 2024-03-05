@@ -66,29 +66,29 @@ namespace Exoplanet
                         if (tokens.Length != 2) return;
                         position = Position.Parse(tokens[1]);
                         measure = exoplanet.Land(this, position);
-                        SendToRobot($"landed: {measure}");
+                        SendToRobot($"landed:{measure}");
                         break;
 
                     case "getpos":
                         position = exoplanet.GetPosition(this);
-                        SendToRobot($"position: {position}");
+                        SendToRobot($"position:{position}");
                         break;
 
                     case "rotate":
                         if (tokens.Length != 2) return;
                         rotation = (Rotation)Enum.Parse(typeof(Rotation), tokens[1]);
                         exoplanet.Rotate(this, rotation);
-                        SendToRobot($"rotated: {rotation}");
+                        SendToRobot($"rotated:{rotation}");
                         break;
 
                     case "move":
                         position = exoplanet.Move(this);
-                        SendToRobot($"moved: {position}");
+                        SendToRobot($"moved:{position}");
                         break;
 
                     case "scan":
                         measure = exoplanet.Scan(this);
-                        SendToRobot($"scanned: {measure}");
+                        SendToRobot($"scanned:{measure}");
                         break;
 
                     case "exit":
