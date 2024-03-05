@@ -15,6 +15,7 @@ namespace ControlCenter
         private NetworkStream networkStream;
         private Thread clientThread;
 
+        private ControlCenter controlCenter;
         private int robotID;
 
         public ControlProxy(TcpClient tcpClient)
@@ -22,6 +23,7 @@ namespace ControlCenter
             this.tcpClient = tcpClient;
             clientThread = new Thread(HandleClient);
             clientThread.Start();
+            controlCenter = new ControlCenter();
             robotID = nextRobotID++;
         }
 
@@ -35,12 +37,14 @@ namespace ControlCenter
                 try
                 {
                     dataReceived = ReadFromRobot();
+                    controlCenter.HandleResponse(dataReceived);
+                    
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine($"Error reading from robot {robotID}: {ex.Message}");
                     break;
                 }
-
             }
 
             tcpClient.Close();
