@@ -4,7 +4,7 @@ using Exoplanet.exo;
 
 namespace Exoplanet
 {
-    internal class RobotProxy : Robot
+    internal class ExoProxy : Robot
     {
         private static int nextRobotID = 1;
 
@@ -15,7 +15,7 @@ namespace Exoplanet
         private Exoplanet exoplanet;
         private int robotID;
 
-        public RobotProxy(TcpClient tcpClient, Exoplanet exoplanet)
+        public ExoProxy(TcpClient tcpClient, Exoplanet exoplanet)
         {
             this.tcpClient = tcpClient;
             this.exoplanet = exoplanet;

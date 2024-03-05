@@ -27,7 +27,7 @@ namespace Exoplanet
                 {
                     TcpClient client = AcceptTcpClient();
                     Console.WriteLine("Robot connected.");
-                    RobotProxy robotProxy = new(client, exoPlanet);
+                    ExoProxy robotProxy = new(client, exoPlanet);
                 }
                 else
                 {

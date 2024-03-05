@@ -25,6 +25,7 @@ namespace ControlCenter
                     TcpClient client = AcceptTcpClient();
                     Console.WriteLine("Robot connected.");
                     robotCount++;
+                    ControlProxy robotProxy = new(client);
                 }
                 else
                 {
