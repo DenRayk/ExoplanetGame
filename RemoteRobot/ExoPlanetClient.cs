@@ -29,5 +29,11 @@ namespace RemoteRobot
             int bytesRead = stream.Read(buffer, 0, buffer.Length);
             return Encoding.ASCII.GetString(buffer, 0, bytesRead);
         }
+
+        public void CloseConnection()
+        {
+            stream.Close();
+            Close();
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace RemoteRobot
             Console.WriteLine($"Response from exoplanet: {initResponse}");
             remoteRobot.HandleResponse(initResponse);
 
-            while (true)
+            while (remoteRobot.isAlive)
             {
                 Console.Write("Enter message to send to exoplanet: ");
                 string? message = Console.ReadLine();
@@ -30,9 +30,11 @@ namespace RemoteRobot
                 string response = exoPlanetClient.ReceiveData();
                 Console.WriteLine($"Response from exoplanet: {response}");
                 remoteRobot.HandleResponse(response);
-
-                //TODO: Send data to control center
             }
+
+            Console.WriteLine("Remote Robot shutting down...");
+            exoPlanetClient.CloseConnection();
+            controlCenterClient.CloseConnection();
         }
     }
 }

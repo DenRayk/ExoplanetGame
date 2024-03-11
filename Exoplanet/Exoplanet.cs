@@ -72,21 +72,31 @@ namespace Exoplanet
             return new Measure(m.Ground);
         }
 
-        private bool CheckPosition(Robot robot, Position? landPosition)
+        private bool CheckPosition(Robot robot, Position position)
         {
-            if (landPosition != null && topography[landPosition.Y][landPosition.X].Ground == Ground.NICHTS)
+            if (!CheckIfPositionInBounds(position))
+            {
+                return false;
+            }
+
+            if (topography[position.Y][position.X].Ground == Ground.NICHTS)
             {
                 return false;
             }
 
             foreach (Robot r in robots.Keys)
             {
-                if (r != robot && this.robots[r].Equals(landPosition))
+                if (r != robot && robots[r].Equals(position))
                 {
                     return false;
                 }
             }
             return true;
+        }
+
+        private bool CheckIfPositionInBounds(Position position)
+        {
+            return position.X >= 0 && position.X < planetSize.Width && position.Y >= 0 && position.Y < planetSize.Height;
         }
 
         public Position GetPosition(Robot robot)
