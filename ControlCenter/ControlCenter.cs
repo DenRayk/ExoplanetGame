@@ -26,8 +26,4 @@ public class ControlCenter
     {
         robotPositions[robot] = position;
     }
-
-    public void HandleResponse(string response)
-    {
-    }
 }

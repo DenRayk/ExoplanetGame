@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ControlCenter
 {
@@ -14,6 +10,7 @@ namespace ControlCenter
         private readonly TcpClient tcpClient;
         private NetworkStream networkStream;
         private Thread clientThread;
+        private bool threadShouldStop;
 
         private ControlCenter controlCenter;
         private int robotID;
@@ -21,9 +18,9 @@ namespace ControlCenter
         public ControlProxy(TcpClient tcpClient)
         {
             this.tcpClient = tcpClient;
+            controlCenter = new ControlCenter();
             clientThread = new Thread(HandleClient);
             clientThread.Start();
-            controlCenter = new ControlCenter();
             robotID = nextRobotID++;
         }
 
@@ -31,23 +28,37 @@ namespace ControlCenter
         {
             networkStream = tcpClient.GetStream();
 
-            while (clientThread.IsAlive)
+            try
             {
-                string dataReceived;
-                try
+                while (!threadShouldStop)
                 {
-                    dataReceived = ReadFromRobot();
-                    controlCenter.HandleResponse(dataReceived);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Robot {robotID} disconnected");
-                    break;
+                    string dataReceived = ReadFromRobot();
+                    GetMessage(dataReceived);
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in robot {robotID}: {ex.Message}");
+            }
+            finally
+            {
+                tcpClient.Close();
+                Console.WriteLine($"Connection with robot {robotID} closed");
+            }
+        }
 
-            tcpClient.Close();
-            Console.WriteLine($"Connection with robot {robotID} closed");
+        private void GetMessage(string dataReceived)
+        {
+            if (dataReceived == "crashed")
+            {
+                Crash();
+            }
+        }
+
+        private void Crash()
+        {
+            Console.WriteLine($"Robot {robotID} crashed");
+            threadShouldStop = true;
         }
 
         private string ReadFromRobot()

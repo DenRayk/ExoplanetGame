@@ -11,6 +11,7 @@ namespace Exoplanet
         private readonly TcpClient tcpClient;
         private NetworkStream networkStream;
         private Thread clientThread;
+        private bool threadShouldStop;
 
         private Exoplanet exoplanet;
         private int robotID;
@@ -29,24 +30,23 @@ namespace Exoplanet
             networkStream = tcpClient.GetStream();
             SendToRobot("init:" + exoplanet.getPlanetSize());
 
-            while (clientThread.IsAlive)
+            try
             {
-                string dataReceived;
-                try
+                while (!threadShouldStop)
                 {
-                    dataReceived = ReadFromRobot();
+                    string dataReceived = ReadFromRobot();
+                    GetCommand(dataReceived);
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Robot {robotID} disconnected");
-                    break;
-                }
-
-                GetCommand(dataReceived);
             }
-
-            tcpClient.Close();
-            Console.WriteLine($"Connection with robot {robotID} closed");
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in robot {robotID}: {ex.Message}");
+            }
+            finally
+            {
+                tcpClient.Close();
+                Console.WriteLine($"Connection with robot {robotID} closed");
+            }
         }
 
         private void GetCommand(string command)
@@ -127,7 +127,7 @@ namespace Exoplanet
         public void Crash()
         {
             SendToRobot("crashed");
-            clientThread.Interrupt();
+            threadShouldStop = true;
         }
 
         public string GetLanderName()
