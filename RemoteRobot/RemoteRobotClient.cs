@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RemoteRobot.exo;
 
 namespace RemoteRobot
 {
@@ -13,6 +15,11 @@ namespace RemoteRobot
 
         private static RemoteRobot remoteRobot = new();
 
+        private static Measure lastMeasure = new();
+        private static PlanetSize currentPlanetSize = new();
+        private static Position currentPosition = new();
+
+
         //TODO: Implement Constructor for RemoteRobotClient --> Call in main
 
         private static void Main(string[] args)
@@ -21,7 +28,7 @@ namespace RemoteRobot
 
             string initResponse = exoPlanetClient.ReceiveData();
             Console.WriteLine($"Response from exoplanet: {initResponse}");
-            remoteRobot.HandleResponse(initResponse);
+            HandleResponse(initResponse);
 
             while (remoteRobot.isAlive)
             {
@@ -41,46 +48,52 @@ namespace RemoteRobot
 
         private static void HandleResponse(string response)
         {
-            string[] parts = response.Split(':');
-            string commandName = parts[0];
-            string[] parameters = parts.Length > 1 ? parts[1].Split('|') : Array.Empty<string>();
+            if (string.IsNullOrEmpty(response)) return;
 
-            switch (commandName)
+            string[] tokens = response.Split(':');
+            string commandName = tokens[0];
+
+            string[] parameters = tokens.Length > 1 ? tokens[1].Split('|') : Array.Empty<string>();
+
+            try
             {
-                case "init":
-                    Console.WriteLine($"Initializing with size: width = {parameters[1]}, height = {parameters[2]}");
-                    //TODO: Init:SIZE|width|height
-                    break;
+                switch (commandName)
+                {
+                    case "init":
+                        currentPlanetSize = PlanetSize.Parse(tokens[1]);
+                        controlCenterClient.SendData($"Init:{currentPlanetSize}");
+                        break;
 
-                case "landed":
-                    //TODO: UpdatePostion: change to position
-                    Console.WriteLine($"Landed: ground = {parameters[1]}");
-                    //TODO: UpdatePostion:POSITION|x|y|direction
-                    break;
+                    case "landed":
+                    case "moved":
+                        currentPosition = Position.Parse(tokens[1]);
+                        controlCenterClient.SendData($"UpdatePostion:{currentPosition}");
+                        break;
 
-                case "scanned":
-                    Console.WriteLine($"Scanned: ground = {parameters[1]}");
-                    //TODO: NewScan:MEASURE|ground|temp
-                    break;
+                    case "scanned":
+                        lastMeasure.Ground = (Ground)Enum.Parse(typeof(Ground), parameters[1]);
+                        controlCenterClient.SendData($"NewScan:{lastMeasure.Ground}|{currentPosition.X}|{currentPosition.Y}");
+                        break;
 
-                case "moved":
-                    Console.WriteLine($"Moved: position = x:{parameters[1]}, y:{parameters[2]}, direction = {parameters[3]}");
-                    //TODO: UpdatePostion:POSITION|x|y|direction
-                    break;
+                    case "rotated":
+                        currentPosition.Direction = (Direction)Enum.Parse(typeof(Direction), parameters[0]);
+                        controlCenterClient.SendData($"UpdatePostion:{currentPosition}");
+                        break;
 
-                case "rotated":
-                    Console.WriteLine($"Rotated: direction = {parameters[0]}");
-                    //TODO: UpdatePostion:POSITION|x|y|direction
-                    break;
+                    case "crashed":
+                        remoteRobot.Crash();
+                        controlCenterClient.SendData("crashed");
+                        break;
 
-                case "crashed":
-                    remoteRobot.Crash();
-                    controlCenterClient.SendData("crashed");
-                    break;
-
-                default:
-                    Console.WriteLine($"Unknown command: {commandName}");
-                    break;
+                    default:
+                        Console.WriteLine($"Unknown command: {commandName}");
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error handling command '{commandName}': {e}");
+                throw;
             }
         }
     }

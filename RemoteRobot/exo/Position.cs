@@ -6,8 +6,15 @@ namespace RemoteRobot.exo;
 public class Position
 {
     public int X { get; set; }
-    private int Y { get; set; }
-    private Direction Direction { get; set; }
+    public int Y { get; set; }
+    public Direction Direction { get; set; }
+
+    public Position()
+    {
+        X = 0;
+        Y = 0;
+        Direction = Direction.NORTH;
+    }
 
     public Position(int x, int y)
     {

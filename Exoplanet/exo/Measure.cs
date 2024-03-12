@@ -3,9 +3,20 @@
 using System;
 using System.Text;
 
-public class Measure(Ground ground)
+[Serializable]
+public class Measure
 {
-    public Ground Ground { get; set; } = ground;
+    public Ground Ground { get; set; }
+
+    public Measure()
+    {
+        Ground = Ground.NICHTS;
+    }
+
+    public Measure(Ground ground)
+    {
+        Ground = ground;
+    }
 
     public override string ToString()
     {
@@ -15,7 +26,7 @@ public class Measure(Ground ground)
         return sb.ToString();
     }
 
-    public Measure Parse(string data)
+    public static Measure Parse(string data)
     {
         string[] parts = data.Split('|');
         if (parts.Length != 2)
