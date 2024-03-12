@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RemoteRobot
 {
-    internal class ControlCenterClient : TcpClient
+    internal class ControlCenterClient : TcpClient, ITcpClientMethods
     {
         private readonly IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
         private readonly int port = 8888;

@@ -13,6 +13,8 @@ namespace RemoteRobot
 
         private static RemoteRobot remoteRobot = new();
 
+        //TODO: Implement Constructor for RemoteRobotClient --> Call in main
+
         private static void Main(string[] args)
         {
             Console.WriteLine("Remote Robot rising up...");
@@ -47,22 +49,28 @@ namespace RemoteRobot
             {
                 case "init":
                     Console.WriteLine($"Initializing with size: width = {parameters[1]}, height = {parameters[2]}");
+                    //TODO: Init:SIZE|width|height
                     break;
 
                 case "landed":
+                    //TODO: UpdatePostion: change to position
                     Console.WriteLine($"Landed: ground = {parameters[1]}");
+                    //TODO: UpdatePostion:POSITION|x|y|direction
                     break;
 
                 case "scanned":
                     Console.WriteLine($"Scanned: ground = {parameters[1]}");
+                    //TODO: NewScan:MEASURE|ground|temp
                     break;
 
                 case "moved":
                     Console.WriteLine($"Moved: position = x:{parameters[1]}, y:{parameters[2]}, direction = {parameters[3]}");
+                    //TODO: UpdatePostion:POSITION|x|y|direction
                     break;
 
                 case "rotated":
                     Console.WriteLine($"Rotated: direction = {parameters[0]}");
+                    //TODO: UpdatePostion:POSITION|x|y|direction
                     break;
 
                 case "crashed":

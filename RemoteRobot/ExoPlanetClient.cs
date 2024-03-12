@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RemoteRobot
 {
-    internal class ExoPlanetClient : TcpClient
+    internal class ExoPlanetClient : TcpClient, ITcpClientMethods
     {
         private readonly IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
         private readonly int port = 9999;
