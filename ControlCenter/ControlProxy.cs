@@ -38,17 +38,16 @@ namespace ControlCenter
                 {
                     dataReceived = ReadFromRobot();
                     controlCenter.HandleResponse(dataReceived);
-                    
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error reading from robot {robotID}: {ex.Message}");
+                    Console.WriteLine($"Robot {robotID} disconnected");
                     break;
                 }
             }
 
             tcpClient.Close();
-            Console.WriteLine("Robot disconnected.");
+            Console.WriteLine($"Connection with robot {robotID} closed");
         }
 
         private string ReadFromRobot()

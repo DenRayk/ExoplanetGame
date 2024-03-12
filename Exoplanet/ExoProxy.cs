@@ -38,6 +38,7 @@ namespace Exoplanet
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine($"Robot {robotID} disconnected");
                     break;
                 }
 
@@ -45,7 +46,7 @@ namespace Exoplanet
             }
 
             tcpClient.Close();
-            Console.WriteLine("Robot disconnected.");
+            Console.WriteLine($"Connection with robot {robotID} closed");
         }
 
         private void GetCommand(string command)
