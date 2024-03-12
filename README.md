@@ -14,7 +14,7 @@ S = Server
 | C => S   | move                    | Robot ein Feld in die aktuelle Richtung bewegen |
 | C <= S   | moved\|POSITION\|x\|y\|direction  | Antwort mit der neuen Position/Richtung |
 | C => S   | rotate:rotation         | Nach Links/Rechts drehen |
-| C <= S   | rotated:rotation        | Antwort mit neuer Richtung |
+| C <= S   | rotated:direction       | Antwort mit neuer Richtung |
 | C <= S   | crashed                 | Robot ist zerstört (z.B. nach move auf ungültige Position oder Kollision mit anderem Robot, ...)|
 | C => S   | exit                    |Robot wird aufgegeben|
 
