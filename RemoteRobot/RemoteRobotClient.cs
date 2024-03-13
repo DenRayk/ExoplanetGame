@@ -72,7 +72,7 @@ namespace RemoteRobot
 
                     case "scanned":
                         lastMeasure.Ground = (Ground)Enum.Parse(typeof(Ground), parameters[1]);
-                        controlCenterClient.SendData($"NewScan:{lastMeasure.Ground}|{currentPosition.X}|{currentPosition.Y}");
+                        controlCenterClient.SendData($"NewScan:{lastMeasure}|{currentPosition.X}|{currentPosition.Y}");
                         break;
 
                     case "rotated":
