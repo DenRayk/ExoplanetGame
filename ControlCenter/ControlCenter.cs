@@ -26,4 +26,14 @@ public class ControlCenter
     {
         robotPositions[robot] = position;
     }
+
+    public void Crash(Robot robot)
+    {
+        robotPositions.Remove(robot);
+    }
+
+    public void AddMeasure(ControlMeasure measure)
+    {
+        planetMap.updateMap(measure.position.X, measure.position.Y, measure.Ground);
+    }
 }

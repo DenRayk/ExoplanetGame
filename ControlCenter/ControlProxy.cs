@@ -1,5 +1,6 @@
 ﻿using System.Net.Sockets;
 using System.Text;
+using ControlCenter.exo;
 
 namespace ControlCenter
 {
@@ -49,9 +50,36 @@ namespace ControlCenter
 
         private void GetMessage(string dataReceived)
         {
-            if (dataReceived == "crashed")
+            string[] tokens = dataReceived.Split(':');
+            string commandName = tokens[0];
+
+            string[] parameters = tokens.Length > 1 ? tokens[1].Split('|') : Array.Empty<string>();
+
+            try
             {
-                Crash();
+                switch (commandName)
+                {
+                    case "Init":
+                        controlCenter.Init(PlanetSize.Parse(tokens[1]));
+                        break;
+
+                    case "NewScan":
+                        controlCenter.AddMeasure(ControlMeasure.Parse(tokens[1]));
+                        break;
+
+                    case "crashed":
+                        Crash();
+                        break;
+
+                    default:
+                        Console.WriteLine($"Unknown command: {commandName}");
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error handling command '{commandName}': {e}");
+                throw;
             }
         }
 

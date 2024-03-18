@@ -27,9 +27,9 @@ namespace ControlCenter
 
         public void printMap()
         {
-            for (int i = 0; i < (int)planetSize.Width; i++)
+            for (int i = 0; i < (int)planetSize.Height; i++)
             {
-                for (int j = 0; j < (int)planetSize.Height; j++)
+                for (int j = 0; j < (int)planetSize.Width; j++)
                 {
                     GroundPrinter.printGround(map[i, j]);
                 }
@@ -40,6 +40,12 @@ namespace ControlCenter
         public void updateMap(int x, int y, Ground ground)
         {
             map[x, y] = ground;
+            printMap();
+        }
+
+        public Ground getGround(int x, int y)
+        {
+            return map[x, y];
         }
     }
 }
