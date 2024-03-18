@@ -15,10 +15,10 @@ namespace ControlCenter
         public PlanetMap(PlanetSize planetSize)
         {
             this.planetSize = planetSize;
-            map = new Ground[(int)planetSize.Height, (int)planetSize.Width];
-            for (int i = 0; i < (int)planetSize.Height; i++)
+            map = new Ground[planetSize.Height, planetSize.Width];
+            for (int i = 0; i < planetSize.Height; i++)
             {
-                for (int j = 0; j < (int)planetSize.Width; j++)
+                for (int j = 0; j < planetSize.Width; j++)
                 {
                     map[i, j] = Ground.NICHTS;
                 }
@@ -27,9 +27,9 @@ namespace ControlCenter
 
         public void printMap()
         {
-            for (int i = 0; i < (int)planetSize.Height; i++)
+            for (int i = 0; i < planetSize.Height; i++)
             {
-                for (int j = 0; j < (int)planetSize.Width; j++)
+                for (int j = 0; j < planetSize.Width; j++)
                 {
                     GroundPrinter.printGround(map[i, j]);
                 }
@@ -39,7 +39,7 @@ namespace ControlCenter
 
         public void updateMap(int x, int y, Ground ground)
         {
-            map[x, y] = ground;
+            map[y, x] = ground;
             printMap();
         }
 
