@@ -1,8 +1,7 @@
 ﻿using System.Text;
 
-namespace RemoteRobot.exo;
+namespace RemoteRobot;
 
-[Serializable]
 public class PlanetSize(int width, int height)
 {
     public int Width { get; } = width;

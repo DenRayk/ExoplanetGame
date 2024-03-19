@@ -1,6 +1,4 @@
-﻿using RemoteRobot.exo;
-
-namespace RemoteRobot
+﻿namespace RemoteRobot
 {
     internal class RemoteRobot
     {

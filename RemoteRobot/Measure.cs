@@ -1,4 +1,4 @@
-﻿namespace RemoteRobot.exo;
+﻿namespace RemoteRobot;
 
 using System;
 using System.Text;
