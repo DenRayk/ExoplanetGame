@@ -74,5 +74,10 @@ namespace ExoplanetGame.RemoteRobot
             Console.WriteLine($"Robot rotated to {Position}");
             controlCenter.UpdateRobotPosition(this, Position);
         }
+
+        public bool HasLanded()
+        {
+            return Position != null;
+        }
     }
 }

@@ -8,17 +8,23 @@ namespace ExoplanetGame.Menus
         public static void Show(RemoteRobot.RemoteRobot robot, ControlCenter.ControlCenter controlCenter)
         {
             bool keepMenuRunning = true;
+            bool hasLanded = robot.HasLanded();
 
             while (keepMenuRunning)
             {
                 Console.WriteLine("Robot Menu");
                 Console.WriteLine("1. Land");
-                Console.WriteLine("2. Position");
-                Console.WriteLine("3. Scan");
-                Console.WriteLine("4. Move");
-                Console.WriteLine("5. Rotate");
-                Console.WriteLine("6. Crash");
-                Console.WriteLine("7. Exit");
+                Console.WriteLine("2. Exit");
+
+                // Display post-landing options only if the robot has landed
+                if (hasLanded)
+                {
+                    Console.WriteLine("3. Position");
+                    Console.WriteLine("4. Scan");
+                    Console.WriteLine("5. Move");
+                    Console.WriteLine("6. Rotate");
+                    Console.WriteLine("7. Crash");
+                }
 
                 int choice;
                 while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 7)
@@ -29,33 +35,76 @@ namespace ExoplanetGame.Menus
                 switch (choice)
                 {
                     case 1:
-                        robot.Land(SelectLandPosition());
+                        if (!hasLanded)
+                        {
+                            robot.Land(SelectLandPosition());
+                            hasLanded = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("The robot has already landed.");
+                        }
                         break;
 
                     case 2:
-                        Console.WriteLine($"Robot is at {robot.Position}");
+                        keepMenuRunning = false;
                         break;
 
                     case 3:
-                        controlCenter.AddMeasure(robot.Scan(), robot.Position);
+                        if (hasLanded)
+                        {
+                            Console.WriteLine($"Robot is at {robot.Position}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("The robot has not yet landed.");
+                        }
                         break;
 
                     case 4:
-                        robot.Move();
+                        if (hasLanded)
+                        {
+                            controlCenter.AddMeasure(robot.Scan(), robot.Position);
+                        }
+                        else
+                        {
+                            Console.WriteLine("The robot has not yet landed.");
+                        }
                         break;
 
                     case 5:
-                        robot.Rotate(SelectRotation());
+                        if (hasLanded)
+                        {
+                            robot.Move();
+                        }
+                        else
+                        {
+                            Console.WriteLine("The robot has not yet landed.");
+                        }
                         break;
 
                     case 6:
-                        robot.Crash();
-                        controlCenter.RemoveRobot(robot);
-                        keepMenuRunning = false;
+                        if (hasLanded)
+                        {
+                            robot.Rotate(SelectRotation());
+                        }
+                        else
+                        {
+                            Console.WriteLine("The robot has not yet landed.");
+                        }
                         break;
 
                     case 7:
-                        keepMenuRunning = false;
+                        if (hasLanded)
+                        {
+                            robot.Crash();
+                            controlCenter.RemoveRobot(robot);
+                            keepMenuRunning = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine("The robot has not yet landed.");
+                        }
                         break;
                 }
             }
