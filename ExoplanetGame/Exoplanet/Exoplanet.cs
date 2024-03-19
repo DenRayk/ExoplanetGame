@@ -48,15 +48,20 @@ namespace ExoplanetGame.Exoplanet
             return planetSize;
         }
 
-        public bool Land(RemoteRobot.RemoteRobot robot, Position landPosition)
+        public void RemoveRobot(RemoteRobot.RemoteRobot remoteRobot)
         {
-            if (!robots.ContainsKey(robot) && CheckPosition(robot, landPosition))
+            robots.Remove(remoteRobot);
+        }
+
+        public bool Land(RemoteRobot.RemoteRobot remoteRobot, Position landPosition)
+        {
+            if (!robots.ContainsKey(remoteRobot) && CheckPosition(remoteRobot, landPosition))
             {
-                robots.Add(robot, landPosition);
+                robots.Add(remoteRobot, landPosition);
 
                 if (landPosition != null) return true;
             }
-            robot.Crash();
+            RemoveRobot(remoteRobot);
             return false;
         }
 
@@ -100,9 +105,9 @@ namespace ExoplanetGame.Exoplanet
             return robots[robot];
         }
 
-        public Position Move(RemoteRobot.RemoteRobot robot)
+        public Position Move(RemoteRobot.RemoteRobot remoteRobot)
         {
-            Position robotPosition = robots[robot];
+            Position robotPosition = robots[remoteRobot];
             Position newPosition = new Position(robotPosition.X, robotPosition.Y, robotPosition.Direction);
 
             switch (robotPosition.Direction)
@@ -124,12 +129,12 @@ namespace ExoplanetGame.Exoplanet
                     break;
             }
 
-            if (CheckPosition(robot, newPosition))
+            if (CheckPosition(remoteRobot, newPosition))
             {
-                robots[robot] = newPosition;
+                robots[remoteRobot] = newPosition;
                 return newPosition;
             }
-            robot.Crash();
+            RemoveRobot(remoteRobot);
             return null;
         }
 

@@ -4,11 +4,11 @@ namespace ExoplanetGame.Models;
 
 public interface IPlanet
 {
-    bool Land(RemoteRobot.RemoteRobot robot, Position landPosition);
+    bool Land(RemoteRobot.RemoteRobot remoteRobot, Position landPosition);
 
     Position GetPosition(RemoteRobot.RemoteRobot robot);
 
-    Position Move(RemoteRobot.RemoteRobot robot);
+    Position Move(RemoteRobot.RemoteRobot remoteRobot);
 
     Direction? Rotate(RemoteRobot.RemoteRobot robot, Rotation rotation);
 

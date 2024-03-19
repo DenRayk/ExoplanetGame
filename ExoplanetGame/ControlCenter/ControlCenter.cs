@@ -30,11 +30,6 @@ public class ControlCenter
         robots[robot] = position;
     }
 
-    public void Crash(RemoteRobot.RemoteRobot robot)
-    {
-        robots.Remove(robot);
-    }
-
     public void UpdatePosition(Position? parse)
     {
     }
@@ -55,5 +50,10 @@ public class ControlCenter
     public RemoteRobot.RemoteRobot GetRobotByID(int robotId)
     {
         return robots.Keys.ElementAt(robotId);
+    }
+
+    public void RemoveRobot(RemoteRobot.RemoteRobot remoteRobot)
+    {
+        robots.Remove(remoteRobot);
     }
 }

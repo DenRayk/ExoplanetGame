@@ -22,7 +22,8 @@ namespace ExoplanetGame.RemoteRobot
 
         public void Crash()
         {
-            throw new NotImplementedException();
+            exoPlanet.RemoveRobot(this);
+            Console.WriteLine("Robot crashed");
         }
 
         public void Land(Position landPosition)

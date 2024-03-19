@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 using ExoplanetGame.Models;
 
-namespace ExoplanetGame.RemoteRobot
+namespace ExoplanetGame.Menus
 {
     public class RobotMenu
     {
-        public static void Show(RemoteRobot robot)
+        public static void Show(RemoteRobot.RemoteRobot robot, ControlCenter.ControlCenter controlCenter)
         {
             bool keepMenuRunning = true;
 
@@ -53,7 +49,9 @@ namespace ExoplanetGame.RemoteRobot
                         break;
 
                     case 6:
-                        Console.WriteLine("Crash selected.");
+                        robot.Crash();
+                        controlCenter.RemoveRobot(robot);
+                        keepMenuRunning = false;
                         break;
 
                     case 7:

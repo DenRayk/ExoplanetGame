@@ -1,20 +1,14 @@
-﻿using ExoplanetGame.ControlCenter;
-
-namespace ExoplanetGame
+﻿namespace ExoplanetGame
 {
     internal class ExoplanetGame
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Exoplanet rising up...");
+            Console.WriteLine("ExoplanetGame starting...");
 
-            Exoplanet.Exoplanet exoPlanet = new();
+            GameServer gameServer = new();
 
-            Console.WriteLine("ControlCenter rising up...");
-
-            ControlServer controlServer = new(exoPlanet);
-
-            controlServer.Start();
+            gameServer.Start();
         }
     }
 }
