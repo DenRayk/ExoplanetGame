@@ -11,10 +11,11 @@ namespace ExoplanetGame.Menus
                 Console.WriteLine("Main Menu");
                 Console.WriteLine("1. Add Robot");
                 Console.WriteLine("2. Select Robot");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("3. Print map");
+                Console.WriteLine("4. Exit");
 
                 int choice;
-                while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 3)
+                while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 4)
                 {
                     Console.WriteLine("Invalid input. Please enter a valid menu option.");
                 }
@@ -30,6 +31,10 @@ namespace ExoplanetGame.Menus
                         break;
 
                     case 3:
+                        controlCenter.PrintMap();
+                        break;
+
+                    case 4:
                         Environment.Exit(0);
                         break;
                 }

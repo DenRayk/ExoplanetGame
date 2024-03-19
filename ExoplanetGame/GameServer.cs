@@ -18,6 +18,7 @@ namespace ExoplanetGame
         {
             exoPlanet = new();
             controlCenter = new ControlCenter.ControlCenter(exoPlanet);
+            controlCenter.Init(exoPlanet.PlanetSize);
         }
 
         public void Start()

@@ -34,6 +34,11 @@ public class ControlCenter
     {
     }
 
+    public void AddMeasure(Measure measure, Position position)
+    {
+        planetMap.updateMap(position, measure.Ground);
+    }
+
     public int GetRobotCount()
     {
         return robots.Count;
@@ -55,5 +60,10 @@ public class ControlCenter
     public void RemoveRobot(RemoteRobot.RemoteRobot remoteRobot)
     {
         robots.Remove(remoteRobot);
+    }
+
+    public void PrintMap()
+    {
+        planetMap.printMap();
     }
 }

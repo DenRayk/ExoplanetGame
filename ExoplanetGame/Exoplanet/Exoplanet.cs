@@ -5,8 +5,8 @@ namespace ExoplanetGame.Exoplanet
 {
     public class Exoplanet : IPlanet
     {
-        private Dictionary<IRobot, Position?> robots = new();
-        private PlanetSize planetSize;
+        private Dictionary<RemoteRobot.RemoteRobot, Position?> robots = new();
+        public PlanetSize PlanetSize { get; set; }
         private Measure[][] topography;
 
         public Exoplanet()
@@ -25,13 +25,13 @@ namespace ExoplanetGame.Exoplanet
 
         private void initfromString(string[] strings)
         {
-            planetSize = new PlanetSize(strings[0].Length, strings.Length);
-            topography = new Measure[planetSize.Height][];
+            PlanetSize = new PlanetSize(strings[0].Length, strings.Length);
+            topography = new Measure[PlanetSize.Height][];
 
-            for (int y = 0; y < planetSize.Height; y++)
+            for (int y = 0; y < PlanetSize.Height; y++)
             {
-                topography[y] = new Measure[planetSize.Width];
-                for (int x = 0; x < planetSize.Width; x++)
+                topography[y] = new Measure[PlanetSize.Width];
+                for (int x = 0; x < PlanetSize.Width; x++)
                 {
                     topography[y][x] = new Measure(groundFromChar(strings[y][x]));
                 }
@@ -41,11 +41,6 @@ namespace ExoplanetGame.Exoplanet
         public int getRobotCount()
         {
             return robots.Count;
-        }
-
-        public PlanetSize getPlanetSize()
-        {
-            return planetSize;
         }
 
         public void RemoveRobot(RemoteRobot.RemoteRobot remoteRobot)
@@ -67,7 +62,7 @@ namespace ExoplanetGame.Exoplanet
 
         private Measure GetMeasure(int x, int y)
         {
-            if (x < 0 || y < 0 || x >= planetSize.Width || y >= planetSize.Height) return new Measure(Ground.NICHTS);
+            if (x < 0 || y < 0 || x >= PlanetSize.Width || y >= PlanetSize.Height) return new Measure(Ground.NICHTS);
 
             Measure m = topography[y][x];
             return new Measure(m.Ground);
@@ -85,7 +80,7 @@ namespace ExoplanetGame.Exoplanet
                 return false;
             }
 
-            foreach (IRobot r in robots.Keys)
+            foreach (RemoteRobot.RemoteRobot r in robots.Keys)
             {
                 if (r != robot && robots[r].Equals(position))
                 {
@@ -97,7 +92,7 @@ namespace ExoplanetGame.Exoplanet
 
         private bool CheckIfPositionInBounds(Position position)
         {
-            return position.X >= 0 && position.X < planetSize.Width && position.Y >= 0 && position.Y < planetSize.Height;
+            return position.X >= 0 && position.X < PlanetSize.Width && position.Y >= 0 && position.Y < PlanetSize.Height;
         }
 
         public Position GetPosition(RemoteRobot.RemoteRobot robot)
@@ -171,11 +166,6 @@ namespace ExoplanetGame.Exoplanet
         public Measure Scan(RemoteRobot.RemoteRobot robot)
         {
             return GetMeasure(robots[robot].X, robots[robot].Y);
-        }
-
-        public PlanetSize GetSize()
-        {
-            throw new NotImplementedException();
         }
 
         public void Remove(RemoteRobot.RemoteRobot robot)

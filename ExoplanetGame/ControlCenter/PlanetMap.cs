@@ -32,10 +32,9 @@ namespace ExoplanetGame.ControlCenter
             }
         }
 
-        public void updateMap(int x, int y, Ground ground)
+        public void updateMap(Position position, Ground ground)
         {
-            map[y, x] = ground;
-            printMap();
+            map[position.Y, position.X] = ground;
         }
 
         public Ground getGround(int x, int y)

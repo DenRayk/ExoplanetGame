@@ -45,5 +45,12 @@ namespace ExoplanetGame.RemoteRobot
         {
             throw new NotImplementedException();
         }
+
+        public Measure Scan()
+        {
+            Measure measure = exoPlanet.Scan(this);
+            Console.WriteLine($"Scanned {measure.Ground}");
+            return measure;
+        }
     }
 }

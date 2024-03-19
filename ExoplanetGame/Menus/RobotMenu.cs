@@ -37,7 +37,7 @@ namespace ExoplanetGame.Menus
                         break;
 
                     case 3:
-                        Console.WriteLine("Scan selected.");
+                        controlCenter.AddMeasure(robot.Scan(), robot.Position);
                         break;
 
                     case 4:

@@ -14,7 +14,5 @@ public interface IPlanet
 
     Measure Scan(RemoteRobot.RemoteRobot robot);
 
-    PlanetSize GetSize();
-
     void Remove(RemoteRobot.RemoteRobot robot);
 }
