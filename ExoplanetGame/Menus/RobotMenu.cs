@@ -41,7 +41,7 @@ namespace ExoplanetGame.Menus
                         break;
 
                     case 4:
-                        Console.WriteLine("Move selected.");
+                        robot.Move();
                         break;
 
                     case 5:

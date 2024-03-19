@@ -30,7 +30,8 @@ namespace ExoplanetGame
         {
             if (robotCount < maxRobots)
             {
-                controlCenter.AddRobot(new RemoteRobot.RemoteRobot(exoPlanet, controlCenter.GetRobotCount()));
+                int robotID = controlCenter.GetRobotCount();
+                controlCenter.AddRobot(new RemoteRobot.RemoteRobot(controlCenter, exoPlanet, robotID));
                 robotCount++;
                 Console.WriteLine("Robot added successfully.");
             }

@@ -27,6 +27,11 @@ namespace ExoplanetGame.Menus
                         break;
 
                     case 2:
+                        if (controlCenter.GetRobotCount() == 0)
+                        {
+                            Console.WriteLine("No robots to control.");
+                            break;
+                        }
                         SelectRobot(gameServer, controlCenter);
                         break;
 

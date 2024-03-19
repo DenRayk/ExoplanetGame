@@ -14,9 +14,11 @@ namespace ExoplanetGame.RemoteRobot
         public Position Position { get; set; }
 
         private Exoplanet.Exoplanet exoPlanet;
+        private ControlCenter.ControlCenter controlCenter;
 
-        public RemoteRobot(Exoplanet.Exoplanet exoPlanet, int robotId)
+        public RemoteRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
         {
+            this.controlCenter = controlCenter;
             this.exoPlanet = exoPlanet;
             RobotID = robotId;
         }
@@ -51,6 +53,24 @@ namespace ExoplanetGame.RemoteRobot
             Measure measure = exoPlanet.Scan(this);
             Console.WriteLine($"Scanned {measure.Ground}");
             return measure;
+        }
+
+        public Position Move()
+        {
+            Position newPosition = exoPlanet.Move(this);
+            if (newPosition != null)
+            {
+                Console.WriteLine($"Robot moved to {newPosition}");
+                Position = newPosition;
+                controlCenter.UpdateRobotPosition(this, newPosition);
+            }
+            else
+            {
+                Console.WriteLine("Robot crashed");
+                controlCenter.RemoveRobot(this);
+            }
+
+            return newPosition;
         }
     }
 }
