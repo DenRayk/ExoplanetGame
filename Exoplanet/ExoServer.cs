@@ -26,7 +26,7 @@ namespace Exoplanet
                 if (exoPlanet.getRobotCount() < maxRobots)
                 {
                     TcpClient client = AcceptTcpClient();
-                    Console.WriteLine("Robot connected.");
+                    Console.WriteLine("IRobot connected.");
                     ExoProxy robotProxy = new(client, exoPlanet);
                 }
                 else

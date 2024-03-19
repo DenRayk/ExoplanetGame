@@ -3,7 +3,6 @@
 using System;
 using System.Text;
 
-[Serializable]
 public class Measure
 {
     public Ground Ground { get; set; }

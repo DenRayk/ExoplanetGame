@@ -9,7 +9,7 @@ namespace Exoplanet
 {
     internal class Exoplanet : Planet
     {
-        private Dictionary<Robot, Position?> robots = new();
+        private Dictionary<IRobot, Position?> robots = new();
         private PlanetSize planetSize;
         private Measure[][] topography;
 
@@ -52,7 +52,7 @@ namespace Exoplanet
             return planetSize;
         }
 
-        public Measure Land(Robot robot, Position? landPosition)
+        public Measure Land(IRobot robot, Position? landPosition)
         {
             if (!robots.ContainsKey(robot) && CheckPosition(robot, landPosition))
             {
@@ -72,7 +72,7 @@ namespace Exoplanet
             return new Measure(m.Ground);
         }
 
-        private bool CheckPosition(Robot robot, Position position)
+        private bool CheckPosition(IRobot robot, Position position)
         {
             if (!CheckIfPositionInBounds(position))
             {
@@ -84,7 +84,7 @@ namespace Exoplanet
                 return false;
             }
 
-            foreach (Robot r in robots.Keys)
+            foreach (IRobot r in robots.Keys)
             {
                 if (r != robot && robots[r].Equals(position))
                 {
@@ -99,12 +99,12 @@ namespace Exoplanet
             return position.X >= 0 && position.X < planetSize.Width && position.Y >= 0 && position.Y < planetSize.Height;
         }
 
-        public Position GetPosition(Robot robot)
+        public Position GetPosition(IRobot robot)
         {
             return robots[robot];
         }
 
-        public Position Move(Robot robot)
+        public Position Move(IRobot robot)
         {
             Position robotPosition = robots[robot];
             Position newPosition = new Position(robotPosition.X, robotPosition.Y, robotPosition.Direction);
@@ -137,7 +137,7 @@ namespace Exoplanet
             return null;
         }
 
-        public Direction? Rotate(Robot robot, Rotation rotation)
+        public Direction? Rotate(IRobot robot, Rotation rotation)
         {
             Position robotPosition = robots[robot];
 
@@ -167,7 +167,7 @@ namespace Exoplanet
             return robotPosition.Direction;
         }
 
-        public Measure Scan(Robot robot)
+        public Measure Scan(IRobot robot)
         {
             return GetMeasure(robots[robot].X, robots[robot].Y);
         }
@@ -177,7 +177,7 @@ namespace Exoplanet
             throw new NotImplementedException();
         }
 
-        public void Remove(Robot robot)
+        public void Remove(IRobot robot)
         {
             Console.WriteLine($"Remove: {robot.GetLanderName()}");
             robots.Remove(robot);

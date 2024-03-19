@@ -4,7 +4,7 @@ using Exoplanet.exo;
 
 namespace Exoplanet
 {
-    internal class ExoProxy : Robot
+    internal class ExoProxy : IRobot
     {
         private static int nextRobotID = 1;
 
@@ -132,7 +132,7 @@ namespace Exoplanet
 
         public string GetLanderName()
         {
-            return $"Robot {robotID}";
+            return $"IRobot {robotID}";
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Exoplanet.exo;
 
-public interface Robot
+public interface IRobot
 {
     void Crash();
 

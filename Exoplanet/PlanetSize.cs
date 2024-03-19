@@ -2,7 +2,6 @@
 
 namespace Exoplanet.exo;
 
-[Serializable]
 public class PlanetSize(int width, int height)
 {
     public int Width { get; } = width;
