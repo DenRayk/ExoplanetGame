@@ -1,5 +1,4 @@
-﻿using Exoplanet.exo;
-using ExoplanetGame.Models;
+﻿using ExoplanetGame.Models;
 
 namespace ExoplanetGame.RemoteRobot
 {
@@ -40,7 +39,7 @@ namespace ExoplanetGame.RemoteRobot
 
         public string GetLanderName()
         {
-            throw new NotImplementedException();
+            return $"RemoteRobot {RobotID}";
         }
 
         public Measure Scan()

@@ -17,6 +17,8 @@ public class ControlCenter
     public void Init(PlanetSize planetSize)
     {
         planetMap = new PlanetMap(planetSize);
+        Console.WriteLine("Control center initialized.");
+        Console.WriteLine("Planet size: " + planetSize);
     }
 
     public void AddRobot(RemoteRobot.RemoteRobot robot)

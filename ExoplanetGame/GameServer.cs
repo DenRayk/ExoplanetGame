@@ -5,7 +5,7 @@ namespace ExoplanetGame
     internal class GameServer
     {
         private readonly int maxRobots = 5;
-        private int robotCount = 0;
+        private int robotCount;
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
 

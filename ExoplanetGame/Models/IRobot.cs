@@ -1,7 +1,5 @@
 ﻿using ExoplanetGame.Models;
 
-namespace Exoplanet.exo;
-
 public interface IRobot
 {
     public int RobotID { get; set; }
@@ -9,6 +7,12 @@ public interface IRobot
     void Crash();
 
     void Land(Position landPosition);
+
+    Measure Scan();
+
+    Position Move();
+
+    void Rotate(Rotation rotation);
 
     string GetLanderName();
 }
