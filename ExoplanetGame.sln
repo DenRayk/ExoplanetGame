@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteRobot", "RemoteRobot\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlCenter", "ControlCenter\ControlCenter.csproj", "{FA8E114D-C569-4E5D-A5B7-45F83EF15FF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoplanetGameTest", "ExoplanetTest\ExoplanetGameTest.csproj", "{9A3ED2BA-239C-46A0-8871-B0591DB98675}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExoplanetGameTest", "ExoplanetTest\ExoplanetGameTest.csproj", "{9A3ED2BA-239C-46A0-8871-B0591DB98675}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoplanetGame", "ExoplanetGame\ExoplanetGame.csproj", "{68AD0082-1F8D-4B94-8DFE-F5B805B2FC17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9A3ED2BA-239C-46A0-8871-B0591DB98675}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A3ED2BA-239C-46A0-8871-B0591DB98675}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A3ED2BA-239C-46A0-8871-B0591DB98675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68AD0082-1F8D-4B94-8DFE-F5B805B2FC17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68AD0082-1F8D-4B94-8DFE-F5B805B2FC17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68AD0082-1F8D-4B94-8DFE-F5B805B2FC17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68AD0082-1F8D-4B94-8DFE-F5B805B2FC17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
