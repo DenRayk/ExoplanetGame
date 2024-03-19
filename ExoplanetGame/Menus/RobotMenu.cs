@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using ExoplanetGame.Models;
+﻿using ExoplanetGame.Models;
 
 namespace ExoplanetGame.Menus
 {

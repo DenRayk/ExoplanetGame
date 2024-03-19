@@ -1,5 +1,4 @@
-﻿using Exoplanet.exo;
-using ExoplanetGame.Models;
+﻿using ExoplanetGame.Models;
 
 namespace ExoplanetGame.Exoplanet
 {

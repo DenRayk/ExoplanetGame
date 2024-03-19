@@ -1,6 +1,4 @@
-﻿using Exoplanet.exo;
-
-namespace ExoplanetGame.Models;
+﻿namespace ExoplanetGame.Models;
 
 public interface IPlanet
 {

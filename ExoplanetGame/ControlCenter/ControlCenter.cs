@@ -1,5 +1,4 @@
-﻿using Exoplanet.exo;
-using ExoplanetGame.Models;
+﻿using ExoplanetGame.Models;
 
 namespace ExoplanetGame.ControlCenter;
 
@@ -28,10 +27,6 @@ public class ControlCenter
     public void UpdateRobotPosition(RemoteRobot.RemoteRobot robot, Position position)
     {
         robots[robot] = position;
-    }
-
-    public void UpdatePosition(Position? parse)
-    {
     }
 
     public void AddMeasure(Measure measure, Position position)

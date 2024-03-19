@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ExoplanetGame.Menus
+﻿namespace ExoplanetGame.Menus
 {
     internal class MainMenu
     {
