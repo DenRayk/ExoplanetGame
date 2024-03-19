@@ -1,8 +1,7 @@
 ﻿using System.Text;
 
-namespace ControlCenter.exo;
+namespace ControlCenter;
 
-[Serializable]
 public class Position
 {
     public int X { get; set; }
@@ -32,7 +31,7 @@ public class Position
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
+        if (obj.GetType() != GetType()) return false;
         return Equals((Position)obj);
     }
 

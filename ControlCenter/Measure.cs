@@ -1,4 +1,4 @@
-﻿namespace ControlCenter.exo;
+﻿namespace ControlCenter;
 
 using System;
 using System.Text;

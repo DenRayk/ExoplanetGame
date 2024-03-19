@@ -1,4 +1,4 @@
-﻿namespace ControlCenter.exo;
+﻿namespace ControlCenter;
 
 public enum Rotation
 {

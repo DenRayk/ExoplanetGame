@@ -1,6 +1,5 @@
 ﻿using System.Net.Sockets;
 using System.Text;
-using ControlCenter.exo;
 
 namespace ControlCenter
 {
@@ -65,6 +64,10 @@ namespace ControlCenter
 
                     case "NewScan":
                         controlCenter.AddMeasure(ControlMeasure.Parse(tokens[1]));
+                        break;
+
+                    case "UpdatePosition":
+                        controlCenter.UpdatePosition(Position.Parse(tokens[1]));
                         break;
 
                     case "crashed":

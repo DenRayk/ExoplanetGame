@@ -1,6 +1,4 @@
-﻿using ControlCenter.exo;
-
-namespace ControlCenter;
+﻿namespace ControlCenter;
 
 public class ControlCenter
 {
@@ -35,5 +33,9 @@ public class ControlCenter
     public void AddMeasure(ControlMeasure measure)
     {
         planetMap.updateMap(measure.position.X, measure.position.Y, measure.Ground);
+    }
+
+    public void UpdatePosition(Position? parse)
+    {
     }
 }
