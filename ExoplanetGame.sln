@@ -3,13 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exoplanet", "Exoplanet\Exoplanet.csproj", "{96E103F9-42EB-4F38-932E-27F783CC34C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExoplanetGameTest", "ExoplanetTest\ExoplanetGameTest.csproj", "{9A3ED2BA-239C-46A0-8871-B0591DB98675}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteRobot", "RemoteRobot\RemoteRobot.csproj", "{A02C620C-8CDC-466F-A17F-BA386014438C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlCenter", "ControlCenter\ControlCenter.csproj", "{FA8E114D-C569-4E5D-A5B7-45F83EF15FF8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoplanetGameTest", "ExoplanetTest\ExoplanetGameTest.csproj", "{9A3ED2BA-239C-46A0-8871-B0591DB98675}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoplanetGame", "ExoplanetGame\ExoplanetGame.csproj", "{68AD0082-1F8D-4B94-8DFE-F5B805B2FC17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{96E103F9-42EB-4F38-932E-27F783CC34C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96E103F9-42EB-4F38-932E-27F783CC34C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96E103F9-42EB-4F38-932E-27F783CC34C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96E103F9-42EB-4F38-932E-27F783CC34C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A02C620C-8CDC-466F-A17F-BA386014438C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A02C620C-8CDC-466F-A17F-BA386014438C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A02C620C-8CDC-466F-A17F-BA386014438C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A02C620C-8CDC-466F-A17F-BA386014438C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA8E114D-C569-4E5D-A5B7-45F83EF15FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA8E114D-C569-4E5D-A5B7-45F83EF15FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA8E114D-C569-4E5D-A5B7-45F83EF15FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA8E114D-C569-4E5D-A5B7-45F83EF15FF8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A3ED2BA-239C-46A0-8871-B0591DB98675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A3ED2BA-239C-46A0-8871-B0591DB98675}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A3ED2BA-239C-46A0-8871-B0591DB98675}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A3ED2BA-239C-46A0-8871-B0591DB98675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68AD0082-1F8D-4B94-8DFE-F5B805B2FC17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68AD0082-1F8D-4B94-8DFE-F5B805B2FC17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68AD0082-1F8D-4B94-8DFE-F5B805B2FC17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68AD0082-1F8D-4B94-8DFE-F5B805B2FC17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
