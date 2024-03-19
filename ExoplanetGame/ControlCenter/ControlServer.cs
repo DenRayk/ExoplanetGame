@@ -16,7 +16,7 @@ namespace ExoplanetGame.ControlCenter
 
         public ControlServer(Exoplanet.Exoplanet exoPlanet)
         {
-            exoPlanet = exoPlanet;
+            this.exoPlanet = exoPlanet;
             controlCenter = new ControlCenter(exoPlanet);
         }
 
@@ -29,7 +29,7 @@ namespace ExoplanetGame.ControlCenter
         {
             if (robotCount < maxRobots)
             {
-                controlCenter.AddRobot(new RemoteRobot.RemoteRobot());
+                controlCenter.AddRobot(new RemoteRobot.RemoteRobot(exoPlanet, controlCenter.GetRobotCount()));
                 robotCount++;
                 Console.WriteLine("Robot added successfully.");
             }

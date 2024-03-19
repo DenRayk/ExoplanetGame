@@ -48,16 +48,16 @@ namespace ExoplanetGame.Exoplanet
             return planetSize;
         }
 
-        public Measure Land(IRobot robot, Position landPosition)
+        public bool Land(RemoteRobot.RemoteRobot robot, Position landPosition)
         {
             if (!robots.ContainsKey(robot) && CheckPosition(robot, landPosition))
             {
                 robots.Add(robot, landPosition);
 
-                if (landPosition != null) return GetMeasure(landPosition.X, landPosition.Y);
+                if (landPosition != null) return true;
             }
             robot.Crash();
-            return null;
+            return false;
         }
 
         private Measure GetMeasure(int x, int y)
@@ -68,7 +68,7 @@ namespace ExoplanetGame.Exoplanet
             return new Measure(m.Ground);
         }
 
-        private bool CheckPosition(IRobot robot, Position position)
+        private bool CheckPosition(RemoteRobot.RemoteRobot robot, Position position)
         {
             if (!CheckIfPositionInBounds(position))
             {
@@ -95,12 +95,12 @@ namespace ExoplanetGame.Exoplanet
             return position.X >= 0 && position.X < planetSize.Width && position.Y >= 0 && position.Y < planetSize.Height;
         }
 
-        public Position GetPosition(IRobot robot)
+        public Position GetPosition(RemoteRobot.RemoteRobot robot)
         {
             return robots[robot];
         }
 
-        public Position Move(IRobot robot)
+        public Position Move(RemoteRobot.RemoteRobot robot)
         {
             Position robotPosition = robots[robot];
             Position newPosition = new Position(robotPosition.X, robotPosition.Y, robotPosition.Direction);
@@ -133,7 +133,7 @@ namespace ExoplanetGame.Exoplanet
             return null;
         }
 
-        public Direction? Rotate(IRobot robot, Rotation rotation)
+        public Direction? Rotate(RemoteRobot.RemoteRobot robot, Rotation rotation)
         {
             Position robotPosition = robots[robot];
 
@@ -163,7 +163,7 @@ namespace ExoplanetGame.Exoplanet
             return robotPosition.Direction;
         }
 
-        public Measure Scan(IRobot robot)
+        public Measure Scan(RemoteRobot.RemoteRobot robot)
         {
             return GetMeasure(robots[robot].X, robots[robot].Y);
         }
@@ -173,7 +173,7 @@ namespace ExoplanetGame.Exoplanet
             throw new NotImplementedException();
         }
 
-        public void Remove(IRobot robot)
+        public void Remove(RemoteRobot.RemoteRobot robot)
         {
             Console.WriteLine($"Remove: {robot.GetLanderName()}");
             robots.Remove(robot);

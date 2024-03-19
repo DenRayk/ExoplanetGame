@@ -4,17 +4,17 @@ namespace ExoplanetGame.Models;
 
 public interface IPlanet
 {
-    Measure Land(IRobot robot, Position landPosition);
+    bool Land(RemoteRobot.RemoteRobot robot, Position landPosition);
 
-    Position GetPosition(IRobot robot);
+    Position GetPosition(RemoteRobot.RemoteRobot robot);
 
-    Position Move(IRobot robot);
+    Position Move(RemoteRobot.RemoteRobot robot);
 
-    Direction? Rotate(IRobot robot, Rotation rotation);
+    Direction? Rotate(RemoteRobot.RemoteRobot robot, Rotation rotation);
 
-    Measure Scan(IRobot robot);
+    Measure Scan(RemoteRobot.RemoteRobot robot);
 
     PlanetSize GetSize();
 
-    void Remove(IRobot robot);
+    void Remove(RemoteRobot.RemoteRobot robot);
 }

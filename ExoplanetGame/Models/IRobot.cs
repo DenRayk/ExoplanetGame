@@ -8,5 +8,7 @@ public interface IRobot
 
     void Crash();
 
+    void Land(Position landPosition);
+
     string GetLanderName();
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Models;
 
 namespace ExoplanetGame.RemoteRobot
 {
@@ -32,7 +33,7 @@ namespace ExoplanetGame.RemoteRobot
                 switch (choice)
                 {
                     case 1:
-                        Console.WriteLine("Land selected.");
+                        robot.Land(SelectLandPosition());
                         break;
 
                     case 2:
@@ -60,6 +61,25 @@ namespace ExoplanetGame.RemoteRobot
                         break;
                 }
             }
+        }
+
+        private static Position SelectLandPosition()
+        {
+            Console.WriteLine("Enter the X coordinate:");
+            int x;
+            while (!int.TryParse(Console.ReadLine(), out x))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
+
+            Console.WriteLine("Enter the Y coordinate:");
+            int y;
+            while (!int.TryParse(Console.ReadLine(), out y))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
+
+            return new Position(x, y);
         }
     }
 }
