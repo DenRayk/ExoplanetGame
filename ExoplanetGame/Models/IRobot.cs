@@ -4,7 +4,7 @@ namespace Exoplanet.exo;
 
 public interface IRobot
 {
-    public int robotID { get; set; }
+    public int RobotID { get; set; }
 
     void Crash();
 

@@ -33,7 +33,7 @@ namespace ExoplanetGame.Menus
                         break;
 
                     case 2:
-                        Console.WriteLine("Position selected.");
+                        Console.WriteLine($"Robot is at {robot.Position}");
                         break;
 
                     case 3:

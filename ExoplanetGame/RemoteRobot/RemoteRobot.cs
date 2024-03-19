@@ -10,14 +10,15 @@ namespace ExoplanetGame.RemoteRobot
 {
     public class RemoteRobot : IRobot
     {
-        public int robotID { get; set; }
+        public int RobotID { get; set; }
+        public Position Position { get; set; }
 
         private Exoplanet.Exoplanet exoPlanet;
 
         public RemoteRobot(Exoplanet.Exoplanet exoPlanet, int robotId)
         {
             this.exoPlanet = exoPlanet;
-            robotID = robotId;
+            RobotID = robotId;
         }
 
         public void Crash()
@@ -32,6 +33,7 @@ namespace ExoplanetGame.RemoteRobot
             if (landed)
             {
                 Console.WriteLine($"Robot landed on {landPosition}");
+                Position = landPosition;
             }
             else
             {
