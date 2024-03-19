@@ -1,9 +1,9 @@
 ﻿using Exoplanet.exo;
-using Exoplanet.Models;
+using ExoplanetGame.Models;
 
-namespace ExoplanetGame
+namespace ExoplanetGame.Exoplanet
 {
-    internal class Exoplanet : IPlanet
+    public class Exoplanet : IPlanet
     {
         private Dictionary<IRobot, Position?> robots = new();
         private PlanetSize planetSize;

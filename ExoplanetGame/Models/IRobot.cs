@@ -1,9 +1,10 @@
-﻿namespace Exoplanet.exo;
+﻿using ExoplanetGame.Models;
+
+namespace Exoplanet.exo;
 
 public interface IRobot
 {
-    public int robotID { get; }
-    public Position position { get; set; }
+    public int robotID { get; set; }
 
     void Crash();
 
