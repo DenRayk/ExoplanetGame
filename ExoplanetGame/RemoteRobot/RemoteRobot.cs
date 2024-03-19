@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exoplanet.exo;
+﻿using Exoplanet.exo;
 using ExoplanetGame.Models;
 
 namespace ExoplanetGame.RemoteRobot
@@ -71,6 +66,13 @@ namespace ExoplanetGame.RemoteRobot
             }
 
             return newPosition;
+        }
+
+        public void Rotate(Rotation rotation)
+        {
+            Position.Direction = exoPlanet.Rotate(this, rotation);
+            Console.WriteLine($"Robot rotated to {Position}");
+            controlCenter.UpdateRobotPosition(this, Position);
         }
     }
 }

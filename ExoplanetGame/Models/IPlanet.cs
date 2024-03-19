@@ -10,7 +10,7 @@ public interface IPlanet
 
     Position Move(RemoteRobot.RemoteRobot remoteRobot);
 
-    Direction? Rotate(RemoteRobot.RemoteRobot robot, Rotation rotation);
+    Direction Rotate(RemoteRobot.RemoteRobot robot, Rotation rotation);
 
     Measure Scan(RemoteRobot.RemoteRobot robot);
 

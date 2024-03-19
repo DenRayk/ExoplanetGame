@@ -45,7 +45,7 @@ namespace ExoplanetGame.Menus
                         break;
 
                     case 5:
-                        Console.WriteLine("Rotate selected.");
+                        robot.Rotate(SelectRotation());
                         break;
 
                     case 6:
@@ -59,6 +59,21 @@ namespace ExoplanetGame.Menus
                         break;
                 }
             }
+        }
+
+        private static Rotation SelectRotation()
+        {
+            Console.WriteLine("Enter the rotation:");
+            Console.WriteLine("1. Left");
+            Console.WriteLine("2. Right");
+
+            int rotation;
+            while (!int.TryParse(Console.ReadLine(), out rotation) || rotation < 1 || rotation > 2)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid rotation.");
+            }
+
+            return rotation == 1 ? Rotation.LEFT : Rotation.RIGHT;
         }
 
         private static Position SelectLandPosition()

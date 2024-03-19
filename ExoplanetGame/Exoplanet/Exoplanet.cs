@@ -133,7 +133,7 @@ namespace ExoplanetGame.Exoplanet
             return null;
         }
 
-        public Direction? Rotate(RemoteRobot.RemoteRobot robot, Rotation rotation)
+        public Direction Rotate(RemoteRobot.RemoteRobot robot, Rotation rotation)
         {
             Position robotPosition = robots[robot];
 
