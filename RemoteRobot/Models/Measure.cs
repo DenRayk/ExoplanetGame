@@ -1,4 +1,6 @@
-﻿namespace RemoteRobot;
+﻿using RemoteRobot.Models;
+
+namespace RemoteRobot;
 
 using System;
 using System.Text;

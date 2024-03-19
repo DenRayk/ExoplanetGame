@@ -1,4 +1,6 @@
-﻿namespace ControlCenter
+﻿using ControlCenter.Models;
+
+namespace ControlCenter
 {
     internal class PlanetMap
     {

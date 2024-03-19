@@ -1,4 +1,4 @@
-﻿namespace ControlCenter
+﻿namespace Exoplanet.Models
 {
     public enum Direction
     {

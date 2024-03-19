@@ -1,13 +1,19 @@
 ﻿using System.Text;
 
-namespace Exoplanet.exo;
+namespace RemoteRobot.Models;
 
-[Serializable]
 public class Position
 {
     public int X { get; set; }
     public int Y { get; set; }
     public Direction Direction { get; set; }
+
+    public Position()
+    {
+        X = 0;
+        Y = 0;
+        Direction = Direction.NORTH;
+    }
 
     public Position(int x, int y)
     {
@@ -32,7 +38,7 @@ public class Position
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
+        if (obj.GetType() != GetType()) return false;
         return Equals((Position)obj);
     }
 

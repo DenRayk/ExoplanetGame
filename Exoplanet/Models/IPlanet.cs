@@ -1,6 +1,8 @@
-﻿namespace Exoplanet.exo;
+﻿using Exoplanet.exo;
 
-public interface Planet
+namespace Exoplanet.Models;
+
+public interface IPlanet
 {
     Measure Land(IRobot robot, Position landPosition);
 

@@ -1,6 +1,7 @@
 ﻿using System.Net.Sockets;
 using System.Text;
 using Exoplanet.exo;
+using Exoplanet.Models;
 
 namespace Exoplanet
 {

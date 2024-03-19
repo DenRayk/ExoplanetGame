@@ -1,4 +1,4 @@
-﻿namespace ControlCenter;
+﻿namespace ControlCenter.Models;
 
 using System;
 using System.Text;

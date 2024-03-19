@@ -1,4 +1,4 @@
-﻿namespace ControlCenter;
+﻿namespace RemoteRobot.Models;
 
 public enum Rotation
 {

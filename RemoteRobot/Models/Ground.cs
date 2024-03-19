@@ -1,4 +1,4 @@
-﻿namespace RemoteRobot;
+﻿namespace RemoteRobot.Models;
 
 public enum Ground
 {

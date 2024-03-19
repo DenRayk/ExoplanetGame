@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RemoteRobot.Models;
 
 namespace RemoteRobot
 {
@@ -17,7 +18,6 @@ namespace RemoteRobot
         private static Measure lastMeasure = new();
         private static PlanetSize currentPlanetSize = new();
         private static Position currentPosition = new();
-
 
         //TODO: Implement Constructor for RemoteRobotClient --> Call in main
 

@@ -1,19 +1,12 @@
 ﻿using System.Text;
 
-namespace RemoteRobot;
+namespace ControlCenter.Models;
 
 public class Position
 {
     public int X { get; set; }
     public int Y { get; set; }
     public Direction Direction { get; set; }
-
-    public Position()
-    {
-        X = 0;
-        Y = 0;
-        Direction = Direction.NORTH;
-    }
 
     public Position(int x, int y)
     {

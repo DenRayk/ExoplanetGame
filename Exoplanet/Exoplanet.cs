@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Exoplanet.exo;
+using Exoplanet.Models;
 
 namespace Exoplanet
 {
-    internal class Exoplanet : Planet
+    internal class Exoplanet : IPlanet
     {
         private Dictionary<IRobot, Position?> robots = new();
         private PlanetSize planetSize;
