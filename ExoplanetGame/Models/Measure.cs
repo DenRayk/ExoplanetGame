@@ -1,4 +1,4 @@
-﻿namespace Exoplanet.exo;
+﻿namespace ExoplanetGame.Models;
 
 using System;
 using System.Text;

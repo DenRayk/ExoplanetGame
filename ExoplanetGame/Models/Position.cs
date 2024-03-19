@@ -1,7 +1,6 @@
 ﻿using System.Text;
-using Exoplanet.Models;
 
-namespace Exoplanet.exo;
+namespace ExoplanetGame.Models;
 
 [Serializable]
 public class Position
