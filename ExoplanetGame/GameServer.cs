@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Menus;
+using ExoplanetGame.RemoteRobot;
 
 namespace ExoplanetGame
 {
@@ -8,12 +9,14 @@ namespace ExoplanetGame
         private int robotCount;
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
+        private IRobotFactory robotFactory;
 
         public GameServer()
         {
             exoPlanet = new();
             controlCenter = new ControlCenter.ControlCenter(exoPlanet);
             controlCenter.Init(exoPlanet.PlanetSize);
+            robotFactory = new RobotFactory();
         }
 
         public void Start()
@@ -26,7 +29,10 @@ namespace ExoplanetGame
             if (robotCount < maxRobots)
             {
                 int robotID = controlCenter.GetRobotCount();
-                controlCenter.AddRobot(new RemoteRobot.RemoteRobot(controlCenter, exoPlanet, robotID));
+
+                RobotBase robotBase = robotFactory.CreateRobot(controlCenter, exoPlanet, robotID);
+
+                controlCenter.AddRobot(robotBase);
                 robotCount++;
                 Console.WriteLine("Robot added successfully.");
             }

@@ -4,7 +4,7 @@ namespace ExoplanetGame.Menus
 {
     public class RobotMenu
     {
-        public static void Show(RemoteRobot.RemoteRobot robot, ControlCenter.ControlCenter controlCenter)
+        public static void Show(RobotBase robot, ControlCenter.ControlCenter controlCenter)
         {
             bool keepMenuRunning = true;
             bool hasLanded = robot.HasLanded();

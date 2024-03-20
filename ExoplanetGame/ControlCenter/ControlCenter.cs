@@ -5,12 +5,12 @@ namespace ExoplanetGame.ControlCenter;
 public class ControlCenter
 {
     private PlanetMap planetMap;
-    private Dictionary<RemoteRobot.RemoteRobot, Position> robots;
+    private Dictionary<RobotBase, Position> robots;
     public Exoplanet.Exoplanet exoPlanet;
 
     public ControlCenter(Exoplanet.Exoplanet exoPlanet)
     {
-        robots = new Dictionary<RemoteRobot.RemoteRobot, Position>();
+        robots = new Dictionary<RobotBase, Position>();
         this.exoPlanet = exoPlanet;
     }
 
@@ -21,9 +21,9 @@ public class ControlCenter
         Console.WriteLine("Planet size: " + planetSize);
     }
 
-    public void AddRobot(RemoteRobot.RemoteRobot robot)
+    public void AddRobot(RobotBase robotBase)
     {
-        robots.Add(robot, new Position(0, 0));
+        robots.Add(robotBase, new Position(0, 0));
     }
 
     public void UpdateRobotPosition(RemoteRobot.RemoteRobot robot, Position position)
@@ -49,12 +49,12 @@ public class ControlCenter
         }
     }
 
-    public RemoteRobot.RemoteRobot GetRobotByID(int robotId)
+    public RobotBase GetRobotByID(int robotId)
     {
         return robots.Keys.ElementAt(robotId);
     }
 
-    public void RemoveRobot(RemoteRobot.RemoteRobot remoteRobot)
+    public void RemoveRobot(RobotBase remoteRobot)
     {
         robots.Remove(remoteRobot);
     }

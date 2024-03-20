@@ -2,13 +2,13 @@
 
 namespace ExoplanetGame.RemoteRobot
 {
-    public class RemoteRobot : IRobot
+    public class RemoteRobot : RobotBase
     {
-        public int RobotID { get; set; }
-        public Position Position { get; set; }
-
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
+
+        public override int RobotID { get; set; }
+        public override Position Position { get; set; }
 
         public RemoteRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
         {
@@ -17,13 +17,13 @@ namespace ExoplanetGame.RemoteRobot
             RobotID = robotId;
         }
 
-        public void Crash()
+        public override void Crash()
         {
             exoPlanet.RemoveRobot(this);
             Console.WriteLine("Robot crashed");
         }
 
-        public void Land(Position landPosition)
+        public override void Land(Position landPosition)
         {
             bool landed = exoPlanet.Land(this, landPosition);
             if (landed)
@@ -37,19 +37,19 @@ namespace ExoplanetGame.RemoteRobot
             }
         }
 
-        public string GetLanderName()
+        public override string GetLanderName()
         {
             return $"RemoteRobot {RobotID}";
         }
 
-        public Measure Scan()
+        public override Measure Scan()
         {
             Measure measure = exoPlanet.Scan(this);
             Console.WriteLine($"Scanned {measure.Ground}");
             return measure;
         }
 
-        public Position Move()
+        public override Position Move()
         {
             Position newPosition = exoPlanet.Move(this);
             if (newPosition != null)
@@ -67,14 +67,14 @@ namespace ExoplanetGame.RemoteRobot
             return newPosition;
         }
 
-        public void Rotate(Rotation rotation)
+        public override void Rotate(Rotation rotation)
         {
             Position.Direction = exoPlanet.Rotate(this, rotation);
             Console.WriteLine($"Robot rotated to {Position}");
             controlCenter.UpdateRobotPosition(this, Position);
         }
 
-        public bool HasLanded()
+        public override bool HasLanded()
         {
             return Position != null;
         }

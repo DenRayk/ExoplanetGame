@@ -46,13 +46,13 @@
 
         public static void SelectRobot(GameServer gameServer, ControlCenter.ControlCenter controlCenter)
         {
-            Console.WriteLine("Select a robot to control:");
+            Console.WriteLine("Select a robotBase to control:");
             controlCenter.DisplayRobots();
 
             int choice;
             while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > controlCenter.GetRobotCount())
             {
-                Console.WriteLine("Invalid input. Please enter a valid robot number.");
+                Console.WriteLine("Invalid input. Please enter a valid robotBase number.");
             }
 
             gameServer.ControlRobot(choice - 1);
