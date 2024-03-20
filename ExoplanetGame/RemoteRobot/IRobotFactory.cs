@@ -2,5 +2,5 @@
 
 public interface IRobotFactory
 {
-    RobotBase CreateRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID);
+    RobotBase CreateRemoteRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID);
 }

@@ -30,7 +30,7 @@ namespace ExoplanetGame
             {
                 int robotID = controlCenter.GetRobotCount();
 
-                RobotBase robotBase = robotFactory.CreateRobot(controlCenter, exoPlanet, robotID);
+                RobotBase robotBase = robotFactory.CreateRemoteRobot(controlCenter, exoPlanet, robotID);
 
                 controlCenter.AddRobot(robotBase);
                 robotCount++;
