@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Models;
+using System;
 
 namespace ExoplanetGame.Menus
 {
@@ -12,101 +13,123 @@ namespace ExoplanetGame.Menus
             while (keepMenuRunning)
             {
                 Console.WriteLine("Robot Menu");
-                Console.WriteLine("1. Land");
-                Console.WriteLine("2. Exit");
+                DisplayMenuOptions(hasLanded);
 
-                // Display post-landing options only if the robot has landed
-                if (hasLanded)
-                {
-                    Console.WriteLine("3. Position");
-                    Console.WriteLine("4. Scan");
-                    Console.WriteLine("5. Move");
-                    Console.WriteLine("6. Rotate");
-                    Console.WriteLine("7. Crash");
-                }
-
-                int choice;
-                while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 7)
-                {
-                    Console.WriteLine("Invalid input. Please enter a valid menu option.");
-                }
+                int choice = GetUserChoice(1, hasLanded ? 8 : 2);
 
                 switch (choice)
                 {
                     case 1:
-                        if (!hasLanded)
+                        if (hasLanded)
                         {
-                            robot.Land(SelectLandPosition());
-                            hasLanded = true;
+                            ShowCurrentPosition(robot);
                         }
                         else
                         {
-                            Console.WriteLine("The robot has already landed.");
+                            HandleLandOption(robot, ref hasLanded);
                         }
                         break;
 
                     case 2:
-                        keepMenuRunning = false;
+                    case 6:
+                        if (hasLanded)
+                        {
+                            ScanEnvironment(robot, controlCenter);
+                        }
+                        else
+                        {
+                            keepMenuRunning = false;
+                        }
                         break;
 
                     case 3:
                         if (hasLanded)
-                        {
-                            Console.WriteLine($"Robot is at {robot.Position}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("The robot has not yet landed.");
-                        }
+                            MoveRobot(robot);
                         break;
 
                     case 4:
                         if (hasLanded)
-                        {
-                            controlCenter.AddMeasure(robot.Scan(), robot.Position);
-                        }
-                        else
-                        {
-                            Console.WriteLine("The robot has not yet landed.");
-                        }
+                            RotateRobot(robot);
                         break;
 
                     case 5:
                         if (hasLanded)
-                        {
-                            robot.Move();
-                        }
+                            CrashRobot(robot, controlCenter, ref keepMenuRunning);
                         else
-                        {
-                            Console.WriteLine("The robot has not yet landed.");
-                        }
-                        break;
-
-                    case 6:
-                        if (hasLanded)
-                        {
-                            robot.Rotate(SelectRotation());
-                        }
-                        else
-                        {
-                            Console.WriteLine("The robot has not yet landed.");
-                        }
-                        break;
-
-                    case 7:
-                        if (hasLanded)
-                        {
-                            robot.Crash();
-                            controlCenter.RemoveRobot(robot);
                             keepMenuRunning = false;
-                        }
-                        else
-                        {
-                            Console.WriteLine("The robot has not yet landed.");
-                        }
                         break;
                 }
             }
+        }
+
+        private static void DisplayMenuOptions(bool hasLanded)
+        {
+            Console.WriteLine(hasLanded ? "Post-Landing Options:" : "Pre-Landing Options:");
+
+            if (hasLanded)
+            {
+                Console.WriteLine("1. Position");
+                Console.WriteLine("2. Scan");
+                Console.WriteLine("3. Move");
+                Console.WriteLine("4. Rotate");
+                Console.WriteLine("5. Crash");
+                Console.WriteLine("6. Exit");
+            }
+            else
+            {
+                Console.WriteLine("1. Land");
+                Console.WriteLine("2. Exit");
+            }
+        }
+
+        private static int GetUserChoice(int minValue, int maxValue)
+        {
+            int choice;
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < minValue || choice > maxValue)
+            {
+                Console.WriteLine($"Invalid input. Please enter a number between {minValue} and {maxValue}.");
+            }
+            return choice;
+        }
+
+        private static void HandleLandOption(RobotBase robot, ref bool hasLanded)
+        {
+            if (!hasLanded)
+            {
+                robot.Land(SelectLandPosition());
+                hasLanded = true;
+            }
+            else
+            {
+                Console.WriteLine("The robot has already landed.");
+            }
+        }
+
+        private static void ShowCurrentPosition(RobotBase robot)
+        {
+            Console.WriteLine($"Robot is at {robot.Position}");
+        }
+
+        private static void ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)
+        {
+            controlCenter.AddMeasure(robot.Scan(), robot.Position);
+        }
+
+        private static void MoveRobot(RobotBase robot)
+        {
+            robot.Move();
+        }
+
+        private static void RotateRobot(RobotBase robot)
+        {
+            robot.Rotate(SelectRotation());
+        }
+
+        private static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
+        {
+            robot.Crash();
+            controlCenter.RemoveRobot(robot);
+            keepMenuRunning = false;
         }
 
         private static Rotation SelectRotation()
@@ -115,11 +138,7 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("1. Left");
             Console.WriteLine("2. Right");
 
-            int rotation;
-            while (!int.TryParse(Console.ReadLine(), out rotation) || rotation < 1 || rotation > 2)
-            {
-                Console.WriteLine("Invalid input. Please enter a valid rotation.");
-            }
+            int rotation = GetUserChoice(1, 2);
 
             return rotation == 1 ? Rotation.LEFT : Rotation.RIGHT;
         }
@@ -127,18 +146,10 @@ namespace ExoplanetGame.Menus
         private static Position SelectLandPosition()
         {
             Console.WriteLine("Enter the X coordinate:");
-            int x;
-            while (!int.TryParse(Console.ReadLine(), out x))
-            {
-                Console.WriteLine("Invalid input. Please enter a valid number.");
-            }
+            int x = GetUserChoice(int.MinValue, int.MaxValue);
 
             Console.WriteLine("Enter the Y coordinate:");
-            int y;
-            while (!int.TryParse(Console.ReadLine(), out y))
-            {
-                Console.WriteLine("Invalid input. Please enter a valid number.");
-            }
+            int y = GetUserChoice(int.MinValue, int.MaxValue);
 
             return new Position(x, y);
         }
