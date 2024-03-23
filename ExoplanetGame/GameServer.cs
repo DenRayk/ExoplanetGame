@@ -1,22 +1,33 @@
 ﻿using ExoplanetGame.Menus;
 using ExoplanetGame.RemoteRobot;
+using System;
 
 namespace ExoplanetGame
 {
     internal class GameServer
     {
+        private static GameServer instance;
         private readonly int maxRobots = 5;
         private int robotCount;
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
         private IRobotFactory robotFactory;
 
-        public GameServer()
+        private GameServer()
         {
             exoPlanet = new();
             controlCenter = new ControlCenter.ControlCenter(exoPlanet);
             controlCenter.Init(exoPlanet.PlanetSize);
-            robotFactory = new RobotFactory();
+            robotFactory = RobotFactory.GetInstance();
+        }
+
+        public static GameServer GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new GameServer();
+            }
+            return instance;
         }
 
         public void Start()

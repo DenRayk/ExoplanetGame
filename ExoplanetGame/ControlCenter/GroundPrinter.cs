@@ -44,7 +44,7 @@ namespace ExoplanetGame.ControlCenter
                     Console.BackgroundColor = ConsoleColor.White;
                     break;
             }
-            Console.Write($"   ", Console.BackgroundColor);
+            Console.Write("   ");
             Console.ResetColor();
         }
     }

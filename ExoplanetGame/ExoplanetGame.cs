@@ -6,7 +6,7 @@
         {
             Console.WriteLine("ExoplanetGame starting...");
 
-            GameServer gameServer = new();
+            GameServer gameServer = GameServer.GetInstance();
 
             gameServer.Start();
         }
