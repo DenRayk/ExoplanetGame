@@ -15,7 +15,7 @@ namespace ExoplanetGame
         private GameServer()
         {
             exoPlanet = new();
-            controlCenter = new ControlCenter.ControlCenter(exoPlanet);
+            controlCenter = ControlCenter.ControlCenter.GetInstance(exoPlanet);
             controlCenter.Init(exoPlanet.PlanetSize);
             robotFactory = RobotFactory.GetInstance();
         }

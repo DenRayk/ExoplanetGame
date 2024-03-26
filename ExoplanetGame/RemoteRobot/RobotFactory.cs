@@ -1,6 +1,6 @@
 ﻿namespace ExoplanetGame.RemoteRobot
 {
-    internal class RobotFactory : IRobotFactory
+    public class RobotFactory : IRobotFactory
     {
         private static RobotFactory instance;
 
