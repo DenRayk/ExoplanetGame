@@ -1,4 +1,4 @@
-﻿using ExoplanetGame.Models;
+﻿using ExoplanetGame.ControlCenter;
 
 namespace ExoplanetGame.RemoteRobot
 {

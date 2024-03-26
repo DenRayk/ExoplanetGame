@@ -1,4 +1,4 @@
-﻿namespace ExoplanetGame.Models;
+﻿namespace ExoplanetGame.Exoplanet;
 
 public enum Ground
 {

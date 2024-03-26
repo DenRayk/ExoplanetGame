@@ -1,4 +1,6 @@
-﻿namespace ExoplanetGame.Models;
+﻿using ExoplanetGame.Exoplanet;
+
+namespace ExoplanetGame.ControlCenter;
 
 using System;
 using System.Text;

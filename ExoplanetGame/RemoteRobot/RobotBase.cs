@@ -1,6 +1,6 @@
-﻿using ExoplanetGame.Models;
+﻿using ExoplanetGame.ControlCenter;
 
-namespace ExoplanetGame
+namespace ExoplanetGame.RemoteRobot
 {
     public abstract class RobotBase
     {

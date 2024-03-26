@@ -1,6 +1,5 @@
 ﻿using ExoplanetGame.Menus;
 using ExoplanetGame.RemoteRobot;
-using System;
 
 namespace ExoplanetGame
 {
@@ -55,7 +54,7 @@ namespace ExoplanetGame
 
         public void ControlRobot(int robotID)
         {
-            RobotMenu.Show(controlCenter.GetRobotByID(robotID), controlCenter);
+            RobotMenu.Show((RemoteRobot.RemoteRobot)controlCenter.GetRobotByID(robotID), controlCenter);
         }
     }
 }

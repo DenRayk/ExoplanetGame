@@ -1,4 +1,7 @@
-﻿namespace ExoplanetGame.Models;
+﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.RemoteRobot;
+
+namespace ExoplanetGame.Exoplanet;
 
 public interface IPlanet
 {

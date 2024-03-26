@@ -1,4 +1,4 @@
-﻿using ExoplanetGame.Models;
+﻿using ExoplanetGame.Exoplanet;
 
 namespace ExoplanetGame.ControlCenter
 {
