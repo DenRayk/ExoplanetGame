@@ -32,11 +32,11 @@ namespace ExoplanetGame.Menus
                         break;
 
                     case 2:
-                        Console.WriteLine($"Robot is at {robot.Position}");
+                        Console.WriteLine($"Robot is at {robot.RobotStatus.Position}");
                         break;
 
                     case 3:
-                        controlCenter.AddMeasure(robot.Scan(), robot.Position);
+                        controlCenter.AddMeasure(robot.Scan(), robot.RobotStatus.Position);
                         break;
 
                     case 4:

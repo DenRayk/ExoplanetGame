@@ -4,8 +4,7 @@ namespace ExoplanetGame.RemoteRobot
 {
     public abstract class RobotBase
     {
-        public abstract int RobotID { get; set; }
-        public abstract Position Position { get; set; }
+        public abstract RobotStatus RobotStatus { get; set; }
 
         public abstract void Crash();
 
