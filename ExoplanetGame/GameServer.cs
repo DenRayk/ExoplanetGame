@@ -6,7 +6,7 @@ namespace ExoplanetGame
 {
     internal class GameServer
     {
-        private static GameServer instance;
+        private static GameServer gameServer;
         private readonly int maxRobots = 5;
         private int robotCount;
         private Exoplanet.Exoplanet exoPlanet;
@@ -23,11 +23,11 @@ namespace ExoplanetGame
 
         public static GameServer GetInstance()
         {
-            if (instance == null)
+            if (gameServer == null)
             {
-                instance = new GameServer();
+                gameServer = new GameServer();
             }
-            return instance;
+            return gameServer;
         }
 
         public void Start()
