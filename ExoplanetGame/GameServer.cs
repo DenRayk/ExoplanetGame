@@ -3,14 +3,14 @@ using ExoplanetGame.RemoteRobot;
 
 namespace ExoplanetGame
 {
-    internal class GameServer
+    public class GameServer
     {
         private static GameServer gameServer;
         private readonly int maxRobots = 5;
-        private int robotCount;
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
         private IRobotFactory robotFactory;
+        public int RobotCount { get; set; }
 
         private GameServer()
         {
@@ -36,14 +36,14 @@ namespace ExoplanetGame
 
         public void AddRobot()
         {
-            if (robotCount < maxRobots)
+            if (RobotCount < maxRobots)
             {
                 int robotID = controlCenter.GetRobotCount();
 
                 RobotBase robotBase = robotFactory.CreateRemoteRobot(controlCenter, exoPlanet, robotID);
 
                 controlCenter.AddRobot(robotBase);
-                robotCount++;
+                RobotCount++;
                 Console.WriteLine("Robot added successfully.");
             }
             else
