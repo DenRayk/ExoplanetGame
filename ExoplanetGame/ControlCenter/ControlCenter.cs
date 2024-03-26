@@ -75,4 +75,9 @@ public class ControlCenter
     {
         planetMap.printMap();
     }
+
+    public void ClearRobots()
+    {
+        robots.Clear();
+    }
 }

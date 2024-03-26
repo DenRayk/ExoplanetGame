@@ -39,5 +39,12 @@ namespace GameServerTest
             // Assert
             Assert.AreEqual(5, server.RobotCount);
         }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            GameServer server = GameServer.GetInstance();
+            server.ClearRobots();
+        }
     }
 }

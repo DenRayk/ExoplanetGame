@@ -56,5 +56,11 @@ namespace ExoplanetGame
         {
             RobotMenu.Show((RemoteRobot.RemoteRobot)controlCenter.GetRobotByID(robotID), controlCenter);
         }
+
+        public void ClearRobots()
+        {
+            controlCenter.ClearRobots();
+            RobotCount = 0;
+        }
     }
 }
