@@ -5,6 +5,8 @@ namespace ExoplanetGame.ControlCenter;
 
 public class ControlCenter
 {
+    private static ControlCenter controlCenter;
+
     private PlanetMap planetMap;
     private Dictionary<RobotBase, Position> robots;
     public Exoplanet.Exoplanet exoPlanet;
@@ -13,6 +15,15 @@ public class ControlCenter
     {
         robots = new Dictionary<RobotBase, Position>();
         this.exoPlanet = exoPlanet;
+    }
+
+    public static ControlCenter GetInstance(Exoplanet.Exoplanet exoPlanet)
+    {
+        if (controlCenter == null)
+        {
+            controlCenter = new ControlCenter(exoPlanet);
+        }
+        return controlCenter;
     }
 
     public void Init(PlanetSize planetSize)
