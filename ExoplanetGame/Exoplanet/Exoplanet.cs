@@ -12,9 +12,16 @@ namespace ExoplanetGame.Exoplanet
         public Topography Topography { get; set; }
         private RobotManager robotManager;
 
-        public Exoplanet(string[] topographyStr)
+        public Exoplanet()
         {
-            Topography = new Topography(topographyStr);
+            Topography = new Topography([
+                "GSSWPFSGGL",
+                "SPW4PSFFLL",
+                "SGWPMSFLLF",
+                "SSWWMGSFFG",
+                "FGSWWSSGFG",
+                "FFWWGGSGFF"
+            ]);
             robotManager = new RobotManager();
         }
 
