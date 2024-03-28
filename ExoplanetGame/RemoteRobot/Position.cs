@@ -23,6 +23,55 @@ public class Position
         Direction = direction;
     }
 
+    public Position GetAdjacentPosition()
+    {
+        switch (Direction)
+        {
+            case Direction.NORTH:
+                return new Position(X, Y - 1, Direction);
+
+            case Direction.EAST:
+                return new Position(X + 1, Y, Direction);
+
+            case Direction.SOUTH:
+                return new Position(X, Y + 1, Direction);
+
+            case Direction.WEST:
+                return new Position(X - 1, Y, Direction);
+
+            default:
+                return this;
+        }
+    }
+
+    public Direction Rotate(Rotation rotation)
+    {
+        if (rotation == Rotation.LEFT)
+        {
+            Direction = Direction switch
+            {
+                Direction.NORTH => Direction.WEST,
+                Direction.WEST => Direction.SOUTH,
+                Direction.SOUTH => Direction.EAST,
+                Direction.EAST => Direction.NORTH,
+                _ => Direction
+            };
+        }
+        else
+        {
+            Direction = Direction switch
+            {
+                Direction.NORTH => Direction.EAST,
+                Direction.EAST => Direction.SOUTH,
+                Direction.SOUTH => Direction.WEST,
+                Direction.WEST => Direction.NORTH,
+                _ => Direction
+            };
+        }
+
+        return Direction;
+    }
+
     protected bool Equals(Position other)
     {
         return X == other.X && Y == other.Y;

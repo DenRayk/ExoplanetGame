@@ -14,9 +14,17 @@ namespace ExoplanetGame
 
         private GameServer()
         {
-            exoPlanet = new();
+            exoPlanet = new([
+                    "GSSWPFSGGL",
+                    "SPW4PSFFLL",
+                    "SGWPMSFLLF",
+                    "SSWWMGSFFG",
+                    "FGSWWSSGFG",
+                    "FFWWGGSGFF"
+                ]
+            );
             controlCenter = ControlCenter.ControlCenter.GetInstance(exoPlanet);
-            controlCenter.Init(exoPlanet.PlanetSize);
+            controlCenter.Init(exoPlanet.Topography.PlanetSize);
             robotFactory = RobotFactory.GetInstance();
         }
 
