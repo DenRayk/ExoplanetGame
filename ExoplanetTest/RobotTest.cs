@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.ControlCenter;
+﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
 using ExoplanetGame.RemoteRobot;
 
 namespace ExoplanetGameTest
 {
     [TestClass]
-    internal class RobotTest
+    public class RobotTest
     {
         [TestMethod]
         public void TestLand()
@@ -27,6 +22,99 @@ namespace ExoplanetGameTest
 
             // Assert
             Assert.AreEqual(landPosition, robot.RobotStatus.Position);
+        }
+
+        [TestMethod]
+        public void TestMove()
+        {
+            // Arrange
+            Exoplanet exoplanet = new Exoplanet();
+            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            RobotFactory robotFactory = RobotFactory.GetInstance();
+            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            robot.Land(new Position(3, 3, Direction.NORTH));
+
+            // Act
+            robot.Move();
+
+            // Assert
+            Assert.AreEqual(new Position(3, 2, Direction.NORTH), robot.RobotStatus.Position);
+        }
+
+        [TestMethod]
+        public void TestTurnLeft()
+        {
+            // Arrange
+            Exoplanet exoplanet = new Exoplanet();
+            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            RobotFactory robotFactory = RobotFactory.GetInstance();
+            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            robot.Land(new Position(3, 3, Direction.NORTH));
+
+            // Act
+            robot.Rotate(Rotation.LEFT);
+
+            // Assert
+            Assert.AreEqual(new Position(3, 3, Direction.WEST), robot.RobotStatus.Position);
+        }
+
+        [TestMethod]
+        public void TestTurnRight()
+        {
+            // Arrange
+            Exoplanet exoplanet = new Exoplanet();
+            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            RobotFactory robotFactory = RobotFactory.GetInstance();
+            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            robot.Land(new Position(3, 3, Direction.NORTH));
+
+            // Act
+            robot.Rotate(Rotation.RIGHT);
+
+            // Assert
+            Assert.AreEqual(new Position(3, 3, Direction.EAST), robot.RobotStatus.Position);
+        }
+
+        [TestMethod]
+        public void TestCrash()
+        {
+            // Arrange
+            Exoplanet exoplanet = new Exoplanet();
+            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            RobotFactory robotFactory = RobotFactory.GetInstance();
+            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            robot.Land(new Position(3, 3, Direction.NORTH));
+
+            // Act
+            robot.Crash();
+
+            // Assert
+            Assert.AreEqual(0, exoplanet.GetRobotCount());
+        }
+
+        [TestMethod]
+        public void TestScan()
+        {
+            // Arrange
+            Exoplanet exoplanet = new Exoplanet();
+            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            RobotFactory robotFactory = RobotFactory.GetInstance();
+            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            robot.Land(new Position(3, 2, Direction.NORTH));
+
+            // Act
+            Measure measure = robot.Scan();
+
+            // Assert
+            Assert.AreEqual(Ground.PFLANZEN, measure.Ground);
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            Exoplanet exoplanet = new Exoplanet();
+            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            controlCenter.ClearRobots();
         }
     }
 }
