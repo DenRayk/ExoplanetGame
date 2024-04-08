@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Exoplanet
 {
     public class RobotManager
     {
-        private Dictionary<Robot.DefaultRobot, Position> robots = new();
+        private Dictionary<RobotBase, Position> robots = new();
 
         public int GetRobotCount()
         {
             return robots.Count;
         }
 
-        public void RemoveRobot(Robot.DefaultRobot Robot)
+        public void RemoveRobot(RobotBase Robot)
         {
             robots.Remove(Robot);
         }
 
-        public bool LandRobot(Robot.DefaultRobot Robot, Position landPosition, Topography topography)
+        public bool LandRobot(RobotBase Robot, Position landPosition, Topography topography)
         {
             if (!robots.ContainsKey(Robot) && CheckPosition(landPosition, topography))
             {
@@ -29,7 +27,7 @@ namespace ExoplanetGame.Exoplanet
             return false;
         }
 
-        public Position MoveRobot(Robot.DefaultRobot Robot, Topography topography)
+        public Position MoveRobot(RobotBase Robot, Topography topography)
         {
             Position robotPosition = robots[Robot];
             Position newPosition = robotPosition.GetAdjacentPosition();
@@ -43,13 +41,13 @@ namespace ExoplanetGame.Exoplanet
             return null;
         }
 
-        public Direction RotateRobot(Robot.DefaultRobot robot, Rotation rotation)
+        public Direction RotateRobot(RobotBase robot, Rotation rotation)
         {
             Position robotPosition = robots[robot];
             return robotPosition.Rotate(rotation);
         }
 
-        public Position GetRobotPosition(Robot.DefaultRobot robot)
+        public Position GetRobotPosition(RobotBase robot)
         {
             return robots[robot];
         }

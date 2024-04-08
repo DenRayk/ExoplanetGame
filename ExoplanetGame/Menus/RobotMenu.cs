@@ -30,7 +30,6 @@ namespace ExoplanetGame.Menus
                         break;
 
                     case 2:
-                    case 6:
                         if (hasLanded)
                         {
                             ScanEnvironment(robot, controlCenter);
@@ -56,6 +55,13 @@ namespace ExoplanetGame.Menus
                             CrashRobot(robot, controlCenter, ref keepMenuRunning);
                         else
                             keepMenuRunning = false;
+                        break;
+
+                    case 6:
+                        if (hasLanded)
+                        {
+                            keepMenuRunning = false;
+                        }
                         break;
                 }
             }

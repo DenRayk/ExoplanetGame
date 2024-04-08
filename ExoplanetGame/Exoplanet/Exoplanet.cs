@@ -26,32 +26,32 @@ namespace ExoplanetGame.Exoplanet
             return robotManager.GetRobotCount();
         }
 
-        public void RemoveRobot(DefaultRobot Robot)
+        public void RemoveRobot(RobotBase Robot)
         {
             robotManager.RemoveRobot(Robot);
         }
 
-        public bool Land(DefaultRobot Robot, Position landPosition)
+        public bool Land(RobotBase Robot, Position landPosition)
         {
             return robotManager.LandRobot(Robot, landPosition, Topography);
         }
 
-        public Position Move(DefaultRobot Robot)
+        public Position Move(RobotBase Robot)
         {
             return robotManager.MoveRobot(Robot, Topography);
         }
 
-        public Direction Rotate(DefaultRobot robot, Rotation rotation)
+        public Direction Rotate(RobotBase robot, Rotation rotation)
         {
             return robotManager.RotateRobot(robot, rotation);
         }
 
-        public Measure Scan(DefaultRobot robot)
+        public Measure Scan(RobotBase robot)
         {
             return Topography.GetMeasureAtPosition(robotManager.GetRobotPosition(robot));
         }
 
-        public void Remove(DefaultRobot robot)
+        public void Remove(RobotBase robot)
         {
             Console.WriteLine($"Remove: {robot.GetLanderName()}");
             robotManager.RemoveRobot(robot);
