@@ -1,9 +1,5 @@
-﻿// Exoplanet.cs
-
-using System;
-using System.Collections.Generic;
-using ExoplanetGame.ControlCenter;
-using ExoplanetGame.RemoteRobot;
+﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Exoplanet
 {
@@ -30,32 +26,32 @@ namespace ExoplanetGame.Exoplanet
             return robotManager.GetRobotCount();
         }
 
-        public void RemoveRobot(RemoteRobot.RemoteRobot remoteRobot)
+        public void RemoveRobot(DefaultRobot Robot)
         {
-            robotManager.RemoveRobot(remoteRobot);
+            robotManager.RemoveRobot(Robot);
         }
 
-        public bool Land(RemoteRobot.RemoteRobot remoteRobot, Position landPosition)
+        public bool Land(DefaultRobot Robot, Position landPosition)
         {
-            return robotManager.LandRobot(remoteRobot, landPosition, Topography);
+            return robotManager.LandRobot(Robot, landPosition, Topography);
         }
 
-        public Position Move(RemoteRobot.RemoteRobot remoteRobot)
+        public Position Move(DefaultRobot Robot)
         {
-            return robotManager.MoveRobot(remoteRobot, Topography);
+            return robotManager.MoveRobot(Robot, Topography);
         }
 
-        public Direction Rotate(RemoteRobot.RemoteRobot robot, Rotation rotation)
+        public Direction Rotate(DefaultRobot robot, Rotation rotation)
         {
             return robotManager.RotateRobot(robot, rotation);
         }
 
-        public Measure Scan(RemoteRobot.RemoteRobot robot)
+        public Measure Scan(DefaultRobot robot)
         {
             return Topography.GetMeasureAtPosition(robotManager.GetRobotPosition(robot));
         }
 
-        public void Remove(RemoteRobot.RemoteRobot robot)
+        public void Remove(DefaultRobot robot)
         {
             Console.WriteLine($"Remove: {robot.GetLanderName()}");
             robotManager.RemoveRobot(robot);

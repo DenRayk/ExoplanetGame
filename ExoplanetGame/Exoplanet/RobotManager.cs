@@ -1,55 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using ExoplanetGame.RemoteRobot;
+using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Exoplanet
 {
     public class RobotManager
     {
-        private Dictionary<RemoteRobot.RemoteRobot, Position> robots = new();
+        private Dictionary<Robot.DefaultRobot, Position> robots = new();
 
         public int GetRobotCount()
         {
             return robots.Count;
         }
 
-        public void RemoveRobot(RemoteRobot.RemoteRobot remoteRobot)
+        public void RemoveRobot(Robot.DefaultRobot Robot)
         {
-            robots.Remove(remoteRobot);
+            robots.Remove(Robot);
         }
 
-        public bool LandRobot(RemoteRobot.RemoteRobot remoteRobot, Position landPosition, Topography topography)
+        public bool LandRobot(Robot.DefaultRobot Robot, Position landPosition, Topography topography)
         {
-            if (!robots.ContainsKey(remoteRobot) && CheckPosition(landPosition, topography))
+            if (!robots.ContainsKey(Robot) && CheckPosition(landPosition, topography))
             {
-                robots.Add(remoteRobot, landPosition);
+                robots.Add(Robot, landPosition);
                 return true;
             }
-            RemoveRobot(remoteRobot);
+            RemoveRobot(Robot);
             return false;
         }
 
-        public Position MoveRobot(RemoteRobot.RemoteRobot remoteRobot, Topography topography)
+        public Position MoveRobot(Robot.DefaultRobot Robot, Topography topography)
         {
-            Position robotPosition = robots[remoteRobot];
+            Position robotPosition = robots[Robot];
             Position newPosition = robotPosition.GetAdjacentPosition();
 
             if (CheckPosition(newPosition, topography))
             {
-                robots[remoteRobot] = newPosition;
+                robots[Robot] = newPosition;
                 return newPosition;
             }
-            RemoveRobot(remoteRobot);
+            RemoveRobot(Robot);
             return null;
         }
 
-        public Direction RotateRobot(RemoteRobot.RemoteRobot robot, Rotation rotation)
+        public Direction RotateRobot(Robot.DefaultRobot robot, Rotation rotation)
         {
             Position robotPosition = robots[robot];
             return robotPosition.Rotate(rotation);
         }
 
-        public Position GetRobotPosition(RemoteRobot.RemoteRobot robot)
+        public Position GetRobotPosition(Robot.DefaultRobot robot)
         {
             return robots[robot];
         }

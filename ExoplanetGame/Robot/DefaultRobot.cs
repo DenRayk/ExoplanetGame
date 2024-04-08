@@ -1,14 +1,14 @@
 ﻿using ExoplanetGame.ControlCenter;
 
-namespace ExoplanetGame.RemoteRobot
+namespace ExoplanetGame.Robot
 {
-    public class RemoteRobot : RobotBase
+    public class DefaultRobot : RobotBase
     {
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
         public override RobotStatus RobotStatus { get; set; }
 
-        public RemoteRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
+        public DefaultRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
         {
             this.controlCenter = controlCenter;
             this.exoPlanet = exoPlanet;
@@ -42,7 +42,7 @@ namespace ExoplanetGame.RemoteRobot
 
         public override string GetLanderName()
         {
-            return $"RemoteRobot {RobotStatus.RobotID}";
+            return $"Robot {RobotStatus.RobotID}";
         }
 
         public override Measure Scan()

@@ -1,4 +1,4 @@
-﻿namespace ExoplanetGame.RemoteRobot;
+﻿namespace ExoplanetGame.Robot;
 
 public enum Direction
 {

@@ -1,7 +1,7 @@
 ﻿using ExoplanetGame;
 using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
-using ExoplanetGame.RemoteRobot;
+using ExoplanetGame.Robot;
 
 namespace ControlCenterTest
 {
@@ -24,7 +24,7 @@ namespace ControlCenterTest
             RobotFactory robotFactory = RobotFactory.GetInstance();
 
             // Act
-            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             controlCenter.AddRobot(robot);
 
             // Assert
@@ -38,7 +38,7 @@ namespace ControlCenterTest
             Exoplanet exoplanet = new Exoplanet();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             controlCenter.AddRobot(robot);
 
             // Act

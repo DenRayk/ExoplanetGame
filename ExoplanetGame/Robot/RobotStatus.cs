@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExoplanetGame.RemoteRobot
+namespace ExoplanetGame.Robot
 {
     public class RobotStatus
     {

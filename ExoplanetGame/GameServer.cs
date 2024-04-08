@@ -1,5 +1,5 @@
 ﻿using ExoplanetGame.Menus;
-using ExoplanetGame.RemoteRobot;
+using ExoplanetGame.Robot;
 
 namespace ExoplanetGame
 {
@@ -40,7 +40,7 @@ namespace ExoplanetGame
             {
                 int robotID = controlCenter.GetRobotCount();
 
-                RobotBase robotBase = robotFactory.CreateRemoteRobot(controlCenter, exoPlanet, robotID);
+                RobotBase robotBase = robotFactory.CreateDefaultRobot(controlCenter, exoPlanet, robotID);
 
                 controlCenter.AddRobot(robotBase);
                 RobotCount++;
@@ -54,7 +54,7 @@ namespace ExoplanetGame
 
         public void ControlRobot(int robotID)
         {
-            RobotMenu.Show((RemoteRobot.RemoteRobot)controlCenter.GetRobotByID(robotID), controlCenter);
+            RobotMenu.Show((DefaultRobot)controlCenter.GetRobotByID(robotID), controlCenter);
         }
 
         public void ClearRobots()

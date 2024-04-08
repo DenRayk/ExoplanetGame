@@ -1,6 +1,6 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
-using ExoplanetGame.RemoteRobot;
+using ExoplanetGame.Robot;
 
 namespace ExoplanetGameTest
 {
@@ -14,7 +14,7 @@ namespace ExoplanetGameTest
             Exoplanet exoplanet = new Exoplanet();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             Position landPosition = new Position(3, 3, Direction.NORTH);
 
             // Act
@@ -31,7 +31,7 @@ namespace ExoplanetGameTest
             Exoplanet exoplanet = new Exoplanet();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             robot.Land(new Position(3, 3, Direction.NORTH));
 
             // Act
@@ -48,7 +48,7 @@ namespace ExoplanetGameTest
             Exoplanet exoplanet = new Exoplanet();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             robot.Land(new Position(3, 3, Direction.NORTH));
 
             // Act
@@ -65,7 +65,7 @@ namespace ExoplanetGameTest
             Exoplanet exoplanet = new Exoplanet();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             robot.Land(new Position(3, 3, Direction.NORTH));
 
             // Act
@@ -82,7 +82,7 @@ namespace ExoplanetGameTest
             Exoplanet exoplanet = new Exoplanet();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             robot.Land(new Position(3, 3, Direction.NORTH));
 
             // Act
@@ -99,7 +99,7 @@ namespace ExoplanetGameTest
             Exoplanet exoplanet = new Exoplanet();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateRemoteRobot(controlCenter, exoplanet, 0);
+            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             robot.Land(new Position(3, 2, Direction.NORTH));
 
             // Act

@@ -1,10 +1,10 @@
-﻿using ExoplanetGame.RemoteRobot;
+﻿using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Menus
 {
     public class RobotMenu
     {
-        public static void Show(RemoteRobot.RemoteRobot robot, ControlCenter.ControlCenter controlCenter)
+        public static void Show(Robot.DefaultRobot robot, ControlCenter.ControlCenter controlCenter)
         {
             bool keepMenuRunning = true;
 

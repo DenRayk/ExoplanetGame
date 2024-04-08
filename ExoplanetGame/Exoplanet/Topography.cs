@@ -1,5 +1,5 @@
 ﻿using ExoplanetGame.ControlCenter;
-using ExoplanetGame.RemoteRobot;
+using ExoplanetGame.Robot;
 using System;
 
 namespace ExoplanetGame.Exoplanet

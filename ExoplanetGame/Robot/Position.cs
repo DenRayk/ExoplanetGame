@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ExoplanetGame.RemoteRobot;
+namespace ExoplanetGame.Robot;
 
 [Serializable]
 public class Position

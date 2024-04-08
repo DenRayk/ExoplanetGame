@@ -1,4 +1,4 @@
-﻿namespace ExoplanetGame.RemoteRobot
+﻿namespace ExoplanetGame.Robot
 {
     public class RobotFactory : IRobotFactory
     {
@@ -16,9 +16,9 @@
             return instance;
         }
 
-        public RobotBase CreateRemoteRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID)
+        public RobotBase CreateDefaultRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID)
         {
-            return new RemoteRobot(controlCenter, exoPlanet, robotID);
+            return new DefaultRobot(controlCenter, exoPlanet, robotID);
         }
     }
 }

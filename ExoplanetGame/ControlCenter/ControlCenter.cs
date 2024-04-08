@@ -1,5 +1,5 @@
 ﻿using ExoplanetGame.Exoplanet;
-using ExoplanetGame.RemoteRobot;
+using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.ControlCenter;
 
@@ -38,7 +38,7 @@ public class ControlCenter
         robots.Add(robotBase, new Position(0, 0));
     }
 
-    public void UpdateRobotPosition(RemoteRobot.RemoteRobot robot, Position position)
+    public void UpdateRobotPosition(Robot.DefaultRobot robot, Position position)
     {
         robots[robot] = position;
     }
@@ -66,9 +66,9 @@ public class ControlCenter
         return robots.Keys.ElementAt(robotId);
     }
 
-    public void RemoveRobot(RobotBase remoteRobot)
+    public void RemoveRobot(RobotBase Robot)
     {
-        robots.Remove(remoteRobot);
+        robots.Remove(Robot);
     }
 
     public void PrintMap()

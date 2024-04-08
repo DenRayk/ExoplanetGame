@@ -1,6 +1,6 @@
-﻿namespace ExoplanetGame.RemoteRobot;
+﻿namespace ExoplanetGame.Robot;
 
 public interface IRobotFactory
 {
-    RobotBase CreateRemoteRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID);
+    RobotBase CreateDefaultRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID);
 }
