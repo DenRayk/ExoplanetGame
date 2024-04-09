@@ -66,6 +66,9 @@ namespace ExoplanetGame.Exoplanet
             if (IsPositionLava(position, topography))
                 return false;
 
+            if (IsAnotherRobotAlreadyAtThisPosition(position))
+                return false;
+
             foreach (var robot in robots.Values)
             {
                 if (robot.X == position.X && robot.Y == position.Y)
@@ -79,12 +82,28 @@ namespace ExoplanetGame.Exoplanet
 
         private bool IsPositionInBounds(Position position, Topography topography)
         {
+            Console.WriteLine("The position is out of bounds.");
             return position.X >= 0 && position.X < topography.PlanetSize.Width && position.Y >= 0 && position.Y < topography.PlanetSize.Height;
         }
 
         private bool IsPositionLava(Position position, Topography topography)
         {
+            Console.WriteLine("The floor is lava.");
             return topography.GetMeasureAtPosition(position).Ground == Ground.LAVA;
+        }
+
+        private bool IsAnotherRobotAlreadyAtThisPosition(Position position)
+        {
+            Console.WriteLine("Another robot is already at this position.");
+
+            foreach (var robot in robots.Values)
+            {
+                if (robot.X == position.X && robot.Y == position.Y)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
