@@ -122,7 +122,7 @@ namespace ExoplanetGame.Menus
 
         private static void ShowCurrentPosition(RobotBase robot)
         {
-            Console.WriteLine($"Robot is at {robot.RobotStatus.Position}");
+            Console.WriteLine($"Robot is at {robot.GetPosition()}");
         }
 
         private static void ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)

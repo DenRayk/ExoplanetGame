@@ -7,7 +7,7 @@ namespace ExoplanetGame
     {
         private static GameServer gameServer;
         private readonly int maxRobots = 5;
-        private static int robotID;
+        private static int robotID = 1;
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
         private IRobotFactory robotFactory;

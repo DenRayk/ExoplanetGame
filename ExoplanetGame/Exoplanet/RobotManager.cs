@@ -5,6 +5,7 @@ namespace ExoplanetGame.Exoplanet
     public class RobotManager
     {
         private Dictionary<RobotBase, Position> robots = new();
+        private RobotHeatTracker robotHeatTracker = new();
 
         public int GetRobotCount()
         {
@@ -27,28 +28,31 @@ namespace ExoplanetGame.Exoplanet
             return false;
         }
 
-        public Position MoveRobot(RobotBase Robot, Topography topography)
+        public Position MoveRobot(RobotBase robot, Topography topography)
         {
-            Position robotPosition = robots[Robot];
+            Position robotPosition = robots[robot];
             Position newPosition = robotPosition.GetAdjacentPosition();
 
             if (CheckPosition(newPosition, topography))
             {
-                robots[Robot] = newPosition;
+                robotHeatTracker.PerformAction(robot);
+                robots[robot] = newPosition;
                 return newPosition;
             }
-            RemoveRobot(Robot);
+            RemoveRobot(robot);
             return null;
         }
 
         public Direction RotateRobot(RobotBase robot, Rotation rotation)
         {
+            robotHeatTracker.PerformAction(robot);
             Position robotPosition = robots[robot];
             return robotPosition.Rotate(rotation);
         }
 
         public Position GetRobotPosition(RobotBase robot)
         {
+            robotHeatTracker.PerformAction(robot);
             return robots[robot];
         }
 

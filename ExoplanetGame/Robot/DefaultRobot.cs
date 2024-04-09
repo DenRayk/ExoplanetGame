@@ -8,6 +8,8 @@ namespace ExoplanetGame.Robot
         private ControlCenter.ControlCenter controlCenter;
         public override RobotStatus RobotStatus { get; set; }
 
+        public override int MaxHeat { get; set; } = 100;
+
         public DefaultRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
         {
             this.controlCenter = controlCenter;
@@ -82,6 +84,11 @@ namespace ExoplanetGame.Robot
         public override bool HasLanded()
         {
             return RobotStatus.Position != null;
+        }
+
+        public override Position GetPosition()
+        {
+            return exoPlanet.GetRobotPosition(this);
         }
     }
 }

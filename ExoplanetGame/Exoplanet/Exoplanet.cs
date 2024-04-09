@@ -51,6 +51,11 @@ namespace ExoplanetGame.Exoplanet
             return Topography.GetMeasureAtPosition(robotManager.GetRobotPosition(robot));
         }
 
+        public Position GetRobotPosition(RobotBase robot)
+        {
+            return robotManager.GetRobotPosition(robot);
+        }
+
         public void Remove(RobotBase robot)
         {
             Console.WriteLine($"Remove: {robot.GetLanderName()}");
