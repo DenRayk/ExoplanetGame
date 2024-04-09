@@ -42,7 +42,7 @@ namespace ExoplanetGame.Menus
 
                     case 3:
                         if (hasLanded)
-                            MoveRobot(robot);
+                            keepMenuRunning = MoveRobot(robot);
                         break;
 
                     case 4:
@@ -120,9 +120,13 @@ namespace ExoplanetGame.Menus
             controlCenter.AddMeasure(robot.Scan(), robot.RobotStatus.Position);
         }
 
-        private static void MoveRobot(RobotBase robot)
+        private static bool MoveRobot(RobotBase robot)
         {
-            robot.Move();
+            if (robot.Move() == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         private static void RotateRobot(RobotBase robot)

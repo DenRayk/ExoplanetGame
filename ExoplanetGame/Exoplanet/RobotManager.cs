@@ -56,10 +56,8 @@ namespace ExoplanetGame.Exoplanet
         {
             if (position == null) return false;
 
-            if (position.X < 0 || position.X >= topography.PlanetSize.Width || position.Y < 0 || position.Y >= topography.PlanetSize.Height)
-            {
+            if (!IsPositionInBounds(position, topography))
                 return false;
-            }
 
             foreach (var robot in robots.Values)
             {
@@ -70,6 +68,11 @@ namespace ExoplanetGame.Exoplanet
             }
 
             return true;
+        }
+
+        private bool IsPositionInBounds(Position position, Topography topography)
+        {
+            return position.X >= 0 && position.X < topography.PlanetSize.Width && position.Y >= 0 && position.Y < topography.PlanetSize.Height;
         }
     }
 }
