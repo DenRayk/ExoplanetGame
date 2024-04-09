@@ -12,11 +12,7 @@
                 Console.WriteLine("3. Print map");
                 Console.WriteLine("4. Exit");
 
-                int choice;
-                while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 4)
-                {
-                    Console.WriteLine("Invalid input. Please enter a valid menu option.");
-                }
+                var choice = getChoice();
 
                 switch (choice)
                 {
@@ -42,6 +38,17 @@
                         break;
                 }
             }
+        }
+
+        private static int getChoice()
+        {
+            int choice;
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 4)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid menu option.");
+            }
+
+            return choice;
         }
 
         public static void SelectRobot(GameServer gameServer, ControlCenter.ControlCenter controlCenter)

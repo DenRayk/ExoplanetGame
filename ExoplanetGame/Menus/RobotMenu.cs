@@ -11,10 +11,12 @@ namespace ExoplanetGame.Menus
 
             while (keepMenuRunning)
             {
-                Console.WriteLine("Robot Menu");
+                Console.WriteLine($"Robot {robot.RobotStatus.RobotID} Menu");
                 DisplayMenuOptions(hasLanded);
 
-                int choice = GetUserChoice(1, hasLanded ? 8 : 2);
+                int maxChoices = hasLanded ? 8 : 2;
+
+                int choice = GetUserChoice(1, maxChoices);
 
                 switch (choice)
                 {
@@ -42,19 +44,27 @@ namespace ExoplanetGame.Menus
 
                     case 3:
                         if (hasLanded)
+                        {
                             keepMenuRunning = MoveRobot(robot);
+                        }
                         break;
 
                     case 4:
                         if (hasLanded)
+                        {
                             RotateRobot(robot);
+                        }
                         break;
 
                     case 5:
                         if (hasLanded)
+                        {
                             CrashRobot(robot, controlCenter, ref keepMenuRunning);
+                        }
                         else
+                        {
                             keepMenuRunning = false;
+                        }
                         break;
 
                     case 6:
@@ -69,7 +79,7 @@ namespace ExoplanetGame.Menus
 
         private static void DisplayMenuOptions(bool hasLanded)
         {
-            Console.WriteLine(hasLanded ? "Post-Landing Options:" : "Pre-Landing Options:");
+            Console.WriteLine(hasLanded ? "Planet research options:" : "Pre-Landing Options:");
 
             if (hasLanded)
             {
@@ -90,6 +100,7 @@ namespace ExoplanetGame.Menus
         private static int GetUserChoice(int minValue, int maxValue)
         {
             int choice;
+
             while (!int.TryParse(Console.ReadLine(), out choice) || choice < minValue || choice > maxValue)
             {
                 Console.WriteLine($"Invalid input. Please enter a number between {minValue} and {maxValue}.");

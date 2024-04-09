@@ -7,6 +7,7 @@ namespace ExoplanetGame
     {
         private static GameServer gameServer;
         private readonly int maxRobots = 5;
+        private static int robotID;
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
         private IRobotFactory robotFactory;
@@ -38,9 +39,7 @@ namespace ExoplanetGame
         {
             if (RobotCount < maxRobots)
             {
-                int robotID = controlCenter.GetRobotCount();
-
-                RobotBase robotBase = robotFactory.CreateDefaultRobot(controlCenter, exoPlanet, robotID);
+                RobotBase robotBase = robotFactory.CreateDefaultRobot(controlCenter, exoPlanet, robotID++);
 
                 controlCenter.AddRobot(robotBase);
                 RobotCount++;
