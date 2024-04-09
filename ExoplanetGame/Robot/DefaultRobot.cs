@@ -26,7 +26,7 @@ namespace ExoplanetGame.Robot
             Console.WriteLine("Robot crashed");
         }
 
-        public override void Land(Position landPosition)
+        public override bool Land(Position landPosition)
         {
             RobotStatus.HasLanded = exoPlanet.Land(this, landPosition);
             if (RobotStatus.HasLanded)
@@ -38,6 +38,8 @@ namespace ExoplanetGame.Robot
             {
                 Console.WriteLine("Robot could not land");
             }
+
+            return RobotStatus.HasLanded;
         }
 
         public override string GetLanderName()

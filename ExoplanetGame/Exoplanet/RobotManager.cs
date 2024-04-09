@@ -59,6 +59,9 @@ namespace ExoplanetGame.Exoplanet
             if (!IsPositionInBounds(position, topography))
                 return false;
 
+            if (IsPositionLava(position, topography))
+                return false;
+
             foreach (var robot in robots.Values)
             {
                 if (robot.X == position.X && robot.Y == position.Y)
@@ -73,6 +76,11 @@ namespace ExoplanetGame.Exoplanet
         private bool IsPositionInBounds(Position position, Topography topography)
         {
             return position.X >= 0 && position.X < topography.PlanetSize.Width && position.Y >= 0 && position.Y < topography.PlanetSize.Height;
+        }
+
+        private bool IsPositionLava(Position position, Topography topography)
+        {
+            return topography.GetMeasureAtPosition(position).Ground == Ground.LAVA;
         }
     }
 }

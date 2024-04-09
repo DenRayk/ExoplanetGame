@@ -101,8 +101,7 @@ namespace ExoplanetGame.Menus
         {
             if (!hasLanded)
             {
-                robot.Land(SelectLandPosition());
-                hasLanded = true;
+                hasLanded = robot.Land(SelectLandPosition());
             }
             else
             {

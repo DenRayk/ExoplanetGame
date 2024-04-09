@@ -8,7 +8,7 @@ namespace ExoplanetGame.Robot
 
         public abstract void Crash();
 
-        public abstract void Land(Position landPosition);
+        public abstract bool Land(Position landPosition);
 
         public abstract string GetLanderName();
 
