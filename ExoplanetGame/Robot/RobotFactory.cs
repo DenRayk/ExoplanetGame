@@ -1,4 +1,6 @@
-﻿namespace ExoplanetGame.Robot
+﻿using ExoplanetGame.Robot.Variants;
+
+namespace ExoplanetGame.Robot
 {
     public class RobotFactory : IRobotFactory
     {
