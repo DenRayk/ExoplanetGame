@@ -1,50 +1,44 @@
-﻿using ExoplanetGame.Exoplanet;
+﻿using System;
+using System.Collections.Generic;
+using ExoplanetGame.Exoplanet;
 
 namespace ExoplanetGame.ControlCenter
 {
     internal class GroundPrinter
     {
-        public static void printGround(Ground ground)
+        private static readonly Dictionary<Ground, ConsoleColor> groundColors = new Dictionary<Ground, ConsoleColor>
         {
-            switch (ground)
-            {
-                case Ground.NICHTS:
-                    Console.BackgroundColor = ConsoleColor.White;
-                    break;
+            { Ground.NICHTS, ConsoleColor.White },
+            { Ground.SAND, ConsoleColor.Yellow },
+            { Ground.GEROELL, ConsoleColor.Gray },
+            { Ground.FELS, ConsoleColor.DarkGray },
+            { Ground.WASSER, ConsoleColor.Blue },
+            { Ground.PFLANZEN, ConsoleColor.Green },
+            { Ground.MORAST, ConsoleColor.DarkGreen },
+            { Ground.LAVA, ConsoleColor.Red }
+        };
 
-                case Ground.SAND:
-                    Console.BackgroundColor = ConsoleColor.Yellow;
-                    break;
-
-                case Ground.GEROELL:
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    break;
-
-                case Ground.FELS:
-                    Console.BackgroundColor = ConsoleColor.DarkGray;
-                    break;
-
-                case Ground.WASSER:
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                    break;
-
-                case Ground.PFLANZEN:
-                    Console.BackgroundColor = ConsoleColor.Green;
-                    break;
-
-                case Ground.MORAST:
-                    Console.BackgroundColor = ConsoleColor.DarkGreen;
-                    break;
-
-                case Ground.LAVA:
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    break;
-
-                default:
-                    Console.BackgroundColor = ConsoleColor.White;
-                    break;
-            }
+        public static void PrintGround(Ground ground)
+        {
+            SetGroundColor(ground);
             Console.Write("   ");
+            Console.ResetColor();
+        }
+
+        public static void SetGroundColor(Ground ground)
+        {
+            if (groundColors.TryGetValue(ground, out ConsoleColor color))
+            {
+                Console.BackgroundColor = color;
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.White; // Default color
+            }
+        }
+
+        public static void ResetColor()
+        {
             Console.ResetColor();
         }
     }
