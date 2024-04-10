@@ -22,5 +22,10 @@ namespace ExoplanetGame.Robot
         {
             return new DefaultRobot(controlCenter, exoPlanet, robotID);
         }
+
+        public RobotBase CreateScoutRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID)
+        {
+            return new ScoutRobot(controlCenter, exoPlanet, robotID);
+        }
     }
 }

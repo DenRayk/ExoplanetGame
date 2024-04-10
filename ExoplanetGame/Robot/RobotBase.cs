@@ -6,6 +6,7 @@ namespace ExoplanetGame.Robot
     {
         public abstract RobotStatus RobotStatus { get; set; }
         public abstract int MaxHeat { get; set; }
+        public abstract RobotVariant RobotVariant { get; }
 
         public abstract void Crash();
 

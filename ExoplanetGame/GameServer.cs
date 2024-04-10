@@ -36,11 +36,24 @@ namespace ExoplanetGame
             MainMenu.Show(this, controlCenter);
         }
 
-        public void AddRobot()
+        public void AddRobot(RobotVariant robotVariant)
         {
             if (RobotCount < maxRobots)
             {
-                RobotBase robotBase = robotFactory.CreateDefaultRobot(controlCenter, exoPlanet, robotID++);
+                RobotBase robotBase;
+
+                switch (robotVariant)
+                {
+                    case RobotVariant.DEFAULT:
+                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, exoPlanet, robotID++);
+                        break;
+                    case RobotVariant.SCOUT:
+                        robotBase = robotFactory.CreateScoutRobot(controlCenter, exoPlanet, robotID++);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid robot variant.");
+                        return;
+                }
 
                 controlCenter.AddRobot(robotBase);
                 RobotCount++;
@@ -54,7 +67,7 @@ namespace ExoplanetGame
 
         public void ControlRobot(int robotID)
         {
-            RobotMenu.Show((DefaultRobot)controlCenter.GetRobotByID(robotID), controlCenter);
+            RobotMenu.Show(controlCenter.GetRobotByID(robotID), controlCenter);
         }
 
         public void ClearRobots()

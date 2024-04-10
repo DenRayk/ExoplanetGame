@@ -1,4 +1,6 @@
-﻿namespace ExoplanetGame.Menus
+﻿using ExoplanetGame.Robot;
+
+namespace ExoplanetGame.Menus
 {
     internal class MainMenu
     {
@@ -17,9 +19,8 @@
                 switch (choice)
                 {
                     case 1:
-                        gameServer.AddRobot();
+                        gameServer.AddRobot(SelectRobotVariant());
                         break;
-
                     case 2:
                         if (controlCenter.GetRobotCount() == 0)
                         {
@@ -49,6 +50,25 @@
             }
 
             return choice;
+        }
+
+        public static RobotVariant SelectRobotVariant()
+        {
+            Console.WriteLine("Select a robot variant:");
+            Console.WriteLine("1. Default robot");
+            Console.WriteLine("2. Scout robot");
+
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1: 
+                    return RobotVariant.DEFAULT;
+                case 2: 
+                    return RobotVariant.SCOUT;
+                default: 
+                    throw new ArgumentException("Invalid choice. Please select a valid robot variant.");
+            }
         }
 
         public static void SelectRobot(GameServer gameServer, ControlCenter.ControlCenter controlCenter)

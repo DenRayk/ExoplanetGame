@@ -11,12 +11,15 @@ namespace ExoplanetGame.Robot.Variants
 
         public override int MaxHeat { get; set; } = 100;
 
+        public override RobotVariant RobotVariant { get; }
+
         public DefaultRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
         {
             this.controlCenter = controlCenter;
             this.exoPlanet = exoPlanet;
             controlCenter.RobotPositionUpdated += HandleOtherRobotPositionUpdated;
 
+            RobotVariant = RobotVariant.DEFAULT;
             RobotStatus = new RobotStatus
             {
                 RobotID = robotId,
@@ -63,7 +66,7 @@ namespace ExoplanetGame.Robot.Variants
 
         public override string GetLanderName()
         {
-            return $"Robot {RobotStatus.RobotID}";
+            return $"Robot {RobotStatus.RobotID} ({RobotVariant})";
         }
 
         public override Measure Scan()
