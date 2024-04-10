@@ -25,23 +25,32 @@ public class Position
 
     public Position GetAdjacentPosition()
     {
+        Position adjacentPosition;
+
         switch (Direction)
         {
             case Direction.NORTH:
-                return new Position(X, Y - 1, Direction);
+                adjacentPosition = new Position(X, Y - 1, Direction);
+                break;
 
             case Direction.EAST:
-                return new Position(X + 1, Y, Direction);
+                adjacentPosition = new Position(X + 1, Y, Direction);
+                break;
 
             case Direction.SOUTH:
-                return new Position(X, Y + 1, Direction);
+                adjacentPosition = new Position(X, Y + 1, Direction);
+                break;
 
             case Direction.WEST:
-                return new Position(X - 1, Y, Direction);
+                adjacentPosition = new Position(X - 1, Y, Direction);
+                break;
 
             default:
-                return this;
+                adjacentPosition = this;
+                break;
         }
+
+        return adjacentPosition;
     }
 
     public Direction Rotate(Rotation rotation)

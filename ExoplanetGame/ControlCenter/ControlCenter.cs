@@ -1,7 +1,5 @@
 ﻿using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Robot;
-using System;
-using System.Collections.Generic;
 
 namespace ExoplanetGame.ControlCenter
 {
@@ -42,7 +40,7 @@ namespace ExoplanetGame.ControlCenter
             robots.Add(robotBase, new Position(0, 0));
         }
 
-        public void UpdateRobotPosition(Robot.DefaultRobot robot, Position position)
+        public void UpdateRobotPosition(DefaultRobot robot, Position position)
         {
             robots[robot] = position;
 

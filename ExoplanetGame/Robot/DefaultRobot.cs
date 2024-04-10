@@ -69,7 +69,7 @@ namespace ExoplanetGame.Robot
         public override Measure Scan()
         {
             Measure measure = exoPlanet.Scan(this);
-            Console.WriteLine($"Scanned {measure.Ground}");
+            Console.WriteLine($"Scanned {measure}");
             return measure;
         }
 

@@ -24,10 +24,13 @@ namespace ExoplanetGame.ControlCenter
         public override string ToString()
         {
             StringBuilder sb = new();
-            sb.Append("MEASURE|");
-            sb.Append(Ground.ToString());
-            sb.Append("|");
-            sb.Append(Temperature.ToString()); // Append temperature value
+            sb.Append("MEASURE");
+            sb.Append("|Ground: ");
+            sb.Append(Ground);
+            sb.Append(", ");
+            sb.Append("Temperature: ");
+            sb.Append(Temperature.ToString("0.##"));
+            sb.Append("°C");
             return sb.ToString();
         }
 
