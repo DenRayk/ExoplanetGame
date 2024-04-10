@@ -48,25 +48,53 @@ public class Position
     {
         if (rotation == Rotation.LEFT)
         {
-            Direction = Direction switch
+            switch (Direction)
             {
-                Direction.NORTH => Direction.WEST,
-                Direction.WEST => Direction.SOUTH,
-                Direction.SOUTH => Direction.EAST,
-                Direction.EAST => Direction.NORTH,
-                _ => Direction
-            };
+                case Direction.NORTH:
+                    Direction = Direction.WEST;
+                    break;
+
+                case Direction.WEST:
+                    Direction = Direction.SOUTH;
+                    break;
+
+                case Direction.SOUTH:
+                    Direction = Direction.EAST;
+                    break;
+
+                case Direction.EAST:
+                    Direction = Direction.NORTH;
+                    break;
+
+                default:
+                    // Direction remains unchanged
+                    break;
+            }
         }
         else
         {
-            Direction = Direction switch
+            switch (Direction)
             {
-                Direction.NORTH => Direction.EAST,
-                Direction.EAST => Direction.SOUTH,
-                Direction.SOUTH => Direction.WEST,
-                Direction.WEST => Direction.NORTH,
-                _ => Direction
-            };
+                case Direction.NORTH:
+                    Direction = Direction.EAST;
+                    break;
+
+                case Direction.EAST:
+                    Direction = Direction.SOUTH;
+                    break;
+
+                case Direction.SOUTH:
+                    Direction = Direction.WEST;
+                    break;
+
+                case Direction.WEST:
+                    Direction = Direction.NORTH;
+                    break;
+
+                default:
+                    // Direction remains unchanged
+                    break;
+            }
         }
 
         return Direction;
