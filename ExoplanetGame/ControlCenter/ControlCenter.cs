@@ -1,83 +1,95 @@
 ﻿using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Robot;
+using System;
+using System.Collections.Generic;
 
-namespace ExoplanetGame.ControlCenter;
-
-public class ControlCenter
+namespace ExoplanetGame.ControlCenter
 {
-    private static ControlCenter controlCenter;
-
-    private PlanetMap planetMap;
-    private Dictionary<RobotBase, Position> robots;
-    public Exoplanet.Exoplanet exoPlanet;
-
-    public ControlCenter(Exoplanet.Exoplanet exoPlanet)
+    public class ControlCenter
     {
-        robots = new Dictionary<RobotBase, Position>();
-        this.exoPlanet = exoPlanet;
-    }
+        private static ControlCenter controlCenter;
 
-    public static ControlCenter GetInstance(Exoplanet.Exoplanet exoPlanet)
-    {
-        if (controlCenter == null)
+        private PlanetMap planetMap;
+        private Dictionary<RobotBase, Position> robots;
+        public Exoplanet.Exoplanet exoPlanet;
+
+        public event EventHandler<RobotPositionEventArgs> RobotPositionUpdated;
+
+        public ControlCenter(Exoplanet.Exoplanet exoPlanet)
         {
-            controlCenter = new ControlCenter(exoPlanet);
+            robots = new Dictionary<RobotBase, Position>();
+            this.exoPlanet = exoPlanet;
         }
-        return controlCenter;
-    }
 
-    public void Init(PlanetSize planetSize)
-    {
-        planetMap = new PlanetMap(planetSize);
-        Console.WriteLine("Control center initialized.");
-        Console.WriteLine("Planet size: " + planetSize);
-    }
-
-    public void AddRobot(RobotBase robotBase)
-    {
-        robots.Add(robotBase, new Position(0, 0));
-    }
-
-    public void UpdateRobotPosition(Robot.DefaultRobot robot, Position position)
-    {
-        robots[robot] = position;
-    }
-
-    public void AddMeasure(Measure measure, Position position)
-    {
-        planetMap.updateMap(position, measure.Ground);
-    }
-
-    public int GetRobotCount()
-    {
-        return robots.Count;
-    }
-
-    public void DisplayRobots()
-    {
-        for (int i = 0; i < robots.Count; i++)
+        public static ControlCenter GetInstance(Exoplanet.Exoplanet exoPlanet)
         {
-            Console.WriteLine($"{i + 1}. Robot {i + 1}");
+            if (controlCenter == null)
+            {
+                controlCenter = new ControlCenter(exoPlanet);
+            }
+            return controlCenter;
         }
-    }
 
-    public RobotBase GetRobotByID(int robotId)
-    {
-        return robots.Keys.ElementAt(robotId);
-    }
+        public void Init(PlanetSize planetSize)
+        {
+            planetMap = new PlanetMap(planetSize);
+            Console.WriteLine("Control center initialized.");
+            Console.WriteLine("Planet size: " + planetSize);
+        }
 
-    public void RemoveRobot(RobotBase Robot)
-    {
-        robots.Remove(Robot);
-    }
+        public void AddRobot(RobotBase robotBase)
+        {
+            robots.Add(robotBase, new Position(0, 0));
+        }
 
-    public void PrintMap()
-    {
-        planetMap.printMap();
-    }
+        public void UpdateRobotPosition(Robot.DefaultRobot robot, Position position)
+        {
+            robots[robot] = position;
 
-    public void ClearRobots()
-    {
-        robots.Clear();
+            OnRobotPositionUpdated(robot, position);
+        }
+
+        protected virtual void OnRobotPositionUpdated(RobotBase robot, Position position)
+        {
+            RobotPositionUpdated?.Invoke(this, new RobotPositionEventArgs(robot, position));
+        }
+
+        public void AddMeasure(Measure measure, Position position)
+        {
+            planetMap.updateMap(position, measure.Ground);
+        }
+
+        public int GetRobotCount()
+        {
+            return robots.Count;
+        }
+
+        public void DisplayRobots()
+        {
+            for (int i = 0; i < robots.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. Robot {i + 1}");
+            }
+        }
+
+        public RobotBase GetRobotByID(int robotId)
+        {
+            return robots.Keys.ElementAt(robotId);
+        }
+
+        public void RemoveRobot(RobotBase Robot)
+        {
+            robots.Remove(Robot);
+        }
+
+        public void PrintMap()
+        {
+            planetMap.printMap();
+        }
+
+        public void ClearRobots()
+        {
+            robots.Clear();
+        }
     }
 }

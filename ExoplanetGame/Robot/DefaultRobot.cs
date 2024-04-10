@@ -6,6 +6,7 @@ namespace ExoplanetGame.Robot
     {
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
+
         public override RobotStatus RobotStatus { get; set; }
 
         public override int MaxHeat { get; set; } = 100;
@@ -14,12 +15,28 @@ namespace ExoplanetGame.Robot
         {
             this.controlCenter = controlCenter;
             this.exoPlanet = exoPlanet;
+            controlCenter.RobotPositionUpdated += HandleOtherRobotPositionUpdated;
 
             RobotStatus = new RobotStatus
             {
                 RobotID = robotId,
                 Energy = 100
             };
+        }
+
+        private void HandleOtherRobotPositionUpdated(object? sender, RobotPositionEventArgs e)
+        {
+            if (e.Robot.Equals(this))
+                return;
+
+            if (RobotStatus.OtherRobotPositions.ContainsKey(e.Robot))
+            {
+                RobotStatus.OtherRobotPositions[e.Robot] = e.NewPosition;
+            }
+            else
+            {
+                RobotStatus.OtherRobotPositions.Add(e.Robot, e.NewPosition);
+            }
         }
 
         public override void Crash()
