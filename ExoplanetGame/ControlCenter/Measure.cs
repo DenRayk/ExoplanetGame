@@ -1,44 +1,56 @@
 ﻿using ExoplanetGame.Exoplanet;
-
-namespace ExoplanetGame.ControlCenter;
-
 using System;
 using System.Text;
 
-public class Measure
+namespace ExoplanetGame.ControlCenter
 {
-    public Ground Ground { get; set; }
-
-    public Measure()
+    public class Measure
     {
-        Ground = Ground.NICHTS;
-    }
+        public Ground Ground { get; set; }
+        public double Temperature { get; set; } // Temperature property
 
-    public Measure(Ground ground)
-    {
-        Ground = ground;
-    }
-
-    public override string ToString()
-    {
-        StringBuilder sb = new();
-        sb.Append("MEASURE|");
-        sb.Append(Ground.ToString());
-        return sb.ToString();
-    }
-
-    public static Measure Parse(string data)
-    {
-        string[] parts = data.Split('|');
-        if (parts.Length != 2)
+        public Measure()
         {
-            throw new ArgumentException("Invalid measure data: " + data);
+            Ground = Ground.NICHTS;
+            Temperature = 0.0; // Default temperature value
         }
 
-        if (parts[0] != "MEASURE")
+        public Measure(Ground ground, double temperature)
         {
-            throw new ArgumentException("Invalid measure data: " + data);
+            Ground = ground;
+            Temperature = temperature;
         }
-        return (Measure)Enum.Parse(typeof(Ground), parts[1]);
+
+        public override string ToString()
+        {
+            StringBuilder sb = new();
+            sb.Append("MEASURE|");
+            sb.Append(Ground.ToString());
+            sb.Append("|");
+            sb.Append(Temperature.ToString()); // Append temperature value
+            return sb.ToString();
+        }
+
+        public static Measure Parse(string data)
+        {
+            string[] parts = data.Split('|');
+            if (parts.Length != 3) // Check if parts contain both Ground and Temperature
+            {
+                throw new ArgumentException("Invalid measure data: " + data);
+            }
+
+            if (parts[0] != "MEASURE")
+            {
+                throw new ArgumentException("Invalid measure data: " + data);
+            }
+
+            // Parse temperature value
+            if (!double.TryParse(parts[2], out double temperature))
+            {
+                throw new ArgumentException("Invalid temperature value: " + parts[2]);
+            }
+
+            return new Measure((Ground)Enum.Parse(typeof(Ground), parts[1]), temperature);
+        }
     }
 }
