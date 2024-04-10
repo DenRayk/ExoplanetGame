@@ -2,7 +2,7 @@
 
 namespace ExoplanetGame.Robot
 {
-    public class DefaultRobot : RobotBase
+    public sealed class DefaultRobot : RobotBase
     {
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
@@ -15,6 +15,7 @@ namespace ExoplanetGame.Robot
         {
             this.controlCenter = controlCenter;
             this.exoPlanet = exoPlanet;
+
             controlCenter.RobotPositionUpdated += HandleOtherRobotPositionUpdated;
 
             RobotStatus = new RobotStatus
@@ -48,10 +49,12 @@ namespace ExoplanetGame.Robot
         public override bool Land(Position landPosition)
         {
             RobotStatus.HasLanded = exoPlanet.Land(this, landPosition);
+
             if (RobotStatus.HasLanded)
             {
                 Console.WriteLine($"Robot landed on {landPosition}");
                 RobotStatus.Position = landPosition;
+                controlCenter.UpdateRobotPosition(this, landPosition);
             }
             else
             {
@@ -75,6 +78,12 @@ namespace ExoplanetGame.Robot
 
         public override Position Move()
         {
+            if (DoesOtherRobotBlocksMove())
+            {
+                Console.WriteLine("Robot cannot move because another robot is blocking the way");
+                return RobotStatus.Position;
+            }
+
             Position newPosition = exoPlanet.Move(this);
             if (newPosition != null)
             {
@@ -93,8 +102,9 @@ namespace ExoplanetGame.Robot
 
         public override void Rotate(Rotation rotation)
         {
-            RobotStatus.Position.Direction = exoPlanet.Rotate(this, rotation);
             Console.WriteLine($"Robot rotated to {RobotStatus.Position}");
+
+            RobotStatus.Position.Direction = exoPlanet.Rotate(this, rotation);
             controlCenter.UpdateRobotPosition(this, RobotStatus.Position);
         }
 
@@ -106,6 +116,19 @@ namespace ExoplanetGame.Robot
         public override Position GetPosition()
         {
             return exoPlanet.GetRobotPosition(this);
+        }
+
+        private bool DoesOtherRobotBlocksMove()
+        {
+            foreach (var otherRobot in RobotStatus.OtherRobotPositions.Keys)
+            {
+                if (RobotStatus.OtherRobotPositions[otherRobot].Equals(RobotStatus.Position.GetAdjacentPosition()))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
