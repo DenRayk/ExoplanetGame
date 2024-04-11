@@ -8,5 +8,9 @@ public interface IRobotFactory
 
     RobotBase CreateLavaRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID);
 
+    RobotBase CreateAquaRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID);
+
+    RobotBase CreateMudRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID);
+
     RobotBase CreateSolarRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID);
 }

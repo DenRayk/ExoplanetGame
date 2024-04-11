@@ -37,5 +37,15 @@ namespace ExoplanetGame.Robot
         {
             return new LavaBot(controlCenter, exoPlanet, robotID);
         }
+
+        public RobotBase CreateAquaRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID)
+        {
+            return new AquaBot(controlCenter, exoPlanet, robotID);
+        }
+
+        public RobotBase CreateMudRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotID)
+        {
+            return new MudBot(controlCenter, exoPlanet, robotID);
+        }
     }
 }

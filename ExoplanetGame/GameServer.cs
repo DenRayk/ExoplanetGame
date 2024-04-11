@@ -56,6 +56,12 @@ namespace ExoplanetGame
                     case RobotVariant.LAVA:
                         robotBase = robotFactory.CreateLavaRobot(controlCenter, exoPlanet, robotID++);
                         break;
+                    case RobotVariant.AQUA:
+                        robotBase = robotFactory.CreateAquaRobot(controlCenter, exoPlanet, robotID++);
+                        break;
+                    case RobotVariant.MUD:
+                        robotBase = robotFactory.CreateMudRobot(controlCenter, exoPlanet, robotID++);
+                        break;
                     default:
                         Console.WriteLine("Invalid robot variant.");
                         return;

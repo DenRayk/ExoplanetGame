@@ -7,5 +7,7 @@ public enum RobotVariant
     DEFAULT,
     SCOUT,
     LAVA,
+    AQUA,
+    MUD,
     SOLAR,
 }
