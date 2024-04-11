@@ -1,4 +1,5 @@
 using ExoplanetGame;
+using ExoplanetGame.Robot;
 
 namespace GameServerTest
 {
@@ -12,11 +13,11 @@ namespace GameServerTest
             GameServer server = GameServer.GetInstance();
 
             // Act
-            server.AddRobot();
-            server.AddRobot();
-            server.AddRobot();
-            server.AddRobot();
-            server.AddRobot();
+            server.AddRobot(RobotVariant.DEFAULT);
+            server.AddRobot(RobotVariant.DEFAULT);
+            server.AddRobot(RobotVariant.DEFAULT);
+            server.AddRobot(RobotVariant.DEFAULT);
+            server.AddRobot(RobotVariant.DEFAULT);
 
             // Assert
             Assert.AreEqual(5, server.RobotCount);
@@ -29,12 +30,12 @@ namespace GameServerTest
             GameServer server = GameServer.GetInstance();
 
             // Act
-            server.AddRobot();
-            server.AddRobot();
-            server.AddRobot();
-            server.AddRobot();
-            server.AddRobot();
-            server.AddRobot();
+            server.AddRobot(RobotVariant.DEFAULT);
+            server.AddRobot(RobotVariant.DEFAULT);
+            server.AddRobot(RobotVariant.DEFAULT);
+            server.AddRobot(RobotVariant.DEFAULT);
+            server.AddRobot(RobotVariant.DEFAULT);
+            server.AddRobot(RobotVariant.DEFAULT);
 
             // Assert
             Assert.AreEqual(5, server.RobotCount);
