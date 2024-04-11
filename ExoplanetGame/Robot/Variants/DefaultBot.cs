@@ -2,7 +2,7 @@
 
 namespace ExoplanetGame.Robot.Variants
 {
-    public sealed class DefaultRobot : RobotBase
+    public sealed class DefaultBot : RobotBase
     {
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
@@ -13,7 +13,7 @@ namespace ExoplanetGame.Robot.Variants
 
         public override RobotVariant RobotVariant { get; }
 
-        public DefaultRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
+        public DefaultBot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
         {
             this.controlCenter = controlCenter;
             this.exoPlanet = exoPlanet;

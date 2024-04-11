@@ -57,6 +57,8 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("Select a robot variant:");
             Console.WriteLine("1. Default robot");
             Console.WriteLine("2. Scout robot");
+            Console.WriteLine("3. Lava robot");
+            Console.WriteLine("4. Solar robot");
 
             int choice = int.Parse(Console.ReadLine());
 
@@ -66,6 +68,10 @@ namespace ExoplanetGame.Menus
                     return RobotVariant.DEFAULT;
                 case 2: 
                     return RobotVariant.SCOUT;
+                case 3:
+                    return RobotVariant.LAVA;
+                case 4:
+                    return RobotVariant.SOLAR;
                 default: 
                     throw new ArgumentException("Invalid choice. Please select a valid robot variant.");
             }

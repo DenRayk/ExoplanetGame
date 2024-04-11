@@ -1,9 +1,13 @@
 ﻿using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Exoplanet;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ExoplanetGame.Robot.Variants
 {
-    public class ScoutRobot : RobotBase
+    public class LavaBot : RobotBase
     {
         private Exoplanet.Exoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
@@ -13,13 +17,13 @@ namespace ExoplanetGame.Robot.Variants
 
         public override RobotVariant RobotVariant { get; }
 
-        public ScoutRobot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
+        public LavaBot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
         {
             this.controlCenter = controlCenter;
             this.exoPlanet = exoPlanet;
             controlCenter.RobotPositionUpdated += HandleOtherRobotPositionUpdated;
 
-            RobotVariant = RobotVariant.SCOUT;
+            RobotVariant = RobotVariant.LAVA;
             RobotStatus = new RobotStatus
             {
                 RobotID = robotId,

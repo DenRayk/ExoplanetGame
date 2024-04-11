@@ -6,4 +6,6 @@ public enum RobotVariant
 {
     DEFAULT,
     SCOUT,
+    LAVA,
+    SOLAR,
 }
