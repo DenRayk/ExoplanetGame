@@ -33,7 +33,7 @@ namespace ExoplanetGame
 
         public void Start()
         {
-            MainMenu.Show(this, controlCenter);
+            MenuController.ShowMainMenu(this, controlCenter);
         }
 
         public void AddRobot(RobotVariant robotVariant)
@@ -69,7 +69,7 @@ namespace ExoplanetGame
 
                 controlCenter.AddRobot(robotBase);
                 RobotCount++;
-                Console.WriteLine("Robot added successfully.");
+                Console.WriteLine($"{robotBase.GetLanderName()} added successfully.");
             }
             else
             {
@@ -79,7 +79,7 @@ namespace ExoplanetGame
 
         public void ControlRobot(int robotID)
         {
-            RobotMenu.Show(controlCenter.GetRobotByID(robotID), controlCenter);
+            MenuController.ShowRobotMenu(controlCenter.GetRobotByID(robotID), controlCenter);
         }
 
         public void ClearRobots()

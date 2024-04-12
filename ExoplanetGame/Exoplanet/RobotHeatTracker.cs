@@ -11,6 +11,11 @@ namespace ExoplanetGame.Exoplanet
 
         public void PerformAction(RobotBase robot)
         {
+            if (Console.IsOutputRedirected == false)
+            {
+                Console.Clear();
+            }
+
             if (!heatLevels.ContainsKey(robot))
             {
                 heatLevels[robot] = 0;

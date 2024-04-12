@@ -6,80 +6,7 @@ namespace ExoplanetGame.Menus
 {
     public class RobotMenu
     {
-        public static void Show(RobotBase robot, ControlCenter.ControlCenter controlCenter)
-        {
-            bool keepMenuRunning = true;
-            bool hasLanded = robot.HasLanded();
-
-            while (keepMenuRunning)
-            {
-                Console.WriteLine($"Robot {robot.RobotStatus.RobotID} Menu");
-                DisplayMenuOptions(hasLanded);
-
-                int maxChoices = hasLanded ? 8 : 2;
-
-                int choice = GetUserChoice(1, maxChoices);
-
-                switch (choice)
-                {
-                    case 1:
-                        if (hasLanded)
-                        {
-                            ShowCurrentPosition(robot);
-                        }
-                        else
-                        {
-                            HandleLandOption(robot, ref hasLanded);
-                        }
-                        break;
-
-                    case 2:
-                        if (hasLanded)
-                        {
-                            ScanEnvironment(robot, controlCenter);
-                        }
-                        else
-                        {
-                            keepMenuRunning = false;
-                        }
-                        break;
-
-                    case 3:
-                        if (hasLanded)
-                        {
-                            keepMenuRunning = MoveRobot(robot);
-                        }
-                        break;
-
-                    case 4:
-                        if (hasLanded)
-                        {
-                            RotateRobot(robot);
-                        }
-                        break;
-
-                    case 5:
-                        if (hasLanded)
-                        {
-                            CrashRobot(robot, controlCenter, ref keepMenuRunning);
-                        }
-                        else
-                        {
-                            keepMenuRunning = false;
-                        }
-                        break;
-
-                    case 6:
-                        if (hasLanded)
-                        {
-                            keepMenuRunning = false;
-                        }
-                        break;
-                }
-            }
-        }
-
-        private static void DisplayMenuOptions(bool hasLanded)
+        public static void DisplayRobotMenuOptions(bool hasLanded)
         {
             Console.WriteLine(hasLanded ? "Planet research options:" : "Pre-Landing Options:");
 
@@ -99,7 +26,7 @@ namespace ExoplanetGame.Menus
             }
         }
 
-        private static int GetUserChoice(int minValue, int maxValue)
+        public static int GetRobotMenuSelection(int minValue, int maxValue)
         {
             int choice;
 
@@ -107,27 +34,31 @@ namespace ExoplanetGame.Menus
             {
                 Console.WriteLine($"Invalid input. Please enter a number between {minValue} and {maxValue}.");
             }
+
+            Console.Clear();
+
             return choice;
         }
 
-        private static void HandleLandOption(RobotBase robot, ref bool hasLanded)
+        public static void HandleLandOption(RobotBase robot, ref bool hasLanded)
         {
-            if (!hasLanded)
+            if (hasLanded)
             {
-                hasLanded = robot.Land(SelectLandPosition());
+                Console.WriteLine("The robot has already landed.");
+                
             }
             else
             {
-                Console.WriteLine("The robot has already landed.");
+                hasLanded = robot.Land(SelectLandPosition());
             }
         }
 
-        private static void ShowCurrentPosition(RobotBase robot)
+        public static void ShowCurrentPosition(RobotBase robot)
         {
             Console.WriteLine($"Robot is at {robot.GetPosition()}");
         }
 
-        private static void ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)
+        public static void ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)
         {
             if (robot.RobotVariant == RobotVariant.SCOUT)
             {
@@ -144,7 +75,7 @@ namespace ExoplanetGame.Menus
             }
         }
 
-        private static bool MoveRobot(RobotBase robot)
+        public static bool MoveRobot(RobotBase robot)
         {
             if (robot.Move() == null)
             {
@@ -153,36 +84,36 @@ namespace ExoplanetGame.Menus
             return true;
         }
 
-        private static void RotateRobot(RobotBase robot)
+        public static void RotateRobot(RobotBase robot)
         {
             robot.Rotate(SelectRotation());
         }
 
-        private static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
+        public static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
         {
             robot.Crash();
             controlCenter.RemoveRobot(robot);
             keepMenuRunning = false;
         }
 
-        private static Rotation SelectRotation()
+        public static Rotation SelectRotation()
         {
             Console.WriteLine("Enter the rotation:");
             Console.WriteLine("1. Left");
             Console.WriteLine("2. Right");
 
-            int rotation = GetUserChoice(1, 2);
+            int rotation = GetRobotMenuSelection(1, 2);
 
             return rotation == 1 ? Rotation.LEFT : Rotation.RIGHT;
         }
 
-        private static Position SelectLandPosition()
+        public static Position SelectLandPosition()
         {
             Console.WriteLine("Enter the X coordinate:");
-            int x = GetUserChoice(int.MinValue, int.MaxValue);
+            int x = GetRobotMenuSelection(int.MinValue, int.MaxValue);
 
             Console.WriteLine("Enter the Y coordinate:");
-            int y = GetUserChoice(int.MinValue, int.MaxValue);
+            int y = GetRobotMenuSelection(int.MinValue, int.MaxValue);
 
             return new Position(x, y);
         }
