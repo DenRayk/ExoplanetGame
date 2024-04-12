@@ -21,13 +21,28 @@ namespace ExoplanetGame.ControlCenter
             }
         }
 
-        public void printMap()
+        public void printMap(Dictionary<RobotBase, Position> robots)
         {
             for (int i = 0; i < planetSize.Height; i++)
             {
                 for (int j = 0; j < planetSize.Width; j++)
                 {
-                    GroundPrinter.printGround(map[i, j]);
+                    if (robots.ContainsValue(new Position(j, i)))
+                    {
+                        foreach (var robot in robots)
+                        {
+                            if (robot.Value == null) continue;
+
+                            if (robot.Value.X == j && robot.Value.Y == i)
+                            {
+                                GroundPrinter.printGroundWithRobot(map[i, j], robot.Key);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        GroundPrinter.printGround(map[i, j]);
+                    }
                 }
                 Console.WriteLine();
             }

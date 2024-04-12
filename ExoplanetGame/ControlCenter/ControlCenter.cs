@@ -38,7 +38,7 @@ namespace ExoplanetGame.ControlCenter
 
         public void AddRobot(RobotBase robotBase)
         {
-            robots.Add(robotBase, new Position(0, 0));
+            robots.Add(robotBase, null);
         }
 
         public void UpdateRobotPosition(RobotBase robot, Position position)
@@ -103,7 +103,7 @@ namespace ExoplanetGame.ControlCenter
 
         public void PrintMap()
         {
-            planetMap.printMap();
+            planetMap.printMap(robots);
         }
 
         public void ClearRobots()
