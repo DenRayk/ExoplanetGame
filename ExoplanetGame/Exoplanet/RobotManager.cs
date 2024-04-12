@@ -6,6 +6,7 @@ namespace ExoplanetGame.Exoplanet
     {
         private Dictionary<RobotBase, Position> robots = new();
         private RobotHeatTracker robotHeatTracker = new();
+        private RobotStuckTracker RobotStuckTracker = new();
 
         public int GetRobotCount()
         {
@@ -37,8 +38,17 @@ namespace ExoplanetGame.Exoplanet
 
             if (CheckPosition(robot, newPosition, topography))
             {
+                if (RobotStuckTracker.IsRobotStuck(robot))
+                {
+                    Console.WriteLine("The robot is stuck and can't move. Try to rotate to get unstuck.");
+                    return robotPosition;
+                }
+
                 robotHeatTracker.PerformAction(robot);
                 robots[robot] = newPosition;
+
+                CheckIfRobotGetsStuck(robot, topography, newPosition);
+
                 return newPosition;
             }
 
@@ -47,10 +57,26 @@ namespace ExoplanetGame.Exoplanet
             return null;
         }
 
+        private void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position newPosition)
+        {
+            Ground newGround = topography.GetMeasureAtPosition(newPosition).Ground;
+
+            if (newGround == Ground.MORAST || newGround == Ground.PFLANZEN)
+            {
+                RobotStuckTracker.RobotGetStuckRandomly(robot);
+            }
+        }
+
         public Direction RotateRobot(RobotBase robot, Rotation rotation)
         {
             robotHeatTracker.PerformAction(robot);
             Position robotPosition = robots[robot];
+
+            if (RobotStuckTracker.IsRobotStuck(robot))
+            {
+                RobotStuckTracker.UnstuckRobot(robot);
+            }
+
             return robotPosition.Rotate(rotation);
         }
 
