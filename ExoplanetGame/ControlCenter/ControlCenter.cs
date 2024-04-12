@@ -58,6 +58,14 @@ namespace ExoplanetGame.ControlCenter
             planetMap.updateMap(position, measure.Ground);
         }
 
+        public void AddMeasures(Dictionary<Measure, Position> measures, Position position)
+        {
+            foreach (var measure in measures)
+            {
+                planetMap.updateMap(measure.Value, measure.Key.Ground);
+            }
+        }
+
         public int GetRobotCount()
         {
             return robots.Count;

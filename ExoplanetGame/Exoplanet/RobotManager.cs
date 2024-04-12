@@ -89,7 +89,7 @@ namespace ExoplanetGame.Exoplanet
             return true;
         }
 
-        private bool IsPositionInBounds(Position position, Topography topography)
+        public bool IsPositionInBounds(Position position, Topography topography)
         {
             return position.X >= 0 && position.X < topography.PlanetSize.Width && position.Y >= 0 && position.Y < topography.PlanetSize.Height;
         }

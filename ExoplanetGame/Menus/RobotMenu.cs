@@ -1,4 +1,6 @@
-﻿using ExoplanetGame.Robot;
+﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Menus
 {
@@ -127,7 +129,19 @@ namespace ExoplanetGame.Menus
 
         private static void ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)
         {
-            controlCenter.AddMeasure(robot.Scan(), robot.RobotStatus.Position);
+            if (robot.RobotVariant == RobotVariant.SCOUT)
+            {
+                if (robot is ScoutBot scoutBot)
+                {
+                    Dictionary<Measure, Position> measures = scoutBot.ScoutScan();
+
+                    controlCenter.AddMeasures(measures, robot.RobotStatus.Position);
+                }
+            }
+            else
+            {
+                controlCenter.AddMeasure(robot.Scan(), robot.RobotStatus.Position);
+            }
         }
 
         private static bool MoveRobot(RobotBase robot)
