@@ -135,7 +135,7 @@ namespace ExoplanetGame.Menus
                 {
                     Dictionary<Measure, Position> measures = scoutBot.ScoutScan();
 
-                    controlCenter.AddMeasures(measures, robot.RobotStatus.Position);
+                    controlCenter.AddMeasures(measures);
                 }
             }
             else

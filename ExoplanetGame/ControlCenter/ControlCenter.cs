@@ -58,7 +58,7 @@ namespace ExoplanetGame.ControlCenter
             planetMap.updateMap(position, measure.Ground);
         }
 
-        public void AddMeasures(Dictionary<Measure, Position> measures, Position position)
+        public void AddMeasures(Dictionary<Measure, Position> measures)
         {
             foreach (var measure in measures)
             {
