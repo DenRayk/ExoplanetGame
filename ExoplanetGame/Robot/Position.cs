@@ -74,10 +74,6 @@ public class Position
                 case Direction.EAST:
                     Direction = Direction.NORTH;
                     break;
-
-                default:
-                    // Direction remains unchanged
-                    break;
             }
         }
         else
@@ -98,10 +94,6 @@ public class Position
 
                 case Direction.WEST:
                     Direction = Direction.NORTH;
-                    break;
-
-                default:
-                    // Direction remains unchanged
                     break;
             }
         }
