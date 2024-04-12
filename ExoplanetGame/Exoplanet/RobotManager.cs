@@ -12,19 +12,21 @@ namespace ExoplanetGame.Exoplanet
             return robots.Count;
         }
 
-        public void RemoveRobot(RobotBase Robot)
+        public void RemoveRobot(RobotBase robot)
         {
-            robots.Remove(Robot);
+            robots.Remove(robot);
         }
 
-        public bool LandRobot(RobotBase Robot, Position landPosition, Topography topography)
+        public bool LandRobot(RobotBase robot, Position landPosition, Topography topography)
         {
-            if (!robots.ContainsKey(Robot) && CheckPosition(landPosition, topography))
+            if (!robots.ContainsKey(robot) && CheckPosition(robot, landPosition, topography))
             {
-                robots.Add(Robot, landPosition);
+                robots.Add(robot, landPosition);
                 return true;
             }
-            RemoveRobot(Robot);
+
+            RemoveRobot(robot);
+
             return false;
         }
 
@@ -33,13 +35,15 @@ namespace ExoplanetGame.Exoplanet
             Position robotPosition = robots[robot];
             Position newPosition = robotPosition.GetAdjacentPosition();
 
-            if (CheckPosition(newPosition, topography))
+            if (CheckPosition(robot, newPosition, topography))
             {
                 robotHeatTracker.PerformAction(robot);
                 robots[robot] = newPosition;
                 return newPosition;
             }
+
             RemoveRobot(robot);
+
             return null;
         }
 
@@ -56,7 +60,7 @@ namespace ExoplanetGame.Exoplanet
             return robots[robot];
         }
 
-        private bool CheckPosition(Position position, Topography topography)
+        private bool CheckPosition(RobotBase robot, Position position, Topography topography)
         {
             if (position == null) return false;
 
@@ -66,7 +70,7 @@ namespace ExoplanetGame.Exoplanet
                 return false;
             }
 
-            if (IsPositionLava(position, topography))
+            if (IsPositionLava(position, topography) && robot.RobotVariant != RobotVariant.LAVA)
             {
                 Console.WriteLine("The floor is lava.");
                 return false;
@@ -78,23 +82,25 @@ namespace ExoplanetGame.Exoplanet
                 return false;
             }
 
-            foreach (var robot in robots.Values)
-            {
-                if (robot.X == position.X && robot.Y == position.Y)
-                {
-                    return false;
-                }
-            }
-
             return true;
         }
 
-        private bool IsPositionInBounds(Position position, Topography topography)
+        private static bool IsPositionInBounds(Position position, Topography topography)
         {
-            return position.X >= 0 && position.X < topography.PlanetSize.Width && position.Y >= 0 && position.Y < topography.PlanetSize.Height;
+            bool isXCoordinateInBounds = position.X >= 0;
+
+            bool isXCoordinateLessThanWidth = position.X < topography.PlanetSize.Width;
+
+            bool isYCoordinateInBounds = position.Y >= 0;
+
+            bool isYCoordinateLessThanHeight = position.Y < topography.PlanetSize.Height;
+
+            bool isPositionInBounds = isXCoordinateInBounds && isXCoordinateLessThanWidth && isYCoordinateInBounds && isYCoordinateLessThanHeight;
+
+            return isPositionInBounds;
         }
 
-        private bool IsPositionLava(Position position, Topography topography)
+        private static bool IsPositionLava(Position position, Topography topography)
         {
             return topography.GetMeasureAtPosition(position).Ground == Ground.LAVA;
         }
