@@ -117,5 +117,11 @@ namespace ExoplanetGame.Menus
 
             return new Position(x, y);
         }
+
+        public static void LoadCurrentExploredMap(ControlCenter.ControlCenter controlCenter)
+        {
+            Console.WriteLine("Discovered area of the planet:");
+            controlCenter.PrintMap();
+        }
     }
 }

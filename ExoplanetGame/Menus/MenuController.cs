@@ -51,6 +51,7 @@ namespace ExoplanetGame.Menus
             while (keepMenuRunning)
             {
                 Console.WriteLine($"{robot.GetLanderName()} Menu");
+                RobotMenu.LoadCurrentExploredMap(controlCenter);
                 RobotMenu.DisplayRobotMenuOptions(hasRobotLanded);
 
                 int maxChoices = hasRobotLanded ? 8 : 2;
