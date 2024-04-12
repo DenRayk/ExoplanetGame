@@ -1,5 +1,5 @@
 using ExoplanetGame;
-using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Variants;
 
 namespace GameServerTest
 {

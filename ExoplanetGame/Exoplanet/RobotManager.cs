@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet
 {

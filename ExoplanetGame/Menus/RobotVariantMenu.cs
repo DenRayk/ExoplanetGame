@@ -1,4 +1,4 @@
-﻿using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Robot.Variants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
