@@ -85,7 +85,7 @@ namespace ExoplanetGame.Exoplanet
             return true;
         }
 
-        private static bool IsPositionInBounds(Position position, Topography topography)
+        public bool IsPositionInBounds(Position position, Topography topography)
         {
             bool isXCoordinateInBounds = position.X >= 0;
 

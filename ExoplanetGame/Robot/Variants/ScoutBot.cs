@@ -77,6 +77,18 @@ namespace ExoplanetGame.Robot.Variants
             return measure;
         }
 
+        public Dictionary<Measure, Position> ScoutScan()
+        {
+            Dictionary<Measure, Position> measures = exoPlanet.ScoutScan(this);
+
+            foreach (var measure in measures)
+            {
+                Console.WriteLine($"Scanned {measure.Key} at {measure.Value}");
+            }
+
+            return measures;
+        }
+
         public override Position Move()
         {
             Position newPosition = exoPlanet.Move(this);
