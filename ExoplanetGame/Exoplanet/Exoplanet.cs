@@ -54,33 +54,7 @@ namespace ExoplanetGame.Exoplanet
 
         public Dictionary<Measure, Position> ScoutScan(RobotBase robot)
         {
-            Dictionary<Measure, Position> scoutScanResults = new Dictionary<Measure, Position>();
-            Position currentRobotPosition = robotManager.GetRobotPosition(robot);
-
-            Measure currentMeasure = Topography.GetMeasureAtPosition(currentRobotPosition);
-            scoutScanResults.Add(currentMeasure, currentRobotPosition);
-
-            if (robot.RobotVariant == RobotVariant.SCOUT)
-            {
-                Position firstForwardPosition = currentRobotPosition.GetAdjacentPosition();
-                Position secondForwardPosition = firstForwardPosition.GetAdjacentPosition();
-
-                bool isFirstPositionValid = robotManager.IsPositionInBounds(firstForwardPosition, Topography);
-                bool isSecondPositionValid = robotManager.IsPositionInBounds(secondForwardPosition, Topography);
-
-                if (isFirstPositionValid)
-                {
-                    Measure firstPositionMeasure = Topography.GetMeasureAtPosition(firstForwardPosition);
-                    scoutScanResults.Add(firstPositionMeasure, firstForwardPosition);
-                }
-                if (isSecondPositionValid)
-                {
-                    Measure secondPositionMeasure = Topography.GetMeasureAtPosition(secondForwardPosition);
-                    scoutScanResults.Add(secondPositionMeasure, secondForwardPosition);
-                }
-            }
-
-            return scoutScanResults;
+            return robotManager.ScoutScan(robot, Topography);
         }
 
         public Position GetRobotPosition(RobotBase robot)
