@@ -99,6 +99,7 @@ namespace ExoplanetGame.ControlCenter
         public void RemoveRobot(RobotBase Robot)
         {
             robots.Remove(Robot);
+            exoPlanet.RemoveRobot(Robot);
         }
 
         public void PrintMap()

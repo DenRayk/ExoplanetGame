@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,29 +15,38 @@ namespace ExoplanetGame.Exoplanet
 
         public void RobotPartDamage(RobotBase robot, RobotParts part)
         {
-            if (!robotParts.ContainsKey(robot))
-            {
-                robotParts[robot] = new();
-            }
+            CreateRobotIfNotExists(robot);
 
-            if (!robotParts[robot].ContainsKey(part))
-            {
-                robotParts[robot][part] = 100;
-            }
+            CreatePartIfNotExists(robot, part);
 
             robotParts[robot][part] -= random.Next(1, 10);
         }
 
-        public int GetRobotPartHealth(RobotBase robot, RobotParts part)
+        public bool isRobotPartDamaged(RobotBase robot, RobotParts part)
         {
-            if (!robotParts.ContainsKey(robot))
+            if (!DoesRobotExist(robot))
             {
-                return 100;
+                return false;
             }
 
-            if (!robotParts[robot].ContainsKey(part))
+            if (!DoesPartExist(robot, part))
             {
-                return 100;
+                return false;
+            }
+
+            return robotParts[robot][part] <= 0;
+        }
+
+        public int GetRobotPartHealth(RobotBase robot, RobotParts part)
+        {
+            if (!DoesRobotExist(robot))
+            {
+                return 0;
+            }
+
+            if (!DoesPartExist(robot, part))
+            {
+                return 0;
             }
 
             return robotParts[robot][part];
@@ -44,17 +54,45 @@ namespace ExoplanetGame.Exoplanet
 
         public void RepairRobotPart(RobotBase robot, RobotParts part)
         {
-            if (!robotParts.ContainsKey(robot))
+            if (!DoesRobotExist(robot))
             {
                 return;
             }
 
-            if (!robotParts[robot].ContainsKey(part))
+            if (!DoesPartExist(robot, part))
             {
                 return;
             }
 
             robotParts[robot][part] = 100;
+        }
+
+        private bool DoesRobotExist(RobotBase robot) => robotParts.ContainsKey(robot);
+
+        private bool DoesPartExist(RobotBase robot, RobotParts part)
+        {
+            if (!robotParts.ContainsKey(robot))
+            {
+                return false;
+            }
+
+            return robotParts[robot].ContainsKey(part);
+        }
+
+        private void CreatePartIfNotExists(RobotBase robot, RobotParts part)
+        {
+            if (!robotParts[robot].ContainsKey(part))
+            {
+                robotParts[robot][part] = 100;
+            }
+        }
+
+        private void CreateRobotIfNotExists(RobotBase robot)
+        {
+            if (!robotParts.ContainsKey(robot))
+            {
+                robotParts[robot] = new();
+            }
         }
     }
 }

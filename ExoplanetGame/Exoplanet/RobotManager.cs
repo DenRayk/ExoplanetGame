@@ -23,7 +23,7 @@ namespace ExoplanetGame.Exoplanet
 
         public bool LandRobot(RobotBase robot, Position landPosition, Topography topography)
         {
-            if (!robots.ContainsKey(robot) && CheckPosition(robot, landPosition, topography))
+            if (!robots.ContainsKey(robot) && CheckIfPositionIsDeadly(robot, landPosition, topography))
             {
                 robots.Add(robot, landPosition);
                 return true;
@@ -36,67 +36,93 @@ namespace ExoplanetGame.Exoplanet
 
         public Measure Scan(RobotBase robot, Topography topography)
         {
-            robotHeatTracker.PerformAction(robot);
-            robotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
-            return topography.GetMeasureAtPosition(robots[robot]);
+            if (!robotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
+            {
+                robotHeatTracker.PerformAction(robot);
+                robotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
+                return topography.GetMeasureAtPosition(robots[robot]);
+            }
+            else
+            {
+                Console.WriteLine("The robot's scan sensor is damaged and can't scan.");
+                return null;
+            }
         }
 
         public Dictionary<Measure, Position> ScoutScan(RobotBase robot, Topography topography)
         {
-            Dictionary<Measure, Position> scoutScanResults = new Dictionary<Measure, Position>();
-            Position currentRobotPosition = GetRobotPosition(robot);
-
-            Measure currentMeasure = topography.GetMeasureAtPosition(currentRobotPosition);
-            scoutScanResults.Add(currentMeasure, currentRobotPosition);
-
-            if (robot.RobotVariant == RobotVariant.SCOUT)
+            if (!robotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
             {
-                Position firstForwardPosition = currentRobotPosition.GetAdjacentPosition();
-                Position secondForwardPosition = firstForwardPosition.GetAdjacentPosition();
+                Dictionary<Measure, Position> scoutScanResults = new Dictionary<Measure, Position>();
+                Position currentRobotPosition = GetRobotPosition(robot);
 
-                bool isFirstPositionValid = IsPositionInBounds(firstForwardPosition, topography);
-                bool isSecondPositionValid = IsPositionInBounds(secondForwardPosition, topography);
+                Measure currentMeasure = topography.GetMeasureAtPosition(currentRobotPosition);
+                scoutScanResults.Add(currentMeasure, currentRobotPosition);
 
-                if (isFirstPositionValid)
+                if (robot.RobotVariant == RobotVariant.SCOUT)
                 {
-                    Measure firstPositionMeasure = topography.GetMeasureAtPosition(firstForwardPosition);
-                    scoutScanResults.Add(firstPositionMeasure, firstForwardPosition);
+                    Position firstForwardPosition = currentRobotPosition.GetAdjacentPosition();
+                    Position secondForwardPosition = firstForwardPosition.GetAdjacentPosition();
+
+                    bool isFirstPositionValid = IsPositionInBounds(firstForwardPosition, topography);
+                    bool isSecondPositionValid = IsPositionInBounds(secondForwardPosition, topography);
+
+                    if (isFirstPositionValid)
+                    {
+                        Measure firstPositionMeasure = topography.GetMeasureAtPosition(firstForwardPosition);
+                        scoutScanResults.Add(firstPositionMeasure, firstForwardPosition);
+                    }
+                    if (isSecondPositionValid)
+                    {
+                        Measure secondPositionMeasure = topography.GetMeasureAtPosition(secondForwardPosition);
+                        scoutScanResults.Add(secondPositionMeasure, secondForwardPosition);
+                    }
                 }
-                if (isSecondPositionValid)
-                {
-                    Measure secondPositionMeasure = topography.GetMeasureAtPosition(secondForwardPosition);
-                    scoutScanResults.Add(secondPositionMeasure, secondForwardPosition);
-                }
+
+                return scoutScanResults;
             }
-
-            return scoutScanResults;
+            else
+            {
+                Console.WriteLine("The robot's scan sensor is damaged and can't scan.");
+                return null;
+            }
         }
 
         public Position MoveRobot(RobotBase robot, Topography topography)
         {
-            Position robotPosition = robots[robot];
-            Position newPosition = robotPosition.GetAdjacentPosition();
-
-            if (CheckPosition(robot, newPosition, topography))
+            if (!robotPartsTracker.isRobotPartDamaged(robot, RobotParts.MOVEMENTSENSOR) && !robotPartsTracker.isRobotPartDamaged(robot, RobotParts.WHEELS))
             {
-                if (robotStuckTracker.IsRobotStuck(robot))
+                Position robotPosition = robots[robot];
+                Position newPosition = robotPosition.GetAdjacentPosition();
+
+                if (CheckIfPositionIsDeadly(robot, newPosition, topography))
                 {
-                    Console.WriteLine("The robot is stuck and can't move. Try to rotate to get unstuck.");
-                    return robotPosition;
+                    if (robotStuckTracker.IsRobotStuck(robot))
+                    {
+                        Console.WriteLine("The robot is stuck and can't move. Try to rotate to get unstuck.");
+                        return robotPosition;
+                    }
+
+                    robotPartsTracker.RobotPartDamage(robot, RobotParts.MOVEMENTSENSOR);
+                    robotHeatTracker.PerformAction(robot);
+                    robots[robot] = newPosition;
+
+                    CheckIfRobotGetsStuck(robot, topography, newPosition);
+
+                    return newPosition;
                 }
+                else
+                {
+                    RemoveRobot(robot);
 
-                robotPartsTracker.RobotPartDamage(robot, RobotParts.MOVEMENTSENSOR);
-                robotHeatTracker.PerformAction(robot);
-                robots[robot] = newPosition;
-
-                CheckIfRobotGetsStuck(robot, topography, newPosition);
-
-                return newPosition;
+                    return null;
+                }
             }
-
-            RemoveRobot(robot);
-
-            return null;
+            else
+            {
+                Console.WriteLine("The robot's movement sensor or wheels are damaged and can't move.");
+                return null;
+            }
         }
 
         private void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position newPosition)
@@ -111,8 +137,21 @@ namespace ExoplanetGame.Exoplanet
 
         public Direction RotateRobot(RobotBase robot, Rotation rotation)
         {
-            robotHeatTracker.PerformAction(robot);
             Position robotPosition = robots[robot];
+
+            if (robotPartsTracker.isRobotPartDamaged(robot, RobotParts.RIGHTMOTOR) && rotation == Rotation.RIGHT)
+            {
+                Console.WriteLine("The robot's right motor is damaged and can't rotate right.");
+                return robotPosition.Direction;
+            }
+
+            if (robotPartsTracker.isRobotPartDamaged(robot, RobotParts.LEFTMOTOR) && rotation == Rotation.LEFT)
+            {
+                Console.WriteLine("The robot's left motor is damaged and can't rotate left.");
+                return robotPosition.Direction;
+            }
+
+            robotHeatTracker.PerformAction(robot);
 
             if (robotStuckTracker.IsRobotStuck(robot))
             {
@@ -137,7 +176,7 @@ namespace ExoplanetGame.Exoplanet
             return robots[robot];
         }
 
-        private bool CheckPosition(RobotBase robot, Position position, Topography topography)
+        private bool CheckIfPositionIsDeadly(RobotBase robot, Position position, Topography topography)
         {
             if (position == null) return false;
 
@@ -162,7 +201,7 @@ namespace ExoplanetGame.Exoplanet
             return true;
         }
 
-        public bool IsPositionInBounds(Position position, Topography topography)
+        public static bool IsPositionInBounds(Position position, Topography topography)
         {
             bool isXCoordinateInBounds = position.X >= 0;
 
