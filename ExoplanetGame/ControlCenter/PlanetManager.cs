@@ -8,11 +8,13 @@ using ExoplanetGame.Exoplanet.Variants;
 
 namespace ExoplanetGame.ControlCenter
 {
-    public class PlanetManager
+    public static class PlanetManager
     {
         private static List<IExoplanet> exoplanets = new List<IExoplanet>();
 
-        public PlanetManager()
+        public static IExoplanet TargetPlanet { get; set; }
+
+        public static void ScanForExoplanets()
         {
             Console.WriteLine("Scanning for exoplanets...");
 
@@ -28,15 +30,20 @@ namespace ExoplanetGame.ControlCenter
             switch (planet)
             {
                 case PlanetVariants.AQUATICA:
-                    return exoplanets[0];
+                    TargetPlanet = exoplanets[0];
+                    return TargetPlanet;
                 case PlanetVariants.GAIA:
-                    return exoplanets[1];
+                    TargetPlanet = exoplanets[1];
+                    return TargetPlanet;
                 case PlanetVariants.LAVARIA:
-                    return exoplanets[2];
+                    TargetPlanet = exoplanets[2];
+                    return TargetPlanet;
                 case PlanetVariants.TERRA:
-                    return exoplanets[3];
+                    TargetPlanet = exoplanets[3];
+                    return TargetPlanet;
                 case PlanetVariants.TROPICA:
-                    return exoplanets[4];
+                    TargetPlanet = exoplanets[4];
+                    return TargetPlanet;
                 default:
                     return null;
             }

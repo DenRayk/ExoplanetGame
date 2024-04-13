@@ -1,10 +1,15 @@
 ﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Exoplanet
 {
     public interface IExoplanet
     {
+        public Topography Topography { get; }
+
+        PlanetVariants GetPlanetVariant();
+
         int GetRobotCount();
 
         void RemoveRobot(RobotBase robot);

@@ -23,6 +23,11 @@ namespace ExoplanetGame.Exoplanet.Variants
             robotManager = new RobotManager();
         }
 
+        public PlanetVariants GetPlanetVariant()
+        {
+            return PlanetVariants.GAIA;
+        }
+
         public int GetRobotCount()
         {
             return robotManager.GetRobotCount();

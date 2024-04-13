@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet.Variants;
+using ExoplanetGame.Exoplanet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +14,12 @@ namespace ExoplanetGame.Menus
         public static void DisplayExoplanetMenuOptions()
         {
             Console.WriteLine("Exoplanet Menu");
-            Console.WriteLine("Select the destination planet");
-            Console.WriteLine("1. Exoplanet 1");
-            Console.WriteLine("2. Exoplanet 2");
-            Console.WriteLine("3. Exoplanet 3");
-            Console.WriteLine("4. Exoplanet 4");
-            Console.WriteLine("5. Exoplanet 5");
+            Console.WriteLine("Choose a destination planet");
+            Console.WriteLine("1. Aquatica");
+            Console.WriteLine("2. Gaia");
+            Console.WriteLine("3. Lavaria");
+            Console.WriteLine("4. Terra");
+            Console.WriteLine("5. Tropica");
         }
 
         public static int GetExoplanetMenuSelection(int minValue, int maxValue)
@@ -31,6 +34,28 @@ namespace ExoplanetGame.Menus
             Console.Clear();
 
             return choice;
+        }
+
+        public static IExoplanet SelectTargetExoplanet()
+        {
+            DisplayExoplanetMenuOptions();
+            int exoplanetChoice = GetExoplanetMenuSelection(1, 5);
+
+            switch (exoplanetChoice)
+            {
+                case 1:
+                    return PlanetManager.GetPlanet(PlanetVariants.AQUATICA);
+                case 2:
+                    return PlanetManager.GetPlanet(PlanetVariants.GAIA);
+                case 3:
+                    return PlanetManager.GetPlanet(PlanetVariants.LAVARIA);
+                case 4:
+                    return PlanetManager.GetPlanet(PlanetVariants.TERRA);
+                case 5:
+                    return PlanetManager.GetPlanet(PlanetVariants.TROPICA);
+                default:
+                    return null;
+            }
         }
     }
 }

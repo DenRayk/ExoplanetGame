@@ -1,4 +1,6 @@
 using ExoplanetGame;
+using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot.Variants;
 
 namespace GameServerTest
@@ -10,7 +12,7 @@ namespace GameServerTest
         public void AddRobots()
         {
             // Arrange
-            GameServer server = GameServer.GetInstance();
+            GameServer server = new GameServer(new Gaia());
 
             // Act
             server.AddRobot(RobotVariant.DEFAULT);
@@ -27,7 +29,7 @@ namespace GameServerTest
         public void AddRobotsOverLimit()
         {
             // Arrange
-            GameServer server = GameServer.GetInstance();
+            GameServer server = new GameServer(new Gaia());
 
             // Act
             server.AddRobot(RobotVariant.DEFAULT);
@@ -44,7 +46,7 @@ namespace GameServerTest
         [TestCleanup]
         public void Cleanup()
         {
-            GameServer server = GameServer.GetInstance();
+            GameServer server = new GameServer(new Gaia());
             server.ClearRobots();
         }
     }

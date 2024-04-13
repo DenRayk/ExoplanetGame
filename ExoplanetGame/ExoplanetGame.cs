@@ -1,4 +1,7 @@
-﻿namespace ExoplanetGame
+﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Menus;
+
+namespace ExoplanetGame
 {
     internal class ExoplanetGame
     {
@@ -6,7 +9,9 @@
         {
             Console.WriteLine("ExoplanetGame starting...");
 
-            GameServer gameServer = GameServer.GetInstance();
+            PlanetManager.ScanForExoplanets();
+
+            GameServer gameServer = new GameServer(ExoplanetMenu.SelectTargetExoplanet());
 
             gameServer.Start();
         }

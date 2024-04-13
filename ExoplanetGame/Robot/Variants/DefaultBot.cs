@@ -106,10 +106,10 @@ namespace ExoplanetGame.Robot.Variants
 
         public override void Rotate(Rotation rotation)
         {
-            Console.WriteLine($"Robot rotated to {RobotStatus.Position}");
-
             RobotStatus.Position.Direction = exoPlanet.Rotate(this, rotation);
             controlCenter.UpdateRobotPosition(this, RobotStatus.Position);
+
+            Console.WriteLine($"Robot rotated to {RobotStatus.Position}");
         }
 
         public override bool HasLanded()

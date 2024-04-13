@@ -23,6 +23,11 @@ namespace ExoplanetGame.Exoplanet.Variants
             robotManager = new RobotManager();
         }
 
+        public PlanetVariants GetPlanetVariant()
+        {
+            return PlanetVariants.AQUATICA;
+        }
+
         public int GetRobotCount()
         {
             return robotManager.GetRobotCount();

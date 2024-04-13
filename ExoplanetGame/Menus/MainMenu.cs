@@ -1,4 +1,6 @@
-﻿using ExoplanetGame.Robot;
+﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Menus
 {
@@ -7,6 +9,7 @@ namespace ExoplanetGame.Menus
         public static void DisplayMainManueOptions()
         {
             Console.WriteLine("Main Menu");
+            Console.WriteLine($"Destinationpoint set to Exoplanet {PlanetManager.TargetPlanet.GetPlanetVariant()}");
             Console.WriteLine("Select an option:");
             Console.WriteLine("1. Add Robot");
             Console.WriteLine("2. Select Robot");

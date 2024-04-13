@@ -17,12 +17,12 @@ namespace ExoplanetGame.Menus
                 Console.WriteLine("3. Move");
                 Console.WriteLine("4. Rotate");
                 Console.WriteLine("5. Crash");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. Back");
             }
             else
             {
                 Console.WriteLine("1. Land");
-                Console.WriteLine("2. Exit");
+                Console.WriteLine("2. Back");
             }
         }
 
@@ -120,7 +120,7 @@ namespace ExoplanetGame.Menus
 
         public static void LoadCurrentExploredMap(ControlCenter.ControlCenter controlCenter)
         {
-            Console.WriteLine("Discovered area of the planet:");
+            Console.WriteLine($"Discovered area of the planet {PlanetManager.TargetPlanet.GetPlanetVariant()}:");
             controlCenter.PrintMap();
         }
     }

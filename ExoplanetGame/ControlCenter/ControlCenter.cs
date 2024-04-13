@@ -29,11 +29,9 @@ namespace ExoplanetGame.ControlCenter
             return controlCenter;
         }
 
-        public void Init(PlanetSize planetSize)
+        public void Init(IExoplanet exoPlanet)
         {
-            planetMap = new PlanetMap(planetSize);
-            Console.WriteLine("Control center initialized.");
-            Console.WriteLine("Planet size: " + planetSize);
+            planetMap = new PlanetMap(exoPlanet.Topography.PlanetSize);
         }
 
         public void AddRobot(RobotBase robotBase)

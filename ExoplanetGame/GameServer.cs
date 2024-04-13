@@ -1,4 +1,5 @@
-﻿using ExoplanetGame.Exoplanet;
+﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Menus;
 using ExoplanetGame.Robot;
@@ -11,26 +12,17 @@ namespace ExoplanetGame
         private static GameServer gameServer;
         private readonly int maxRobots = 5;
         private static int robotID = 1;
-        private Gaia exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
+
         private IRobotFactory robotFactory;
         public int RobotCount { get; set; }
 
-        private GameServer()
+        public GameServer(IExoplanet targetExoplanet)
         {
-            exoPlanet = new();
-            controlCenter = ControlCenter.ControlCenter.GetInstance(exoPlanet);
-            controlCenter.Init(exoPlanet.Topography.PlanetSize);
-            robotFactory = RobotFactory.GetInstance();
-        }
+            controlCenter = ControlCenter.ControlCenter.GetInstance(targetExoplanet);
+            controlCenter.Init(targetExoplanet);
 
-        public static GameServer GetInstance()
-        {
-            if (gameServer == null)
-            {
-                gameServer = new GameServer();
-            }
-            return gameServer;
+            robotFactory = RobotFactory.GetInstance();
         }
 
         public void Start()
@@ -47,22 +39,22 @@ namespace ExoplanetGame
                 switch (robotVariant)
                 {
                     case RobotVariant.DEFAULT:
-                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, exoPlanet, robotID++);
+                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
                     case RobotVariant.SCOUT:
-                        robotBase = robotFactory.CreateScoutRobot(controlCenter, exoPlanet, robotID++);
+                        robotBase = robotFactory.CreateScoutRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
                     case RobotVariant.SOLAR:
-                        robotBase = robotFactory.CreateSolarRobot(controlCenter, exoPlanet, robotID++);
+                        robotBase = robotFactory.CreateSolarRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
                     case RobotVariant.LAVA:
-                        robotBase = robotFactory.CreateLavaRobot(controlCenter, exoPlanet, robotID++);
+                        robotBase = robotFactory.CreateLavaRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
                     case RobotVariant.AQUA:
-                        robotBase = robotFactory.CreateAquaRobot(controlCenter, exoPlanet, robotID++);
+                        robotBase = robotFactory.CreateAquaRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
                     case RobotVariant.MUD:
-                        robotBase = robotFactory.CreateMudRobot(controlCenter, exoPlanet, robotID++);
+                        robotBase = robotFactory.CreateMudRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
                     default:
                         Console.WriteLine("Invalid robot variant.");
