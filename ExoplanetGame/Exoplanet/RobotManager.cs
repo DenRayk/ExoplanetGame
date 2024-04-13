@@ -1,4 +1,5 @@
-﻿using ExoplanetGame.Robot;
+﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Exoplanet
 {
@@ -6,7 +7,8 @@ namespace ExoplanetGame.Exoplanet
     {
         private Dictionary<RobotBase, Position> robots = new();
         private RobotHeatTracker robotHeatTracker = new();
-        private RobotStuckTracker RobotStuckTracker = new();
+        private RobotStuckTracker robotStuckTracker = new();
+        private RobotPartsTracker robotPartsTracker = new();
 
         public int GetRobotCount()
         {
@@ -31,6 +33,13 @@ namespace ExoplanetGame.Exoplanet
             return false;
         }
 
+        public Measure Scan(RobotBase robot, Topography topography)
+        {
+            robotHeatTracker.PerformAction(robot);
+            robotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
+            return topography.GetMeasureAtPosition(robots[robot]);
+        }
+
         public Position MoveRobot(RobotBase robot, Topography topography)
         {
             Position robotPosition = robots[robot];
@@ -38,12 +47,13 @@ namespace ExoplanetGame.Exoplanet
 
             if (CheckPosition(robot, newPosition, topography))
             {
-                if (RobotStuckTracker.IsRobotStuck(robot))
+                if (robotStuckTracker.IsRobotStuck(robot))
                 {
                     Console.WriteLine("The robot is stuck and can't move. Try to rotate to get unstuck.");
                     return robotPosition;
                 }
 
+                robotPartsTracker.RobotPartDamage(robot, RobotParts.MOVEMENTSENSOR);
                 robotHeatTracker.PerformAction(robot);
                 robots[robot] = newPosition;
 
@@ -63,7 +73,7 @@ namespace ExoplanetGame.Exoplanet
 
             if (newGround == Ground.MORAST || newGround == Ground.PFLANZEN)
             {
-                RobotStuckTracker.RobotGetStuckRandomly(robot);
+                robotStuckTracker.RobotGetStuckRandomly(robot);
             }
         }
 
@@ -72,9 +82,18 @@ namespace ExoplanetGame.Exoplanet
             robotHeatTracker.PerformAction(robot);
             Position robotPosition = robots[robot];
 
-            if (RobotStuckTracker.IsRobotStuck(robot))
+            if (robotStuckTracker.IsRobotStuck(robot))
             {
-                RobotStuckTracker.UnstuckRobot(robot);
+                robotStuckTracker.UnstuckRobot(robot);
+            }
+
+            if (rotation == Rotation.RIGHT)
+            {
+                robotPartsTracker.RobotPartDamage(robot, RobotParts.RIGHTMOTOR);
+            }
+            else
+            {
+                robotPartsTracker.RobotPartDamage(robot, RobotParts.LEFTMOTOR);
             }
 
             return robotPosition.Rotate(rotation);

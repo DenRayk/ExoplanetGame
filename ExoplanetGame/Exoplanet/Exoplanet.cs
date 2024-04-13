@@ -5,7 +5,7 @@ namespace ExoplanetGame.Exoplanet
 {
     public class Exoplanet
     {
-        public Topography Topography { get; set; }
+        public Topography Topography { get; }
         private RobotManager robotManager;
 
         public Exoplanet()
@@ -48,7 +48,7 @@ namespace ExoplanetGame.Exoplanet
 
         public Measure Scan(RobotBase robot)
         {
-            return Topography.GetMeasureAtPosition(robotManager.GetRobotPosition(robot));
+            return robotManager.Scan(robot, Topography);
         }
 
         public Dictionary<Measure, Position> ScoutScan(RobotBase robot)
@@ -81,7 +81,6 @@ namespace ExoplanetGame.Exoplanet
 
             return scoutScanResults;
         }
-
 
         public Position GetRobotPosition(RobotBase robot)
         {
