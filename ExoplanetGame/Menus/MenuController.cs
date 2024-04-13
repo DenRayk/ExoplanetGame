@@ -33,9 +33,8 @@ namespace ExoplanetGame.Menus
                         break;
 
                     case 3:
-                        controlCenter.PrintMap();
+                        RobotMenu.LoadCurrentExploredMap(controlCenter);
                         break;
-
                     case 4:
                         Environment.Exit(0);
                         break;
@@ -117,6 +116,28 @@ namespace ExoplanetGame.Menus
             }
 
             Console.Clear();
+        }
+
+        public static GameServer SelectExoplanet()
+        {
+            ExoplanetMenu.DisplayExoplanetMenuOptions();
+            int exoplanetChoice = ExoplanetMenu.GetExoplanetMenuSelection(1, 5);
+
+            switch (exoplanetChoice)
+            {
+                case 1:
+                    return GameServer.GetInstance();
+                case 2:
+                    return GameServer.GetInstance();
+                case 3:
+                    return GameServer.GetInstance();
+                case 4:
+                    return GameServer.GetInstance();
+                case 5:
+                    return GameServer.GetInstance();
+                default:
+                    return null;
+            }
         }
 
     }

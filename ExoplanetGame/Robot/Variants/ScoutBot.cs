@@ -5,7 +5,7 @@ namespace ExoplanetGame.Robot.Variants
 {
     public class ScoutBot : RobotBase
     {
-        private Exoplanet.Exoplanet exoPlanet;
+        private IExoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
 
         public override RobotStatus RobotStatus { get; set; }
@@ -13,7 +13,7 @@ namespace ExoplanetGame.Robot.Variants
 
         public override RobotVariant RobotVariant { get; }
 
-        public ScoutBot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
+        public ScoutBot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotId)
         {
             this.controlCenter = controlCenter;
             this.exoPlanet = exoPlanet;

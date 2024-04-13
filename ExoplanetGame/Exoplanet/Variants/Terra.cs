@@ -2,23 +2,24 @@
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Variants;
 
-namespace ExoplanetGame.Exoplanet
+namespace ExoplanetGame.Exoplanet.Variants
 {
-    public class Exoplanet
+    public class Terra : IExoplanet
     {
         public Topography Topography { get; }
         private RobotManager robotManager;
 
-        public Exoplanet()
+        public Terra()
         {
-            Topography = new Topography([
+            Topography = new Topography(new string[]
+            {
                 "GSSWPFSGGL",
                 "SPW4PSFFLL",
                 "SGWPMSFLLF",
                 "SSWWMGSFFG",
                 "FGSWWSSGFG",
                 "FFWWGGSGFF"
-            ]);
+            });
             robotManager = new RobotManager();
         }
 

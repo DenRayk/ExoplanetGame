@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
 
 namespace ExoplanetGameTest
@@ -11,7 +12,7 @@ namespace ExoplanetGameTest
         public void TestLand()
         {
             // Arrange
-            Exoplanet exoplanet = new Exoplanet();
+            Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
@@ -28,7 +29,7 @@ namespace ExoplanetGameTest
         public void TestMove()
         {
             // Arrange
-            Exoplanet exoplanet = new Exoplanet();
+            Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
@@ -45,7 +46,7 @@ namespace ExoplanetGameTest
         public void TestTurnLeft()
         {
             // Arrange
-            Exoplanet exoplanet = new Exoplanet();
+            Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
@@ -62,7 +63,7 @@ namespace ExoplanetGameTest
         public void TestTurnRight()
         {
             // Arrange
-            Exoplanet exoplanet = new Exoplanet();
+            Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
@@ -79,7 +80,7 @@ namespace ExoplanetGameTest
         public void TestCrash()
         {
             // Arrange
-            Exoplanet exoplanet = new Exoplanet();
+            Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
@@ -96,7 +97,7 @@ namespace ExoplanetGameTest
         public void TestScan()
         {
             // Arrange
-            Exoplanet exoplanet = new Exoplanet();
+            Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
@@ -112,7 +113,7 @@ namespace ExoplanetGameTest
         [TestCleanup]
         public void Cleanup()
         {
-            Exoplanet exoplanet = new Exoplanet();
+            Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             controlCenter.ClearRobots();
         }

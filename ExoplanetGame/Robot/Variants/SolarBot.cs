@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace ExoplanetGame.Robot.Variants
 {
     public class SolarBot : RobotBase
     {
-        private Exoplanet.Exoplanet exoPlanet;
+        private IExoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
 
         public override RobotStatus RobotStatus { get; set; }
@@ -17,7 +18,7 @@ namespace ExoplanetGame.Robot.Variants
 
         public override RobotVariant RobotVariant { get; }
 
-        public SolarBot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
+        public SolarBot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotId)
         {
             this.controlCenter = controlCenter;
             this.exoPlanet = exoPlanet;

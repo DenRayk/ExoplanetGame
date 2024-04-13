@@ -1,6 +1,7 @@
 ﻿using ExoplanetGame;
 using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
 
 namespace ControlCenterTest
@@ -11,7 +12,7 @@ namespace ControlCenterTest
         [TestInitialize]
         public void TestInitialize()
         {
-            Exoplanet exoplanet = new Exoplanet();
+            Gaia exoplanet = new Gaia();
             ControlCenter.GetInstance(exoplanet).ClearRobots();
         }
 
@@ -19,7 +20,7 @@ namespace ControlCenterTest
         public void AddRobots()
         {
             // Arrange
-            Exoplanet exoplanet = new Exoplanet();
+            Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
 
@@ -35,7 +36,7 @@ namespace ControlCenterTest
         public void LandRobot()
         {
             // Arrange
-            Exoplanet exoplanet = new Exoplanet();
+            Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);

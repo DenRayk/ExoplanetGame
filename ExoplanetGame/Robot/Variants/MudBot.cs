@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Exoplanet;
 
 namespace ExoplanetGame.Robot.Variants
 {
     public class MudBot : RobotBase
     {
-        private Exoplanet.Exoplanet exoPlanet;
+        private IExoplanet exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
 
         public override RobotStatus RobotStatus { get; set; }
@@ -17,7 +18,7 @@ namespace ExoplanetGame.Robot.Variants
 
         public override RobotVariant RobotVariant { get; }
 
-        public MudBot(ControlCenter.ControlCenter controlCenter, Exoplanet.Exoplanet exoPlanet, int robotId)
+        public MudBot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotId)
         {
             this.controlCenter = controlCenter;
             this.exoPlanet = exoPlanet;

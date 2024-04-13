@@ -1,4 +1,6 @@
-﻿using ExoplanetGame.Menus;
+﻿using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.Variants;
+using ExoplanetGame.Menus;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Variants;
 
@@ -9,7 +11,7 @@ namespace ExoplanetGame
         private static GameServer gameServer;
         private readonly int maxRobots = 5;
         private static int robotID = 1;
-        private Exoplanet.Exoplanet exoPlanet;
+        private Gaia exoPlanet;
         private ControlCenter.ControlCenter controlCenter;
         private IRobotFactory robotFactory;
         public int RobotCount { get; set; }
