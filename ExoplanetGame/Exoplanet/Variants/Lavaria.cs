@@ -14,7 +14,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             Topography = new Topography(new string[]
             {
                 "GSSWPFSGGL",
-                "SPW4PSFFLL",
+                "SPWWPSFFLL",
                 "SGWPMSFLLF",
                 "SSWWMGSFFG",
                 "FGSWWSSGFG",
