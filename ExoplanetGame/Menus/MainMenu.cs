@@ -9,7 +9,7 @@ namespace ExoplanetGame.Menus
         public static void DisplayMainManueOptions()
         {
             Console.WriteLine("Main Menu");
-            Console.WriteLine($"Destinationpoint set to Exoplanet {PlanetManager.TargetPlanet.GetPlanetVariant()}");
+            Console.WriteLine($"Destinationpoint set to Exoplanet {PlanetManager.TargetPlanet.PlanetVariant}");
             Console.WriteLine("Select an option:");
             Console.WriteLine("1. Add Robot");
             Console.WriteLine("2. Select Robot");
@@ -40,7 +40,7 @@ namespace ExoplanetGame.Menus
             {
                 Console.WriteLine("Invalid input. Please enter a valid robot number.");
             }
-            
+
             Console.Clear();
 
             gameServer.ControlRobot(choice - 1);

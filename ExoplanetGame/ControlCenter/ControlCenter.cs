@@ -10,17 +10,17 @@ namespace ExoplanetGame.ControlCenter
 
         private PlanetMap planetMap;
         private Dictionary<RobotBase, Position> robots;
-        public IExoplanet exoPlanet;
+        public ExoplanetBase exoPlanet;
 
         public event EventHandler<RobotPositionEventArgs> RobotPositionUpdated;
 
-        public ControlCenter(IExoplanet exoPlanet)
+        public ControlCenter(ExoplanetBase exoPlanet)
         {
             robots = new Dictionary<RobotBase, Position>();
             this.exoPlanet = exoPlanet;
         }
 
-        public static ControlCenter GetInstance(IExoplanet exoPlanet)
+        public static ControlCenter GetInstance(ExoplanetBase exoPlanet)
         {
             if (controlCenter == null)
             {
@@ -29,7 +29,7 @@ namespace ExoplanetGame.ControlCenter
             return controlCenter;
         }
 
-        public void Init(IExoplanet exoPlanet)
+        public void Init(ExoplanetBase exoPlanet)
         {
             planetMap = new PlanetMap(exoPlanet.Topography.PlanetSize);
         }

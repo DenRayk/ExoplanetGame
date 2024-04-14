@@ -17,10 +17,10 @@ namespace ExoplanetGame
         private IRobotFactory robotFactory;
         public int RobotCount { get; set; }
 
-        public GameServer(IExoplanet targetExoplanet)
+        public GameServer(ExoplanetBase targetExoplanetBase)
         {
-            controlCenter = ControlCenter.ControlCenter.GetInstance(targetExoplanet);
-            controlCenter.Init(targetExoplanet);
+            controlCenter = ControlCenter.ControlCenter.GetInstance(targetExoplanetBase);
+            controlCenter.Init(targetExoplanetBase);
 
             robotFactory = RobotFactory.GetInstance();
         }

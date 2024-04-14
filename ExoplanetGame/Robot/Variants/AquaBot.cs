@@ -10,7 +10,7 @@ namespace ExoplanetGame.Robot.Variants
 {
     public class AquaBot : RobotBase
     {
-        public AquaBot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId)
+        public AquaBot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId)
         {
             RobotVariant = RobotVariant.AQUA;
         }

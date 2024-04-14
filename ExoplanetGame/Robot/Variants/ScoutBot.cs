@@ -5,7 +5,7 @@ namespace ExoplanetGame.Robot.Variants
 {
     public class ScoutBot : RobotBase
     {
-        public ScoutBot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId)
+        public ScoutBot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId)
         {
             RobotVariant = RobotVariant.SCOUT;
         }

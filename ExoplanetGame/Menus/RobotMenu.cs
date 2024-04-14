@@ -45,7 +45,6 @@ namespace ExoplanetGame.Menus
             if (hasLanded)
             {
                 Console.WriteLine("The robot has already landed.");
-                
             }
             else
             {
@@ -120,7 +119,7 @@ namespace ExoplanetGame.Menus
 
         public static void LoadCurrentExploredMap(ControlCenter.ControlCenter controlCenter)
         {
-            Console.WriteLine($"Discovered area of the planet {PlanetManager.TargetPlanet.GetPlanetVariant()}:");
+            Console.WriteLine($"Discovered area of the planet {PlanetManager.TargetPlanet.PlanetVariant}:");
             controlCenter.PrintMap();
         }
     }

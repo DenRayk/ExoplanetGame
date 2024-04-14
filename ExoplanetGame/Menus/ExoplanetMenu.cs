@@ -36,7 +36,7 @@ namespace ExoplanetGame.Menus
             return choice;
         }
 
-        public static IExoplanet SelectTargetExoplanet()
+        public static ExoplanetBase SelectTargetExoplanet()
         {
             DisplayExoplanetMenuOptions();
             int exoplanetChoice = GetExoplanetMenuSelection(1, 5);
@@ -44,15 +44,15 @@ namespace ExoplanetGame.Menus
             switch (exoplanetChoice)
             {
                 case 1:
-                    return PlanetManager.GetPlanet(PlanetVariants.AQUATICA);
+                    return PlanetManager.GetPlanet(PlanetVariant.AQUATICA);
                 case 2:
-                    return PlanetManager.GetPlanet(PlanetVariants.GAIA);
+                    return PlanetManager.GetPlanet(PlanetVariant.GAIA);
                 case 3:
-                    return PlanetManager.GetPlanet(PlanetVariants.LAVARIA);
+                    return PlanetManager.GetPlanet(PlanetVariant.LAVARIA);
                 case 4:
-                    return PlanetManager.GetPlanet(PlanetVariants.TERRA);
+                    return PlanetManager.GetPlanet(PlanetVariant.TERRA);
                 case 5:
-                    return PlanetManager.GetPlanet(PlanetVariants.TROPICA);
+                    return PlanetManager.GetPlanet(PlanetVariant.TROPICA);
                 default:
                     return null;
             }

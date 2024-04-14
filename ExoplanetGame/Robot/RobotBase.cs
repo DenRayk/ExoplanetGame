@@ -6,13 +6,13 @@ namespace ExoplanetGame.Robot
 {
     public class RobotBase
     {
-        protected IExoplanet exoPlanet;
+        protected ExoplanetBase exoPlanet;
         protected ControlCenter.ControlCenter controlCenter;
         public RobotStatus RobotStatus { get; set; }
         public int MaxHeat { get; set; } = 100;
         public RobotVariant RobotVariant { get; set; }
 
-        protected RobotBase(IExoplanet exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID)
+        protected RobotBase(ExoplanetBase exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID)
         {
             this.exoPlanet = exoPlanet;
             this.controlCenter = controlCenter;
@@ -103,7 +103,7 @@ namespace ExoplanetGame.Robot
             return exoPlanet.GetRobotPosition(this);
         }
 
-        private bool DoesOtherRobotBlocksMove()
+        protected bool DoesOtherRobotBlocksMove()
         {
             foreach (var otherRobot in RobotStatus.OtherRobotPositions.Keys)
             {

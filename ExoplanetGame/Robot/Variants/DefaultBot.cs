@@ -5,7 +5,7 @@ namespace ExoplanetGame.Robot.Variants
 {
     public sealed class DefaultBot : RobotBase
     {
-        public DefaultBot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId)
+        public DefaultBot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId)
         {
             RobotVariant = RobotVariant.DEFAULT;
         }

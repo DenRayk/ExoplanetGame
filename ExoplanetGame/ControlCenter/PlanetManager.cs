@@ -10,9 +10,9 @@ namespace ExoplanetGame.ControlCenter
 {
     public static class PlanetManager
     {
-        private static List<IExoplanet> exoplanets = new List<IExoplanet>();
+        private static List<ExoplanetBase> exoplanets = new List<ExoplanetBase>();
 
-        public static IExoplanet TargetPlanet { get; set; }
+        public static ExoplanetBase TargetPlanet { get; set; }
 
         public static void ScanForExoplanets()
         {
@@ -25,23 +25,23 @@ namespace ExoplanetGame.ControlCenter
             exoplanets.Add(new Tropica());
         }
 
-        public static IExoplanet GetPlanet(PlanetVariants planet)
+        public static ExoplanetBase GetPlanet(PlanetVariant planet)
         {
             switch (planet)
             {
-                case PlanetVariants.AQUATICA:
+                case PlanetVariant.AQUATICA:
                     TargetPlanet = exoplanets[0];
                     return TargetPlanet;
-                case PlanetVariants.GAIA:
+                case PlanetVariant.GAIA:
                     TargetPlanet = exoplanets[1];
                     return TargetPlanet;
-                case PlanetVariants.LAVARIA:
+                case PlanetVariant.LAVARIA:
                     TargetPlanet = exoplanets[2];
                     return TargetPlanet;
-                case PlanetVariants.TERRA:
+                case PlanetVariant.TERRA:
                     TargetPlanet = exoplanets[3];
                     return TargetPlanet;
-                case PlanetVariants.TROPICA:
+                case PlanetVariant.TROPICA:
                     TargetPlanet = exoplanets[4];
                     return TargetPlanet;
                 default:

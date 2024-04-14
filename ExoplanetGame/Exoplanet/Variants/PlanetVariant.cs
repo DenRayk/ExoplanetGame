@@ -1,5 +1,6 @@
 ﻿namespace ExoplanetGame.Exoplanet.Variants;
-public enum PlanetVariants
+
+public enum PlanetVariant
 {
     AQUATICA,
     GAIA,

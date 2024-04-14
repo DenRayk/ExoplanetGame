@@ -10,7 +10,7 @@ namespace ExoplanetGame.Robot.Variants
 {
     public class LavaBot : RobotBase
     {
-        public LavaBot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId)
+        public LavaBot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId)
         {
             RobotVariant = RobotVariant.LAVA;
         }

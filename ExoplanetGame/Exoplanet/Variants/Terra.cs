@@ -4,13 +4,11 @@ using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet.Variants
 {
-    public class Terra : IExoplanet
+    public class Terra : ExoplanetBase
     {
-        public Topography Topography { get; }
-        private RobotManager robotManager;
-
         public Terra()
         {
+            PlanetVariant = PlanetVariant.TERRA;
             Topography = new Topography(new string[]
             {
                 "GSSWPFSGGL",
@@ -21,57 +19,6 @@ namespace ExoplanetGame.Exoplanet.Variants
                 "FFWWGGSGFF"
             });
             robotManager = new RobotManager();
-        }
-
-        public PlanetVariants GetPlanetVariant()
-        {
-            return PlanetVariants.TERRA;
-        }
-
-        public int GetRobotCount()
-        {
-            return robotManager.GetRobotCount();
-        }
-
-        public void RemoveRobot(RobotBase Robot)
-        {
-            robotManager.RemoveRobot(Robot);
-        }
-
-        public bool Land(RobotBase Robot, Position landPosition)
-        {
-            return robotManager.LandRobot(Robot, landPosition, Topography);
-        }
-
-        public Position Move(RobotBase Robot)
-        {
-            return robotManager.MoveRobot(Robot, Topography);
-        }
-
-        public Direction Rotate(RobotBase robot, Rotation rotation)
-        {
-            return robotManager.RotateRobot(robot, rotation);
-        }
-
-        public Measure Scan(RobotBase robot)
-        {
-            return robotManager.Scan(robot, Topography);
-        }
-
-        public Dictionary<Measure, Position> ScoutScan(RobotBase robot)
-        {
-            return robotManager.ScoutScan(robot, Topography);
-        }
-
-        public Position GetRobotPosition(RobotBase robot)
-        {
-            return robotManager.GetRobotPosition(robot);
-        }
-
-        public void Remove(RobotBase robot)
-        {
-            Console.WriteLine($"Remove: {robot.GetLanderName()}");
-            robotManager.RemoveRobot(robot);
         }
     }
 }
