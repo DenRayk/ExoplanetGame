@@ -29,12 +29,12 @@ namespace ExoplanetGame.Exoplanet
 
         public virtual bool Land(RobotBase robot, Position landPosition)
         {
-            return robotManager.LandRobot(robot, landPosition, Topography);
+            return robotManager.LandController.LandRobot(robot, landPosition, Topography);
         }
 
         public virtual Position Move(RobotBase Robot)
         {
-            return robotManager.MoveRobot(Robot, Topography);
+            return robotManager.MoveController.MoveRobot(Robot, Topography);
         }
 
         public virtual Direction Rotate(RobotBase robot, Rotation rotation)
@@ -44,12 +44,12 @@ namespace ExoplanetGame.Exoplanet
 
         public virtual Measure Scan(RobotBase robot)
         {
-            return robotManager.Scan(robot, Topography);
+            return robotManager.ScanController.Scan(robot, Topography);
         }
 
         public virtual Dictionary<Measure, Position> ScoutScan(RobotBase robot)
         {
-            return robotManager.ScoutScan(robot, Topography);
+            return robotManager.ScanController.ScoutScan(robot, Topography);
         }
 
         public virtual void Remove(RobotBase robot)
@@ -65,12 +65,12 @@ namespace ExoplanetGame.Exoplanet
 
         public bool LandLavaBot(LavaBot lavaBot, Position landPosition)
         {
-            return robotManager.LandLavaBot(lavaBot, landPosition, Topography);
+            return robotManager.LandController.LandLavaBot(lavaBot, landPosition, Topography);
         }
 
         public Position MoveLavaBot(LavaBot lavaBot)
         {
-            return robotManager.MoveLavaBot(lavaBot, Topography);
+            return robotManager.MoveController.MoveLavaBot(lavaBot, Topography);
         }
     }
 }

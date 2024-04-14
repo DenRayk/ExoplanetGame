@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace ExoplanetGame.Exoplanet
 {
-    internal class RobotHeatTracker
+    public class RobotHeatTracker
     {
         private const int HEAT_PER_ACTION = 10;
         private const int COOL_DOWN_RATE = 10;

@@ -6,10 +6,26 @@ namespace ExoplanetGame.Exoplanet
 {
     public class RobotManager
     {
-        private readonly RobotHeatTracker robotHeatTracker = new();
-        private readonly RobotPartsTracker robotPartsTracker = new();
-        private readonly Dictionary<RobotBase, Position> robots = new();
-        private readonly RobotStuckTracker robotStuckTracker = new();
+        internal readonly Dictionary<RobotBase, Position> robots;
+
+        private readonly RobotHeatTracker robotHeatTracker;
+        private readonly RobotPartsTracker robotPartsTracker;
+        private readonly RobotStuckTracker robotStuckTracker;
+
+        public RobotManager()
+        {
+            MoveController = new MoveController(this);
+            robotHeatTracker = new RobotHeatTracker();
+            robotPartsTracker = new RobotPartsTracker();
+            robotStuckTracker = new RobotStuckTracker();
+            robots = new Dictionary<RobotBase, Position>();
+            LandController = new LandController(this);
+            ScanController = new ScanController(this, robotPartsTracker, robotHeatTracker);
+        }
+
+        public LandController LandController { get; }
+        public MoveController MoveController { get; }
+        public ScanController ScanController { get; }
 
         public static bool IsPositionInBounds(Position position, Topography topography)
         {
@@ -37,82 +53,23 @@ namespace ExoplanetGame.Exoplanet
             return robots[robot];
         }
 
-        public bool LandLavaBot(LavaBot lavaBot, Position landPosition, Topography topography)
+        public bool IsPositionSafeForLavaBot(LavaBot lavaBot, Position newPosition, Topography topography)
         {
-            if (!robots.ContainsKey(lavaBot) && IsPositionSafeForLavaBot(lavaBot, landPosition, topography))
+            if (newPosition == null) return false;
+
+            if (!IsPositionInBounds(newPosition, topography))
             {
-                robots.Add(lavaBot, landPosition);
-                return true;
+                Console.WriteLine("The position is out of bounds.");
+                return false;
             }
 
-            RemoveRobot(lavaBot);
-
-            return false;
-        }
-
-        public bool LandRobot(RobotBase robot, Position landPosition, Topography topography)
-        {
-            if (!robots.ContainsKey(robot) && IsPositionSafeForRobot(robot, landPosition, topography))
+            if (IsAnotherRobotAlreadyAtThisPosition(newPosition))
             {
-                robots.Add(robot, landPosition);
-                return true;
+                Console.WriteLine("Another robot is already at this position.");
+                return false;
             }
 
-            RemoveRobot(robot);
-
-            return false;
-        }
-
-        public Position MoveLavaBot(LavaBot lavaBot, Topography topography)
-        {
-            if (CanRobotMove(lavaBot))
-            {
-                Position robotPosition = robots[lavaBot];
-                Position newPosition = GetNewRobotPosition(robotPosition);
-
-                if (IsPositionSafeForLavaBot(lavaBot, newPosition, topography))
-                {
-                    UpdateRobotPosition(lavaBot, newPosition);
-                    CheckIfRobotGetsStuck(lavaBot, topography, newPosition);
-                    return newPosition;
-                }
-                else
-                {
-                    RemoveRobot(lavaBot);
-                    return null;
-                }
-            }
-            else
-            {
-                Console.WriteLine("The robot's movement sensors or wheels are damaged and can't move.");
-                return null;
-            }
-        }
-
-        public Position MoveRobot(RobotBase robot, Topography topography)
-        {
-            if (CanRobotMove(robot))
-            {
-                Position robotPosition = robots[robot];
-                Position newPosition = GetNewRobotPosition(robotPosition);
-
-                if (IsPositionSafeForRobot(robot, newPosition, topography))
-                {
-                    UpdateRobotPosition(robot, newPosition);
-                    CheckIfRobotGetsStuck(robot, topography, newPosition);
-                    return newPosition;
-                }
-                else
-                {
-                    RemoveRobot(robot);
-                    return null;
-                }
-            }
-            else
-            {
-                Console.WriteLine("The robot's movement sensors or wheels are damaged and can't move.");
-                return null;
-            }
+            return true;
         }
 
         public void RemoveRobot(RobotBase robot)
@@ -155,72 +112,13 @@ namespace ExoplanetGame.Exoplanet
             return robotPosition.Rotate(rotation);
         }
 
-        public Measure Scan(RobotBase robot, Topography topography)
-        {
-            if (!robotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
-            {
-                robotHeatTracker.PerformAction(robot);
-                robotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
-                return topography.GetMeasureAtPosition(robots[robot]);
-            }
-            else
-            {
-                Console.WriteLine("The robot's scan sensor is damaged and can't scan.");
-                return null;
-            }
-        }
-
-        public Dictionary<Measure, Position> ScoutScan(RobotBase robot, Topography topography)
-        {
-            if (!robotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
-            {
-                Dictionary<Measure, Position> scoutScanResults = new Dictionary<Measure, Position>();
-                Position currentRobotPosition = GetRobotPosition(robot);
-
-                Measure currentMeasure = topography.GetMeasureAtPosition(currentRobotPosition);
-                scoutScanResults.Add(currentMeasure, currentRobotPosition);
-
-                if (robot.RobotVariant == RobotVariant.SCOUT)
-                {
-                    Position firstForwardPosition = currentRobotPosition.GetAdjacentPosition();
-                    Position secondForwardPosition = firstForwardPosition.GetAdjacentPosition();
-
-                    bool isFirstPositionValid = IsPositionInBounds(firstForwardPosition, topography);
-                    bool isSecondPositionValid = IsPositionInBounds(secondForwardPosition, topography);
-
-                    if (isFirstPositionValid)
-                    {
-                        Measure firstPositionMeasure = topography.GetMeasureAtPosition(firstForwardPosition);
-                        scoutScanResults.Add(firstPositionMeasure, firstForwardPosition);
-                    }
-                    if (isSecondPositionValid)
-                    {
-                        Measure secondPositionMeasure = topography.GetMeasureAtPosition(secondForwardPosition);
-                        scoutScanResults.Add(secondPositionMeasure, secondForwardPosition);
-                    }
-                }
-
-                return scoutScanResults;
-            }
-            else
-            {
-                Console.WriteLine("The robot's scan sensor is damaged and can't scan.");
-                return null;
-            }
-        }
-
-        private static bool IsPositionLava(Position position, Topography topography)
-        {
-            return topography.GetMeasureAtPosition(position).Ground == Ground.LAVA;
-        }
-
-        private bool CanRobotMove(RobotBase robot)
+        internal bool CanRobotMove(RobotBase robot)
         {
             return !robotPartsTracker.isRobotPartDamaged(robot, RobotParts.MOVEMENTSENSOR) &&
                    !robotPartsTracker.isRobotPartDamaged(robot, RobotParts.WHEELS);
         }
 
-        private void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position newPosition)
+        internal void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position newPosition)
         {
             Ground newGround = topography.GetMeasureAtPosition(newPosition).Ground;
 
@@ -230,43 +128,12 @@ namespace ExoplanetGame.Exoplanet
             }
         }
 
-        private Position GetNewRobotPosition(Position currentRobotPosition)
+        internal Position GetNewRobotPosition(Position currentRobotPosition)
         {
             return currentRobotPosition.GetAdjacentPosition();
         }
 
-        private bool IsAnotherRobotAlreadyAtThisPosition(Position position)
-        {
-            foreach (var robot in robots.Values)
-            {
-                if (robot.X == position.X && robot.Y == position.Y)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private bool IsPositionSafeForLavaBot(LavaBot lavaBot, Position newPosition, Topography topography)
-        {
-            if (newPosition == null) return false;
-
-            if (!IsPositionInBounds(newPosition, topography))
-            {
-                Console.WriteLine("The position is out of bounds.");
-                return false;
-            }
-
-            if (IsAnotherRobotAlreadyAtThisPosition(newPosition))
-            {
-                Console.WriteLine("Another robot is already at this position.");
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool IsPositionSafeForRobot(RobotBase robot, Position newPosition, Topography topography)
+        internal bool IsPositionSafeForRobot(RobotBase robot, Position newPosition, Topography topography)
         {
             if (newPosition == null) return false;
 
@@ -291,9 +158,26 @@ namespace ExoplanetGame.Exoplanet
             return true;
         }
 
-        private void UpdateRobotPosition(RobotBase robot, Position newPosition)
+        internal void UpdateRobotPosition(RobotBase robot, Position newPosition)
         {
             robots[robot] = newPosition;
+        }
+
+        private static bool IsPositionLava(Position position, Topography topography)
+        {
+            return topography.GetMeasureAtPosition(position).Ground == Ground.LAVA;
+        }
+
+        private bool IsAnotherRobotAlreadyAtThisPosition(Position position)
+        {
+            foreach (var robot in robots.Values)
+            {
+                if (robot.X == position.X && robot.Y == position.Y)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
