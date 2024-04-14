@@ -18,7 +18,20 @@ namespace ExoplanetGame.Robot.Variants
 
         public override bool Land(Position landPosition)
         {
-            return exoPlanet.LandLavaBot(this, landPosition);
+            RobotStatus.HasLanded = exoPlanet.LandLavaBot(this, landPosition);
+
+            if (RobotStatus.HasLanded)
+            {
+                Console.WriteLine($"Robot landed on {landPosition}");
+                RobotStatus.Position = landPosition;
+                controlCenter.UpdateRobotPosition(this, landPosition);
+            }
+            else
+            {
+                Console.WriteLine("Robot could not land");
+            }
+
+            return RobotStatus.HasLanded;
         }
 
         public override Position Move()

@@ -114,8 +114,33 @@ namespace ExoplanetGame.Exoplanet
 
         internal bool CanRobotMove(RobotBase robot)
         {
-            return !robotPartsTracker.isRobotPartDamaged(robot, RobotParts.MOVEMENTSENSOR) &&
-                   !robotPartsTracker.isRobotPartDamaged(robot, RobotParts.WHEELS);
+            bool isMovementSensorDamaged = robotPartsTracker.isRobotPartDamaged(robot, RobotParts.MOVEMENTSENSOR);
+            bool areWheelsDamaged = robotPartsTracker.isRobotPartDamaged(robot, RobotParts.WHEELS);
+            bool isRobotStuck = robotStuckTracker.IsRobotStuck(robot);
+
+            if (isMovementSensorDamaged)
+            {
+                Console.WriteLine("Movement sensor is damaged.");
+            }
+
+            if (areWheelsDamaged)
+            {
+                Console.WriteLine("Wheels are damaged.");
+            }
+
+            if (isRobotStuck)
+            {
+                Console.WriteLine("Robot is stuck. Try to rotate.");
+            }
+
+            bool canMove = !isMovementSensorDamaged && !areWheelsDamaged && !isRobotStuck;
+
+            if (!canMove)
+            {
+                Console.WriteLine("Robot cannot move due to the above problem(s).");
+            }
+
+            return canMove;
         }
 
         internal void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position newPosition)

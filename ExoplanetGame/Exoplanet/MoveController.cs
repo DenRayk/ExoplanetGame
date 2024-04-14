@@ -56,4 +56,30 @@ public class MoveController(RobotManager robotManager)
             return null;
         }
     }
+
+    public Position MoveMudBot(MudBot mudBot, Topography topography)
+    {
+        if (robotManager.CanRobotMove(mudBot))
+        {
+            Position robotPosition = robotManager.robots[mudBot];
+            Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
+
+            if (robotManager.IsPositionSafeForRobot(mudBot, newPosition, topography))
+            {
+                robotManager.UpdateRobotPosition(mudBot, newPosition);
+
+                return newPosition;
+            }
+            else
+            {
+                robotManager.RemoveRobot(mudBot);
+                return null;
+            }
+        }
+        else
+        {
+            Console.WriteLine("The robot's movement sensors or wheels are damaged and can't move.");
+            return null;
+        }
+    }
 }
