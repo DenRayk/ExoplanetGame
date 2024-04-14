@@ -23,7 +23,7 @@ namespace ExoplanetGame.Exoplanet
 
         public bool LandRobot(RobotBase robot, Position landPosition, Topography topography)
         {
-            if (!robots.ContainsKey(robot) && CheckIfPositionIsDeadly(robot, landPosition, topography))
+            if (!robots.ContainsKey(robot) && IsPositionSafeForRobot(robot, landPosition, topography))
             {
                 robots.Add(robot, landPosition);
                 return true;
@@ -90,39 +90,69 @@ namespace ExoplanetGame.Exoplanet
 
         public Position MoveRobot(RobotBase robot, Topography topography)
         {
-            if (!robotPartsTracker.isRobotPartDamaged(robot, RobotParts.MOVEMENTSENSOR) && !robotPartsTracker.isRobotPartDamaged(robot, RobotParts.WHEELS))
+            if (CanRobotMove(robot))
             {
                 Position robotPosition = robots[robot];
-                Position newPosition = robotPosition.GetAdjacentPosition();
+                Position newPosition = GetNewRobotPosition(robotPosition);
 
-                if (CheckIfPositionIsDeadly(robot, newPosition, topography))
+                if (IsPositionSafeForRobot(robot, newPosition, topography))
                 {
-                    if (robotStuckTracker.IsRobotStuck(robot))
-                    {
-                        Console.WriteLine("The robot is stuck and can't move. Try to rotate to get unstuck.");
-                        return robotPosition;
-                    }
-
-                    robotPartsTracker.RobotPartDamage(robot, RobotParts.MOVEMENTSENSOR);
-                    robotHeatTracker.PerformAction(robot);
-                    robots[robot] = newPosition;
-
+                    UpdateRobotPosition(robot, newPosition);
                     CheckIfRobotGetsStuck(robot, topography, newPosition);
-
                     return newPosition;
                 }
                 else
                 {
                     RemoveRobot(robot);
-
                     return null;
                 }
             }
             else
             {
-                Console.WriteLine("The robot's movement sensor or wheels are damaged and can't move.");
+                Console.WriteLine("The robot's movement sensors or wheels are damaged and can't move.");
                 return null;
             }
+        }
+
+        private bool CanRobotMove(RobotBase robot)
+        {
+            return !robotPartsTracker.isRobotPartDamaged(robot, RobotParts.MOVEMENTSENSOR) &&
+                   !robotPartsTracker.isRobotPartDamaged(robot, RobotParts.WHEELS);
+        }
+
+        private Position GetNewRobotPosition(Position currentRobotPosition)
+        {
+            return currentRobotPosition.GetAdjacentPosition();
+        }
+
+        private bool IsPositionSafeForRobot(RobotBase robot, Position newPosition, Topography topography)
+        {
+            if (newPosition == null) return false;
+
+            if (!IsPositionInBounds(newPosition, topography))
+            {
+                Console.WriteLine("The position is out of bounds.");
+                return false;
+            }
+
+            if (IsPositionLava(newPosition, topography) && robot.RobotVariant != RobotVariant.LAVA)
+            {
+                Console.WriteLine("The floor is lava.");
+                return false;
+            }
+
+            if (IsAnotherRobotAlreadyAtThisPosition(newPosition))
+            {
+                Console.WriteLine("Another robot is already at this position.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void UpdateRobotPosition(RobotBase robot, Position newPosition)
+        {
+            robots[robot] = newPosition;
         }
 
         private void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position newPosition)
@@ -174,31 +204,6 @@ namespace ExoplanetGame.Exoplanet
         {
             robotHeatTracker.PerformAction(robot);
             return robots[robot];
-        }
-
-        private bool CheckIfPositionIsDeadly(RobotBase robot, Position position, Topography topography)
-        {
-            if (position == null) return false;
-
-            if (!IsPositionInBounds(position, topography))
-            {
-                Console.WriteLine("The position is out of bounds.");
-                return false;
-            }
-
-            if (IsPositionLava(position, topography) && robot.RobotVariant != RobotVariant.LAVA)
-            {
-                Console.WriteLine("The floor is lava.");
-                return false;
-            }
-
-            if (IsAnotherRobotAlreadyAtThisPosition(position))
-            {
-                Console.WriteLine("Another robot is already at this position.");
-                return false;
-            }
-
-            return true;
         }
 
         public static bool IsPositionInBounds(Position position, Topography topography)
