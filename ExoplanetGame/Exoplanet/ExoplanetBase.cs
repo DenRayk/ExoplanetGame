@@ -62,5 +62,15 @@ namespace ExoplanetGame.Exoplanet
         {
             return robotManager.GetRobotPosition(robot);
         }
+
+        public bool LandLavaBot(LavaBot lavaBot, Position landPosition)
+        {
+            return robotManager.LandLavaBot(lavaBot, landPosition, Topography);
+        }
+
+        public Position MoveLavaBot(LavaBot lavaBot)
+        {
+            return robotManager.MoveLavaBot(lavaBot, Topography);
+        }
     }
 }
