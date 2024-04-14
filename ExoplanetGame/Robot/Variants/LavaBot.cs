@@ -12,6 +12,7 @@ namespace ExoplanetGame.Robot.Variants
     {
         public LavaBot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId)
         {
+            MaxHeat = 200;
             RobotVariant = RobotVariant.LAVA;
         }
     }
