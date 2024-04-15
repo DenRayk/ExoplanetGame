@@ -100,4 +100,30 @@ public class MoveController(RobotManager robotManager)
 
         return position;
     }
+
+    public Position MoveAquaBot(AquaBot aquaBot, Topography topography)
+    {
+        if (robotManager.CanRobotMove(aquaBot))
+        {
+            Position robotPosition = robotManager.robots[aquaBot];
+            Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
+
+            if (robotManager.IsPositionSafeForRobot(aquaBot, newPosition, topography))
+            {
+                robotManager.UpdateRobotPosition(aquaBot, newPosition);
+
+                return newPosition;
+            }
+            else
+            {
+                robotManager.RemoveRobot(aquaBot);
+                return null;
+            }
+        }
+        else
+        {
+            Console.WriteLine("The robot's movement sensors or wheels are damaged and can't move.");
+            return null;
+        }
+    }
 }

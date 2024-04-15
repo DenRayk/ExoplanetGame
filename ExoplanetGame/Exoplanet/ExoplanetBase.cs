@@ -77,5 +77,15 @@ namespace ExoplanetGame.Exoplanet
         {
             return robotManager.MoveController.MoveMudBot(mudBot, Topography);
         }
+
+        public Position LandAquaBot(AquaBot aquaBot, Position landPosition)
+        {
+            return robotManager.LandController.LandAquaBot(aquaBot, landPosition, Topography);
+        }
+
+        public Position MoveAquaBot(AquaBot aquaBot)
+        {
+            return robotManager.MoveController.MoveAquaBot(aquaBot, Topography);
+        }
     }
 }

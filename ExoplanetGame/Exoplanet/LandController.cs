@@ -34,4 +34,17 @@ public class LandController(RobotManager robotManager)
 
         return null;
     }
+
+    public Position LandAquaBot(AquaBot aquaBot, Position landPosition, Topography topography)
+    {
+        if (!robotManager.robots.ContainsKey(aquaBot) && robotManager.IsPositionSafeForRobot(aquaBot, landPosition, topography))
+        {
+            robotManager.robots.Add(aquaBot, landPosition);
+            return landPosition;
+        }
+
+        robotManager.RemoveRobot(aquaBot);
+
+        return null;
+    }
 }
