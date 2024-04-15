@@ -10,9 +10,8 @@ namespace ExoplanetGame.Robot.Variants
 {
     public class SolarBot : RobotBase
     {
-        public SolarBot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId)
+        public SolarBot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId, RobotVariant.SOLAR)
         {
-            RobotVariant = RobotVariant.SOLAR;
         }
 
         public int LoadEnergy()

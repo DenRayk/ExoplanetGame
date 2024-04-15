@@ -10,13 +10,16 @@ namespace ExoplanetGame.Robot
         protected ControlCenter.ControlCenter controlCenter;
         public RobotStatus RobotStatus { get; set; }
         public int MaxHeat { get; set; } = 100;
-        public RobotVariant RobotVariant { get; set; }
+        public RobotVariant RobotVariant { get; }
 
-        protected RobotBase(ExoplanetBase exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID)
+        protected RobotBase(ExoplanetBase exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID,
+            RobotVariant robotVariant)
         {
             this.exoPlanet = exoPlanet;
             this.controlCenter = controlCenter;
             controlCenter.RobotPositionUpdated += HandleOtherRobotPositionUpdated;
+            RobotVariant = robotVariant;
+
             RobotStatus = new RobotStatus
             {
                 RobotID = robotID,

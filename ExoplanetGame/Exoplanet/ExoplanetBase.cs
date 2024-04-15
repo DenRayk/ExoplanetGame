@@ -62,30 +62,5 @@ namespace ExoplanetGame.Exoplanet
         {
             return robotManager.GetRobotPosition(robot);
         }
-
-        public Position LandLavaBot(LavaBot lavaBot, Position landPosition)
-        {
-            return robotManager.LandController.LandLavaBot(lavaBot, landPosition, Topography);
-        }
-
-        public Position MoveLavaBot(LavaBot lavaBot)
-        {
-            return robotManager.MoveController.MoveLavaBot(lavaBot, Topography);
-        }
-
-        public Position MoveMudBot(MudBot mudBot)
-        {
-            return robotManager.MoveController.MoveMudBot(mudBot, Topography);
-        }
-
-        public Position LandAquaBot(AquaBot aquaBot, Position landPosition)
-        {
-            return robotManager.LandController.LandAquaBot(aquaBot, landPosition, Topography);
-        }
-
-        public Position MoveAquaBot(AquaBot aquaBot)
-        {
-            return robotManager.MoveController.MoveAquaBot(aquaBot, Topography);
-        }
     }
 }

@@ -148,6 +148,9 @@ namespace ExoplanetGame.Exoplanet
 
         internal void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position newPosition)
         {
+            if (robot.RobotVariant == RobotVariant.MUD)
+                return;
+
             Ground newGround = topography.GetMeasureAtPosition(newPosition).Ground;
 
             if (newGround == Ground.MORAST || newGround == Ground.PFLANZEN)
@@ -171,7 +174,7 @@ namespace ExoplanetGame.Exoplanet
                 return false;
             }
 
-            if (IsPositionLava(newPosition, topography))
+            if (IsPositionLava(newPosition, topography) && robot.RobotVariant != RobotVariant.LAVA)
             {
                 Console.WriteLine("The floor is lava.");
                 return false;
@@ -194,6 +197,11 @@ namespace ExoplanetGame.Exoplanet
         internal Position WaterDrift(RobotBase robot, Position position, Topography topography)
         {
             robotHeatTracker.WaterCoolDown(robot);
+
+            if (robot.RobotVariant == RobotVariant.AQUA)
+            {
+                return position;
+            }
 
             while (position.Y < topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
             {
