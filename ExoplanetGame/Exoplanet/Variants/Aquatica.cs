@@ -12,12 +12,14 @@ namespace ExoplanetGame.Exoplanet.Variants
 
             Topography = new Topography(new string[]
             {
-                "GSSWPFSGGL",
-                "SPWWPSFFLL",
-                "SGWPMSFLLF",
-                "SSWWMGSFFG",
-                "FGSWWSSGFG",
-                "FFWWGGSGFF"
+                "GSSWPFSGGSSSSSSSSSWWW",
+                "SPWWPSFFSSMMMMMMMWWWW",
+                "SGWPMSFSSFMSSSSSSSWWW",
+                "SSWWMGSFFGFFFFFFFFWWW",
+                "FGSWWSSGFGSSSSSSSSWWW",
+                "FFWWGGSGFFSSSSSSSSWWW",
+                "SSSSSSSSSSSSSSSSSSWWW",
+                "SSSSSSSSSSSSSSSSSSWWW"
             });
         }
     }
