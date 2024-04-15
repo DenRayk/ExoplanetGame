@@ -1,10 +1,21 @@
-﻿namespace ExoplanetGame.Exoplanet.Variants;
+﻿using System.ComponentModel;
+
+namespace ExoplanetGame.Exoplanet.Variants;
 
 public enum PlanetVariant
 {
-    AQUATICA,
+    [Description("Earth-like exoplanet")]
     GAIA,
-    LAVARIA,
+
+    [Description("Water exoplanet")]
+    AQUATICA,
+
+    [Description("Stone exoplanet")]
     TERRA,
+
+    [Description("Lava exoplanet")]
+    LAVARIA,
+
+    [Description("Jungle exoplanet")]
     TROPICA,
 }
