@@ -21,7 +21,7 @@ namespace ExoplanetGame.Exoplanet
         [Description("Scan")]
         SCAN,
 
-        [Description("Get Position")]
+        [Description("Get position")]
         GETPOSITION
     }
 }

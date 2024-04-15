@@ -5,7 +5,7 @@ namespace ExoplanetGame.Exoplanet;
 public enum Ground
 {
 
-    [Description("Unknown Ground")]
+    [Description("Unknown ground")]
     NOTHING,
 
     [Description("Sand")]

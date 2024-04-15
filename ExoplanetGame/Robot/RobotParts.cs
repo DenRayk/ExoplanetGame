@@ -9,19 +9,19 @@ namespace ExoplanetGame.Robot
 {
     public enum RobotParts
     {
-        [Description("Left Motor")]
+        [Description("Left motor")]
         LEFTMOTOR,
 
-        [Description("Right Motor")]
+        [Description("Right motor")]
         RIGHTMOTOR,
 
         [Description("Wheels")]
         WHEELS,
 
-        [Description("Scanning Sensor")]
+        [Description("Scanning sensor")]
         SCANSENSOR,
 
-        [Description("Movement Sensor")]
+        [Description("Movement sensor")]
         MOVEMENTSENSOR
     }
 }

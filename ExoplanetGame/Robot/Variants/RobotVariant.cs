@@ -4,21 +4,21 @@ namespace ExoplanetGame.Robot.Variants;
 
 public enum RobotVariant
 {
-    [Description("Default Robot")]
+    [Description("Default robot")]
     DEFAULT,
 
-    [Description("Scout Robot")]
+    [Description("Scout robot")]
     SCOUT,
 
-    [Description("Lava Robot")]
+    [Description("Lava robot")]
     LAVA,
 
-    [Description("Aqua Robot")]
+    [Description("Aqua robot")]
     AQUA,
 
-    [Description("Mud Robot")]
+    [Description("Mud robot")]
     MUD,
 
-    [Description("Solar Robot")]
+    [Description("Solar robot")]
     SOLAR,
 }
