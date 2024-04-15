@@ -15,10 +15,10 @@ namespace ExoplanetGame.Exoplanet.Variants
                 "LLLLLLGGGGGLLLGGGGGGG",
                 "LLGGGLLLLLLLLLGGGGLLL",
                 "GGGGGLLLLLLLLLLLGGGLL",
-                "LLLLLLLLGGGGGGGGGGGGG",
-                "GGGGGGGFFFFFFFFFFFFFF",
-                "FFFFFFFFFFFFFFFFFFFF",
-                "FFFFFFFFFFFFFFFFFFFF"
+                "LLLLLLLLGGGGGGGLLLGGL",
+                "GGGGGGGFFFFFFFFLLLLFL",
+                "FFFGGGGGGLLLFFFFFFFFF",
+                "FFFFFFFFFGGGGGGGFFFFF"
             });
             robotManager = new RobotManager(Topography);
         }
