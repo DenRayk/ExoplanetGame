@@ -2,12 +2,12 @@
 
 public enum Ground
 {
-    NICHTS,
+    NOTHING,
     SAND,
-    GEROELL,
-    FELS,
-    WASSER,
-    PFLANZEN,
-    MORAST,
+    GRAVEL,
+    ROCK,
+    WATER,
+    PLANT,
+    MUD,
     LAVA
 }

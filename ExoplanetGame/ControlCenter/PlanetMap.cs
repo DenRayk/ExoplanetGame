@@ -16,7 +16,7 @@ namespace ExoplanetGame.ControlCenter
             {
                 for (int j = 0; j < planetSize.Width; j++)
                 {
-                    map[i, j] = Ground.NICHTS;
+                    map[i, j] = Ground.NOTHING;
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace ExoplanetGame.ControlCenter
             {
                 for (int columnIndex = 0; columnIndex < planetSize.Width; columnIndex++)
                 {
-                    bool isAreaExplored = map[rowIndex, columnIndex] != Ground.NICHTS;
+                    bool isAreaExplored = map[rowIndex, columnIndex] != Ground.NOTHING;
 
                     if (isAreaExplored)
                     {

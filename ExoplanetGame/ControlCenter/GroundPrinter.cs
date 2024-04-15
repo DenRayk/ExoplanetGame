@@ -9,7 +9,7 @@ namespace ExoplanetGame.ControlCenter
         {
             switch (ground)
             {
-                case Ground.NICHTS:
+                case Ground.NOTHING:
                     Console.BackgroundColor = ConsoleColor.White;
                     break;
 
@@ -17,23 +17,23 @@ namespace ExoplanetGame.ControlCenter
                     Console.BackgroundColor = ConsoleColor.Yellow;
                     break;
 
-                case Ground.GEROELL:
+                case Ground.GRAVEL:
                     Console.BackgroundColor = ConsoleColor.Gray;
                     break;
 
-                case Ground.FELS:
+                case Ground.ROCK:
                     Console.BackgroundColor = ConsoleColor.DarkGray;
                     break;
 
-                case Ground.WASSER:
+                case Ground.WATER:
                     Console.BackgroundColor = ConsoleColor.Blue;
                     break;
 
-                case Ground.PFLANZEN:
+                case Ground.PLANT:
                     Console.BackgroundColor = ConsoleColor.Green;
                     break;
 
-                case Ground.MORAST:
+                case Ground.MUD:
                     Console.BackgroundColor = ConsoleColor.DarkGreen;
                     break;
 
@@ -53,7 +53,7 @@ namespace ExoplanetGame.ControlCenter
         {
             switch (ground)
             {
-                case Ground.NICHTS:
+                case Ground.NOTHING:
                     Console.BackgroundColor = ConsoleColor.White;
                     break;
 
@@ -61,23 +61,23 @@ namespace ExoplanetGame.ControlCenter
                     Console.BackgroundColor = ConsoleColor.Yellow;
                     break;
 
-                case Ground.GEROELL:
+                case Ground.GRAVEL:
                     Console.BackgroundColor = ConsoleColor.Gray;
                     break;
 
-                case Ground.FELS:
+                case Ground.ROCK:
                     Console.BackgroundColor = ConsoleColor.DarkGray;
                     break;
 
-                case Ground.WASSER:
+                case Ground.WATER:
                     Console.BackgroundColor = ConsoleColor.Blue;
                     break;
 
-                case Ground.PFLANZEN:
+                case Ground.PLANT:
                     Console.BackgroundColor = ConsoleColor.Green;
                     break;
 
-                case Ground.MORAST:
+                case Ground.MUD:
                     Console.BackgroundColor = ConsoleColor.DarkGreen;
                     break;
 

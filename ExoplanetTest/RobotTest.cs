@@ -107,7 +107,7 @@ namespace ExoplanetGameTest
             Measure measure = robot.Scan();
 
             // Assert
-            Assert.AreEqual(Ground.PFLANZEN, measure.Ground);
+            Assert.AreEqual(Ground.PLANT, measure.Ground);
         }
 
         [TestCleanup]

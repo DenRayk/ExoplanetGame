@@ -32,11 +32,11 @@ namespace ExoplanetGame.Exoplanet
 
             switch (topography.GetMeasureAtPosition(robot.RobotStatus.Position).Ground)
             {
-                case Ground.WASSER:
+                case Ground.WATER:
                     heatGain = 0;
                     break;
 
-                case Ground.FELS:
+                case Ground.ROCK:
                     heatGain = 5;
                     break;
 
@@ -48,15 +48,15 @@ namespace ExoplanetGame.Exoplanet
                     heatGain = 20;
                     break;
 
-                case Ground.GEROELL:
+                case Ground.GRAVEL:
                     heatGain = 5;
                     break;
 
-                case Ground.PFLANZEN:
+                case Ground.PLANT:
                     heatGain = 5;
                     break;
 
-                case Ground.MORAST:
+                case Ground.MUD:
                     heatGain = 8;
                     break;
 

@@ -47,11 +47,11 @@ namespace ExoplanetGame.Exoplanet
             switch (g)
             {
                 case 'W':
-                    ground = Ground.WASSER;
+                    ground = Ground.WATER;
                     break;
 
                 case 'F':
-                    ground = Ground.FELS;
+                    ground = Ground.ROCK;
                     break;
 
                 case 'S':
@@ -59,15 +59,15 @@ namespace ExoplanetGame.Exoplanet
                     break;
 
                 case 'G':
-                    ground = Ground.GEROELL;
+                    ground = Ground.GRAVEL;
                     break;
 
                 case 'P':
-                    ground = Ground.PFLANZEN;
+                    ground = Ground.PLANT;
                     break;
 
                 case 'M':
-                    ground = Ground.MORAST;
+                    ground = Ground.MUD;
                     break;
 
                 case 'L':
@@ -75,7 +75,7 @@ namespace ExoplanetGame.Exoplanet
                     break;
 
                 default:
-                    ground = Ground.NICHTS;
+                    ground = Ground.NOTHING;
                     break;
             }
             return ground;
@@ -91,23 +91,23 @@ namespace ExoplanetGame.Exoplanet
                     temperature = rand.Next(20, 35);
                     break;
 
-                case Ground.GEROELL:
+                case Ground.GRAVEL:
                     temperature = rand.Next(10, 25);
                     break;
 
-                case Ground.FELS:
+                case Ground.ROCK:
                     temperature = rand.Next(0, 15);
                     break;
 
-                case Ground.WASSER:
+                case Ground.WATER:
                     temperature = rand.Next(0, 10);
                     break;
 
-                case Ground.PFLANZEN:
+                case Ground.PLANT:
                     temperature = rand.Next(5, 25);
                     break;
 
-                case Ground.MORAST:
+                case Ground.MUD:
                     temperature = rand.Next(5, 20);
                     break;
 

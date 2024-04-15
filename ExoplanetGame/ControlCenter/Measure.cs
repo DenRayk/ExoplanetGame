@@ -11,7 +11,7 @@ namespace ExoplanetGame.ControlCenter
 
         public Measure()
         {
-            Ground = Ground.NICHTS;
+            Ground = Ground.NOTHING;
             Temperature = 0.0; // Default temperature value
         }
 

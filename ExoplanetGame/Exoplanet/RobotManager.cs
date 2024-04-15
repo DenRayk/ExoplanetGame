@@ -153,7 +153,7 @@ namespace ExoplanetGame.Exoplanet
 
             Ground newGround = topography.GetMeasureAtPosition(newPosition).Ground;
 
-            if (newGround == Ground.MORAST || newGround == Ground.PFLANZEN)
+            if (newGround == Ground.MUD || newGround == Ground.PLANT)
             {
                 robotStuckTracker.RobotGetStuckRandomly(robot);
             }
@@ -203,12 +203,12 @@ namespace ExoplanetGame.Exoplanet
                 return position;
             }
 
-            while (position.Y < topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
+            while (position.Y < topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WATER)
             {
                 position = new Position(position.X, position.Y + 1);
             }
 
-            while (position.Y == topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
+            while (position.Y == topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WATER)
             {
                 position = new Position(position.X + 1, position.Y);
             }
