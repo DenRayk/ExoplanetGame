@@ -27,7 +27,7 @@ namespace ExoplanetGame.Exoplanet
             robotManager.RemoveRobot(Robot);
         }
 
-        public virtual bool Land(RobotBase robot, Position landPosition)
+        public virtual Position Land(RobotBase robot, Position landPosition)
         {
             return robotManager.LandController.LandRobot(robot, landPosition, Topography);
         }
@@ -63,7 +63,7 @@ namespace ExoplanetGame.Exoplanet
             return robotManager.GetRobotPosition(robot);
         }
 
-        public bool LandLavaBot(LavaBot lavaBot, Position landPosition)
+        public Position LandLavaBot(LavaBot lavaBot, Position landPosition)
         {
             return robotManager.LandController.LandLavaBot(lavaBot, landPosition, Topography);
         }

@@ -63,7 +63,7 @@ namespace ExoplanetGame.Exoplanet
                 return false;
             }
 
-            if (IsAnotherRobotAlreadyAtThisPosition(newPosition))
+            if (IsAnotherRobotAlreadyAtThisPosition(lavaBot, newPosition))
             {
                 Console.WriteLine("Another robot is already at this position.");
                 return false;
@@ -174,7 +174,7 @@ namespace ExoplanetGame.Exoplanet
                 return false;
             }
 
-            if (IsAnotherRobotAlreadyAtThisPosition(newPosition))
+            if (IsAnotherRobotAlreadyAtThisPosition(robot, newPosition))
             {
                 Console.WriteLine("Another robot is already at this position.");
                 return false;
@@ -193,16 +193,33 @@ namespace ExoplanetGame.Exoplanet
             return topography.GetMeasureAtPosition(position).Ground == Ground.LAVA;
         }
 
-        private bool IsAnotherRobotAlreadyAtThisPosition(Position position)
+        private bool IsAnotherRobotAlreadyAtThisPosition(RobotBase robotBase, Position position)
         {
-            foreach (var robot in robots.Values)
+            foreach (var robot in robots.Keys)
             {
-                if (robot.X == position.X && robot.Y == position.Y)
+                if (robot.Equals(robotBase)) continue;
+
+                if (robots[robot].X == position.X && robots[robot].Y == position.Y)
                 {
                     return true;
                 }
             }
             return false;
+        }
+
+        internal Position WaterDrift(RobotBase robot, Position position, Topography topography)
+        {
+            while (position.Y < topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
+            {
+                position = new Position(position.X, position.Y + 1);
+            }
+
+            while (position.Y == topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
+            {
+                position = new Position(position.X + 1, position.Y);
+            }
+
+            return position;
         }
     }
 }

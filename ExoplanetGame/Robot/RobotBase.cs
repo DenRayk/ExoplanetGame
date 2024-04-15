@@ -31,9 +31,14 @@ namespace ExoplanetGame.Robot
             Console.WriteLine("Robot crashed");
         }
 
-        public virtual bool Land(Position landPosition)
+        public virtual Position Land(Position landPosition)
         {
-            RobotStatus.HasLanded = exoPlanet.Land(this, landPosition);
+            landPosition = exoPlanet.Land(this, landPosition);
+
+            if (landPosition != null)
+            {
+                RobotStatus.HasLanded = true;
+            }
 
             if (RobotStatus.HasLanded)
             {
@@ -46,7 +51,7 @@ namespace ExoplanetGame.Robot
                 Console.WriteLine("Robot could not land");
             }
 
-            return RobotStatus.HasLanded;
+            return landPosition;
         }
 
         public virtual string GetLanderName()
@@ -122,6 +127,19 @@ namespace ExoplanetGame.Robot
                 return;
 
             RobotStatus.OtherRobotPositions[e.Robot] = e.NewPosition;
+        }
+
+        protected bool Equals(RobotBase other)
+        {
+            return exoPlanet.Equals(other.exoPlanet) && controlCenter.Equals(other.controlCenter) && RobotStatus.Equals(other.RobotStatus) && MaxHeat == other.MaxHeat && RobotVariant == other.RobotVariant;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((RobotBase)obj);
         }
     }
 }

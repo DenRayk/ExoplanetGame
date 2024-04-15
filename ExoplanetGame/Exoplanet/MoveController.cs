@@ -11,6 +11,7 @@ public class MoveController(RobotManager robotManager)
         {
             Position robotPosition = robotManager.robots[lavaBot];
             Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
+            newPosition = WaterDrift(lavaBot, newPosition, topography);
 
             if (robotManager.IsPositionSafeForLavaBot(lavaBot, newPosition, topography))
             {
@@ -37,6 +38,7 @@ public class MoveController(RobotManager robotManager)
         {
             Position robotPosition = robotManager.robots[robot];
             Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
+            newPosition = WaterDrift(robot, newPosition, topography);
 
             if (robotManager.IsPositionSafeForRobot(robot, newPosition, topography))
             {
@@ -63,6 +65,7 @@ public class MoveController(RobotManager robotManager)
         {
             Position robotPosition = robotManager.robots[mudBot];
             Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
+            newPosition = WaterDrift(mudBot, newPosition, topography);
 
             if (robotManager.IsPositionSafeForRobot(mudBot, newPosition, topography))
             {
@@ -81,5 +84,20 @@ public class MoveController(RobotManager robotManager)
             Console.WriteLine("The robot's movement sensors or wheels are damaged and can't move.");
             return null;
         }
+    }
+
+    private Position WaterDrift(RobotBase robot, Position position, Topography topography)
+    {
+        while (position.Y < topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
+        {
+            position = new Position(position.X, position.Y + 1);
+        }
+
+        while (position.Y == topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
+        {
+            position = new Position(position.X + 1, position.Y);
+        }
+
+        return position;
     }
 }

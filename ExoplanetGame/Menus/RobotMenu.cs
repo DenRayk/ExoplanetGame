@@ -48,7 +48,9 @@ namespace ExoplanetGame.Menus
             }
             else
             {
-                hasLanded = robot.Land(SelectLandPosition());
+                Position lanndPosition = robot.Land(SelectLandPosition());
+
+                hasLanded = lanndPosition != null;
             }
         }
 
