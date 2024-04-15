@@ -102,6 +102,7 @@ namespace ExoplanetGame.ControlCenter
 
         public void PrintMap()
         {
+            Console.WriteLine(planetMap.GetPercentageOfExploredArea());
             planetMap.printMap(robots);
         }
 

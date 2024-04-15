@@ -121,7 +121,7 @@ namespace ExoplanetGame.Menus
 
         public static void LoadCurrentExploredMap(ControlCenter.ControlCenter controlCenter)
         {
-            Console.WriteLine($"Discovered area of the planet {PlanetManager.TargetPlanet.PlanetVariant}:");
+            Console.Write($"Discovered area of the planet {PlanetManager.TargetPlanet.PlanetVariant}: ");
             controlCenter.PrintMap();
         }
     }
