@@ -14,7 +14,7 @@ namespace ExoplanetGame.Exoplanet
 
         public ExoplanetBase()
         {
-            robotManager = new RobotManager();
+            robotManager = new RobotManager(Topography);
         }
 
         public virtual int GetRobotCount()

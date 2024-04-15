@@ -19,7 +19,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 "FGSWWSSGFG",
                 "FFWWGGSGFF"
             });
-            robotManager = new RobotManager();
+            robotManager = new RobotManager(Topography);
         }
     }
 }

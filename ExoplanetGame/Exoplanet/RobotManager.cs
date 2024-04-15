@@ -12,15 +12,18 @@ namespace ExoplanetGame.Exoplanet
         private readonly RobotPartsTracker robotPartsTracker;
         private readonly RobotStuckTracker robotStuckTracker;
 
-        public RobotManager()
+        private readonly Topography topography;
+
+        public RobotManager(Topography topography)
         {
-            MoveController = new MoveController(this);
             robotHeatTracker = new RobotHeatTracker();
             robotPartsTracker = new RobotPartsTracker();
             robotStuckTracker = new RobotStuckTracker();
             robots = new Dictionary<RobotBase, Position>();
-            LandController = new LandController(this);
+            MoveController = new MoveController(this, robotHeatTracker, robotPartsTracker);
+            LandController = new LandController(this, robotHeatTracker);
             ScanController = new ScanController(this, robotPartsTracker, robotHeatTracker);
+            this.topography = topography;
         }
 
         public LandController LandController { get; }
@@ -49,7 +52,7 @@ namespace ExoplanetGame.Exoplanet
 
         public Position GetRobotPosition(RobotBase robot)
         {
-            robotHeatTracker.PerformAction(robot);
+            robotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, topography);
             return robots[robot];
         }
 
@@ -93,7 +96,7 @@ namespace ExoplanetGame.Exoplanet
                 return robotPosition.Direction;
             }
 
-            robotHeatTracker.PerformAction(robot);
+            robotHeatTracker.PerformAction(robot, RobotAction.ROTATE, topography);
 
             if (robotStuckTracker.IsRobotStuck(robot))
             {
@@ -188,6 +191,23 @@ namespace ExoplanetGame.Exoplanet
             robots[robot] = newPosition;
         }
 
+        internal Position WaterDrift(RobotBase robot, Position position, Topography topography)
+        {
+            robotHeatTracker.WaterCoolDown(robot);
+
+            while (position.Y < topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
+            {
+                position = new Position(position.X, position.Y + 1);
+            }
+
+            while (position.Y == topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
+            {
+                position = new Position(position.X + 1, position.Y);
+            }
+
+            return position;
+        }
+
         private static bool IsPositionLava(Position position, Topography topography)
         {
             return topography.GetMeasureAtPosition(position).Ground == Ground.LAVA;
@@ -205,21 +225,6 @@ namespace ExoplanetGame.Exoplanet
                 }
             }
             return false;
-        }
-
-        internal Position WaterDrift(RobotBase robot, Position position, Topography topography)
-        {
-            while (position.Y < topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
-            {
-                position = new Position(position.X, position.Y + 1);
-            }
-
-            while (position.Y == topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
-            {
-                position = new Position(position.X + 1, position.Y);
-            }
-
-            return position;
         }
     }
 }

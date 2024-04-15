@@ -14,5 +14,10 @@ namespace ExoplanetGame.Robot.Variants
         {
             RobotVariant = RobotVariant.SOLAR;
         }
+
+        public int LoadEnergy()
+        {
+            return 0;
+        }
     }
 }

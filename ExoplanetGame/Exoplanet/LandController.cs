@@ -3,7 +3,7 @@ using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet;
 
-public class LandController(RobotManager robotManager)
+public class LandController(RobotManager robotManager, RobotHeatTracker robotHeatTracker)
 {
     public Position LandLavaBot(LavaBot lavaBot, Position landPosition, Topography topography)
     {

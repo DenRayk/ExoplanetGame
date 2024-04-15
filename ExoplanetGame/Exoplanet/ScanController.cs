@@ -21,7 +21,7 @@ public class ScanController
     {
         if (!robotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
         {
-            robotHeatTracker.PerformAction(robot);
+            robotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
             robotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
             return topography.GetMeasureAtPosition(robotManager.robots[robot]);
         }
@@ -62,6 +62,8 @@ public class ScanController
                 }
             }
 
+            robotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
+            robotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
             return scoutScanResults;
         }
         else

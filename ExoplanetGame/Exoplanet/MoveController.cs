@@ -3,7 +3,7 @@ using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet;
 
-public class MoveController(RobotManager robotManager)
+public class MoveController(RobotManager robotManager, RobotHeatTracker robotHeatTracker, RobotPartsTracker robotPartsTracker)
 {
     public Position MoveLavaBot(LavaBot lavaBot, Topography topography)
     {
@@ -12,6 +12,9 @@ public class MoveController(RobotManager robotManager)
             Position robotPosition = robotManager.robots[lavaBot];
             Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
             newPosition = WaterDrift(lavaBot, newPosition, topography);
+
+            robotHeatTracker.PerformAction(lavaBot, RobotAction.MOVE, topography);
+            robotPartsTracker.RobotPartDamage(lavaBot, RobotParts.MOVEMENTSENSOR);
 
             if (robotManager.IsPositionSafeForLavaBot(lavaBot, newPosition, topography))
             {
@@ -40,6 +43,9 @@ public class MoveController(RobotManager robotManager)
             Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
             newPosition = WaterDrift(robot, newPosition, topography);
 
+            robotHeatTracker.PerformAction(robot, RobotAction.MOVE, topography);
+            robotPartsTracker.RobotPartDamage(robot, RobotParts.MOVEMENTSENSOR);
+
             if (robotManager.IsPositionSafeForRobot(robot, newPosition, topography))
             {
                 robotManager.UpdateRobotPosition(robot, newPosition);
@@ -67,6 +73,9 @@ public class MoveController(RobotManager robotManager)
             Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
             newPosition = WaterDrift(mudBot, newPosition, topography);
 
+            robotHeatTracker.PerformAction(mudBot, RobotAction.MOVE, topography);
+            robotPartsTracker.RobotPartDamage(mudBot, RobotParts.MOVEMENTSENSOR);
+
             if (robotManager.IsPositionSafeForRobot(mudBot, newPosition, topography))
             {
                 robotManager.UpdateRobotPosition(mudBot, newPosition);
@@ -88,6 +97,8 @@ public class MoveController(RobotManager robotManager)
 
     private Position WaterDrift(RobotBase robot, Position position, Topography topography)
     {
+        robotHeatTracker.WaterCoolDown(robot);
+
         while (position.Y < topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WASSER)
         {
             position = new Position(position.X, position.Y + 1);
@@ -107,6 +118,9 @@ public class MoveController(RobotManager robotManager)
         {
             Position robotPosition = robotManager.robots[aquaBot];
             Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
+
+            robotHeatTracker.PerformAction(aquaBot, RobotAction.MOVE, topography);
+            robotPartsTracker.RobotPartDamage(aquaBot, RobotParts.MOVEMENTSENSOR);
 
             if (robotManager.IsPositionSafeForRobot(aquaBot, newPosition, topography))
             {
