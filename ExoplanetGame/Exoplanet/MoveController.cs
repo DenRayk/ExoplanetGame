@@ -3,7 +3,7 @@ using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet;
 
-public class MoveController(RobotManager robotManager, RobotHeatTracker robotHeatTracker, RobotPartsTracker robotPartsTracker)
+public class MoveController(RobotManager robotManager, RobotStatusManager robotStatusManager)
 {
     public Position MoveRobot(RobotBase robot, Topography topography)
     {
@@ -13,8 +13,8 @@ public class MoveController(RobotManager robotManager, RobotHeatTracker robotHea
             Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
             newPosition = robotManager.WaterDrift(robot, newPosition, topography);
 
-            robotHeatTracker.PerformAction(robot, RobotAction.MOVE, topography);
-            robotPartsTracker.RobotPartDamage(robot, RobotParts.MOVEMENTSENSOR);
+            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.MOVE, topography);
+            robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.MOVEMENTSENSOR);
 
             if (robotManager.IsPositionSafeForRobot(robot, newPosition, topography))
             {

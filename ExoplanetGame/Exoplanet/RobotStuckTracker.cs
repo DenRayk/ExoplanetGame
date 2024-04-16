@@ -7,7 +7,7 @@ using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Exoplanet
 {
-    internal class RobotStuckTracker
+    public class RobotStuckTracker
     {
         private Dictionary<RobotBase, bool> robotStuck = new();
         private Random random = new();

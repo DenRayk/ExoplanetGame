@@ -26,11 +26,102 @@ namespace ExoplanetGame.Exoplanet
             }
         }
 
+        public void PerformAction(RobotBase robot, RobotAction robotAction, Topography topography, Position landPosition)
+        {
+            if (!heatLevels.ContainsKey(robot))
+            {
+                heatLevels[robot] = 0;
+            }
+
+            double heatGain = CalculateHeatGainDependentOnFieldAndAction(landPosition, robotAction, topography);
+
+            heatLevels[robot] += heatGain;
+
+            if (heatLevels[robot] >= robot.MaxHeat)
+            {
+                Console.WriteLine($"Overheating {robot.GetLanderName()}");
+                CoolDown(robot, robot.MaxHeat / 10);
+            }
+        }
+
+        public void WaterCoolDown(RobotBase robot)
+        {
+            if (heatLevels.ContainsKey(robot))
+            {
+                heatLevels[robot] = 0;
+            }
+        }
+
         private double CalculateHeatGainDependentOnFieldAndAction(RobotBase robot, RobotAction robotAction, Topography topography)
         {
             double heatGain;
 
             switch (topography.GetMeasureAtPosition(robot.RobotInformation.Position).Ground)
+            {
+                case Ground.WATER:
+                    heatGain = 0;
+                    break;
+
+                case Ground.ROCK:
+                    heatGain = 5;
+                    break;
+
+                case Ground.SAND:
+                    heatGain = 10;
+                    break;
+
+                case Ground.LAVA:
+                    heatGain = 20;
+                    break;
+
+                case Ground.GRAVEL:
+                    heatGain = 5;
+                    break;
+
+                case Ground.PLANT:
+                    heatGain = 5;
+                    break;
+
+                case Ground.MUD:
+                    heatGain = 8;
+                    break;
+
+                default:
+                    heatGain = 0;
+                    break;
+            }
+
+            switch (robotAction)
+            {
+                case RobotAction.LAND:
+                    heatGain *= 1.5;
+                    break;
+
+                case RobotAction.MOVE:
+                    heatGain *= 1.2;
+                    break;
+
+                case RobotAction.ROTATE:
+                    heatGain *= 1.1;
+                    break;
+
+                case RobotAction.SCAN:
+                    heatGain *= 1.3;
+                    break;
+
+                case RobotAction.GETPOSITION:
+                    heatGain *= 1.1;
+                    break;
+            }
+
+            return heatGain;
+        }
+
+        private double CalculateHeatGainDependentOnFieldAndAction(Position landPosition, RobotAction robotAction, Topography topography)
+        {
+            double heatGain;
+
+            switch (topography.GetMeasureAtPosition(landPosition).Ground)
             {
                 case Ground.WATER:
                     heatGain = 0;
@@ -104,14 +195,6 @@ namespace ExoplanetGame.Exoplanet
             }
 
             Console.Clear();
-        }
-
-        public void WaterCoolDown(RobotBase robot)
-        {
-            if (heatLevels.ContainsKey(robot))
-            {
-                heatLevels[robot] = 0;
-            }
         }
     }
 }

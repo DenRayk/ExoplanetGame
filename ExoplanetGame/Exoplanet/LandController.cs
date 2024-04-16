@@ -3,7 +3,7 @@ using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet;
 
-public class LandController(RobotManager robotManager, RobotHeatTracker robotHeatTracker)
+public class LandController(RobotManager robotManager, RobotStatusManager robotStatusManager)
 {
     public Position LandRobot(RobotBase robot, Position landPosition, Topography topography)
     {
@@ -12,6 +12,7 @@ public class LandController(RobotManager robotManager, RobotHeatTracker robotHea
         if (!robotManager.robots.ContainsKey(robot) && robotManager.IsPositionSafeForRobot(robot, landPosition, topography))
         {
             robotManager.robots.Add(robot, landPosition);
+            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.LAND, topography, landPosition);
             return landPosition;
         }
 

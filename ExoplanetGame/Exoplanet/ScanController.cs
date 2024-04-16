@@ -4,25 +4,14 @@ using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet;
 
-public class ScanController
+public class ScanController(RobotManager robotManager, RobotStatusManager robotStatusManager)
 {
-    private RobotManager robotManager;
-    private RobotPartsTracker robotPartsTracker;
-    private RobotHeatTracker robotHeatTracker;
-
-    public ScanController(RobotManager robotManager, RobotPartsTracker robotPartsTracker, RobotHeatTracker robotHeatTracker)
-    {
-        this.robotManager = robotManager;
-        this.robotPartsTracker = robotPartsTracker;
-        this.robotHeatTracker = robotHeatTracker;
-    }
-
     public Measure Scan(RobotBase robot, Topography topography)
     {
-        if (!robotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
+        if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
         {
-            robotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
-            robotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
+            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
+            robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
             return topography.GetMeasureAtPosition(robotManager.robots[robot]);
         }
         else
@@ -34,7 +23,7 @@ public class ScanController
 
     public Dictionary<Measure, Position> ScoutScan(RobotBase robot, Topography topography)
     {
-        if (!robotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
+        if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
         {
             Dictionary<Measure, Position> scoutScanResults = new Dictionary<Measure, Position>();
             Position currentRobotPosition = robotManager.GetRobotPosition(robot);
@@ -62,8 +51,8 @@ public class ScanController
                 }
             }
 
-            robotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
-            robotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
+            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
+            robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
             return scoutScanResults;
         }
         else

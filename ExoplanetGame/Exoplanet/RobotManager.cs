@@ -8,22 +8,19 @@ namespace ExoplanetGame.Exoplanet
     {
         internal readonly Dictionary<RobotBase, Position> robots;
 
-        private readonly RobotHeatTracker robotHeatTracker;
-        private readonly RobotPartsTracker robotPartsTracker;
-        private readonly RobotStuckTracker robotStuckTracker;
+        private readonly RobotStatusManager robotStatusManager;
 
         private readonly Topography topography;
 
         public RobotManager(Topography topography)
         {
-            robotHeatTracker = new RobotHeatTracker();
-            robotPartsTracker = new RobotPartsTracker();
-            robotStuckTracker = new RobotStuckTracker();
-            robots = new Dictionary<RobotBase, Position>();
-            MoveController = new MoveController(this, robotHeatTracker, robotPartsTracker);
-            LandController = new LandController(this, robotHeatTracker);
-            ScanController = new ScanController(this, robotPartsTracker, robotHeatTracker);
             this.topography = topography;
+            robots = new Dictionary<RobotBase, Position>();
+
+            robotStatusManager = new RobotStatusManager();
+            MoveController = new MoveController(this, robotStatusManager);
+            LandController = new LandController(this, robotStatusManager);
+            ScanController = new ScanController(this, robotStatusManager);
         }
 
         public LandController LandController { get; }
@@ -52,7 +49,7 @@ namespace ExoplanetGame.Exoplanet
 
         public Position GetRobotPosition(RobotBase robot)
         {
-            robotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, topography);
+            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, topography);
             return robots[robot];
         }
 
@@ -84,32 +81,32 @@ namespace ExoplanetGame.Exoplanet
         {
             Position robotPosition = robots[robot];
 
-            if (robotPartsTracker.isRobotPartDamaged(robot, RobotParts.RIGHTMOTOR) && rotation == Rotation.RIGHT)
+            if (robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotParts.RIGHTMOTOR) && rotation == Rotation.RIGHT)
             {
                 Console.WriteLine("The robot's right motor is damaged and can't rotate right.");
                 return robotPosition.Direction;
             }
 
-            if (robotPartsTracker.isRobotPartDamaged(robot, RobotParts.LEFTMOTOR) && rotation == Rotation.LEFT)
+            if (robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotParts.LEFTMOTOR) && rotation == Rotation.LEFT)
             {
                 Console.WriteLine("The robot's left motor is damaged and can't rotate left.");
                 return robotPosition.Direction;
             }
 
-            robotHeatTracker.PerformAction(robot, RobotAction.ROTATE, topography);
+            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.ROTATE, topography);
 
-            if (robotStuckTracker.IsRobotStuck(robot))
+            if (robotStatusManager.RobotStuckTracker.IsRobotStuck(robot))
             {
-                robotStuckTracker.UnstuckRobot(robot);
+                robotStatusManager.RobotStuckTracker.UnstuckRobot(robot);
             }
 
             if (rotation == Rotation.RIGHT)
             {
-                robotPartsTracker.RobotPartDamage(robot, RobotParts.RIGHTMOTOR);
+                robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.RIGHTMOTOR);
             }
             else
             {
-                robotPartsTracker.RobotPartDamage(robot, RobotParts.LEFTMOTOR);
+                robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.LEFTMOTOR);
             }
 
             return robotPosition.Rotate(rotation);
@@ -117,9 +114,9 @@ namespace ExoplanetGame.Exoplanet
 
         internal bool CanRobotMove(RobotBase robot)
         {
-            bool isMovementSensorDamaged = robotPartsTracker.isRobotPartDamaged(robot, RobotParts.MOVEMENTSENSOR);
-            bool areWheelsDamaged = robotPartsTracker.isRobotPartDamaged(robot, RobotParts.WHEELS);
-            bool isRobotStuck = robotStuckTracker.IsRobotStuck(robot);
+            bool isMovementSensorDamaged = robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotParts.MOVEMENTSENSOR);
+            bool areWheelsDamaged = robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotParts.WHEELS);
+            bool isRobotStuck = robotStatusManager.RobotStuckTracker.IsRobotStuck(robot);
 
             if (isMovementSensorDamaged)
             {
@@ -155,7 +152,7 @@ namespace ExoplanetGame.Exoplanet
 
             if (newGround == Ground.MUD || newGround == Ground.PLANT)
             {
-                robotStuckTracker.RobotGetStuckRandomly(robot);
+                robotStatusManager.RobotStuckTracker.RobotGetStuckRandomly(robot);
             }
         }
 
@@ -196,7 +193,7 @@ namespace ExoplanetGame.Exoplanet
 
         internal Position WaterDrift(RobotBase robot, Position position, Topography topography)
         {
-            robotHeatTracker.WaterCoolDown(robot);
+            robotStatusManager.RobotHeatTracker.WaterCoolDown(robot);
 
             if (robot.RobotVariant == RobotVariant.AQUA)
             {
