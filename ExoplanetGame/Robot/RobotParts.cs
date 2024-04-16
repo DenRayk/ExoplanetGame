@@ -22,6 +22,9 @@ namespace ExoplanetGame.Robot
         SCANSENSOR,
 
         [Description("Movement sensor")]
-        MOVEMENTSENSOR
+        MOVEMENTSENSOR,
+
+        [Description("Solar panels")]
+        SOLARPANELS
     }
 }

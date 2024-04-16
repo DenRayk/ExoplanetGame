@@ -54,7 +54,15 @@ namespace ExoplanetGame.Exoplanet
 
         public void LoadEnergy(RobotBase robot, int seconds)
         {
-            robotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds);
+            if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotParts.SOLARPANELS))
+            {
+                robotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds);
+                robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.SOLARPANELS);
+            }
+            else
+            {
+                Console.WriteLine("The robot's solar panels are damaged and can't load energy.");
+            }
         }
 
         public void RemoveRobot(RobotBase robot)
