@@ -10,15 +10,21 @@ namespace ExoplanetGame.Exoplanet.Variants
         {
             Weather = Weather.SUNNY;
 
+            //Grandmaster level
             Topography = new Topography(new string[]
             {
-                "GSSWPFSGGL",
-                "SPWWPSFFLL",
-                "SGWPMSFLLF",
-                "SSWWMGSFFG",
-                "FGSWWSSGFG",
-                "FFWWGGSGFF"
+                "GGWWPMWPGGGPWWWWRRGGWSPGGPSSSG",
+                "GGWWSMWWWPMMPGGSWPWPWMGPGMMPSS",
+                "GMMWSPPRWWWWMGGSSWMMWSMGMWWPRM",
+                "GPMWSSRPGMMWWRRWSPMWWWSPPPWRPM",
+                "SGPWGSMMMMPMWWPWWWWWSWWPPGWWGM",
+                "SSWWGSPPGGMWGWWWWWWWSMWSMGPWMM",
+                "GGSWGMMPGGGMPGSPRGWWSSWSSGMWMP",
+                "SSPWWPMMGGGPPPMWMGWPSMWPSPMWWM",
+                "MSPWWRMGGPMPPSMWGGWPSMWSSWPMWW",
+                "RRMRWRPGGPWRRGSMGGWPSMSRRWGGRW"
             });
+            robotManager = new RobotManager(this);
         }
 
         public override void ChangeWeather()

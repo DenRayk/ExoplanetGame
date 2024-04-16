@@ -50,7 +50,7 @@ namespace ExoplanetGame.Exoplanet
                     ground = Ground.WATER;
                     break;
 
-                case 'F':
+                case 'R':
                     ground = Ground.ROCK;
                     break;
 

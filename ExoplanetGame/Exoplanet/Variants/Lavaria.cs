@@ -10,15 +10,16 @@ namespace ExoplanetGame.Exoplanet.Variants
         {
             Weather = Weather.FOGGY;
 
+            //Expert level
             Topography = new Topography(new string[]
             {
                 "LLLLLLGGGGGLLLGGGGGGG",
                 "LLGGGLLLLLLLLLGGGGLLL",
                 "GGGGGLLLLLLLLLLLGGGLL",
                 "LLLLLLLLGGGGGGGLLLGGL",
-                "GGGGGGGFFFFFFFFLLLLFL",
-                "FFFGGGGGGLLLFFFFFFFFF",
-                "FFFFFFFFFGGGGGGGFFFFF"
+                "GGGLLGGRRRRRRRRLLLLRL",
+                "RRRGGGGGGLLLRRRRRRRRR",
+                "RRRRRRRRRGGGGGGGRRRRR"
             });
             robotManager = new RobotManager(this);
         }

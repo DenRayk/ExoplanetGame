@@ -12,6 +12,7 @@ namespace ExoplanetGame.Exoplanet.Variants
         {
             Weather = Weather.SNOWY;
 
+            //Advanced level
             Topography = new Topography(new string[]
             {
                 "NNNWWWIIIINNIIWWWIIIN",

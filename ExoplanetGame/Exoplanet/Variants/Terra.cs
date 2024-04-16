@@ -9,15 +9,17 @@ namespace ExoplanetGame.Exoplanet.Variants
         public Terra() : base(PlanetVariant.TERRA)
         {
             Weather = Weather.WINDY;
-
+            //Intermediate level
             Topography = new Topography(new string[]
             {
-                "GSSWPFSGGL",
-                "SPWWPSFFLL",
-                "SGWPMSFLLF",
-                "SSWWMGSFFG",
-                "FGSWWSSGFG",
-                "FFWWGGSGFF"
+                "GGLLRRSSWSRLLGR",
+                "RGGLRRSRWSRRLLL",
+                "RLLLGSSRWWSRRGR",
+                "RLRRRRSGGWSSSGR",
+                "RLLRRLRSSWWGSSW",
+                "LLLRLLRSRSWGWWW",
+                "RRRGRRRSRRWWWSS",
+                "RRGSGGSSSRRWSSS"
             });
             robotManager = new RobotManager(this);
         }

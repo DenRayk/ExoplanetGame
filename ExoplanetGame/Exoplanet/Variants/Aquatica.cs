@@ -10,17 +10,19 @@ namespace ExoplanetGame.Exoplanet.Variants
         {
             Weather = Weather.RAINY;
 
+            //Casual level
             Topography = new Topography(new string[]
             {
-                "GSSWPFSGGSSSSSSSSSWWW",
-                "SPWWPSFFSSMMMMMMMWWWW",
-                "SGWPMSFSSFMSSSSSSSWWW",
-                "SSWWMGSFFGFFFFFFFFWWW",
-                "FGSWWSSGFGSSSSSSSSWWW",
-                "FFWWGGSGFFSSSSSSSSWWW",
-                "SSSSSSSSSSSSSSSSSSWWW",
-                "SSSSSSSSSSSSSSSSSSWWW"
+                "GSSWPRSGGSSSSSSSSSWWW",
+                "SPWWPSRSSMMMMMMMWWWWW",
+                "SGWPMSRSSRMSSSSSSSWWW",
+                "SSWWMGSRRGRRRRRRRRWWW",
+                "RGSWWSSGRGSSSSSSWWWSS",
+                "RRWWGGSGRWWWSSWWWSSSS",
+                "SSSSSWWWWSSSWWWWWWWSS",
+                "SSSWWSSSSSSSSWWWSSSSS"
             });
+            robotManager = new RobotManager(this);
         }
 
         public override void ChangeWeather()
