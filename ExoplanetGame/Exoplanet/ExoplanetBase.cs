@@ -52,12 +52,6 @@ namespace ExoplanetGame.Exoplanet
             return robotManager.ScanController.ScoutScan(robot, Topography);
         }
 
-        public virtual void Remove(RobotBase robot)
-        {
-            Console.WriteLine($"Remove: {robot.GetLanderName()}");
-            robotManager.RemoveRobot(robot);
-        }
-
         public virtual Position GetRobotPosition(RobotBase robot)
         {
             return robotManager.GetRobotPosition(robot);
