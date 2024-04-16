@@ -27,5 +27,13 @@ public enum Ground
     MUD,
 
     [Description("Lava")]
-    LAVA
+    LAVA,
+
+    [Description("Snow")]
+    SNOW,
+
+    [Description("Ice")]
+    ICE,
+
+
 }

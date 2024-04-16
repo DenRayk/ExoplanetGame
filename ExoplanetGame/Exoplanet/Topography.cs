@@ -74,6 +74,14 @@ namespace ExoplanetGame.Exoplanet
                     ground = Ground.LAVA;
                     break;
 
+                case 'I':
+                    ground = Ground.ICE;
+                    break;
+
+                case 'N':
+                    ground = Ground.SNOW;
+                    break;
+
                 default:
                     ground = Ground.NOTHING;
                     break;
@@ -113,6 +121,14 @@ namespace ExoplanetGame.Exoplanet
 
                 case Ground.LAVA:
                     temperature = rand.Next(800, 1500);
+                    break;
+
+                case Ground.SNOW:
+                    temperature = rand.Next(0, 5);
+                    break;
+
+                case Ground.ICE:
+                    temperature = rand.Next(-5, 0);
                     break;
 
                 default:

@@ -41,6 +41,14 @@ namespace ExoplanetGame.ControlCenter
                     Console.BackgroundColor = ConsoleColor.Red;
                     break;
 
+                case Ground.SNOW:
+                    Console.BackgroundColor = ConsoleColor.Cyan;
+                    break;
+
+                case Ground.ICE:
+                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    break;
+
                 default:
                     Console.BackgroundColor = ConsoleColor.White;
                     break;
@@ -83,6 +91,14 @@ namespace ExoplanetGame.ControlCenter
 
                 case Ground.LAVA:
                     Console.BackgroundColor = ConsoleColor.Red;
+                    break;
+
+                case Ground.SNOW:
+                    Console.BackgroundColor = ConsoleColor.Cyan;
+                    break;
+
+                case Ground.ICE:
+                    Console.BackgroundColor = ConsoleColor.DarkCyan;
                     break;
 
                 default:

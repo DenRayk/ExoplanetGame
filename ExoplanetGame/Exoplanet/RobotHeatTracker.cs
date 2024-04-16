@@ -86,6 +86,14 @@ namespace ExoplanetGame.Exoplanet
                     heatGain = 8;
                     break;
 
+                case Ground.SNOW:
+                    heatGain = 0;
+                    break;
+
+                case Ground.ICE:
+                    heatGain = 0;
+                    break;
+
                 default:
                     heatGain = 0;
                     break;
@@ -149,6 +157,14 @@ namespace ExoplanetGame.Exoplanet
 
                 case Ground.MUD:
                     heatGain = 8;
+                    break;
+
+                case Ground.SNOW:
+                    heatGain = 0;
+                    break;
+
+                case Ground.ICE:
+                    heatGain = 0;
                     break;
 
                 default:

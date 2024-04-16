@@ -23,6 +23,7 @@ namespace ExoplanetGame.ControlCenter
             exoplanets.Add(new Lavaria());
             exoplanets.Add(new Terra());
             exoplanets.Add(new Tropica());
+            exoplanets.Add(new Frostfell());
         }
 
         public static ExoplanetBase GetPlanet(PlanetVariant planet)
@@ -47,6 +48,10 @@ namespace ExoplanetGame.ControlCenter
 
                 case PlanetVariant.TROPICA:
                     TargetPlanet = exoplanets[4];
+                    return TargetPlanet;
+
+                case PlanetVariant.Frostfell:
+                    TargetPlanet = exoplanets[5];
                     return TargetPlanet;
 
                 default:

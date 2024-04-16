@@ -13,6 +13,9 @@ public enum PlanetVariant
     [Description("Terra - Stone exoplanet")]
     TERRA,
 
+    [Description("Frostfell - Ice exoplanet")]
+    Frostfell,
+
     [Description("Lavaria - Lava exoplanet")]
     LAVARIA,
 

@@ -3,6 +3,7 @@
 public enum Weather
 {
     SUNNY,
+    SNOWY,
     RAINY,
     WINDY,
     FOGGY,
