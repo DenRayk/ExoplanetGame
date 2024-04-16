@@ -34,7 +34,7 @@ namespace ExoplanetGame.ControlCenter
                     break;
 
                 case Ground.MUD:
-                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                    Console.BackgroundColor = ConsoleColor.DarkYellow;
                     break;
 
                 case Ground.LAVA:
@@ -86,7 +86,7 @@ namespace ExoplanetGame.ControlCenter
                     break;
 
                 case Ground.MUD:
-                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                    Console.BackgroundColor = ConsoleColor.DarkYellow;
                     break;
 
                 case Ground.LAVA:

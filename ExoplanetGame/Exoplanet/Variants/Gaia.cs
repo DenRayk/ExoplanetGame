@@ -13,12 +13,12 @@ namespace ExoplanetGame.Exoplanet.Variants
             //Beginner level
             Topography = new Topography(new string[]
             {
-                "GSSWPFSGGL",
-                "SPWWPSFFLL",
-                "SGWPMSFLLF",
-                "SSWWMGSFFG",
-                "FGSWWSSGFG",
-                "FFWWGGSGFF"
+                "GSSWPRSGGL",
+                "SPWWPSRRLL",
+                "SGWPMSRLLR",
+                "SSWWMGSRRG",
+                "RGSWWSSGRG",
+                "RRWWGGSGRR"
             });
             robotManager = new RobotManager(this);
         }

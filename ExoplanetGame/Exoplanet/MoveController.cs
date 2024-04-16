@@ -7,9 +7,11 @@ public class MoveController(RobotManager robotManager, RobotStatusManager robotS
 {
     public Position MoveRobot(RobotBase robot, Topography topography)
     {
+        Position robotPosition = robotManager.robots[robot];
+
         if (robotManager.CanRobotMove(robot))
         {
-            Position robotPosition = robotManager.robots[robot];
+            
             Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
             newPosition = robotManager.WaterDrift(robot, newPosition, topography);
 
@@ -24,11 +26,9 @@ public class MoveController(RobotManager robotManager, RobotStatusManager robotS
                 return newPosition;
             }
 
-            robotManager.RemoveRobot(robot);
             return null;
         }
 
-        Console.WriteLine("The robot's movement sensors or wheels are damaged and can't move.");
-        return null;
+        return robotPosition;
     }
 }
