@@ -6,9 +6,9 @@ namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Gaia : ExoplanetBase
     {
-        public Gaia()
+        public Gaia() : base(PlanetVariant.GAIA)
         {
-            PlanetVariant = PlanetVariant.GAIA;
+            Weather = Weather.SUNNY;
 
             Topography = new Topography(new string[]
             {
@@ -19,7 +19,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 "FGSWWSSGFG",
                 "FFWWGGSGFF"
             });
-            robotManager = new RobotManager(Topography);
+            robotManager = new RobotManager(this);
         }
     }
 }

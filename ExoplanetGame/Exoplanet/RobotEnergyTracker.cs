@@ -19,17 +19,7 @@ public class RobotEnergyTracker
         robotEnergy[robot] -= energyConsumed;
     }
 
-    public int GetEnergy(RobotBase robot)
-    {
-        if (robotEnergy.ContainsKey(robot))
-        {
-            return robotEnergy[robot];
-        }
-
-        return 0;
-    }
-
-    public void LoadEnergy(RobotBase robot, int seconds)
+    public void LoadEnergy(RobotBase robot, int seconds, Weather weather)
     {
         if (!robotEnergy.ContainsKey(robot))
         {
@@ -37,6 +27,8 @@ public class RobotEnergyTracker
         }
         else
         {
+            int energyLoad = CalculateEneryLoad(weather);
+
             for (int i = 0; i < seconds; i++)
             {
                 if (robotEnergy[robot] < robot.MaxEnergy)
@@ -51,6 +43,33 @@ public class RobotEnergyTracker
                 }
                 Thread.Sleep(1000);
             }
+        }
+    }
+
+    private int CalculateEneryLoad(Weather weather)
+    {
+        switch (weather)
+        {
+            case Weather.SUNNY:
+                return 10;
+
+            case Weather.WINDY:
+                return 10;
+
+            case Weather.CLOUDY:
+                return 3;
+
+            case Weather.RAINY:
+                return 3;
+
+            case Weather.FOGGY:
+                return 2;
+
+            case Weather.ASH_IN_THE_AIR:
+                return 2;
+
+            default:
+                return 5;
         }
     }
 

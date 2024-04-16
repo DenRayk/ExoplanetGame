@@ -9,11 +9,11 @@ namespace ExoplanetGame.Exoplanet
 
         private readonly RobotStatusManager robotStatusManager;
 
-        private readonly Topography topography;
+        private readonly ExoplanetBase exoplanet;
 
-        public RobotManager(Topography topography)
+        public RobotManager(ExoplanetBase exoplanet)
         {
-            this.topography = topography;
+            this.exoplanet = exoplanet;
             robots = new Dictionary<RobotBase, Position>();
 
             robotStatusManager = new RobotStatusManager();
@@ -48,7 +48,7 @@ namespace ExoplanetGame.Exoplanet
 
         public Position GetRobotPosition(RobotBase robot)
         {
-            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, topography);
+            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, exoplanet.Topography);
             return robots[robot];
         }
 
@@ -56,7 +56,7 @@ namespace ExoplanetGame.Exoplanet
         {
             if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotParts.SOLARPANELS))
             {
-                robotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds);
+                robotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds, exoplanet.Weather);
                 robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.SOLARPANELS);
             }
             else
@@ -87,7 +87,7 @@ namespace ExoplanetGame.Exoplanet
                 return robotPosition.Direction;
             }
 
-            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.ROTATE, topography);
+            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.ROTATE, exoplanet.Topography);
 
             if (robotStatusManager.RobotStuckTracker.IsRobotStuck(robot))
             {

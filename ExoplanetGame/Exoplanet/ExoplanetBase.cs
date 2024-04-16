@@ -7,14 +7,17 @@ namespace ExoplanetGame.Exoplanet
 {
     public class ExoplanetBase
     {
+        internal Weather Weather { get; set; }
         public Topography Topography { get; set; }
 
         protected RobotManager robotManager;
-        public PlanetVariant PlanetVariant;
+        public PlanetVariant PlanetVariant { get; }
 
-        public ExoplanetBase()
+        public ExoplanetBase(PlanetVariant planetVariant)
         {
-            robotManager = new RobotManager(Topography);
+            PlanetVariant = planetVariant;
+            Weather = Weather.SUNNY;
+            robotManager = new RobotManager(this);
         }
 
         public virtual int GetRobotCount()
@@ -34,32 +37,64 @@ namespace ExoplanetGame.Exoplanet
 
         public virtual Position Move(RobotBase Robot)
         {
+            ChangeWeather();
             return robotManager.MoveController.MoveRobot(Robot, Topography);
         }
 
         public virtual Direction Rotate(RobotBase robot, Rotation rotation)
         {
+            ChangeWeather();
             return robotManager.RotateRobot(robot, rotation);
         }
 
         public virtual Measure Scan(RobotBase robot)
         {
+            ChangeWeather();
             return robotManager.ScanController.Scan(robot, Topography);
         }
 
         public virtual Dictionary<Measure, Position> ScoutScan(RobotBase robot)
         {
+            ChangeWeather();
             return robotManager.ScanController.ScoutScan(robot, Topography);
         }
 
         public virtual Position GetRobotPosition(RobotBase robot)
         {
+            ChangeWeather();
             return robotManager.GetRobotPosition(robot);
         }
 
         public virtual void LoadEnergy(RobotBase robot, int seconds)
         {
             robotManager.LoadEnergy(robot, seconds);
+        }
+
+        public virtual void ChangeWeather()
+        {
+            Random random = new Random();
+            int weatherChange = random.Next(1, 101);
+
+            if (weatherChange <= 40)
+            {
+                Weather = Weather.SUNNY;
+            }
+            else if (weatherChange <= 70)
+            {
+                Weather = Weather.CLOUDY;
+            }
+            else if (weatherChange <= 90)
+            {
+                Weather = Weather.RAINY;
+            }
+            else if (weatherChange <= 95)
+            {
+                Weather = Weather.WINDY;
+            }
+            else
+            {
+                Weather = Weather.FOGGY;
+            }
         }
     }
 }
