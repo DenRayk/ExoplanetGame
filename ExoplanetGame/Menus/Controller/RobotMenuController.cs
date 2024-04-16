@@ -16,7 +16,7 @@ namespace ExoplanetGame.Menus.Controller
 
             while (keepMenuRunning)
             {
-                Console.WriteLine($"{robot.GetLanderName()} Menu");
+                Console.WriteLine($"\n{robot.GetLanderName()} Menu");
                 RobotMenu.LoadCurrentExploredMap(controlCenter);
                 RobotMenu.DisplayRobotMenuOptions(hasRobotLanded);
 

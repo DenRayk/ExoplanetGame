@@ -71,7 +71,12 @@ namespace ExoplanetGame.Menus
             }
             else
             {
-                controlCenter.AddMeasure(robot.Scan(), robot.RobotInformation.Position);
+                Measure measure = robot.Scan();
+
+                if (measure != null)
+                {
+                    controlCenter.AddMeasure(measure, robot.RobotInformation.Position);
+                }
             }
         }
 

@@ -17,6 +17,8 @@ public class RobotEnergyTracker
         int energyConsumed = CalculateEneryConsumtion(robotAction);
 
         robotEnergy[robot] -= energyConsumed;
+
+        WarningAtLowEnery(robot);
     }
 
     public void LoadEnergy(RobotBase robot, int seconds, Weather weather)
@@ -44,6 +46,16 @@ public class RobotEnergyTracker
                 Thread.Sleep(1000);
             }
         }
+    }
+
+    public int GetRobotEnergy(RobotBase robot)
+    {
+        if (!robotEnergy.ContainsKey(robot))
+        {
+            robotEnergy.Add(robot, robot.MaxEnergy);
+        }
+
+        return robotEnergy[robot];
     }
 
     private int CalculateEneryLoad(Weather weather)
@@ -91,6 +103,14 @@ public class RobotEnergyTracker
 
             default:
                 return 0;
+        }
+    }
+
+    private void WarningAtLowEnery(RobotBase robot)
+    {
+        if (GetRobotEnergy(robot) < 20)
+        {
+            Console.WriteLine($"Warning: Robot {robot.RobotInformation.RobotID} at low energy.");
         }
     }
 }
