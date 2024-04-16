@@ -67,7 +67,12 @@ namespace ExoplanetGame.Robot
         public virtual Measure Scan()
         {
             Measure measure = exoPlanet.Scan(this);
-            Console.WriteLine($"Scanned {measure}");
+
+            if (measure != null)
+            {
+                Console.WriteLine($"Scanned {measure}");
+            }
+
             return measure;
         }
 

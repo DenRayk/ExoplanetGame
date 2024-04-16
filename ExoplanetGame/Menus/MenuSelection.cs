@@ -9,13 +9,13 @@ namespace ExoplanetGame.Menus
 {
     public class MenuSelection
     {
-        public static int GetMenuSelection(int minValue, int maxValue)
+        public static int GetMenuSelection(int minValue, int maxValue, bool withHelp)
         {
             int choice;
             while (true)
             {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-                if (keyInfo.Key == ConsoleKey.Escape || keyInfo.Key == ConsoleKey.F1)
+                if (withHelp && (keyInfo.Key == ConsoleKey.Escape || keyInfo.Key == ConsoleKey.F1))
                 {
                     Console.Clear();
                     return (int)keyInfo.Key;
@@ -31,6 +31,5 @@ namespace ExoplanetGame.Menus
                 Console.WriteLine("Invalid input. Please enter a valid option!");
             }
         }
-
     }
 }
