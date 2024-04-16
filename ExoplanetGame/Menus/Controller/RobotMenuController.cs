@@ -92,8 +92,6 @@ namespace ExoplanetGame.Menus.Controller
                         break;
                 }
             }
-
-            Console.Clear();
         }
 
         public static void ShowRobotMenuInformation(RobotBase robot, ControlCenter.ControlCenter controlCenter)
