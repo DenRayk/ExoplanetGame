@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Robot;
+using Timer = System.Timers.Timer;
 
 namespace ExoplanetGame.Exoplanet;
 
@@ -10,7 +11,7 @@ public class RobotEnergyTracker
     {
         if (!robotEnergy.ContainsKey(robot))
         {
-            robotEnergy.Add(robot, robot.Energy);
+            robotEnergy.Add(robot, robot.MaxEnergy);
         }
 
         int energyConsumed = CalculateEneryConsumtion(robotAction);
@@ -28,14 +29,29 @@ public class RobotEnergyTracker
         return 0;
     }
 
-    public void LoadEnergy(RobotBase robot)
+    public void LoadEnergy(RobotBase robot, int seconds)
     {
         if (!robotEnergy.ContainsKey(robot))
         {
-            robotEnergy.Add(robot, robot.Energy);
+            robotEnergy.Add(robot, robot.MaxEnergy);
         }
-
-        robotEnergy[robot] = 100;
+        else
+        {
+            for (int i = 0; i < seconds; i++)
+            {
+                if (robotEnergy[robot] < robot.MaxEnergy)
+                {
+                    Console.WriteLine($"Robot energy loaded to {robotEnergy[robot]}%");
+                    robotEnergy[robot] += 10;
+                }
+                else
+                {
+                    Console.WriteLine($"Robot fully loaded to {robot.MaxEnergy}%");
+                    break;
+                }
+                Thread.Sleep(1000);
+            }
+        }
     }
 
     private int CalculateEneryConsumtion(RobotAction robotAction)

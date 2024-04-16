@@ -52,10 +52,9 @@ namespace ExoplanetGame.Exoplanet
             return robots[robot];
         }
 
-        public void LoadEnergy(RobotBase robot)
+        public void LoadEnergy(RobotBase robot, int seconds)
         {
-            robotStatusManager.RobotEnergyTracker.LoadEnergy(robot);
-            Console.WriteLine($"Energy loaded to {robotStatusManager.RobotEnergyTracker.GetEnergy(robot)}");
+            robotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds);
         }
 
         public void RemoveRobot(RobotBase robot)

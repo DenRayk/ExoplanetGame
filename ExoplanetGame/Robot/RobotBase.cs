@@ -11,7 +11,7 @@ namespace ExoplanetGame.Robot
         public RobotInformation RobotInformation { get; set; }
         public int MaxHeat { get; set; } = 100;
 
-        public int Energy { get; set; } = 100;
+        public int MaxEnergy { get; set; } = 100;
 
         public RobotVariant RobotVariant { get; }
 
@@ -111,6 +111,11 @@ namespace ExoplanetGame.Robot
         public virtual Position GetPosition()
         {
             return exoPlanet.GetRobotPosition(this);
+        }
+
+        public virtual void LoadEnergy(int seconds)
+        {
+            exoPlanet.LoadEnergy(this, seconds);
         }
 
         protected bool DoesOtherRobotBlocksMove()

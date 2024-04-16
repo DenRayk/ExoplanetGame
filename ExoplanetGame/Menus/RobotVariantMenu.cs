@@ -18,7 +18,6 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("3. Lava robot");
             Console.WriteLine("4. Aqua robot");
             Console.WriteLine("5. Mud robot");
-            Console.WriteLine("6. Solar robot");
         }
 
         public static RobotVariant GetRobotVariantSelection()
@@ -39,16 +38,19 @@ namespace ExoplanetGame.Menus
             {
                 case 1:
                     return RobotVariant.DEFAULT;
+
                 case 2:
                     return RobotVariant.SCOUT;
+
                 case 3:
                     return RobotVariant.LAVA;
+
                 case 4:
                     return RobotVariant.AQUA;
+
                 case 5:
                     return RobotVariant.MUD;
-                case 6:
-                    return RobotVariant.SOLAR;
+
                 default:
                     return RobotVariant.DEFAULT;
             }

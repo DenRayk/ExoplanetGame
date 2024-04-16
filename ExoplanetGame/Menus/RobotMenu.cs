@@ -6,6 +6,13 @@ namespace ExoplanetGame.Menus
 {
     public class RobotMenu
     {
+        public static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
+        {
+            robot.Crash();
+            controlCenter.RemoveRobot(robot);
+            keepMenuRunning = false;
+        }
+
         public static void DisplayRobotMenuOptions(bool hasLanded)
         {
             Console.WriteLine(hasLanded ? "Planet research options:" : "Pre-Landing Options:");
@@ -16,8 +23,9 @@ namespace ExoplanetGame.Menus
                 Console.WriteLine("2. Scan");
                 Console.WriteLine("3. Move");
                 Console.WriteLine("4. Rotate");
-                Console.WriteLine("5. Crash");
-                Console.WriteLine("6. Back");
+                Console.WriteLine("5. Load");
+                Console.WriteLine("6. Crash");
+                Console.WriteLine("7. Back");
             }
             else
             {
@@ -54,9 +62,31 @@ namespace ExoplanetGame.Menus
             }
         }
 
-        public static void ShowCurrentPosition(RobotBase robot)
+        public static void LoadCurrentExploredMap(ControlCenter.ControlCenter controlCenter)
         {
-            Console.WriteLine($"Robot is at {robot.GetPosition()}");
+            Console.Write($"Discovered area of the planet {PlanetManager.TargetPlanet.PlanetVariant}: ");
+            controlCenter.PrintMap();
+        }
+
+        public static void LoadRobot(RobotBase robot)
+        {
+            Console.WriteLine("Enter the number of seconds to load energy:");
+            int seconds = GetRobotMenuSelection(1, 30);
+            robot.LoadEnergy(seconds);
+        }
+
+        public static bool MoveRobot(RobotBase robot)
+        {
+            if (robot.Move() == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static void RotateRobot(RobotBase robot)
+        {
+            robot.Rotate(SelectRotation());
         }
 
         public static void ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)
@@ -76,25 +106,15 @@ namespace ExoplanetGame.Menus
             }
         }
 
-        public static bool MoveRobot(RobotBase robot)
+        public static Position SelectLandPosition()
         {
-            if (robot.Move() == null)
-            {
-                return false;
-            }
-            return true;
-        }
+            Console.WriteLine("Enter the X coordinate:");
+            int x = GetRobotMenuSelection(int.MinValue, int.MaxValue);
 
-        public static void RotateRobot(RobotBase robot)
-        {
-            robot.Rotate(SelectRotation());
-        }
+            Console.WriteLine("Enter the Y coordinate:");
+            int y = GetRobotMenuSelection(int.MinValue, int.MaxValue);
 
-        public static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
-        {
-            robot.Crash();
-            controlCenter.RemoveRobot(robot);
-            keepMenuRunning = false;
+            return new Position(x, y);
         }
 
         public static Rotation SelectRotation()
@@ -108,21 +128,9 @@ namespace ExoplanetGame.Menus
             return rotation == 1 ? Rotation.LEFT : Rotation.RIGHT;
         }
 
-        public static Position SelectLandPosition()
+        public static void ShowCurrentPosition(RobotBase robot)
         {
-            Console.WriteLine("Enter the X coordinate:");
-            int x = GetRobotMenuSelection(int.MinValue, int.MaxValue);
-
-            Console.WriteLine("Enter the Y coordinate:");
-            int y = GetRobotMenuSelection(int.MinValue, int.MaxValue);
-
-            return new Position(x, y);
-        }
-
-        public static void LoadCurrentExploredMap(ControlCenter.ControlCenter controlCenter)
-        {
-            Console.Write($"Discovered area of the planet {PlanetManager.TargetPlanet.PlanetVariant}: ");
-            controlCenter.PrintMap();
+            Console.WriteLine($"Robot is at {robot.GetPosition()}");
         }
     }
 }

@@ -23,6 +23,7 @@ namespace ExoplanetGame.Menus
                         var robotVariantChoice = RobotVariantMenu.GetRobotVariantSelection();
                         gameServer.AddRobot(robotVariantChoice);
                         break;
+
                     case 2:
                         if (controlCenter.GetRobotCount() == 0)
                         {
@@ -35,6 +36,7 @@ namespace ExoplanetGame.Menus
                     case 3:
                         RobotMenu.LoadCurrentExploredMap(controlCenter);
                         break;
+
                     case 4:
                         Environment.Exit(0);
                         break;
@@ -98,6 +100,13 @@ namespace ExoplanetGame.Menus
                     case 5:
                         if (hasRobotLanded)
                         {
+                            RobotMenu.LoadRobot(robot);
+                        }
+                        break;
+
+                    case 6:
+                        if (hasRobotLanded)
+                        {
                             RobotMenu.CrashRobot(robot, controlCenter, ref keepMenuRunning);
                         }
                         else
@@ -106,7 +115,7 @@ namespace ExoplanetGame.Menus
                         }
                         break;
 
-                    case 6:
+                    case 7:
                         if (hasRobotLanded)
                         {
                             keepMenuRunning = false;
@@ -117,6 +126,5 @@ namespace ExoplanetGame.Menus
 
             Console.Clear();
         }
-
     }
 }

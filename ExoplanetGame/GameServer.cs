@@ -41,21 +41,23 @@ namespace ExoplanetGame
                     case RobotVariant.DEFAULT:
                         robotBase = robotFactory.CreateDefaultRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
+
                     case RobotVariant.SCOUT:
                         robotBase = robotFactory.CreateScoutRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
-                    case RobotVariant.SOLAR:
-                        robotBase = robotFactory.CreateSolarRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
-                        break;
+
                     case RobotVariant.LAVA:
                         robotBase = robotFactory.CreateLavaRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
+
                     case RobotVariant.AQUA:
                         robotBase = robotFactory.CreateAquaRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
+
                     case RobotVariant.MUD:
                         robotBase = robotFactory.CreateMudRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
                         break;
+
                     default:
                         Console.WriteLine("Invalid robot variant.");
                         return;
