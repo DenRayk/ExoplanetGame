@@ -19,10 +19,10 @@ namespace ExoplanetGame.Exoplanet
 
             heatLevels[robot] += heatGain;
 
-            if (heatLevels[robot] >= robot.MaxHeat)
+            if (heatLevels[robot] >= robot.RobotInformation.MaxHeat)
             {
                 Console.WriteLine($"Overheating {robot.GetLanderName()}");
-                CoolDown(robot, robot.MaxHeat / 10);
+                CoolDown(robot, robot.RobotInformation.MaxHeat / 10);
             }
         }
 
@@ -37,10 +37,10 @@ namespace ExoplanetGame.Exoplanet
 
             heatLevels[robot] += heatGain;
 
-            if (heatLevels[robot] >= robot.MaxHeat)
+            if (heatLevels[robot] >= robot.RobotInformation.MaxHeat)
             {
                 Console.WriteLine($"Overheating {robot.GetLanderName()}");
-                CoolDown(robot, robot.MaxHeat / 10);
+                CoolDown(robot, robot.RobotInformation.MaxHeat / 10);
             }
         }
 

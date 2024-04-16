@@ -69,21 +69,21 @@ namespace ExoplanetGame.Exoplanet
 
         private bool DoesRobotExist(RobotBase robot) => robotParts.ContainsKey(robot);
 
-        private bool DoesPartExist(RobotBase robot, RobotPart part)
+        private bool DoesPartExist(RobotBase robot, RobotPart robotPart)
         {
             if (!robotParts.ContainsKey(robot))
             {
                 return false;
             }
 
-            return robotParts[robot].ContainsKey(part);
+            return robotParts[robot].ContainsKey(robotPart);
         }
 
-        private void CreatePartIfNotExists(RobotBase robot, RobotPart part)
+        private void CreatePartIfNotExists(RobotBase robot, RobotPart robotPart)
         {
-            if (!robotParts[robot].ContainsKey(part))
+            if (!robotParts[robot].ContainsKey(robotPart))
             {
-                robotParts[robot][part] = 100;
+                robotParts[robot][robotPart] = robot.RobotInformation.RobotParts[robotPart];
             }
         }
 

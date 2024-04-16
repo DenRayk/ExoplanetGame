@@ -7,6 +7,8 @@ namespace ExoplanetGame.Robot.Variants
     {
         public ScoutBot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId, RobotVariant.SCOUT)
         {
+            RobotInformation.RobotParts[RobotPart.SCANSENSOR] = 200;
+            RobotInformation.MaxEnergy = 200;
         }
 
         public Dictionary<Measure, Position> ScoutScan()
