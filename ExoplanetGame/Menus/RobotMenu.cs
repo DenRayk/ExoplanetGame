@@ -123,8 +123,14 @@ namespace ExoplanetGame.Menus
 
         public static void LoadCurrentExploredMap(ControlCenter.ControlCenter controlCenter)
         {
+            PrintCurrentPlanetWeather();
             Console.Write($"Discovered area of the planet {PlanetManager.TargetPlanet.PlanetVariant}: ");
             controlCenter.PrintMap();
+        }
+
+        private static void PrintCurrentPlanetWeather()
+        {
+            Console.WriteLine($"Current weather on {PlanetManager.TargetPlanet.PlanetVariant}: {PlanetManager.TargetPlanet.Weather}");
         }
 
         public static Position SelectLandPosition()

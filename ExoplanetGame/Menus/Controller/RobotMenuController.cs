@@ -20,7 +20,7 @@ namespace ExoplanetGame.Menus.Controller
                 RobotMenu.LoadCurrentExploredMap(controlCenter);
                 RobotMenu.DisplayRobotMenuOptions(hasRobotLanded);
 
-                int maxChoices = hasRobotLanded ? 8 : 2;
+                int maxChoices = hasRobotLanded ? 7 : 2;
 
                 int choice = RobotMenu.GetRobotMenuSelection(1, maxChoices);
 

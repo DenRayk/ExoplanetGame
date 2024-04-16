@@ -32,10 +32,19 @@ namespace ExoplanetGame.Menus.Controller
                         break;
 
                     case 3:
-                        RobotMenu.LoadCurrentExploredMap(controlCenter);
+                        if (controlCenter.GetRobotCount() == 0)
+                        {
+                            Console.WriteLine("No robots to repair.");
+                            break;
+                        }
+                        MainMenu.SelectRobotAndPartToRepair(gameServer, controlCenter);
                         break;
 
                     case 4:
+                        RobotMenu.LoadCurrentExploredMap(controlCenter);
+                        break;
+
+                    case 5:
                         Environment.Exit(0);
                         break;
 
