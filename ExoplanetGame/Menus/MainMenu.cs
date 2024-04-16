@@ -30,7 +30,7 @@ namespace ExoplanetGame.Menus
 
         public static int GetMainMenuSelection(int minValue, int maxValue)
         {
-            return MenuSelection.GetMenuSelection(minValue, maxValue);
+            return MenuSelection.GetMenuSelection(minValue, maxValue, true);
         }
 
         public static void SelectRobotAndPartToRepair(GameServer gameServer, ControlCenter.ControlCenter controlCenter)
@@ -38,7 +38,7 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("Select a robot to repair:");
             controlCenter.DisplayRobots();
 
-            int robotChoice = MenuSelection.GetMenuSelection(1, controlCenter.GetRobotCount());
+            int robotChoice = MenuSelection.GetMenuSelection(1, controlCenter.GetRobotCount(), true);
 
             Console.WriteLine("Select a part to repair:");
 
@@ -49,7 +49,7 @@ namespace ExoplanetGame.Menus
                 counter++;
             }
 
-            int partChoice = MenuSelection.GetMenuSelection(1, 4);
+            int partChoice = MenuSelection.GetMenuSelection(1, 4, true);
 
             controlCenter.RepairRobotPart(robotChoice - 1, partChoice - 1);
         }

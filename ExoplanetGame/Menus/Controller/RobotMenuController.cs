@@ -115,7 +115,7 @@ namespace ExoplanetGame.Menus.Controller
             Console.WriteLine("Select a robot to control:");
             controlCenter.DisplayRobots();
 
-            int choice = MenuSelection.GetMenuSelection(1, controlCenter.GetRobotCount());
+            int choice = MenuSelection.GetMenuSelection(1, controlCenter.GetRobotCount(), false);
 
             gameServer.ControlRobot(choice - 1);
         }

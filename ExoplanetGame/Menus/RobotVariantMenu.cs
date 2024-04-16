@@ -33,7 +33,7 @@ namespace ExoplanetGame.Menus
 
         public static int GetRobotVariantSelection(int minValue, int maxValue)
         {
-            return MenuSelection.GetMenuSelection(minValue, maxValue);
+            return MenuSelection.GetMenuSelection(minValue, maxValue, true);
         }
     }
 }

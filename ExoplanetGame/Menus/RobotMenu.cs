@@ -50,7 +50,7 @@ namespace ExoplanetGame.Menus
 
         public static int GetRobotMenuSelection(int minValue, int maxValue)
         {
-            return MenuSelection.GetMenuSelection(minValue, maxValue);
+            return MenuSelection.GetMenuSelection(minValue, maxValue, true);
         }
 
         public static void ShowCurrentPosition(RobotBase robot)

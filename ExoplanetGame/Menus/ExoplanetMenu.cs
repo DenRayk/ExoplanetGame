@@ -35,7 +35,7 @@ namespace ExoplanetGame.Menus
 
         public static int GetExoplanetMenuSelection(int minValue, int maxValue)
         {
-            return MenuSelection.GetMenuSelection(minValue, maxValue);
+            return MenuSelection.GetMenuSelection(minValue, maxValue, true);
         }
     }
 }
