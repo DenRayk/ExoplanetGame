@@ -1,5 +1,4 @@
-﻿using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet
@@ -53,28 +52,16 @@ namespace ExoplanetGame.Exoplanet
             return robots[robot];
         }
 
-        public bool IsPositionSafeForLavaBot(LavaBot lavaBot, Position newPosition, Topography topography)
+        public void LoadEnergy(RobotBase robot)
         {
-            if (newPosition == null) return false;
-
-            if (!IsPositionInBounds(newPosition, topography))
-            {
-                Console.WriteLine("The position is out of bounds.");
-                return false;
-            }
-
-            if (IsAnotherRobotAlreadyAtThisPosition(lavaBot, newPosition))
-            {
-                Console.WriteLine("Another robot is already at this position.");
-                return false;
-            }
-
-            return true;
+            robotStatusManager.RobotEnergyTracker.LoadEnergy(robot);
+            Console.WriteLine($"Energy loaded to {robotStatusManager.RobotEnergyTracker.GetEnergy(robot)}");
         }
 
         public void RemoveRobot(RobotBase robot)
         {
             robots.Remove(robot);
+            Console.WriteLine("Robot removed from exoplanet.");
         }
 
         public Direction RotateRobot(RobotBase robot, Rotation rotation)

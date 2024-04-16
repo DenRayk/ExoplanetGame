@@ -13,6 +13,7 @@ public class LandController(RobotManager robotManager, RobotStatusManager robotS
         {
             robotManager.robots.Add(robot, landPosition);
             robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.LAND, topography, landPosition);
+            robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.LAND);
             return landPosition;
         }
 

@@ -12,6 +12,7 @@ public class ScanController(RobotManager robotManager, RobotStatusManager robotS
         {
             robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
             robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
+            robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.SCAN);
             return topography.GetMeasureAtPosition(robotManager.robots[robot]);
         }
         else
@@ -53,6 +54,7 @@ public class ScanController(RobotManager robotManager, RobotStatusManager robotS
 
             robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
             robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
+            robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.SCAN);
             return scoutScanResults;
         }
         else

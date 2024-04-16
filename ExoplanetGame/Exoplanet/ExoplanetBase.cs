@@ -56,5 +56,10 @@ namespace ExoplanetGame.Exoplanet
         {
             return robotManager.GetRobotPosition(robot);
         }
+
+        public virtual void LoadEnergy(RobotBase robot, int energy)
+        {
+            robotManager.LoadEnergy(robot);
+        }
     }
 }

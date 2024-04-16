@@ -15,6 +15,7 @@ public class MoveController(RobotManager robotManager, RobotStatusManager robotS
 
             robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.MOVE, topography);
             robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.MOVEMENTSENSOR);
+            robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.MOVE);
 
             if (robotManager.IsPositionSafeForRobot(robot, newPosition, topography))
             {
