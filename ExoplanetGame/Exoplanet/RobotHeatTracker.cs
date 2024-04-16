@@ -30,7 +30,7 @@ namespace ExoplanetGame.Exoplanet
         {
             double heatGain;
 
-            switch (topography.GetMeasureAtPosition(robot.RobotStatus.Position).Ground)
+            switch (topography.GetMeasureAtPosition(robot.RobotInformation.Position).Ground)
             {
                 case Ground.WATER:
                     heatGain = 0;

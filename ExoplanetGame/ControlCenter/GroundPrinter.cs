@@ -89,7 +89,7 @@ namespace ExoplanetGame.ControlCenter
                     Console.BackgroundColor = ConsoleColor.White;
                     break;
             }
-            Console.Write($" {robot.RobotStatus.RobotID} ");
+            Console.Write($" {robot.RobotInformation.RobotID} ");
             Console.ResetColor();
         }
     }

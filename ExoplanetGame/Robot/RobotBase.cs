@@ -8,8 +8,11 @@ namespace ExoplanetGame.Robot
     {
         protected ExoplanetBase exoPlanet;
         protected ControlCenter.ControlCenter controlCenter;
-        public RobotStatus RobotStatus { get; set; }
+        public RobotInformation RobotInformation { get; set; }
         public int MaxHeat { get; set; } = 100;
+
+        public int Energy { get; set; } = 100;
+
         public RobotVariant RobotVariant { get; }
 
         protected RobotBase(ExoplanetBase exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID,
@@ -20,10 +23,9 @@ namespace ExoplanetGame.Robot
             controlCenter.RobotPositionUpdated += HandleOtherRobotPositionUpdated;
             RobotVariant = robotVariant;
 
-            RobotStatus = new RobotStatus
+            RobotInformation = new RobotInformation
             {
                 RobotID = robotID,
-                Energy = 100
             };
         }
 
@@ -40,13 +42,13 @@ namespace ExoplanetGame.Robot
 
             if (landPosition != null)
             {
-                RobotStatus.HasLanded = true;
+                RobotInformation.HasLanded = true;
             }
 
-            if (RobotStatus.HasLanded)
+            if (RobotInformation.HasLanded)
             {
                 Console.WriteLine($"Robot landed on {landPosition}");
-                RobotStatus.Position = landPosition;
+                RobotInformation.Position = landPosition;
                 controlCenter.UpdateRobotPosition(this, landPosition);
             }
             else
@@ -59,7 +61,7 @@ namespace ExoplanetGame.Robot
 
         public virtual string GetLanderName()
         {
-            return $"Robot {RobotStatus.RobotID} ({RobotVariant})";
+            return $"Robot {RobotInformation.RobotID} ({RobotVariant})";
         }
 
         public virtual Measure Scan()
@@ -74,14 +76,14 @@ namespace ExoplanetGame.Robot
             if (DoesOtherRobotBlocksMove())
             {
                 Console.WriteLine("Robot cannot move because another robot is blocking the way");
-                return RobotStatus.Position;
+                return RobotInformation.Position;
             }
 
             Position newPosition = exoPlanet.Move(this);
             if (newPosition != null)
             {
                 Console.WriteLine($"Robot moved to {newPosition}");
-                RobotStatus.Position = newPosition;
+                RobotInformation.Position = newPosition;
                 controlCenter.UpdateRobotPosition(this, newPosition);
             }
             else
@@ -95,15 +97,15 @@ namespace ExoplanetGame.Robot
 
         public virtual void Rotate(Rotation rotation)
         {
-            RobotStatus.Position.Direction = exoPlanet.Rotate(this, rotation);
-            controlCenter.UpdateRobotPosition(this, RobotStatus.Position);
+            RobotInformation.Position.Direction = exoPlanet.Rotate(this, rotation);
+            controlCenter.UpdateRobotPosition(this, RobotInformation.Position);
 
-            Console.WriteLine($"Robot rotated to {RobotStatus.Position}");
+            Console.WriteLine($"Robot rotated to {RobotInformation.Position}");
         }
 
         public virtual bool HasLanded()
         {
-            return RobotStatus.Position != null;
+            return RobotInformation.Position != null;
         }
 
         public virtual Position GetPosition()
@@ -113,9 +115,9 @@ namespace ExoplanetGame.Robot
 
         protected bool DoesOtherRobotBlocksMove()
         {
-            foreach (var otherRobot in RobotStatus.OtherRobotPositions.Keys)
+            foreach (var otherRobot in RobotInformation.OtherRobotPositions.Keys)
             {
-                if (RobotStatus.OtherRobotPositions[otherRobot].Equals(RobotStatus.Position.GetAdjacentPosition()))
+                if (RobotInformation.OtherRobotPositions[otherRobot].Equals(RobotInformation.Position.GetAdjacentPosition()))
                 {
                     return true;
                 }
@@ -129,12 +131,12 @@ namespace ExoplanetGame.Robot
             if (e.Robot.Equals(this))
                 return;
 
-            RobotStatus.OtherRobotPositions[e.Robot] = e.NewPosition;
+            RobotInformation.OtherRobotPositions[e.Robot] = e.NewPosition;
         }
 
         protected bool Equals(RobotBase other)
         {
-            return exoPlanet.Equals(other.exoPlanet) && controlCenter.Equals(other.controlCenter) && RobotStatus.Equals(other.RobotStatus) && MaxHeat == other.MaxHeat && RobotVariant == other.RobotVariant;
+            return exoPlanet.Equals(other.exoPlanet) && controlCenter.Equals(other.controlCenter) && RobotInformation.Equals(other.RobotInformation) && MaxHeat == other.MaxHeat && RobotVariant == other.RobotVariant;
         }
 
         public override bool Equals(object? obj)

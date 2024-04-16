@@ -22,7 +22,7 @@ namespace ExoplanetGameTest
             robot.Land(new Position(1, 1, Direction.NORTH));
 
             // Assert
-            Assert.AreEqual(landPosition, robot.RobotStatus.Position);
+            Assert.AreEqual(landPosition, robot.RobotInformation.Position);
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace ExoplanetGameTest
             robot.Move();
 
             // Assert
-            Assert.AreEqual(new Position(1, 0, Direction.NORTH), robot.RobotStatus.Position);
+            Assert.AreEqual(new Position(1, 0, Direction.NORTH), robot.RobotInformation.Position);
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace ExoplanetGameTest
             robot.Rotate(Rotation.LEFT);
 
             // Assert
-            Assert.AreEqual(new Position(1, 1, Direction.WEST), robot.RobotStatus.Position);
+            Assert.AreEqual(new Position(1, 1, Direction.WEST), robot.RobotInformation.Position);
         }
 
         [TestMethod]
@@ -73,7 +73,7 @@ namespace ExoplanetGameTest
             robot.Rotate(Rotation.RIGHT);
 
             // Assert
-            Assert.AreEqual(new Position(1, 1, Direction.EAST), robot.RobotStatus.Position);
+            Assert.AreEqual(new Position(1, 1, Direction.EAST), robot.RobotInformation.Position);
         }
 
         [TestMethod]

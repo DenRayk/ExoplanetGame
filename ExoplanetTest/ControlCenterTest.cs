@@ -46,7 +46,7 @@ namespace ControlCenterTest
             robot.Land(new Position(3, 3, Direction.NORTH));
 
             // Assert
-            Assert.AreEqual(true, controlCenter.GetRobotByID(0).RobotStatus.HasLanded);
+            Assert.AreEqual(true, controlCenter.GetRobotByID(0).RobotInformation.HasLanded);
         }
     }
 }
