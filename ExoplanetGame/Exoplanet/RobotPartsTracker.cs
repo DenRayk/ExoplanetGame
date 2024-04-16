@@ -10,10 +10,10 @@ namespace ExoplanetGame.Exoplanet
 {
     public class RobotPartsTracker
     {
-        private Dictionary<RobotBase, Dictionary<RobotParts, int>> robotParts = new();
+        private Dictionary<RobotBase, Dictionary<RobotPart, int>> robotParts = new();
         private Random random = new();
 
-        public void RobotPartDamage(RobotBase robot, RobotParts part)
+        public void RobotPartDamage(RobotBase robot, RobotPart part)
         {
             CreateRobotIfNotExists(robot);
 
@@ -22,7 +22,7 @@ namespace ExoplanetGame.Exoplanet
             robotParts[robot][part] -= random.Next(1, 10);
         }
 
-        public bool isRobotPartDamaged(RobotBase robot, RobotParts part)
+        public bool isRobotPartDamaged(RobotBase robot, RobotPart part)
         {
             if (!DoesRobotExist(robot))
             {
@@ -37,7 +37,7 @@ namespace ExoplanetGame.Exoplanet
             return robotParts[robot][part] <= 0;
         }
 
-        public int GetRobotPartHealth(RobotBase robot, RobotParts part)
+        public int GetRobotPartHealth(RobotBase robot, RobotPart part)
         {
             if (!DoesRobotExist(robot))
             {
@@ -52,7 +52,7 @@ namespace ExoplanetGame.Exoplanet
             return robotParts[robot][part];
         }
 
-        public void RepairRobotPart(RobotBase robot, RobotParts part)
+        public void RepairRobotPart(RobotBase robot, RobotPart part)
         {
             if (!DoesRobotExist(robot))
             {
@@ -69,7 +69,7 @@ namespace ExoplanetGame.Exoplanet
 
         private bool DoesRobotExist(RobotBase robot) => robotParts.ContainsKey(robot);
 
-        private bool DoesPartExist(RobotBase robot, RobotParts part)
+        private bool DoesPartExist(RobotBase robot, RobotPart part)
         {
             if (!robotParts.ContainsKey(robot))
             {
@@ -79,7 +79,7 @@ namespace ExoplanetGame.Exoplanet
             return robotParts[robot].ContainsKey(part);
         }
 
-        private void CreatePartIfNotExists(RobotBase robot, RobotParts part)
+        private void CreatePartIfNotExists(RobotBase robot, RobotPart part)
         {
             if (!robotParts[robot].ContainsKey(part))
             {

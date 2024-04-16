@@ -31,5 +31,39 @@ namespace ExoplanetGame.Menus
         {
             return MenuSelection.GetMenuSelection(minValue, maxValue);
         }
+
+        public static void SelectRobotAndPartToRepair(GameServer gameServer, ControlCenter.ControlCenter controlCenter)
+        {
+            Console.WriteLine("Select a robot to repair:");
+            controlCenter.DisplayRobots();
+
+            int robotChoice;
+            while (!int.TryParse(Console.ReadLine(), out robotChoice) || robotChoice < 1 ||
+                   robotChoice > controlCenter.GetRobotCount())
+            {
+                Console.WriteLine("Invalid input. Please enter a valid robot number.");
+            }
+
+            Console.Clear();
+
+            Console.WriteLine("Select a part to repair:");
+
+            int counter = 1;
+            foreach (string robotPart in Enum.GetNames(typeof(RobotPart)))
+            {
+                Console.WriteLine($"{counter}. {robotPart}");
+                counter++;
+            }
+
+            int partChoice;
+            while (!int.TryParse(Console.ReadLine(), out partChoice) || partChoice < 1 || partChoice > 4)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid part number.");
+            }
+
+            Console.Clear();
+
+            controlCenter.RepairRobotPart(robotChoice - 1, partChoice - 1);
+        }
     }
 }

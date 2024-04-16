@@ -8,10 +8,10 @@ public class ScanController(RobotManager robotManager, RobotStatusManager robotS
 {
     public Measure Scan(RobotBase robot, Topography topography)
     {
-        if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
+        if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.SCANSENSOR))
         {
             robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
-            robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
+            robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.SCANSENSOR);
             robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.SCAN);
             return topography.GetMeasureAtPosition(robotManager.robots[robot]);
         }
@@ -24,7 +24,7 @@ public class ScanController(RobotManager robotManager, RobotStatusManager robotS
 
     public Dictionary<Measure, Position> ScoutScan(RobotBase robot, Topography topography)
     {
-        if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotParts.SCANSENSOR))
+        if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.SCANSENSOR))
         {
             Dictionary<Measure, Position> scoutScanResults = new Dictionary<Measure, Position>();
             Position currentRobotPosition = robotManager.GetRobotPosition(robot);
@@ -53,7 +53,7 @@ public class ScanController(RobotManager robotManager, RobotStatusManager robotS
             }
 
             robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
-            robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotParts.SCANSENSOR);
+            robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.SCANSENSOR);
             robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.SCAN);
             return scoutScanResults;
         }
