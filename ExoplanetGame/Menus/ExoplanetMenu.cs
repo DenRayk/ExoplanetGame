@@ -15,47 +15,28 @@ namespace ExoplanetGame.Menus
         {
             Console.WriteLine("Exoplanet Menu");
             Console.WriteLine("Choose a destination planet");
-            Console.WriteLine("1. Aquatica");
-            Console.WriteLine("2. Gaia");
-            Console.WriteLine("3. Lavaria");
-            Console.WriteLine("4. Terra");
+            Console.WriteLine("1. Gaia");
+            Console.WriteLine("2. Aquatica");
+            Console.WriteLine("3. Terra");
+            Console.WriteLine("4. Lavaria");
             Console.WriteLine("5. Tropica");
+            Console.WriteLine("F1. Info");
+        }
+
+        public static void DisplayExoplanetMenuInformation()
+        {
+            Console.WriteLine("Exoplanet Menu Information");
+            Console.WriteLine($"{PlanetVariant.GAIA.GetDescriptionFromEnum()}: Beginner level");
+            Console.WriteLine($"{PlanetVariant.AQUATICA.GetDescriptionFromEnum()}: Casual level");
+            Console.WriteLine($"{PlanetVariant.TERRA.GetDescriptionFromEnum()}: Intermediate level");
+            Console.WriteLine($"{PlanetVariant.LAVARIA.GetDescriptionFromEnum()}: Advanced level");
+            Console.WriteLine($"{PlanetVariant.TROPICA.GetDescriptionFromEnum()}: Expert level");
+            Console.WriteLine("Press ESC to go back");
         }
 
         public static int GetExoplanetMenuSelection(int minValue, int maxValue)
         {
-            int choice;
-
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < minValue || choice > maxValue)
-            {
-                Console.WriteLine($"Invalid input. Please enter a number between {minValue} and {maxValue}.");
-            }
-
-            Console.Clear();
-
-            return choice;
-        }
-
-        public static ExoplanetBase SelectTargetExoplanet()
-        {
-            DisplayExoplanetMenuOptions();
-            int exoplanetChoice = GetExoplanetMenuSelection(1, 5);
-
-            switch (exoplanetChoice)
-            {
-                case 1:
-                    return PlanetManager.GetPlanet(PlanetVariant.AQUATICA);
-                case 2:
-                    return PlanetManager.GetPlanet(PlanetVariant.GAIA);
-                case 3:
-                    return PlanetManager.GetPlanet(PlanetVariant.LAVARIA);
-                case 4:
-                    return PlanetManager.GetPlanet(PlanetVariant.TERRA);
-                case 5:
-                    return PlanetManager.GetPlanet(PlanetVariant.TROPICA);
-                default:
-                    return null;
-            }
+            return MenuSelection.GetMenuSelection(minValue, maxValue);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace ExoplanetGame.Menus
 {
     internal class MainMenu
     {
-        public static void DisplayMainManueOptions()
+        public static void DisplayMainMenuOptions()
         {
             Console.WriteLine("Main Menu");
             Console.WriteLine($"Destinationpoint set to Exoplanet {PlanetManager.TargetPlanet.PlanetVariant}");
@@ -15,35 +15,21 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("2. Select Robot");
             Console.WriteLine("3. Print map");
             Console.WriteLine("4. Exit");
+            Console.WriteLine("F1. Info");
         }
 
-        public static int GetMainManueSelection()
+        public static void DisplayMainMenuInformation()
         {
-            int choice;
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 4)
-            {
-                Console.WriteLine("Invalid input. Please enter a valid menu option.");
-            }
-
-            Console.Clear();
-
-            return choice;
+            Console.WriteLine("Main Menu Information");
+            Console.WriteLine("Add Robot: Add a robot to the current layout");
+            Console.WriteLine("Select Robot: Select a robot to be sent from the layout to the exoplanet");
+            Console.WriteLine("Print map: Display status of the exoplanet's exploration area");
+            Console.WriteLine("Press ESC to go back");
         }
 
-        public static void SelectRobot(GameServer gameServer, ControlCenter.ControlCenter controlCenter)
+        public static int GetMainMenuSelection(int minValue, int maxValue)
         {
-            Console.WriteLine("Select a robot to control:");
-            controlCenter.DisplayRobots();
-
-            int choice;
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > controlCenter.GetRobotCount())
-            {
-                Console.WriteLine("Invalid input. Please enter a valid robot number.");
-            }
-
-            Console.Clear();
-
-            gameServer.ControlRobot(choice - 1);
+            return MenuSelection.GetMenuSelection(minValue, maxValue);
         }
     }
 }

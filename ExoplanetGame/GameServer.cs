@@ -2,6 +2,7 @@
 using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Menus;
+using ExoplanetGame.Menus.Controller;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Variants;
 
@@ -27,7 +28,7 @@ namespace ExoplanetGame
 
         public void Start()
         {
-            MenuController.ShowMainMenu(this, controlCenter);
+            MainMenuController.RunMainMenu(this, controlCenter);
         }
 
         public void AddRobot(RobotVariant robotVariant)
@@ -75,7 +76,7 @@ namespace ExoplanetGame
 
         public void ControlRobot(int robotID)
         {
-            MenuController.ShowRobotMenu(controlCenter.GetRobotByID(robotID), controlCenter);
+            RobotMenuController.RunRobotMenu(controlCenter.GetRobotByID(robotID), controlCenter);
         }
 
         public void ClearRobots()

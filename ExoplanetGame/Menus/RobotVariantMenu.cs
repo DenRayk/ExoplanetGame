@@ -20,40 +20,20 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("5. Mud robot");
         }
 
-        public static RobotVariant GetRobotVariantSelection()
+        public static void DisplayRobotVariantInformation()
         {
-            int choice;
-            while (true)
-            {
-                if (int.TryParse(Console.ReadLine(), out choice) && choice >= 1 && choice <= 6)
-                {
-                    break;
-                }
-                Console.WriteLine("Invalid input. Please enter a valid robot variant.");
-            }
+            Console.WriteLine("Robot Variant Information");
+            Console.WriteLine($"{RobotVariant.DEFAULT.GetDescriptionFromEnum()}: Basic robot with no special abilities");
+            Console.WriteLine($"{RobotVariant.SCOUT.GetDescriptionFromEnum()}: Scan roboter with a larger scanning range");
+            Console.WriteLine($"{RobotVariant.LAVA.GetDescriptionFromEnum()}: Robot that can withstand high temperatures");
+            Console.WriteLine($"{RobotVariant.AQUA.GetDescriptionFromEnum()}: Robot that can withstand water drift");
+            Console.WriteLine($"{RobotVariant.MUD.GetDescriptionFromEnum()}: Robot that can move through mud");
+            Console.WriteLine($"Press ESC to go back");
+        }
 
-            Console.Clear();
-
-            switch (choice)
-            {
-                case 1:
-                    return RobotVariant.DEFAULT;
-
-                case 2:
-                    return RobotVariant.SCOUT;
-
-                case 3:
-                    return RobotVariant.LAVA;
-
-                case 4:
-                    return RobotVariant.AQUA;
-
-                case 5:
-                    return RobotVariant.MUD;
-
-                default:
-                    return RobotVariant.DEFAULT;
-            }
+        public static int GetRobotVariantSelection(int minValue, int maxValue)
+        {
+            return MenuSelection.GetMenuSelection(minValue, maxValue);
         }
     }
 }

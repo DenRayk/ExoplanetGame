@@ -6,13 +6,6 @@ namespace ExoplanetGame.Menus
 {
     public class RobotMenu
     {
-        public static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
-        {
-            robot.Crash();
-            controlCenter.RemoveRobot(robot);
-            keepMenuRunning = false;
-        }
-
         public static void DisplayRobotMenuOptions(bool hasLanded)
         {
             Console.WriteLine(hasLanded ? "Planet research options:" : "Pre-Landing Options:");
@@ -32,20 +25,86 @@ namespace ExoplanetGame.Menus
                 Console.WriteLine("1. Land");
                 Console.WriteLine("2. Back");
             }
+
+            Console.WriteLine("F1: Info");
         }
+
+        public static void DisplayRobotMenuInformation(bool hasLanded)
+        {
+            if (hasLanded)
+            {
+                Console.WriteLine("Robot Menu Information");
+                Console.WriteLine("Position: Show current position of the Robot");
+                Console.WriteLine("Scan: Scan the environment");
+                Console.WriteLine("Move: Move the robot in the direction it is facing");
+                Console.WriteLine("Rotate: Rotate the robot left or right");
+                Console.WriteLine("Load: Load energy to the robot");
+                Console.WriteLine("Crash: Crash the robot");
+            }
+            else
+            {
+                Console.WriteLine("Robot Menu Information");
+                Console.WriteLine("Land: Land the robot on the planet");
+            }
+
+            Console.WriteLine("Press ESC to go back");
+        }
+
+
 
         public static int GetRobotMenuSelection(int minValue, int maxValue)
         {
-            int choice;
+            return MenuSelection.GetMenuSelection(minValue, maxValue);
+        }
 
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < minValue || choice > maxValue)
+        public static void ShowCurrentPosition(RobotBase robot)
+        {
+            Console.WriteLine($"Robot is at {robot.GetPosition()}");
+        }
+
+        public static void ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)
+        {
+            if (robot.RobotVariant == RobotVariant.SCOUT)
             {
-                Console.WriteLine($"Invalid input. Please enter a number between {minValue} and {maxValue}.");
+                if (robot is ScoutBot scoutBot)
+                {
+                    Dictionary<Measure, Position> measures = scoutBot.ScoutScan();
+
+                    controlCenter.AddMeasures(measures);
+                }
             }
+            else
+            {
+                controlCenter.AddMeasure(robot.Scan(), robot.RobotInformation.Position);
+            }
+        }
 
-            Console.Clear();
+        public static bool MoveRobot(RobotBase robot)
+        {
+            if (robot.Move() == null)
+            {
+                return false;
+            }
+            return true;
+        }
 
-            return choice;
+        public static void RotateRobot(RobotBase robot)
+        {
+            robot.Rotate(SelectRotation());
+        }
+
+        public static void LoadRobot(RobotBase robot)
+        {
+            Console.WriteLine("Enter the number of seconds to load energy:");
+            int seconds = GetRobotMenuSelection(1, 30);
+            robot.LoadEnergy(seconds);
+        }
+
+        public static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
+        {
+            robot.Crash();
+            controlCenter.RemoveRobot(robot);
+            keepMenuRunning = false;
         }
 
         public static void HandleLandOption(RobotBase robot, ref bool hasLanded)
@@ -66,44 +125,6 @@ namespace ExoplanetGame.Menus
         {
             Console.Write($"Discovered area of the planet {PlanetManager.TargetPlanet.PlanetVariant}: ");
             controlCenter.PrintMap();
-        }
-
-        public static void LoadRobot(RobotBase robot)
-        {
-            Console.WriteLine("Enter the number of seconds to load energy:");
-            int seconds = GetRobotMenuSelection(1, 30);
-            robot.LoadEnergy(seconds);
-        }
-
-        public static bool MoveRobot(RobotBase robot)
-        {
-            if (robot.Move() == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public static void RotateRobot(RobotBase robot)
-        {
-            robot.Rotate(SelectRotation());
-        }
-
-        public static void ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)
-        {
-            if (robot.RobotVariant == RobotVariant.SCOUT)
-            {
-                if (robot is ScoutBot scoutBot)
-                {
-                    Dictionary<Measure, Position> measures = scoutBot.ScoutScan();
-
-                    controlCenter.AddMeasures(measures);
-                }
-            }
-            else
-            {
-                controlCenter.AddMeasure(robot.Scan(), robot.RobotInformation.Position);
-            }
         }
 
         public static Position SelectLandPosition()
@@ -128,9 +149,5 @@ namespace ExoplanetGame.Menus
             return rotation == 1 ? Rotation.LEFT : Rotation.RIGHT;
         }
 
-        public static void ShowCurrentPosition(RobotBase robot)
-        {
-            Console.WriteLine($"Robot is at {robot.GetPosition()}");
-        }
     }
 }

@@ -5,46 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExoplanetGame.Menus
+namespace ExoplanetGame.Menus.Controller
 {
-    public class MenuController
+    public class RobotMenuController
     {
-        public static void ShowMainMenu(GameServer gameServer, ControlCenter.ControlCenter controlCenter)
-        {
-            while (true)
-            {
-                MainMenu.DisplayMainManueOptions();
-                var mainMenuChoice = MainMenu.GetMainManueSelection();
-
-                switch (mainMenuChoice)
-                {
-                    case 1:
-                        RobotVariantMenu.DisplayRobotVariantOptions();
-                        var robotVariantChoice = RobotVariantMenu.GetRobotVariantSelection();
-                        gameServer.AddRobot(robotVariantChoice);
-                        break;
-
-                    case 2:
-                        if (controlCenter.GetRobotCount() == 0)
-                        {
-                            Console.WriteLine("No robots to control.");
-                            break;
-                        }
-                        MainMenu.SelectRobot(gameServer, controlCenter);
-                        break;
-
-                    case 3:
-                        RobotMenu.LoadCurrentExploredMap(controlCenter);
-                        break;
-
-                    case 4:
-                        Environment.Exit(0);
-                        break;
-                }
-            }
-        }
-
-        public static void ShowRobotMenu(RobotBase robot, ControlCenter.ControlCenter controlCenter)
+        public static void RunRobotMenu(RobotBase robot, ControlCenter.ControlCenter controlCenter)
         {
             bool keepMenuRunning = true;
             bool hasRobotLanded = robot.HasLanded();
@@ -121,10 +86,38 @@ namespace ExoplanetGame.Menus
                             keepMenuRunning = false;
                         }
                         break;
+                    case 112:
+                        ShowRobotMenuInformation(robot, controlCenter);
+                        break;
                 }
             }
 
             Console.Clear();
+        }
+
+        public static void ShowRobotMenuInformation(RobotBase robot, ControlCenter.ControlCenter controlCenter)
+        {
+            bool hasRobotLanded = robot.HasLanded();
+            int mainMenuChoice;
+
+            do
+            {
+                RobotMenu.DisplayRobotMenuInformation(hasRobotLanded);
+                mainMenuChoice = MainMenu.GetMainMenuSelection(0, 0);
+            } while (mainMenuChoice != 27);
+
+            RunRobotMenu(robot, controlCenter);
+        }
+
+        public static void RunRobotSelectionMenu(GameServer gameServer, ControlCenter.ControlCenter controlCenter)
+        {
+            Console.WriteLine("Select a robot to control:");
+            controlCenter.DisplayRobots();
+
+            int choice = MenuSelection.GetMenuSelection(1, controlCenter.GetRobotCount());
+
+
+            gameServer.ControlRobot(choice - 1);
         }
     }
 }

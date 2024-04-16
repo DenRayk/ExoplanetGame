@@ -1,0 +1,51 @@
+﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet.Variants;
+using ExoplanetGame.Exoplanet;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExoplanetGame.Menus.Controller
+{
+    public class ExoplanetMenuController
+    {
+        public static ExoplanetBase SelectTargetExoplanet()
+        {
+            while (true)
+            {
+                ExoplanetMenu.DisplayExoplanetMenuOptions();
+                int exoplanetChoice = ExoplanetMenu.GetExoplanetMenuSelection(1, 5);
+
+                switch (exoplanetChoice)
+                {
+                    case 1:
+                        return PlanetManager.GetPlanet(PlanetVariant.GAIA);
+                    case 2:
+                        return PlanetManager.GetPlanet(PlanetVariant.AQUATICA);
+                    case 3:
+                        return PlanetManager.GetPlanet(PlanetVariant.TERRA);
+                    case 4:
+                        return PlanetManager.GetPlanet(PlanetVariant.LAVARIA);
+                    case 5:
+                        return PlanetManager.GetPlanet(PlanetVariant.TROPICA);
+                    case 112:
+                        ShowExoplanetMenuInformation();
+                        break;
+                }
+            }
+        }
+
+        public static void ShowExoplanetMenuInformation()
+        {
+            int mainMenuChoice;
+
+            do
+            {
+                ExoplanetMenu.DisplayExoplanetMenuInformation();
+                mainMenuChoice = MainMenu.GetMainMenuSelection(0, 0);
+            } while (mainMenuChoice != 27);
+        }
+    }
+}
