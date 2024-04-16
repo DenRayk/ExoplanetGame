@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExoplanetGame.Robot
 {
-    public enum RobotParts
+    public enum RobotPart
     {
         [Description("Left motor")]
         LEFTMOTOR,

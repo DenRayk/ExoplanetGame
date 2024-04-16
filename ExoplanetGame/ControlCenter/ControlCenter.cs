@@ -110,5 +110,10 @@ namespace ExoplanetGame.ControlCenter
         {
             robots.Clear();
         }
+
+        public void RepairRobotPart(int robotChoice, int partChoice)
+        {
+            exoPlanet.RepairRobotPart(GetRobotByID(robotChoice), (RobotPart)partChoice);
+        }
     }
 }

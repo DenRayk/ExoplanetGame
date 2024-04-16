@@ -70,6 +70,11 @@ namespace ExoplanetGame.Exoplanet
             robotManager.LoadEnergy(robot, seconds);
         }
 
+        public virtual void RepairRobotPart(RobotBase robot, RobotPart robotPart)
+        {
+            robotManager.RepairRobotPart(robot, robotPart);
+        }
+
         public virtual void ChangeWeather()
         {
             Random random = new Random();
