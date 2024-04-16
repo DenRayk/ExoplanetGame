@@ -16,7 +16,7 @@ namespace ExoplanetGame.ControlCenter
 
         public static void ScanForExoplanets()
         {
-            Console.WriteLine("Scanning for exoplanets...");
+            Console.WriteLine("Scanning for exoplanets...\n");
 
             exoplanets.Add(new Aquatica());
             exoplanets.Add(new Gaia());
@@ -32,18 +32,23 @@ namespace ExoplanetGame.ControlCenter
                 case PlanetVariant.AQUATICA:
                     TargetPlanet = exoplanets[0];
                     return TargetPlanet;
+
                 case PlanetVariant.GAIA:
                     TargetPlanet = exoplanets[1];
                     return TargetPlanet;
+
                 case PlanetVariant.LAVARIA:
                     TargetPlanet = exoplanets[2];
                     return TargetPlanet;
+
                 case PlanetVariant.TERRA:
                     TargetPlanet = exoplanets[3];
                     return TargetPlanet;
+
                 case PlanetVariant.TROPICA:
                     TargetPlanet = exoplanets[4];
                     return TargetPlanet;
+
                 default:
                     return null;
             }

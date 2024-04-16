@@ -31,6 +31,16 @@ namespace ExoplanetGame
             MainMenuController.RunMainMenu(this, controlCenter);
         }
 
+        public static GameServer GetInstance(ExoplanetBase targetExoplanetBase)
+        {
+            if (gameServer == null)
+            {
+                gameServer = new GameServer(targetExoplanetBase);
+            }
+
+            return gameServer;
+        }
+
         public void AddRobot(RobotVariant robotVariant)
         {
             if (RobotCount < maxRobots)

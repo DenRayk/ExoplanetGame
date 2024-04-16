@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Menus.Controller;
 
 namespace ExoplanetGame
@@ -11,7 +12,7 @@ namespace ExoplanetGame
 
             PlanetManager.ScanForExoplanets();
 
-            GameServer gameServer = new GameServer(ExoplanetMenuController.SelectTargetExoplanet());
+            GameServer gameServer = GameServer.GetInstance(ExoplanetMenuController.SelectTargetExoplanet());
 
             gameServer.Start();
         }

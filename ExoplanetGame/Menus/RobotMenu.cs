@@ -8,7 +8,7 @@ namespace ExoplanetGame.Menus
     {
         public static void DisplayRobotMenuOptions(bool hasLanded)
         {
-            Console.WriteLine(hasLanded ? "Planet research options:" : "Pre-Landing Options:");
+            Console.WriteLine(hasLanded ? "Planet research options (press F1 for help):" : "Pre-Landing Options (press F1 for help):");
 
             if (hasLanded)
             {
@@ -25,32 +25,28 @@ namespace ExoplanetGame.Menus
                 Console.WriteLine("1. Land");
                 Console.WriteLine("2. Back");
             }
-
-            Console.WriteLine("F1: Info");
         }
 
         public static void DisplayRobotMenuInformation(bool hasLanded)
         {
             if (hasLanded)
             {
-                Console.WriteLine("Robot Menu Information");
-                Console.WriteLine("Position: Show current position of the Robot");
-                Console.WriteLine("Scan: Scan the environment");
-                Console.WriteLine("Move: Move the robot in the direction it is facing");
-                Console.WriteLine("Rotate: Rotate the robot left or right");
-                Console.WriteLine("Load: Load energy to the robot");
-                Console.WriteLine("Crash: Crash the robot");
+                Console.WriteLine("Robot Menu Information\n");
+                Console.WriteLine("Position:\t\t Show current position of the Robot");
+                Console.WriteLine("Scan:\t\t Scan the environment");
+                Console.WriteLine("Move:\t\t Move the robot in the direction it is facing");
+                Console.WriteLine("Rotate:\t\t Rotate the robot left or right");
+                Console.WriteLine("Load:\t\t Load energy to the robot");
+                Console.WriteLine("Crash:\t\t Crash the robot\n");
             }
             else
             {
-                Console.WriteLine("Robot Menu Information");
-                Console.WriteLine("Land: Land the robot on the planet");
+                Console.WriteLine("Robot Menu Information\n");
+                Console.WriteLine("Land:\t Land the robot on the planet\n");
             }
 
             Console.WriteLine("Press ESC to go back");
         }
-
-
 
         public static int GetRobotMenuSelection(int minValue, int maxValue)
         {
@@ -154,6 +150,5 @@ namespace ExoplanetGame.Menus
 
             return rotation == 1 ? Rotation.LEFT : Rotation.RIGHT;
         }
-
     }
 }

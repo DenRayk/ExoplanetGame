@@ -34,7 +34,7 @@ public class RobotEnergyTracker
                 if (robotEnergy[robot] < robot.MaxEnergy)
                 {
                     Console.WriteLine($"Robot energy loaded to {robotEnergy[robot]}%");
-                    robotEnergy[robot] += 10;
+                    robotEnergy[robot] += energyLoad;
                 }
                 else
                 {

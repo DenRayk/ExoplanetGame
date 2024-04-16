@@ -12,7 +12,7 @@ namespace GameServerTest
         public void AddRobots()
         {
             // Arrange
-            GameServer server = new GameServer(new Gaia());
+            GameServer server = GameServer.GetInstance(new Gaia());
 
             // Act
             server.AddRobot(RobotVariant.DEFAULT);
@@ -29,7 +29,7 @@ namespace GameServerTest
         public void AddRobotsOverLimit()
         {
             // Arrange
-            GameServer server = new GameServer(new Gaia());
+            GameServer server = GameServer.GetInstance(new Gaia());
 
             // Act
             server.AddRobot(RobotVariant.DEFAULT);
@@ -46,7 +46,7 @@ namespace GameServerTest
         [TestCleanup]
         public void Cleanup()
         {
-            GameServer server = new GameServer(new Gaia());
+            GameServer server = GameServer.GetInstance(new Gaia());
             server.ClearRobots();
         }
     }
