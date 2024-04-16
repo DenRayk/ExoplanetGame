@@ -22,14 +22,19 @@ namespace ExoplanetGame.Menus.Controller
                 {
                     case 1:
                         return PlanetManager.GetPlanet(PlanetVariant.GAIA);
+
                     case 2:
                         return PlanetManager.GetPlanet(PlanetVariant.AQUATICA);
+
                     case 3:
                         return PlanetManager.GetPlanet(PlanetVariant.TERRA);
+
                     case 4:
                         return PlanetManager.GetPlanet(PlanetVariant.LAVARIA);
+
                     case 5:
                         return PlanetManager.GetPlanet(PlanetVariant.TROPICA);
+
                     case 112:
                         ShowExoplanetMenuInformation();
                         break;

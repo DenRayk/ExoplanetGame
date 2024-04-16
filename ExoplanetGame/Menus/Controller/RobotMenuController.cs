@@ -86,6 +86,7 @@ namespace ExoplanetGame.Menus.Controller
                             keepMenuRunning = false;
                         }
                         break;
+
                     case 112:
                         ShowRobotMenuInformation(robot, controlCenter);
                         break;
@@ -115,7 +116,6 @@ namespace ExoplanetGame.Menus.Controller
             controlCenter.DisplayRobots();
 
             int choice = MenuSelection.GetMenuSelection(1, controlCenter.GetRobotCount());
-
 
             gameServer.ControlRobot(choice - 1);
         }

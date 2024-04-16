@@ -39,7 +39,6 @@ namespace ExoplanetGame.Menus.Controller
                         break;
                 }
             }
-
         }
 
         public static void ShowRobotVariantMenuInformation()
