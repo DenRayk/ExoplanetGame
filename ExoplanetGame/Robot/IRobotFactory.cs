@@ -13,6 +13,4 @@ public interface IRobotFactory
     RobotBase CreateAquaRobot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotID);
 
     RobotBase CreateMudRobot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotID);
-
-    RobotBase CreateSolarRobot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotID);
 }

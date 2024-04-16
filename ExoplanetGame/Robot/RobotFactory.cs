@@ -29,11 +29,6 @@ namespace ExoplanetGame.Robot
             return new ScoutBot(controlCenter, exoPlanet, robotID);
         }
 
-        public RobotBase CreateSolarRobot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotID)
-        {
-            return new SolarBot(controlCenter, exoPlanet, robotID);
-        }
-
         public RobotBase CreateLavaRobot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotID)
         {
             return new LavaBot(controlCenter, exoPlanet, robotID);
