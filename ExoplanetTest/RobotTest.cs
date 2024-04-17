@@ -16,10 +16,10 @@ namespace ExoplanetGameTest
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            Position landPosition = new Position(1, 1, Direction.NORTH);
+            Position landPosition = new Position(0, 5, Direction.NORTH);
 
             // Act
-            robot.Land(new Position(1, 1, Direction.NORTH));
+            robot.Land(new Position(0, 5, Direction.NORTH));
 
             // Assert
             Assert.AreEqual(landPosition, robot.RobotInformation.Position);
@@ -33,13 +33,13 @@ namespace ExoplanetGameTest
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            robot.Land(new Position(1, 1, Direction.NORTH));
+            robot.Land(new Position(0, 5, Direction.NORTH));
 
             // Act
             robot.Move();
 
             // Assert
-            Assert.AreEqual(new Position(1, 0, Direction.NORTH), robot.RobotInformation.Position);
+            Assert.AreEqual(new Position(0, 4, Direction.NORTH), robot.RobotInformation.Position);
         }
 
         [TestMethod]
@@ -50,13 +50,13 @@ namespace ExoplanetGameTest
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            robot.Land(new Position(1, 1, Direction.NORTH));
+            robot.Land(new Position(0, 5, Direction.NORTH));
 
             // Act
             robot.Rotate(Rotation.LEFT);
 
             // Assert
-            Assert.AreEqual(new Position(1, 1, Direction.WEST), robot.RobotInformation.Position);
+            Assert.AreEqual(new Position(0, 5, Direction.WEST), robot.RobotInformation.Position);
         }
 
         [TestMethod]
@@ -67,13 +67,13 @@ namespace ExoplanetGameTest
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            robot.Land(new Position(1, 1, Direction.NORTH));
+            robot.Land(new Position(0, 5, Direction.NORTH));
 
             // Act
             robot.Rotate(Rotation.RIGHT);
 
             // Assert
-            Assert.AreEqual(new Position(1, 1, Direction.EAST), robot.RobotInformation.Position);
+            Assert.AreEqual(new Position(0, 5, Direction.EAST), robot.RobotInformation.Position);
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace ExoplanetGameTest
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            robot.Land(new Position(3, 3, Direction.NORTH));
+            robot.Land(new Position(0, 5, Direction.NORTH));
 
             // Act
             robot.Crash();
@@ -101,13 +101,13 @@ namespace ExoplanetGameTest
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            robot.Land(new Position(3, 2, Direction.NORTH));
+            robot.Land(new Position(0, 5, Direction.NORTH));
 
             // Act
             Measure measure = robot.Scan();
 
             // Assert
-            Assert.AreEqual(Ground.PLANT, measure.Ground);
+            Assert.AreEqual(Ground.SAND, measure.Ground);
         }
 
         [TestCleanup]

@@ -17,7 +17,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 "SGWPMSRLLR",
                 "SSWWMGSRRG",
                 "RGSWWSSGRG",
-                "RRWWGGSGRR"
+                "SRWWGGSGRR"
             },
 
             new string[]
@@ -27,7 +27,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 "PPMMGGSWWW",
                 "RSSGSGRRRR",
                 "SRRSSSGRSS",
-                "GRLRGGSSSG"
+                "SRLRGGSSSG"
             },
 
             new string[]
@@ -47,7 +47,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 "GPSWGWMPWM",
                 "SRRSRSGGRR",
                 "SRSSRSRGSS",
-                "RGSSSGSRGG"
+                "SGSSSGSRGG"
             },
 
             new string[]

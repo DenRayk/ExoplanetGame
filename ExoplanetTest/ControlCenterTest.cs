@@ -43,7 +43,7 @@ namespace ControlCenterTest
             controlCenter.AddRobot(robot);
 
             // Act
-            robot.Land(new Position(3, 3, Direction.NORTH));
+            robot.Land(new Position(0, 5, Direction.NORTH));
 
             // Assert
             Assert.AreEqual(true, controlCenter.GetRobotByID(0).RobotInformation.HasLanded);
