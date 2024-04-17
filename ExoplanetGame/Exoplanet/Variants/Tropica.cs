@@ -6,12 +6,11 @@ namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Tropica : ExoplanetBase
     {
-        public Tropica() : base(PlanetVariant.TROPICA)
-        {
-            Weather = Weather.SUNNY;
+        private Random random = new();
 
-            //Grandmaster level
-            Topography = new Topography(new string[]
+        private readonly List<string[]> tropicaVariants = new()
+        {
+            new string[]
             {
                 "GGWWPMWPGGGPWWWWRRGGWSPGGPSSSG",
                 "GGWWSMWWWPMMPGGSWPWPWMGPGMMPSS",
@@ -22,14 +21,78 @@ namespace ExoplanetGame.Exoplanet.Variants
                 "GGSWGMMPGGGMPGSPRGWWSSWSSGMWMP",
                 "SSPWWPMMGGGPPPMWMGWPSMWPSPMWWM",
                 "MSPWWRMGGPMPPSMWGGWPSMWSSWPMWW",
-                "RRMRWRPGGPWRRGSMGGWPSMSRRWGGRW"
-            });
+                "RRMRWRPGGPWRRGSMGGWPSMSRRWGGRR"
+            },
+
+            new string[]
+            {
+                "GGGGSSGSMRGGWWPMWPGGGGGGSSGSMR",
+                "GGMPGSGSSRGGWWSMWWWPGGMPGSGSSR",
+                "WWMMPWSPPMGMMWSPPRWWWWMMPWSPPM",
+                "WWWWWWWWWRGPMWSSRPGMWWWWWWWWWR",
+                "PSSSGGGWWWSGPWGSMMMMPSSSGGGWWW",
+                "MMPSSSMPRRSSWWGSPPGGMMPSSSMPRR",
+                "WWPRMPMMMPGGSWGMMPGGWWPRMPMMMP",
+                "PWRPMPPMGGSSPWWPMMGGPWRPMPPMGG",
+                "GWWGMGGGGGMSPWWRMGGPGWWGMGGGGG",
+                "GPWMMGGGPPRRMRWRPGGPGPWMMGGGPP"
+            },
+
+            new string[]
+            {
+                "GPWWWWRRGGGMWMPMGGMWGPWWWWRRGG",
+                "MMPGGSWPWPPMWWMWMPPRMMPGGSWPWP",
+                "WWMGGSSWMMWPMWWGPPPRWWMGGSSWMM",
+                "MWWRRWSPMWWGGRWWGPSGMWWRRWSPMW",
+                "PMWWPWWWWWWGGRPWSMMSPMWWPWWWWW",
+                "MWGWWWWWWWWSSWWWPWWMMWGWWWWWWW",
+                "GMPGSPRGWWRWSSWWRMGGGMPGSPRGWW",
+                "GPPPMWMGWPRPWPWWGGGGGPPPMWMGWP",
+                "MPPSMWGGWPGWMMWWWWWWMPPSMWGGWP",
+                "WRRGSMGGWPGPMWWWWPPPWRRGSMGGWP"
+            },
+
+            new string[]
+            {
+                "WWWWSSSSSSSWWGSPPGGGWWWWSSSSSS",
+                "SMSWWMSMMGGSWGMMPGGSSMSWWMSMMM",
+                "PGMSWWWWWSSPWWPMMGGMPGMSWWWWWS",
+                "GPGPPSSPSMSPWWRMGGPMGPGPPSSPSR",
+                "GGMPPMSSSRRMRWRPGGPMGGMPPMSSSR",
+                "PMWPGGGPWGGGGSSGSMRMPMWPGGGPWW",
+                "SMWWWPMMPGGMPGSGSSRPSMWWWPMMPG",
+                "SPPRWWWWMWWMMPWSPPMMSPPRWWWWMG",
+                "SSRPGMMWWWWWWWWWWWRWSSRPGMMWWR",
+                "GSMMMMPMWPSSSGGGWWWWGSMMMMPMWM"
+            },
+
+            new string[]
+            {
+                "WGGRWWGPSGWWWRRGGGMWWWWWSSSSSS",
+                "WGGRPWSMMSGGSWPWPPMWSMSWWMSMMM",
+                "WSSWWWPWWMGGSSWMMWPMPGMSWWWWWS",
+                "RWSSWWRMGGRRWSPMWWGGGPGPPSSPSR",
+                "PPWPWWGGGGWPWWWWWWGGGGMPPMSSSR",
+                "PRRRWWWWWWWWWWWWWWSSPMWPGGGPWW",
+                "RRGGWWWPPPGSPRGWWRWSSMWWWPMMPG",
+                "RRRRWWRRGGPMWMGWPRPWSPPRWWWWMG",
+                "PRPRMSWPWPSMWGGWPGWMSSRPGMMWWR",
+                "WPPPMSSWMMGSMGGWPGPMGSMMMMPMWR"
+            }
+        };
+
+        public Tropica() : base(PlanetVariant.TROPICA)
+        {
+            Weather = Weather.SUNNY;
+
+            int randomVariant = random.Next(0, tropicaVariants.Count);
+            Topography = new Topography(tropicaVariants[randomVariant]);
+
             robotManager = new RobotManager(this);
         }
 
         public override void ChangeWeather()
         {
-            Random random = new Random();
             int weatherChange = random.Next(1, 101);
 
             if (weatherChange <= 60)

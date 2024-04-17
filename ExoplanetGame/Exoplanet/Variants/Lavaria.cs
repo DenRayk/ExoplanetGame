@@ -6,27 +6,78 @@ namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Lavaria : ExoplanetBase
     {
-        public Lavaria() : base(PlanetVariant.LAVARIA)
-        {
-            Weather = Weather.FOGGY;
+        private Random random = new();
 
-            //Expert level
-            Topography = new Topography(new string[]
+        private readonly List<string[]> lavariaVariants = new()
+        {
+            new string[]
             {
-                "LLLLLLGGGGGLLLGGGGGGG",
+                "GLLLLLGGGGGLLLGGGGGGG",
                 "LLGGGLLLLLLLLLGGGGLLL",
                 "GGGGGLLLLLLLLLLLGGGLL",
                 "LLLLLLLLGGGGGGGLLLGGL",
                 "GGGLLGGRRRRRRRRLLLLRL",
                 "RRRGGGGGGLLLRRRRRRRRR",
                 "RRRRRRRRRGGGGGGGRRRRR"
-            });
+            },
+
+            new string[]
+            {
+                "GLGLGRRGLLLRGRGGLGRRG",
+                "LLGLGRRRLLGRGRGGLLLRG",
+                "LGGLGRRRLLRRLGGGGLLRR",
+                "LGGLLGRGLRRRLGGGGLLRR",
+                "LGGLLGRLLRRRLGGLGGLRR",
+                "LLLLGGRLLLGRRGGLLGRRR",
+                "GLLLGGRLLLGRRGGLLLLRR"
+            },
+
+            new string[]
+            {
+                "LLLLLLLLGGLLGRLLLGRLG",
+                "GGGLLGGLGGLLGLLLLGRRG",
+                "RRRGGGGLLLLGGRLLLGRRG",
+                "RRRRRRRGLLLGGRGGLGRRG",
+                "GRRRLLRGLLLRGRGGLLLRG",
+                "LLLRLLLGLLGRGRGGGLLRR",
+                "LLLRRLLGLLGRLGGGGLLRR"
+            },
+
+            new string[]
+            {
+                "LGGRGLLLGGRRLLLLLLLGG",
+                "LLLRGLLLRGGGGGLLGGRRR",
+                "GGLLGLLGRGLLLLGGGGGGL",
+                "GGLLGLLGRLLLLLRLRRRRG",
+                "LLLLLGGLLGLLGGLLLGGGG",
+                "LLGGLGGLLGGRRRLLLGGGG",
+                "GGGGLLLLGGGGGLLLLLLGG"
+            },
+
+            new string[]
+            {
+                "RRRLLLRLGGLGRRLGLLGRG",
+                "LLLLGGRLGGLLGRLGLLGRL",
+                "LLLLLRRLGGLLGRRRGRLLL",
+                "LRRRLRRLLLLGGRRRGLLLL",
+                "RRGGLGRGLLLGGRRRGRLLL",
+                "RRRRLGRGLLLRGRLGGRGGL",
+                "LRLRLGRGLLGRGRLRGRGGL"
+            }
+        };
+
+        public Lavaria() : base(PlanetVariant.LAVARIA)
+        {
+            Weather = Weather.FOGGY;
+
+            int randomVariant = random.Next(0, lavariaVariants.Count);
+            Topography = new Topography(lavariaVariants[randomVariant]);
+
             robotManager = new RobotManager(this);
         }
 
         public override void ChangeWeather()
         {
-            Random random = new Random();
             int weatherChange = random.Next(1, 101);
 
             if (weatherChange <= 25)
