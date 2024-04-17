@@ -18,11 +18,11 @@ namespace ExoplanetGame.ControlCenter
                     break;
 
                 case Ground.GRAVEL:
-                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     break;
 
                 case Ground.ROCK:
-                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.BackgroundColor = ConsoleColor.Gray;
                     break;
 
                 case Ground.WATER:
@@ -70,11 +70,11 @@ namespace ExoplanetGame.ControlCenter
                     break;
 
                 case Ground.GRAVEL:
-                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     break;
 
                 case Ground.ROCK:
-                    Console.BackgroundColor = ConsoleColor.DarkGray;
+                    Console.BackgroundColor = ConsoleColor.Gray;
                     break;
 
                 case Ground.WATER:
