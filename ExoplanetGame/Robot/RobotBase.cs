@@ -9,9 +9,6 @@ namespace ExoplanetGame.Robot
         protected ExoplanetBase exoPlanet;
         protected ControlCenter.ControlCenter controlCenter;
         public RobotInformation RobotInformation { get; set; }
-        public int MaxHeat { get; set; } = 100;
-
-        public int MaxEnergy { get; set; } = 100;
 
         public RobotVariant RobotVariant { get; }
 
@@ -146,7 +143,7 @@ namespace ExoplanetGame.Robot
 
         protected bool Equals(RobotBase other)
         {
-            return exoPlanet.Equals(other.exoPlanet) && controlCenter.Equals(other.controlCenter) && RobotInformation.Equals(other.RobotInformation) && MaxHeat == other.MaxHeat && RobotVariant == other.RobotVariant;
+            return exoPlanet.Equals(other.exoPlanet) && controlCenter.Equals(other.controlCenter) && RobotInformation.Equals(other.RobotInformation) && RobotInformation.MaxHeat == other.RobotInformation.MaxHeat && RobotVariant == other.RobotVariant;
         }
 
         public override bool Equals(object? obj)

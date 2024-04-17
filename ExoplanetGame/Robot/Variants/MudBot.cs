@@ -13,6 +13,7 @@ namespace ExoplanetGame.Robot.Variants
         public MudBot(ControlCenter.ControlCenter controlCenter, ExoplanetBase exoPlanet, int robotId) : base(exoPlanet,
             controlCenter, robotId, RobotVariant.MUD)
         {
+            RobotInformation.RobotParts[RobotPart.WHEELS] = 200;
         }
     }
 }

@@ -11,7 +11,7 @@ public class RobotEnergyTracker
     {
         if (!robotEnergy.ContainsKey(robot))
         {
-            robotEnergy.Add(robot, robot.MaxEnergy);
+            robotEnergy.Add(robot, robot.RobotInformation.MaxEnergy);
         }
 
         int energyConsumed = CalculateEneryConsumtion(robotAction);
@@ -25,7 +25,7 @@ public class RobotEnergyTracker
     {
         if (!robotEnergy.ContainsKey(robot))
         {
-            robotEnergy.Add(robot, robot.MaxEnergy);
+            robotEnergy.Add(robot, robot.RobotInformation.MaxEnergy);
         }
         else
         {
@@ -33,14 +33,14 @@ public class RobotEnergyTracker
 
             for (int i = 0; i < seconds; i++)
             {
-                if (robotEnergy[robot] < robot.MaxEnergy)
+                if (robotEnergy[robot] < robot.RobotInformation.MaxEnergy)
                 {
                     Console.WriteLine($"Robot energy loaded to {robotEnergy[robot]}%");
                     robotEnergy[robot] += energyLoad;
                 }
                 else
                 {
-                    Console.WriteLine($"Robot fully loaded to {robot.MaxEnergy}%");
+                    Console.WriteLine($"Robot fully loaded to {robot.RobotInformation.MaxEnergy}%");
                     break;
                 }
                 Thread.Sleep(1000);
@@ -52,7 +52,7 @@ public class RobotEnergyTracker
     {
         if (!robotEnergy.ContainsKey(robot))
         {
-            robotEnergy.Add(robot, robot.MaxEnergy);
+            robotEnergy.Add(robot, robot.RobotInformation.MaxEnergy);
         }
 
         return robotEnergy[robot];
