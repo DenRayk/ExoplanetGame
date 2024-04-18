@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExoplanetGame.Robot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -83,7 +84,6 @@ namespace ExoplanetGame.Exoplanet.Variants
             robotManager = new RobotManager(this);
         }
 
-
         public override void ChangeWeather()
         {
             int weatherChange = random.Next(1, 101);
@@ -96,6 +96,45 @@ namespace ExoplanetGame.Exoplanet.Variants
             {
                 Weather = Weather.WINDY;
             }
+        }
+
+        public override Position Move(RobotBase robot)
+        {
+            FreezeRobotIfItHasntMovedForAWhile(robot);
+
+            if (!robotManager.robotStatusManager.RobotFreezeTracker.IsFrozen(robot))
+            {
+                return base.Move(robot);
+            }
+
+            Console.WriteLine("Robot is frozen and cannot move anymore.");
+            return null;
+        }
+
+        public override Direction Rotate(RobotBase robot, Rotation rotation)
+        {
+            FreezeRobotIfItHasntMovedForAWhile(robot);
+            return base.Rotate(robot, rotation);
+        }
+
+        public void FreezeRobotIfItHasntMovedForAWhile(RobotBase robot)
+        {
+            if (robotManager.robotStatusManager.RobotFreezeTracker.IsFrozen(robot))
+            {
+                return;
+            }
+
+            if (DateTime.Now - robotManager.robotStatusManager.RobotFreezeTracker.GetLastMove(robot) > TimeSpan.FromSeconds(10))
+            {
+                RobotFreeze(robot);
+            }
+
+            robotManager.robotStatusManager.RobotFreezeTracker.UpdateLastMove(robot);
+        }
+
+        public void RobotFreeze(RobotBase robot)
+        {
+            robotManager.robotStatusManager.RobotFreezeTracker.FreezeRobot(robot);
         }
     }
 }

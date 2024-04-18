@@ -12,5 +12,6 @@ namespace ExoplanetGame.Exoplanet
         public RobotEnergyTracker RobotEnergyTracker { get; } = new();
         public RobotStuckTracker RobotStuckTracker { get; } = new();
         public RobotPartsTracker RobotPartsTracker { get; } = new();
+        public RobotFreezeTracker RobotFreezeTracker { get; } = new();
     }
 }

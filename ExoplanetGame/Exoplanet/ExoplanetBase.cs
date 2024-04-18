@@ -35,10 +35,10 @@ namespace ExoplanetGame.Exoplanet
             return robotManager.LandController.LandRobot(robot, landPosition, Topography);
         }
 
-        public virtual Position Move(RobotBase Robot)
+        public virtual Position Move(RobotBase robot)
         {
             ChangeWeather();
-            return robotManager.MoveController.MoveRobot(Robot, Topography);
+            return robotManager.MoveController.MoveRobot(robot, Topography);
         }
 
         public virtual Direction Rotate(RobotBase robot, Rotation rotation)

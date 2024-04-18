@@ -7,7 +7,7 @@ namespace ExoplanetGame.Exoplanet
     {
         internal readonly Dictionary<RobotBase, Position> robots;
 
-        private readonly RobotStatusManager robotStatusManager;
+        internal readonly RobotStatusManager robotStatusManager;
 
         private readonly ExoplanetBase exoplanet;
 
