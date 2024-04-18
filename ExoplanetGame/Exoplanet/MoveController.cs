@@ -57,7 +57,7 @@ public class MoveController(RobotManager robotManager, RobotStatusManager robotS
 
         if (!canMove)
         {
-            positionResult.Message = "Robot cannot move due to the above problem(s).";
+            positionResult.Message += "Robot cannot move due to the above problem(s).";
             positionResult.IsSuccess = false;
             positionResult.HasRobotSurvived = true;
         }
