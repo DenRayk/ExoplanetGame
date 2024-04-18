@@ -2,6 +2,7 @@
 using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGameTest
 {
@@ -104,10 +105,10 @@ namespace ExoplanetGameTest
             robot.Land(new Position(0, 5, Direction.NORTH));
 
             // Act
-            Measure measure = robot.Scan();
+            ScanResult scanResult = robot.Scan();
 
             // Assert
-            Assert.AreEqual(Ground.SAND, measure.Ground);
+            Assert.AreEqual(Ground.SAND, scanResult.Measure.Ground);
         }
 
         [TestCleanup]
