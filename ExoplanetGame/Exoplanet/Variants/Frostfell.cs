@@ -108,12 +108,19 @@ namespace ExoplanetGame.Exoplanet.Variants
             }
 
             Console.WriteLine("Robot is frozen and cannot move anymore.");
-            return null;
+            return robot.RobotInformation.Position;
         }
 
         public override Direction Rotate(RobotBase robot, Rotation rotation)
         {
             FreezeRobotIfItHasntMovedForAWhile(robot);
+
+            if (robotManager.robotStatusManager.RobotFreezeTracker.IsFrozen(robot))
+            {
+                Console.WriteLine("Robot is frozen and cannot rotate anymore.");
+                return robot.RobotInformation.Position.Direction;
+            }
+
             return base.Rotate(robot, rotation);
         }
 
