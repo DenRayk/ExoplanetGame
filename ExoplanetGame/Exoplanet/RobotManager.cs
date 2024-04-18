@@ -130,7 +130,7 @@ namespace ExoplanetGame.Exoplanet
 
             if (!IsPositionInBounds(newPosition, topography))
             {
-                positionResult.Message = "The position is out of bounds.";
+                positionResult.Message = "The position is out of bounds.\n";
                 positionResult.IsSuccess = false;
                 positionResult.HasRobotSurvived = false;
                 return false;
@@ -138,7 +138,7 @@ namespace ExoplanetGame.Exoplanet
 
             if (IsPositionLava(newPosition, topography) && robot.RobotVariant != RobotVariant.LAVA)
             {
-                positionResult.Message = "The position is lava.";
+                positionResult.Message = "The position is lava.\n";
                 positionResult.IsSuccess = false;
                 positionResult.HasRobotSurvived = false;
                 return false;
@@ -146,7 +146,7 @@ namespace ExoplanetGame.Exoplanet
 
             if (IsAnotherRobotAlreadyAtThisPosition(robot, newPosition))
             {
-                positionResult.Message = "Another robot is already at this position.";
+                positionResult.Message = "Another robot is already at this position.\n";
                 positionResult.IsSuccess = false;
                 positionResult.HasRobotSurvived = false;
                 return false;
