@@ -15,7 +15,7 @@ namespace ExoplanetGame.Menus.Controller
             {
                 RobotVariantMenu.DisplayRobotVariantOptions();
 
-                int choice = RobotVariantMenu.GetRobotVariantSelection(1, 5);
+                int choice = RobotVariantMenu.GetRobotVariantSelection(1, 6);
 
                 switch (choice)
                 {
@@ -34,10 +34,40 @@ namespace ExoplanetGame.Menus.Controller
                     case 5:
                         return RobotVariant.MUD;
 
+                    case 6:
+                        return GetRandomRobotVariant();
+
                     case 112:
                         ShowRobotVariantMenuInformation();
                         break;
                 }
+            }
+        }
+
+        private static RobotVariant GetRandomRobotVariant()
+        {
+            Random random = new Random();
+            int randomValue = random.Next(1, 6);
+
+            switch (randomValue)
+            {
+                case 1:
+                    return RobotVariant.DEFAULT;
+
+                case 2:
+                    return RobotVariant.SCOUT;
+
+                case 3:
+                    return RobotVariant.LAVA;
+
+                case 4:
+                    return RobotVariant.AQUA;
+
+                case 5:
+                    return RobotVariant.MUD;
+
+                default:
+                    return RobotVariant.DEFAULT;
             }
         }
 

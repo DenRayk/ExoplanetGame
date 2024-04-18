@@ -16,7 +16,7 @@ namespace ExoplanetGame.Menus.Controller
             while (true)
             {
                 ExoplanetMenu.DisplayExoplanetMenuOptions();
-                int exoplanetChoice = ExoplanetMenu.GetExoplanetMenuSelection(1, 6);
+                int exoplanetChoice = ExoplanetMenu.GetExoplanetMenuSelection(1, 7);
 
                 switch (exoplanetChoice)
                 {
@@ -37,6 +37,9 @@ namespace ExoplanetGame.Menus.Controller
 
                     case 6:
                         return PlanetManager.GetPlanet(PlanetVariant.TROPICA);
+
+                    case 7:
+                        return PlanetManager.GetRandomPlanet();
 
                     case 112:
                         ShowExoplanetMenuInformation();

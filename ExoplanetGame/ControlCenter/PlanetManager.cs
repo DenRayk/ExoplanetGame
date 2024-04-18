@@ -58,5 +58,14 @@ namespace ExoplanetGame.ControlCenter
                     return null;
             }
         }
+
+        public static ExoplanetBase GetRandomPlanet()
+        {
+            Random random = new Random();
+            int randomPlanet = random.Next(0, exoplanets.Count);
+
+            TargetPlanet = exoplanets[randomPlanet];
+            return TargetPlanet;
+        }
     }
 }

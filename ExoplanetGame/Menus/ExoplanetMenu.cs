@@ -21,6 +21,7 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("4. Frostfell");
             Console.WriteLine("5. Lavaria");
             Console.WriteLine("6. Tropica");
+            Console.WriteLine("7. Random planet");
         }
 
         public static void DisplayExoplanetMenuInformation()

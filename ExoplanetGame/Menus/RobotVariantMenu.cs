@@ -18,6 +18,7 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("3. Lava robot");
             Console.WriteLine("4. Aqua robot");
             Console.WriteLine("5. Mud robot");
+            Console.WriteLine("6. Random robot");
         }
 
         public static void DisplayRobotVariantInformation()
