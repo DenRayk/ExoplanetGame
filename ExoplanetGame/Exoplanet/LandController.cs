@@ -28,9 +28,7 @@ public class LandController(RobotManager robotManager, RobotStatusManager robotS
 
         robotManager.RemoveRobot(robot);
 
-        landResult.IsSuccess = false;
-        landResult.HasRobotSurvived = true;
-        landResult.Message = "Robot can't land";
+        landResult.Message += "Robot cannot land.";
 
         return landResult;
     }

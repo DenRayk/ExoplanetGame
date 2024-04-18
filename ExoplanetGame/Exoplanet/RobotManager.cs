@@ -69,7 +69,6 @@ namespace ExoplanetGame.Exoplanet
         public void RemoveRobot(RobotBase robot)
         {
             robots.Remove(robot);
-            Console.WriteLine("Robot removed from exoplanet.");
         }
 
         public Direction RotateRobot(RobotBase robot, Rotation rotation)
