@@ -2,6 +2,7 @@
 using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Menus.Controller;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Factory;
 using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame

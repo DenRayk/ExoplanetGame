@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.Exoplanet;
 using System.Text;
+using ExoplanetGame.Exoplanet.Environment;
 
 namespace ExoplanetGame.ControlCenter
 {

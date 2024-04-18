@@ -1,7 +1,7 @@
 ﻿using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Robot.Variants;
 
-namespace ExoplanetGame.Robot
+namespace ExoplanetGame.Robot.Factory
 {
     public class RobotFactory : IRobotFactory
     {

@@ -1,4 +1,6 @@
-﻿namespace ExoplanetGame.Robot
+﻿using ExoplanetGame.Robot.Movement;
+
+namespace ExoplanetGame.Robot
 {
     public class RobotInformation
     {

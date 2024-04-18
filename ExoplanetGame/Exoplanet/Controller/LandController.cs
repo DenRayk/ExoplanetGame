@@ -1,7 +1,9 @@
-﻿using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Exoplanet.Environment;
+using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.RobotResults;
 
-namespace ExoplanetGame.Exoplanet;
+namespace ExoplanetGame.Exoplanet.Controller;
 
 public class LandController(RobotManager robotManager, RobotStatusManager robotStatusManager)
 {

@@ -1,9 +1,11 @@
 ﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet.Environment;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.RobotResults;
 using ExoplanetGame.Robot.Variants;
 
-namespace ExoplanetGame.Exoplanet;
+namespace ExoplanetGame.Exoplanet.Controller;
 
 public class ScanController(RobotManager robotManager, RobotStatusManager robotStatusManager)
 {

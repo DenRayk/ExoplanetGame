@@ -1,6 +1,6 @@
 ﻿using ExoplanetGame.Exoplanet;
 
-namespace ExoplanetGame.Robot;
+namespace ExoplanetGame.Robot.Factory;
 
 public interface IRobotFactory
 {

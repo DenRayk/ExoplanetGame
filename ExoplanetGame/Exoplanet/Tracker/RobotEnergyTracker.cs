@@ -1,7 +1,8 @@
-﻿using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Exoplanet.Environment;
+using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.RobotResults;
 
-namespace ExoplanetGame.Exoplanet;
+namespace ExoplanetGame.Exoplanet.Tracker;
 
 public class RobotEnergyTracker
 {

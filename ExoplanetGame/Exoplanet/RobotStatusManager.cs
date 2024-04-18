@@ -1,4 +1,6 @@
-﻿namespace ExoplanetGame.Exoplanet
+﻿using ExoplanetGame.Exoplanet.Tracker;
+
+namespace ExoplanetGame.Exoplanet
 {
     public class RobotStatusManager
     {

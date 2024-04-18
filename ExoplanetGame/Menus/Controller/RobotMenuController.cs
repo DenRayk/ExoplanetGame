@@ -1,4 +1,6 @@
-﻿using ExoplanetGame.Robot;
+﻿
+
+using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Menus.Controller
 {

@@ -1,4 +1,4 @@
-﻿namespace ExoplanetGame.Exoplanet;
+﻿namespace ExoplanetGame.Exoplanet.Environment;
 
 public enum Weather
 {

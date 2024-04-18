@@ -1,7 +1,9 @@
-﻿using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Exoplanet;
+﻿using ExoplanetGame.ControlCenter.Core;
+using ExoplanetGame.Exoplanet.Environment;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Factory;
+using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGameTest

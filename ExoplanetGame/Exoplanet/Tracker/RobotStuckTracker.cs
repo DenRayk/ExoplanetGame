@@ -1,6 +1,6 @@
 ﻿using ExoplanetGame.Robot;
 
-namespace ExoplanetGame.Exoplanet
+namespace ExoplanetGame.Exoplanet.Tracker
 {
     public class RobotStuckTracker
     {

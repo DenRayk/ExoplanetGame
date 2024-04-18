@@ -1,4 +1,7 @@
-﻿using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Exoplanet.Controller;
+using ExoplanetGame.Exoplanet.Environment;
+using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.RobotResults;
 using ExoplanetGame.Robot.Variants;
 

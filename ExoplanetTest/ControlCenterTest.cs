@@ -1,8 +1,10 @@
 ﻿using ExoplanetGame;
-using ExoplanetGame.ControlCenter;
+using ExoplanetGame.ControlCenter.Core;
 using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Factory;
+using ExoplanetGame.Robot.Movement;
 
 namespace ControlCenterTest
 {

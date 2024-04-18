@@ -1,7 +1,9 @@
-﻿using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Exoplanet.Environment;
+using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.RobotResults;
 
-namespace ExoplanetGame.Exoplanet;
+namespace ExoplanetGame.Exoplanet.Controller;
 
 public class MoveController(RobotManager robotManager, RobotStatusManager robotStatusManager)
 {
@@ -10,7 +12,7 @@ public class MoveController(RobotManager robotManager, RobotStatusManager robotS
         PositionResult moveResult = new();
         Position robotPosition = robotManager.robots[robot];
 
-        if (!CanRobotMove(robot, ref moveResult)) 
+        if (!CanRobotMove(robot, ref moveResult))
             return moveResult;
 
         Position newPosition = robotManager.GetNewRobotPosition(robotPosition);

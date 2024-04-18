@@ -1,4 +1,6 @@
-﻿namespace ExoplanetGame.Exoplanet.Variants
+﻿using ExoplanetGame.Exoplanet.Environment;
+
+namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Terra : ExoplanetBase
     {

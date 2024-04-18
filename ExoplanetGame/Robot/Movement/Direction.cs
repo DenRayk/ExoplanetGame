@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ExoplanetGame.Robot;
+namespace ExoplanetGame.Robot.Movement;
 
 public enum Direction
 {
