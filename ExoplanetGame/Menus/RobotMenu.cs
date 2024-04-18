@@ -145,7 +145,7 @@ namespace ExoplanetGame.Menus
 
         public static void ShowCurrentPosition(RobotBase robot)
         {
-            Console.WriteLine($"Robot is at {robot.GetPosition()}");
+            Console.WriteLine($"Robot is at {robot.GetPosition().Position}");
         }
 
         private static void PrintCurrentPlanetWeather()

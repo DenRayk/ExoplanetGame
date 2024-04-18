@@ -8,7 +8,6 @@ namespace ExoplanetGame.Exoplanet
     {
         internal Weather Weather { get; set; }
         public Topography Topography { get; set; }
-
         protected RobotManager robotManager;
         public PlanetVariant PlanetVariant { get; }
 
@@ -58,7 +57,7 @@ namespace ExoplanetGame.Exoplanet
             return robotManager.ScanController.ScoutScan(robot, Topography);
         }
 
-        public virtual Position GetRobotPosition(RobotBase robot)
+        public virtual PositionResult GetRobotPosition(RobotBase robot)
         {
             ChangeWeather();
             return robotManager.GetRobotPosition(robot);

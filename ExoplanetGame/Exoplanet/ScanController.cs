@@ -38,7 +38,8 @@ public class ScanController(RobotManager robotManager, RobotStatusManager robotS
             return scoutScanResult;
         }
 
-        Position currentRobotPosition = robotManager.GetRobotPosition(robot);
+        PositionResult positionResult = robotManager.GetRobotPosition(robot);
+        Position currentRobotPosition = positionResult.Position;
 
         Measure currentMeasure = topography.GetMeasureAtPosition(currentRobotPosition);
         scoutScanResult.Measures.Add(currentMeasure, currentRobotPosition);

@@ -10,7 +10,6 @@ namespace ExoplanetGame.Robot
         protected ExoplanetBase exoPlanet;
         protected ControlCenter.ControlCenter controlCenter;
         public RobotInformation RobotInformation { get; set; }
-
         public RobotVariant RobotVariant { get; }
 
         protected RobotBase(ExoplanetBase exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID,
@@ -79,6 +78,7 @@ namespace ExoplanetGame.Robot
             if (DoesOtherRobotBlocksMove())
             {
                 Console.WriteLine("Robot cannot move because another robot is blocking the way");
+
                 return new PositionResult()
                 {
                     IsSuccess = false,
@@ -121,7 +121,7 @@ namespace ExoplanetGame.Robot
             return RobotInformation.Position != null;
         }
 
-        public virtual Position GetPosition()
+        public virtual PositionResult GetPosition()
         {
             return exoPlanet.GetRobotPosition(this);
         }
@@ -169,7 +169,11 @@ namespace ExoplanetGame.Robot
 
         protected bool Equals(RobotBase other)
         {
-            return exoPlanet.Equals(other.exoPlanet) && controlCenter.Equals(other.controlCenter) && RobotInformation.Equals(other.RobotInformation) && RobotInformation.MaxHeat == other.RobotInformation.MaxHeat && RobotVariant == other.RobotVariant;
+            return exoPlanet.Equals(other.exoPlanet) &&
+                   controlCenter.Equals(other.controlCenter) &&
+                   RobotInformation.Equals(other.RobotInformation) &&
+                   RobotInformation.MaxHeat == other.RobotInformation.MaxHeat &&
+                   RobotVariant == other.RobotVariant;
         }
 
         public override bool Equals(object? obj)

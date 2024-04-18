@@ -47,10 +47,14 @@ namespace ExoplanetGame.Exoplanet
             return robots.Count;
         }
 
-        public Position GetRobotPosition(RobotBase robot)
+        public PositionResult GetRobotPosition(RobotBase robot)
         {
+            PositionResult positionResult = new PositionResult();
             robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, exoplanet.Topography);
-            return robots[robot];
+
+            positionResult.Position = robots[robot];
+            positionResult.IsSuccess = true;
+            return positionResult;
         }
 
         public LoadResult LoadEnergy(RobotBase robot, int seconds)
