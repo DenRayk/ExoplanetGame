@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.RobotResults;
 using Timer = System.Timers.Timer;
 
 namespace ExoplanetGame.Exoplanet;
@@ -21,8 +22,10 @@ public class RobotEnergyTracker
         WarningAtLowEnery(robot);
     }
 
-    public void LoadEnergy(RobotBase robot, int seconds, Weather weather)
+    public LoadResult LoadEnergy(RobotBase robot, int seconds, Weather weather)
     {
+        LoadResult loadResult = new();
+
         if (!robotEnergy.ContainsKey(robot))
         {
             robotEnergy.Add(robot, robot.RobotInformation.MaxEnergy);
@@ -35,17 +38,25 @@ public class RobotEnergyTracker
             {
                 if (robotEnergy[robot] < robot.RobotInformation.MaxEnergy)
                 {
-                    Console.WriteLine($"Robot energy loaded to {robotEnergy[robot]}%");
                     robotEnergy[robot] += energyLoad;
+
+                    loadResult.IsSuccess = true;
+                    loadResult.HasRobotSurvived = true;
+                    loadResult.Message = $"Robot energy loaded to {robotEnergy[robot]}%";
+                    loadResult.EnergyLoad = robotEnergy[robot];
                 }
                 else
                 {
-                    Console.WriteLine($"Robot fully loaded to {robot.RobotInformation.MaxEnergy}%");
+                    loadResult.IsSuccess = true;
+                    loadResult.HasRobotSurvived = true;
+                    loadResult.Message = $"Robot fully loaded to {robot.RobotInformation.MaxEnergy}%";
+                    loadResult.EnergyLoad = robot.RobotInformation.MaxEnergy;
                     break;
                 }
                 Thread.Sleep(1000);
             }
         }
+        return loadResult;
     }
 
     public int GetRobotEnergy(RobotBase robot)

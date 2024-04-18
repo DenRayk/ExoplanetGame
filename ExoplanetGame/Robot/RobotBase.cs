@@ -128,7 +128,22 @@ namespace ExoplanetGame.Robot
 
         public virtual void LoadEnergy(int seconds)
         {
-            exoPlanet.LoadEnergy(this, seconds);
+            Console.WriteLine("Loading energy...");
+            LoadResult loadResult = exoPlanet.LoadEnergy(this, seconds);
+
+            if (loadResult.IsSuccess)
+            {
+                Console.WriteLine($"Robot loaded energy to {loadResult.EnergyLoad}%");
+            }
+            else
+            {
+                Console.WriteLine($"{loadResult.Message}");
+
+                if (!loadResult.HasRobotSurvived)
+                {
+                    controlCenter.RemoveRobot(this);
+                }
+            }
         }
 
         protected bool DoesOtherRobotBlocksMove()

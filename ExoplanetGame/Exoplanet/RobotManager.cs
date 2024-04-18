@@ -53,17 +53,23 @@ namespace ExoplanetGame.Exoplanet
             return robots[robot];
         }
 
-        public void LoadEnergy(RobotBase robot, int seconds)
+        public LoadResult LoadEnergy(RobotBase robot, int seconds)
         {
+            LoadResult loadResult = new LoadResult();
+
             if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.SOLARPANELS))
             {
-                robotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds, exoplanet.Weather);
+                loadResult = robotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds, exoplanet.Weather);
                 robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.SOLARPANELS);
             }
             else
             {
-                Console.WriteLine("The robot's solar panels are damaged and can't load energy.");
+                loadResult.IsSuccess = false;
+                loadResult.HasRobotSurvived = true;
+                loadResult.Message = "The robot's solar panels are damaged and can't load energy.";
             }
+
+            return loadResult;
         }
 
         public void RemoveRobot(RobotBase robot)
