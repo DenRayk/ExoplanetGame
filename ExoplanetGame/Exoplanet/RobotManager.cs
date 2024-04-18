@@ -71,20 +71,27 @@ namespace ExoplanetGame.Exoplanet
             robots.Remove(robot);
         }
 
-        public Direction RotateRobot(RobotBase robot, Rotation rotation)
+        public RotationResult RotateRobot(RobotBase robot, Rotation rotation)
         {
+            RotationResult rotationResult = new RotationResult();
             Position robotPosition = robots[robot];
 
             if (robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.RIGHTMOTOR) && rotation == Rotation.RIGHT)
             {
-                Console.WriteLine("The robot's right motor is damaged and can't rotate right.");
-                return robotPosition.Direction;
+                rotationResult.Direction = robotPosition.Direction;
+                rotationResult.IsSuccess = false;
+                rotationResult.HasRobotSurvived = true;
+                rotationResult.Message = "The robot's right motor is damaged and can't rotate right.";
+                return rotationResult;
             }
 
             if (robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.LEFTMOTOR) && rotation == Rotation.LEFT)
             {
-                Console.WriteLine("The robot's left motor is damaged and can't rotate left.");
-                return robotPosition.Direction;
+                rotationResult.Direction = robotPosition.Direction;
+                rotationResult.IsSuccess = false;
+                rotationResult.HasRobotSurvived = true;
+                rotationResult.Message = "The robot's left motor is damaged and can't rotate right.";
+                return rotationResult;
             }
 
             robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.ROTATE, exoplanet.Topography);
@@ -103,7 +110,11 @@ namespace ExoplanetGame.Exoplanet
                 robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.LEFTMOTOR);
             }
 
-            return robotPosition.Rotate(rotation);
+            rotationResult.IsSuccess = true;
+            rotationResult.HasRobotSurvived = true;
+            rotationResult.Direction = robotPosition.Rotate(rotation);
+
+            return rotationResult;
         }
 
         internal void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position newPosition)

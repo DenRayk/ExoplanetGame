@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExoplanetGame.Robot.RobotResults
 {
-    internal class RotationResult : RobotResultBase
+    public class RotationResult : RobotResultBase
     {
         public Direction Direction { get; set; }
     }

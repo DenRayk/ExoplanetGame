@@ -117,14 +117,20 @@ namespace ExoplanetGame.Exoplanet.Variants
             };
         }
 
-        public override Direction Rotate(RobotBase robot, Rotation rotation)
+        public override RotationResult Rotate(RobotBase robot, Rotation rotation)
         {
+            RotationResult rotationResult = new();
+
             FreezeRobotIfItHasntMovedForAWhile(robot);
 
             if (robotManager.robotStatusManager.RobotFreezeTracker.IsFrozen(robot))
             {
-                Console.WriteLine("Robot is frozen and cannot rotate anymore.");
-                return robot.RobotInformation.Position.Direction;
+                rotationResult.IsSuccess = false;
+                rotationResult.HasRobotSurvived = true;
+                rotationResult.Message = "Robot is frozen and cannot rotate anymore.";
+                rotationResult.Direction = robot.RobotInformation.Position.Direction;
+
+                return rotationResult;
             }
 
             return base.Rotate(robot, rotation);

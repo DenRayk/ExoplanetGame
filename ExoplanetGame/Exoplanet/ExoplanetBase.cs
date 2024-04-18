@@ -42,7 +42,7 @@ namespace ExoplanetGame.Exoplanet
             return robotManager.MoveController.MoveRobot(robot, Topography);
         }
 
-        public virtual Direction Rotate(RobotBase robot, Rotation rotation)
+        public virtual RotationResult Rotate(RobotBase robot, Rotation rotation)
         {
             ChangeWeather();
             return robotManager.RotateRobot(robot, rotation);

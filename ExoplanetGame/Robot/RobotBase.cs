@@ -106,12 +106,14 @@ namespace ExoplanetGame.Robot
             return positionResult;
         }
 
-        public virtual void Rotate(Rotation rotation)
+        public virtual RotationResult Rotate(Rotation rotation)
         {
-            RobotInformation.Position.Direction = exoPlanet.Rotate(this, rotation);
+            RotationResult rotationResult = exoPlanet.Rotate(this, rotation);
             controlCenter.UpdateRobotPosition(this, RobotInformation.Position);
 
-            Console.WriteLine($"Robot rotated to {RobotInformation.Position}");
+            Console.WriteLine($"Robot rotated to {rotationResult.Direction}");
+
+            return rotationResult;
         }
 
         public virtual bool HasLanded()
