@@ -131,7 +131,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 return;
             }
 
-            if (DateTime.Now - robotManager.robotStatusManager.RobotFreezeTracker.GetLastMove(robot) > TimeSpan.FromSeconds(10))
+            if (DateTime.Now - robotManager.robotStatusManager.RobotFreezeTracker.GetLastMove(robot) > TimeSpan.FromSeconds(60))
             {
                 RobotFreeze(robot);
             }

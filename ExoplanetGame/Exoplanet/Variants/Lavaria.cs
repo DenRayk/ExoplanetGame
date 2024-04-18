@@ -115,7 +115,7 @@ namespace ExoplanetGame.Exoplanet.Variants
         {
             int randomEruption = random.Next(1, 101);
 
-            if (randomEruption <= 95)
+            if (randomEruption <= 5)
             {
                 Console.WriteLine("Volcanic eruption has occurred.");
                 DestroyRandomRobot();

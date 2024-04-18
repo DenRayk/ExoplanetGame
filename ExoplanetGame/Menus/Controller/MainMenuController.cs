@@ -13,7 +13,7 @@ namespace ExoplanetGame.Menus.Controller
             while (true)
             {
                 MainMenu.DisplayMainMenuOptions();
-                var mainMenuChoice = MainMenu.GetMainMenuSelection(1, 4);
+                var mainMenuChoice = MainMenu.GetMainMenuSelection(1, 5);
 
                 switch (mainMenuChoice)
                 {
