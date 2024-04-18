@@ -76,6 +76,18 @@ namespace ExoplanetGame.Exoplanet.Variants
             robotManager = new RobotManager(this);
         }
 
+        public override Position Move(RobotBase robot)
+        {
+            VolcanicEruption();
+
+            if (!robotManager.robots.ContainsKey(robot))
+            {
+                return null;
+            }
+
+            return base.Move(robot);
+        }
+
         public override void ChangeWeather()
         {
             int weatherChange = random.Next(1, 101);
@@ -97,6 +109,36 @@ namespace ExoplanetGame.Exoplanet.Variants
                 int cloudyOrWindy = random.Next(1, 3);
                 Weather = (cloudyOrWindy == 1) ? Weather.CLOUDY : Weather.WINDY;
             }
+        }
+
+        public bool VolcanicEruption()
+        {
+            int randomEruption = random.Next(1, 101);
+
+            if (randomEruption <= 95)
+            {
+                Console.WriteLine("Volcanic eruption has occurred.");
+                DestroyRandomRobot();
+                return true;
+            }
+            return false;
+        }
+
+        private void DestroyRandomRobot()
+        {
+            Dictionary<RobotBase, Position> robots = robotManager.robots;
+
+            if (robots.Count == 0)
+            {
+                return;
+            }
+
+            int randomRobotIndex = random.Next(0, robots.Count);
+            RobotBase robotToDestroy = robots.Keys.ElementAt(randomRobotIndex);
+
+            Console.WriteLine($"Robot {robotToDestroy.RobotInformation.RobotID} is hit by the volcanic eruption and is destroyed.");
+
+            RemoveRobot(robotToDestroy);
         }
     }
 }
