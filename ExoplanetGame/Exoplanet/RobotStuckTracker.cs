@@ -27,7 +27,6 @@ namespace ExoplanetGame.Exoplanet
 
         public void UnstuckRobot(RobotBase robot)
         {
-            Console.WriteLine("Robot is unstuck");
             robotStuck[robot] = false;
         }
     }
