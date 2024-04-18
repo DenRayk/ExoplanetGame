@@ -1,5 +1,4 @@
-﻿using ExoplanetGame.Exoplanet;
-using System.Text;
+﻿using System.Text;
 
 namespace ExoplanetGame.Robot;
 

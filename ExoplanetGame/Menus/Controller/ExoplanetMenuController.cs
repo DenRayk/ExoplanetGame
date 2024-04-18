@@ -1,11 +1,6 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Exoplanet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExoplanetGame.Menus.Controller
 {

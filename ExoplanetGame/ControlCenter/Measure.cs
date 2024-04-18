@@ -1,5 +1,4 @@
 ﻿using ExoplanetGame.Exoplanet;
-using System;
 using System.Text;
 
 namespace ExoplanetGame.ControlCenter

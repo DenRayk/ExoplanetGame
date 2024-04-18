@@ -1,6 +1,5 @@
 ﻿using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.RobotResults;
-using Timer = System.Timers.Timer;
 
 namespace ExoplanetGame.Exoplanet;
 

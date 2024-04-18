@@ -1,8 +1,4 @@
-﻿using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Variants;
-
-namespace ExoplanetGame.Exoplanet.Variants
+﻿namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Gaia : ExoplanetBase
     {
@@ -92,6 +88,5 @@ namespace ExoplanetGame.Exoplanet.Variants
                 Weather = Weather.FOGGY;
             }
         }
-
     }
 }

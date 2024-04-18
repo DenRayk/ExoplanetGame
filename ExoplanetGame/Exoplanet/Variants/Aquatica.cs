@@ -1,8 +1,4 @@
-﻿using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Variants;
-
-namespace ExoplanetGame.Exoplanet.Variants
+﻿namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Aquatica : ExoplanetBase
     {
@@ -76,7 +72,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             Weather = Weather.RAINY;
 
             int randomVariant = random.Next(0, aquaticaVariants.Count);
-            
+
             Topography = new Topography(aquaticaVariants[randomVariant]);
 
             robotManager = new RobotManager(this);

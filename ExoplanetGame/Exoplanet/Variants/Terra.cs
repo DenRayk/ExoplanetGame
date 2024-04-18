@@ -1,8 +1,4 @@
-﻿using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Variants;
-
-namespace ExoplanetGame.Exoplanet.Variants
+﻿namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Terra : ExoplanetBase
     {
@@ -74,7 +70,7 @@ namespace ExoplanetGame.Exoplanet.Variants
         public Terra() : base(PlanetVariant.TERRA)
         {
             Weather = Weather.WINDY;
-            
+
             int randomVariant = random.Next(0, terraVariants.Count);
             Topography = new Topography(terraVariants[randomVariant]);
 

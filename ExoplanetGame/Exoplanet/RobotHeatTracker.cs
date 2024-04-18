@@ -1,5 +1,4 @@
 ﻿using ExoplanetGame.Robot;
-using System.Threading;
 
 namespace ExoplanetGame.Exoplanet
 {

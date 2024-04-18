@@ -1,5 +1,4 @@
 ﻿using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Menus

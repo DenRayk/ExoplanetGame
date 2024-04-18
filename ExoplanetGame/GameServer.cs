@@ -1,7 +1,5 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
-using ExoplanetGame.Exoplanet.Variants;
-using ExoplanetGame.Menus;
 using ExoplanetGame.Menus.Controller;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Variants;

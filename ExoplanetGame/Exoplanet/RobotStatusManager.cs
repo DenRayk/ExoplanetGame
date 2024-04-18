@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExoplanetGame.Exoplanet
+﻿namespace ExoplanetGame.Exoplanet
 {
     public class RobotStatusManager
     {

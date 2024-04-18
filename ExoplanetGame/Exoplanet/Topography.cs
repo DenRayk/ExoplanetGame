@@ -1,6 +1,5 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Robot;
-using System;
 
 namespace ExoplanetGame.Exoplanet
 {
