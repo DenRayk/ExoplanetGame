@@ -52,7 +52,6 @@ namespace ExoplanetGame.Menus
         public static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
         {
             robot.Crash();
-            controlCenter.RemoveRobot(robot);
             keepMenuRunning = false;
         }
 
@@ -85,7 +84,7 @@ namespace ExoplanetGame.Menus
         public static void LoadRobot(RobotBase robot)
         {
             Console.WriteLine("Enter the number of seconds to load energy:");
-            int seconds = GetRobotMenuSelection(1, 30);
+            int seconds = GetRobotMenuSelection(1, 9);
             robot.LoadEnergy(seconds);
         }
 

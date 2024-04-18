@@ -10,16 +10,18 @@ public class MoveController(RobotManager robotManager, RobotStatusManager robotS
         PositionResult moveResult = new();
         Position robotPosition = robotManager.robots[robot];
 
-        if (!CanRobotMove(robot, ref moveResult)) return moveResult;
+        if (!CanRobotMove(robot, ref moveResult)) 
+            return moveResult;
 
         Position newPosition = robotManager.GetNewRobotPosition(robotPosition);
         newPosition = robotManager.WaterDrift(robot, newPosition, topography);
 
+        if (!robotManager.IsPositionSafeForRobot(robot, newPosition, topography, ref moveResult))
+            return moveResult;
+
         robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.MOVE, topography);
         robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.MOVEMENTSENSOR);
         robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.MOVE);
-
-        if (!robotManager.IsPositionSafeForRobot(robot, newPosition, topography, ref moveResult)) return moveResult;
 
         robotManager.UpdateRobotPosition(robot, newPosition);
         robotManager.CheckIfRobotGetsStuck(robot, topography, newPosition);

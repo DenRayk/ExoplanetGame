@@ -28,9 +28,9 @@ namespace ExoplanetGame.Robot
 
         public virtual void Crash()
         {
+            Console.WriteLine("Robot crashed");
             exoPlanet.RemoveRobot(this);
             controlCenter.RemoveRobot(this);
-            Console.WriteLine("Robot crashed");
         }
 
         public virtual PositionResult Land(Position landPosition)
@@ -39,12 +39,8 @@ namespace ExoplanetGame.Robot
 
             if (landResult.IsSuccess)
             {
-                RobotInformation.HasLanded = true;
-            }
-
-            if (RobotInformation.HasLanded)
-            {
                 Console.WriteLine($"Robot landed on {landResult.Position}");
+                RobotInformation.HasLanded = true;
                 RobotInformation.Position = landResult.Position;
                 controlCenter.UpdateRobotPosition(this, landResult.Position);
             }
@@ -68,6 +64,10 @@ namespace ExoplanetGame.Robot
             if (scanResult.IsSuccess)
             {
                 Console.WriteLine($"Scanned {scanResult.Measure}");
+            } 
+            else
+            {
+                Console.WriteLine($"{scanResult.Message}");
             }
 
             return scanResult;
@@ -75,18 +75,6 @@ namespace ExoplanetGame.Robot
 
         public virtual PositionResult Move()
         {
-            if (DoesOtherRobotBlocksMove())
-            {
-                Console.WriteLine("Robot cannot move because another robot is blocking the way");
-
-                return new PositionResult()
-                {
-                    IsSuccess = false,
-                    Message = "Robot cannot move because another robot is blocking the way",
-                    Position = RobotInformation.Position
-                };
-            }
-
             PositionResult positionResult = exoPlanet.Move(this);
             if (positionResult.IsSuccess)
             {
@@ -96,11 +84,12 @@ namespace ExoplanetGame.Robot
             }
             else
             {
-                Console.WriteLine($"{positionResult.Message}");
                 if (!positionResult.HasRobotSurvived)
                 {
-                    controlCenter.RemoveRobot(this);
+                    Crash();
                 }
+
+                Console.WriteLine($"{positionResult.Message}");
             }
 
             return positionResult;
@@ -111,7 +100,16 @@ namespace ExoplanetGame.Robot
             RotationResult rotationResult = exoPlanet.Rotate(this, rotation);
             controlCenter.UpdateRobotPosition(this, RobotInformation.Position);
 
-            Console.WriteLine($"Robot rotated to {rotationResult.Direction}");
+            if (rotationResult.IsSuccess)
+            {
+                Console.WriteLine($"Robot rotated to {rotationResult.Direction}");
+            }
+            else
+            {
+                Console.WriteLine($"{rotationResult.Message}");
+            }
+
+            
 
             return rotationResult;
         }
@@ -137,26 +135,13 @@ namespace ExoplanetGame.Robot
             }
             else
             {
-                Console.WriteLine($"{loadResult.Message}");
-
                 if (!loadResult.HasRobotSurvived)
                 {
-                    controlCenter.RemoveRobot(this);
+                    Crash();
                 }
-            }
-        }
 
-        protected bool DoesOtherRobotBlocksMove()
-        {
-            foreach (var otherRobot in RobotInformation.OtherRobotPositions.Keys)
-            {
-                if (RobotInformation.OtherRobotPositions[otherRobot].Equals(RobotInformation.Position.GetAdjacentPosition()))
-                {
-                    return true;
-                }
+                Console.WriteLine($"{loadResult.Message}");
             }
-
-            return false;
         }
 
         private void HandleOtherRobotPositionUpdated(object? sender, RobotPositionEventArgs e)

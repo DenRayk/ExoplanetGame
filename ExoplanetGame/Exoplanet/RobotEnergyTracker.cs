@@ -37,6 +37,7 @@ public class RobotEnergyTracker
             {
                 if (robotEnergy[robot] < robot.RobotInformation.MaxEnergy)
                 {
+                    Console.WriteLine($"Loading energy {robotEnergy[robot]}%...");
                     robotEnergy[robot] += energyLoad;
 
                     loadResult.IsSuccess = true;

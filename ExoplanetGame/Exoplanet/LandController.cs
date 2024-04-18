@@ -25,8 +25,6 @@ public class LandController(RobotManager robotManager, RobotStatusManager robotS
             return landResult;
         }
 
-        robotManager.RemoveRobot(robot);
-
         landResult.Message += "Robot cannot land.";
 
         return landResult;

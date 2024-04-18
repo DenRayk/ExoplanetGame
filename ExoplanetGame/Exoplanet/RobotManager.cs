@@ -100,7 +100,7 @@ namespace ExoplanetGame.Exoplanet
                 rotationResult.Direction = robotPosition.Direction;
                 rotationResult.IsSuccess = false;
                 rotationResult.HasRobotSurvived = true;
-                rotationResult.Message = "The robot's left motor is damaged and can't rotate right.";
+                rotationResult.Message = "The robot's left motor is damaged and can't rotate left.";
                 return rotationResult;
             }
 
