@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Exoplanet.Variants
 {
@@ -98,7 +99,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             }
         }
 
-        public override Position Move(RobotBase robot)
+        public override PositionResult Move(RobotBase robot)
         {
             FreezeRobotIfItHasntMovedForAWhile(robot);
 
@@ -107,8 +108,13 @@ namespace ExoplanetGame.Exoplanet.Variants
                 return base.Move(robot);
             }
 
-            Console.WriteLine("Robot is frozen and cannot move anymore.");
-            return robot.RobotInformation.Position;
+            return new PositionResult()
+            {
+                HasRobotSurvived = true,
+                IsSuccess = false,
+                Message = "Robot is frozen and cannot move anymore.",
+                Position = robot.RobotInformation.Position
+            };
         }
 
         public override Direction Rotate(RobotBase robot, Rotation rotation)

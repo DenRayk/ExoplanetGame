@@ -1,32 +1,12 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.RobotResults;
 using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Menus
 {
     public class RobotMenu
     {
-        public static void DisplayRobotMenuOptions(bool hasLanded)
-        {
-            Console.WriteLine(hasLanded ? "Planet research options (press F1 for help):" : "Pre-Landing Options (press F1 for help):");
-
-            if (hasLanded)
-            {
-                Console.WriteLine("1. Position");
-                Console.WriteLine("2. Scan");
-                Console.WriteLine("3. Move");
-                Console.WriteLine("4. Rotate");
-                Console.WriteLine("5. Load");
-                Console.WriteLine("6. Crash");
-                Console.WriteLine("7. Back");
-            }
-            else
-            {
-                Console.WriteLine("1. Land");
-                Console.WriteLine("2. Back");
-            }
-        }
-
         public static void DisplayRobotMenuInformation(bool hasLanded)
         {
             if (hasLanded)
@@ -48,14 +28,75 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("Press ESC to go back");
         }
 
+        public static void DisplayRobotMenuOptions(bool hasLanded)
+        {
+            Console.WriteLine(hasLanded ? "Planet research options (press F1 for help):" : "Pre-Landing Options (press F1 for help):");
+
+            if (hasLanded)
+            {
+                Console.WriteLine("1. Position");
+                Console.WriteLine("2. Scan");
+                Console.WriteLine("3. Move");
+                Console.WriteLine("4. Rotate");
+                Console.WriteLine("5. Load");
+                Console.WriteLine("6. Crash");
+                Console.WriteLine("7. Back");
+            }
+            else
+            {
+                Console.WriteLine("1. Land");
+                Console.WriteLine("2. Back");
+            }
+        }
+
+        public static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
+        {
+            robot.Crash();
+            controlCenter.RemoveRobot(robot);
+            keepMenuRunning = false;
+        }
+
         public static int GetRobotMenuSelection(int minValue, int maxValue)
         {
             return MenuSelection.GetMenuSelection(minValue, maxValue, true);
         }
 
-        public static void ShowCurrentPosition(RobotBase robot)
+        public static void HandleLandOption(RobotBase robot, ref bool hasLanded)
         {
-            Console.WriteLine($"Robot is at {robot.GetPosition()}");
+            if (hasLanded)
+            {
+                Console.WriteLine("The robot has already landed.");
+            }
+            else
+            {
+                PositionResult landResult = robot.Land(SelectLandPosition());
+
+                hasLanded = landResult.IsSuccess;
+            }
+        }
+
+        public static void LoadCurrentExploredMap(ControlCenter.ControlCenter controlCenter)
+        {
+            PrintCurrentPlanetWeather();
+            Console.Write($"Discovered area of the planet {PlanetManager.TargetPlanet.PlanetVariant}: ");
+            controlCenter.PrintMap();
+        }
+
+        public static void LoadRobot(RobotBase robot)
+        {
+            Console.WriteLine("Enter the number of seconds to load energy:");
+            int seconds = GetRobotMenuSelection(1, 30);
+            robot.LoadEnergy(seconds);
+        }
+
+        public static bool MoveRobot(RobotBase robot)
+        {
+            return robot.Move().HasRobotSurvived;
+        }
+
+        public static void RotateRobot(RobotBase robot)
+        {
+            robot.Rotate(SelectRotation());
         }
 
         public static void ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)
@@ -80,60 +121,6 @@ namespace ExoplanetGame.Menus
             }
         }
 
-        public static bool MoveRobot(RobotBase robot)
-        {
-            if (robot.Move() == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public static void RotateRobot(RobotBase robot)
-        {
-            robot.Rotate(SelectRotation());
-        }
-
-        public static void LoadRobot(RobotBase robot)
-        {
-            Console.WriteLine("Enter the number of seconds to load energy:");
-            int seconds = GetRobotMenuSelection(1, 30);
-            robot.LoadEnergy(seconds);
-        }
-
-        public static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
-        {
-            robot.Crash();
-            controlCenter.RemoveRobot(robot);
-            keepMenuRunning = false;
-        }
-
-        public static void HandleLandOption(RobotBase robot, ref bool hasLanded)
-        {
-            if (hasLanded)
-            {
-                Console.WriteLine("The robot has already landed.");
-            }
-            else
-            {
-                Position lanndPosition = robot.Land(SelectLandPosition());
-
-                hasLanded = lanndPosition != null;
-            }
-        }
-
-        public static void LoadCurrentExploredMap(ControlCenter.ControlCenter controlCenter)
-        {
-            PrintCurrentPlanetWeather();
-            Console.Write($"Discovered area of the planet {PlanetManager.TargetPlanet.PlanetVariant}: ");
-            controlCenter.PrintMap();
-        }
-
-        private static void PrintCurrentPlanetWeather()
-        {
-            Console.WriteLine($"Current weather on {PlanetManager.TargetPlanet.PlanetVariant}: {PlanetManager.TargetPlanet.Weather}");
-        }
-
         public static Position SelectLandPosition()
         {
             Console.WriteLine("Enter the X coordinate:");
@@ -154,6 +141,16 @@ namespace ExoplanetGame.Menus
             int rotation = GetRobotMenuSelection(1, 2);
 
             return rotation == 1 ? Rotation.LEFT : Rotation.RIGHT;
+        }
+
+        public static void ShowCurrentPosition(RobotBase robot)
+        {
+            Console.WriteLine($"Robot is at {robot.GetPosition()}");
+        }
+
+        private static void PrintCurrentPlanetWeather()
+        {
+            Console.WriteLine($"Current weather on {PlanetManager.TargetPlanet.PlanetVariant}: {PlanetManager.TargetPlanet.Weather}");
         }
     }
 }

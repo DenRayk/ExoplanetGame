@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.RobotResults;
 using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet.Variants
@@ -76,13 +77,19 @@ namespace ExoplanetGame.Exoplanet.Variants
             robotManager = new RobotManager(this);
         }
 
-        public override Position Move(RobotBase robot)
+        public override PositionResult Move(RobotBase robot)
         {
-            VolcanicEruption();
-
-            if (!robotManager.robots.ContainsKey(robot))
+            if (VolcanicEruption())
             {
-                return null;
+                if (!robotManager.robots.ContainsKey(robot))
+                {
+                    return new PositionResult()
+                    {
+                        IsSuccess = false,
+                        HasRobotSurvived = false,
+                        Message = "Robot is destroyed by volcanic eruption."
+                    };
+                }
             }
 
             return base.Move(robot);
@@ -135,8 +142,6 @@ namespace ExoplanetGame.Exoplanet.Variants
 
             int randomRobotIndex = random.Next(0, robots.Count);
             RobotBase robotToDestroy = robots.Keys.ElementAt(randomRobotIndex);
-
-            Console.WriteLine($"Robot {robotToDestroy.RobotInformation.RobotID} is hit by the volcanic eruption and is destroyed.");
 
             RemoveRobot(robotToDestroy);
         }

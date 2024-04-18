@@ -1,6 +1,7 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.RobotResults;
 using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet
@@ -30,12 +31,12 @@ namespace ExoplanetGame.Exoplanet
             robotManager.RemoveRobot(Robot);
         }
 
-        public virtual Position Land(RobotBase robot, Position landPosition)
+        public virtual PositionResult Land(RobotBase robot, Position landPosition)
         {
             return robotManager.LandController.LandRobot(robot, landPosition, Topography);
         }
 
-        public virtual Position Move(RobotBase robot)
+        public virtual PositionResult Move(RobotBase robot)
         {
             ChangeWeather();
             return robotManager.MoveController.MoveRobot(robot, Topography);

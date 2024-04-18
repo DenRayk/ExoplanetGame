@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.RobotResults;
 using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet
@@ -124,25 +125,31 @@ namespace ExoplanetGame.Exoplanet
             return currentRobotPosition.GetAdjacentPosition();
         }
 
-        internal bool IsPositionSafeForRobot(RobotBase robot, Position newPosition, Topography topography)
+        internal bool IsPositionSafeForRobot(RobotBase robot, Position newPosition, Topography topography, ref PositionResult positionResult)
         {
             if (newPosition == null) return false;
 
             if (!IsPositionInBounds(newPosition, topography))
             {
-                Console.WriteLine("The position is out of bounds.");
+                positionResult.Message = "The position is out of bounds.";
+                positionResult.IsSuccess = false;
+                positionResult.HasRobotSurvived = false;
                 return false;
             }
 
             if (IsPositionLava(newPosition, topography) && robot.RobotVariant != RobotVariant.LAVA)
             {
-                Console.WriteLine("The floor is lava.");
+                positionResult.Message = "The position is lava.";
+                positionResult.IsSuccess = false;
+                positionResult.HasRobotSurvived = false;
                 return false;
             }
 
             if (IsAnotherRobotAlreadyAtThisPosition(robot, newPosition))
             {
-                Console.WriteLine("Another robot is already at this position.");
+                positionResult.Message = "Another robot is already at this position.";
+                positionResult.IsSuccess = false;
+                positionResult.HasRobotSurvived = false;
                 return false;
             }
 
