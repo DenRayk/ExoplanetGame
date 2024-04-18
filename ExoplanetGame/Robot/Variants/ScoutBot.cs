@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Robot.Variants
 {
@@ -11,16 +12,16 @@ namespace ExoplanetGame.Robot.Variants
             RobotInformation.MaxEnergy = 200;
         }
 
-        public Dictionary<Measure, Position> ScoutScan()
+        public ScoutScanResult ScoutScan()
         {
-            Dictionary<Measure, Position> measures = exoPlanet.ScoutScan(this);
+            ScoutScanResult scoutScanResult = exoPlanet.ScoutScan(this);
 
-            foreach (var measure in measures)
+            foreach (KeyValuePair<Measure, Position> measure in scoutScanResult.Measures)
             {
                 Console.WriteLine($"Scanned {measure.Key} at {measure.Value}");
             }
 
-            return measures;
+            return scoutScanResult;
         }
     }
 }

@@ -7,7 +7,7 @@ using ExoplanetGame.ControlCenter;
 
 namespace ExoplanetGame.Robot.RobotResults
 {
-    internal class ScanResult : RobotResultBase
+    public class ScanResult : RobotResultBase
     {
         public Measure Measure { get; set; }
     }

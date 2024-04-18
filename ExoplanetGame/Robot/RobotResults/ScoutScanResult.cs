@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ExoplanetGame.Robot.RobotResults
 {
-    internal class ScoutScanResult : RobotResultBase
+    public class ScoutScanResult : RobotResultBase
     {
-        public Measure Measures { get; set; }
+        public Dictionary<Measure, Position> Measures { get; set; } = new();
     }
 }

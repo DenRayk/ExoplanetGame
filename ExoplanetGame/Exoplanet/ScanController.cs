@@ -1,66 +1,75 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.RobotResults;
 using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Exoplanet;
 
 public class ScanController(RobotManager robotManager, RobotStatusManager robotStatusManager)
 {
-    public Measure Scan(RobotBase robot, Topography topography)
+    public ScanResult Scan(RobotBase robot, Topography topography)
     {
+        ScanResult scanResult = new ScanResult();
+
         if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.SCANSENSOR))
         {
             robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
             robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.SCANSENSOR);
             robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.SCAN);
-            return topography.GetMeasureAtPosition(robotManager.robots[robot]);
+
+            scanResult.Measure = topography.GetMeasureAtPosition(robotManager.robots[robot]);
+            scanResult.IsSuccess = true;
+            return scanResult;
         }
-        else
-        {
-            Console.WriteLine("The robot's scan sensor is damaged and can't scan.");
-            return null;
-        }
+
+        scanResult.Message = "The robot's scan sensor is damaged and can't scan. Please repair in Control Center.";
+        scanResult.IsSuccess = false;
+        return scanResult;
     }
 
-    public Dictionary<Measure, Position> ScoutScan(RobotBase robot, Topography topography)
+    public ScoutScanResult ScoutScan(RobotBase robot, Topography topography)
     {
-        if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.SCANSENSOR))
+        ScoutScanResult scoutScanResult = new ScoutScanResult();
+
+        if (robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.SCANSENSOR))
         {
-            Dictionary<Measure, Position> scoutScanResults = new Dictionary<Measure, Position>();
-            Position currentRobotPosition = robotManager.GetRobotPosition(robot);
+            scoutScanResult.Message = "The robot's scan sensor is damaged and can't scan. Please repair in Control Center.";
+            scoutScanResult.IsSuccess = false;
+            return scoutScanResult;
+        }
 
-            Measure currentMeasure = topography.GetMeasureAtPosition(currentRobotPosition);
-            scoutScanResults.Add(currentMeasure, currentRobotPosition);
+        Position currentRobotPosition = robotManager.GetRobotPosition(robot);
 
-            if (robot.RobotVariant == RobotVariant.SCOUT)
+        Measure currentMeasure = topography.GetMeasureAtPosition(currentRobotPosition);
+        scoutScanResult.Measures.Add(currentMeasure, currentRobotPosition);
+
+        if (robot.RobotVariant == RobotVariant.SCOUT)
+        {
+            Position firstForwardPosition = currentRobotPosition.GetAdjacentPosition();
+            Position secondForwardPosition = firstForwardPosition.GetAdjacentPosition();
+
+            bool isFirstPositionValid = RobotManager.IsPositionInBounds(firstForwardPosition, topography);
+            bool isSecondPositionValid = RobotManager.IsPositionInBounds(secondForwardPosition, topography);
+
+            if (isFirstPositionValid)
             {
-                Position firstForwardPosition = currentRobotPosition.GetAdjacentPosition();
-                Position secondForwardPosition = firstForwardPosition.GetAdjacentPosition();
-
-                bool isFirstPositionValid = RobotManager.IsPositionInBounds(firstForwardPosition, topography);
-                bool isSecondPositionValid = RobotManager.IsPositionInBounds(secondForwardPosition, topography);
-
-                if (isFirstPositionValid)
-                {
-                    Measure firstPositionMeasure = topography.GetMeasureAtPosition(firstForwardPosition);
-                    scoutScanResults.Add(firstPositionMeasure, firstForwardPosition);
-                }
-                if (isSecondPositionValid)
-                {
-                    Measure secondPositionMeasure = topography.GetMeasureAtPosition(secondForwardPosition);
-                    scoutScanResults.Add(secondPositionMeasure, secondForwardPosition);
-                }
+                Measure firstPositionMeasure = topography.GetMeasureAtPosition(firstForwardPosition);
+                scoutScanResult.Measures.Add(firstPositionMeasure, firstForwardPosition);
             }
 
-            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
-            robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.SCANSENSOR);
-            robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.SCAN);
-            return scoutScanResults;
+            if (isSecondPositionValid)
+            {
+                Measure secondPositionMeasure = topography.GetMeasureAtPosition(secondForwardPosition);
+                scoutScanResult.Measures.Add(secondPositionMeasure, secondForwardPosition);
+            }
         }
-        else
-        {
-            Console.WriteLine("The robot's scan sensor is damaged and can't scan.");
-            return null;
-        }
+
+        robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.SCAN, topography);
+        robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.SCANSENSOR);
+        robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.SCAN);
+
+        scoutScanResult.IsSuccess = true;
+
+        return scoutScanResult;
     }
 }

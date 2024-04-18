@@ -105,18 +105,18 @@ namespace ExoplanetGame.Menus
             {
                 if (robot is ScoutBot scoutBot)
                 {
-                    Dictionary<Measure, Position> measures = scoutBot.ScoutScan();
+                    ScoutScanResult scoutScanResult = scoutBot.ScoutScan();
 
-                    controlCenter.AddMeasures(measures);
+                    controlCenter.AddMeasures(scoutScanResult.Measures);
                 }
             }
             else
             {
-                Measure measure = robot.Scan();
+                ScanResult scanResult = robot.Scan();
 
-                if (measure != null)
+                if (scanResult.IsSuccess)
                 {
-                    controlCenter.AddMeasure(measure, robot.RobotInformation.Position);
+                    controlCenter.AddMeasure(scanResult.Measure, robot.RobotInformation.Position);
                 }
             }
         }

@@ -62,16 +62,16 @@ namespace ExoplanetGame.Robot
             return $"Robot {RobotInformation.RobotID} ({RobotVariant})";
         }
 
-        public virtual Measure Scan()
+        public virtual ScanResult Scan()
         {
-            Measure measure = exoPlanet.Scan(this);
+            ScanResult scanResult = exoPlanet.Scan(this);
 
-            if (measure != null)
+            if (scanResult.IsSuccess)
             {
-                Console.WriteLine($"Scanned {measure}");
+                Console.WriteLine($"Scanned {scanResult.Measure}");
             }
 
-            return measure;
+            return scanResult;
         }
 
         public virtual PositionResult Move()

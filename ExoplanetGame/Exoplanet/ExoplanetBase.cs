@@ -48,13 +48,13 @@ namespace ExoplanetGame.Exoplanet
             return robotManager.RotateRobot(robot, rotation);
         }
 
-        public virtual Measure Scan(RobotBase robot)
+        public virtual ScanResult Scan(RobotBase robot)
         {
             ChangeWeather();
             return robotManager.ScanController.Scan(robot, Topography);
         }
 
-        public virtual Dictionary<Measure, Position> ScoutScan(RobotBase robot)
+        public virtual ScoutScanResult ScoutScan(RobotBase robot)
         {
             ChangeWeather();
             return robotManager.ScanController.ScoutScan(robot, Topography);
