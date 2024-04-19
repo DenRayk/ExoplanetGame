@@ -42,13 +42,14 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("Select a part to repair:");
 
             int counter = 1;
-            foreach (string robotPart in Enum.GetNames(typeof(RobotPart)))
+            Array allRobotPart = Enum.GetValues(typeof(RobotPart));
+            foreach (RobotPart robotPart in allRobotPart)
             {
-                Console.WriteLine($"{counter}. {robotPart}");
+                Console.WriteLine($"{counter}. {robotPart.GetDescriptionFromEnum()}");
                 counter++;
             }
 
-            int partChoice = MenuSelection.GetMenuSelection(1, 4, true);
+            int partChoice = MenuSelection.GetMenuSelection(1, allRobotPart.Length, true);
 
             controlCenter.RepairRobotPart(robotChoice - 1, partChoice - 1);
         }

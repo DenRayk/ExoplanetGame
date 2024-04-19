@@ -79,7 +79,7 @@ namespace ExoplanetGame
             }
             else
             {
-                Console.WriteLine("Maximum number of robots reached.");
+                Console.WriteLine("The maximum number of available robots has been reached.");
             }
         }
 
