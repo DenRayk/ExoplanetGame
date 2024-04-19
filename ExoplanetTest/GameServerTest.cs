@@ -1,4 +1,5 @@
 using ExoplanetGame;
+using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot.Variants;
@@ -13,6 +14,7 @@ namespace GameServerTest
         {
             // Arrange
             GameServer server = GameServer.GetInstance(new Gaia());
+            ControlCenter controlCenter = ControlCenter.GetInstance(new Gaia());
 
             // Act
             server.AddRobot(RobotVariant.DEFAULT);
@@ -22,7 +24,7 @@ namespace GameServerTest
             server.AddRobot(RobotVariant.DEFAULT);
 
             // Assert
-            Assert.AreEqual(5, server.RobotCount);
+            Assert.AreEqual(5, controlCenter.GetRobotCount());
         }
 
         [TestMethod]
@@ -30,6 +32,7 @@ namespace GameServerTest
         {
             // Arrange
             GameServer server = GameServer.GetInstance(new Gaia());
+            ControlCenter controlCenter = ControlCenter.GetInstance(new Gaia());
 
             // Act
             server.AddRobot(RobotVariant.DEFAULT);
@@ -40,7 +43,7 @@ namespace GameServerTest
             server.AddRobot(RobotVariant.DEFAULT);
 
             // Assert
-            Assert.AreEqual(5, server.RobotCount);
+            Assert.AreEqual(5, controlCenter.GetRobotCount());
         }
 
         [TestCleanup]
