@@ -17,9 +17,20 @@ namespace ExoplanetGame.Robot.Variants
         {
             ScoutScanResult scoutScanResult = exoPlanet.ScoutScan(this);
 
-            foreach (KeyValuePair<Measure, Position> measure in scoutScanResult.Measures)
+            if (scoutScanResult.IsSuccess)
             {
-                Console.WriteLine($"Scanned {measure.Key} at {measure.Value}");
+                foreach (KeyValuePair<Measure, Position> measure in scoutScanResult.Measures)
+                {
+                    Console.WriteLine($"Scanned {measure.Key} at {measure.Value}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{scoutScanResult.Message}");
+                if (!scoutScanResult.HasRobotSurvived)
+                {
+                    Crash();
+                }
             }
 
             return scoutScanResult;
