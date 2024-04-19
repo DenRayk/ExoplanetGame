@@ -57,6 +57,7 @@ namespace ExoplanetGame.Exoplanet
 
             positionResult.Position = robots[robot];
             positionResult.IsSuccess = true;
+            positionResult.HasRobotSurvived = true;
             return positionResult;
         }
 

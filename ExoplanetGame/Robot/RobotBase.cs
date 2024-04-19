@@ -135,7 +135,7 @@ namespace ExoplanetGame.Robot
                 Crash();
             }
 
-            return exoPlanet.GetRobotPosition(this);
+            return positionResult;
         }
 
         public virtual LoadResult LoadEnergy(int seconds)

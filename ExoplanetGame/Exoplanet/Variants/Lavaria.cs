@@ -7,7 +7,7 @@ namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Lavaria : ExoplanetBase
     {
-        private static readonly int volcanicEruptionChance = 5;
+        private static readonly int volcanicEruptionChance = 99;
 
         private readonly List<string[]> lavariaVariants = new()
         {
@@ -185,7 +185,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 {
                     IsSuccess = false,
                     HasRobotSurvived = false,
-                    Message = $"Robot {robot.RobotInformation.RobotID} is destroyed by volcanic eruption."
+                    Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
                 };
                 return true;
             }
@@ -203,7 +203,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 {
                     IsSuccess = false,
                     HasRobotSurvived = false,
-                    Message = $"Robot {robot.RobotInformation.RobotID} is destroyed by volcanic eruption."
+                    Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
                 };
                 return true;
             }
@@ -221,7 +221,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 {
                     IsSuccess = false,
                     HasRobotSurvived = false,
-                    Message = $"Robot {robot.RobotInformation.RobotID} is destroyed by volcanic eruption."
+                    Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
                 };
                 return true;
             }
@@ -239,7 +239,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 {
                     IsSuccess = false,
                     HasRobotSurvived = false,
-                    Message = $"Robot {robot.RobotInformation.RobotID} is destroyed by volcanic eruption."
+                    Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
                 };
                 return true;
             }
@@ -257,7 +257,7 @@ namespace ExoplanetGame.Exoplanet.Variants
                 {
                     IsSuccess = false,
                     HasRobotSurvived = false,
-                    Message = $"Robot {robot.RobotInformation.RobotID} is destroyed by volcanic eruption."
+                    Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
                 };
                 return true;
             }
