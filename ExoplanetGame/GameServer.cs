@@ -15,7 +15,6 @@ namespace ExoplanetGame
         private ControlCenter.ControlCenter controlCenter;
 
         private IRobotFactory robotFactory;
-        public int RobotCount { get; set; }
 
         public GameServer(ExoplanetBase targetExoplanetBase)
         {
@@ -42,7 +41,7 @@ namespace ExoplanetGame
 
         public void AddRobot(RobotVariant robotVariant)
         {
-            if (RobotCount < maxRobots)
+            if (controlCenter.GetRobotCount() < maxRobots)
             {
                 RobotBase robotBase;
 
@@ -74,7 +73,6 @@ namespace ExoplanetGame
                 }
 
                 controlCenter.AddRobot(robotBase);
-                RobotCount++;
                 Console.WriteLine($"{robotBase.GetLanderName()} added successfully.");
             }
             else
@@ -91,7 +89,6 @@ namespace ExoplanetGame
         public void ClearRobots()
         {
             controlCenter.ClearRobots();
-            RobotCount = 0;
         }
     }
 }

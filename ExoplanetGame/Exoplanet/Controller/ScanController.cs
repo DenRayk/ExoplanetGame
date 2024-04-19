@@ -21,11 +21,13 @@ public class ScanController(RobotManager robotManager, RobotStatusManager robotS
 
             scanResult.Measure = topography.GetMeasureAtPosition(robotManager.robots[robot]);
             scanResult.IsSuccess = true;
+            scanResult.HasRobotSurvived = true;
             return scanResult;
         }
 
         scanResult.Message = "The robot's scan sensor is damaged and can't scan. Please repair in Control Center.";
         scanResult.IsSuccess = false;
+        scanResult.HasRobotSurvived = true;
         return scanResult;
     }
 
@@ -37,6 +39,7 @@ public class ScanController(RobotManager robotManager, RobotStatusManager robotS
         {
             scoutScanResult.Message = "The robot's scan sensor is damaged and can't scan. Please repair in Control Center.";
             scoutScanResult.IsSuccess = false;
+            scoutScanResult.HasRobotSurvived = true;
             return scoutScanResult;
         }
 
@@ -72,6 +75,7 @@ public class ScanController(RobotManager robotManager, RobotStatusManager robotS
         robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.SCAN);
 
         scoutScanResult.IsSuccess = true;
+        scoutScanResult.HasRobotSurvived = true;
 
         return scoutScanResult;
     }

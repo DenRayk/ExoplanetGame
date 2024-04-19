@@ -1,6 +1,4 @@
-﻿
-
-using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Menus.Controller
 {
@@ -26,7 +24,7 @@ namespace ExoplanetGame.Menus.Controller
                     case 1:
                         if (hasRobotLanded)
                         {
-                            RobotMenu.ShowCurrentPosition(robot);
+                            keepMenuRunning = RobotMenu.ShowCurrentPosition(robot);
                         }
                         else
                         {
@@ -37,7 +35,7 @@ namespace ExoplanetGame.Menus.Controller
                     case 2:
                         if (hasRobotLanded)
                         {
-                            RobotMenu.ScanEnvironment(robot, controlCenter);
+                            keepMenuRunning = RobotMenu.ScanEnvironment(robot, controlCenter);
                         }
                         else
                         {
@@ -55,21 +53,21 @@ namespace ExoplanetGame.Menus.Controller
                     case 4:
                         if (hasRobotLanded)
                         {
-                            RobotMenu.RotateRobot(robot);
+                            keepMenuRunning = RobotMenu.RotateRobot(robot);
                         }
                         break;
 
                     case 5:
                         if (hasRobotLanded)
                         {
-                            RobotMenu.LoadRobot(robot);
+                            keepMenuRunning = RobotMenu.LoadRobot(robot);
                         }
                         break;
 
                     case 6:
                         if (hasRobotLanded)
                         {
-                            RobotMenu.CrashRobot(robot, controlCenter, ref keepMenuRunning);
+                            keepMenuRunning = RobotMenu.CrashRobot(robot, controlCenter);
                         }
                         else
                         {

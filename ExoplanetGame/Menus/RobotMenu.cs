@@ -50,10 +50,10 @@ namespace ExoplanetGame.Menus
             }
         }
 
-        public static void CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenter, ref bool keepMenuRunning)
+        public static bool CrashRobot(RobotBase robot, ControlCenter.ControlCenter controlCenterg)
         {
             robot.Crash();
-            keepMenuRunning = false;
+            return false;
         }
 
         public static int GetRobotMenuSelection(int minValue, int maxValue)
@@ -82,24 +82,50 @@ namespace ExoplanetGame.Menus
             controlCenter.PrintMap();
         }
 
-        public static void LoadRobot(RobotBase robot)
+        public static bool LoadRobot(RobotBase robot)
         {
             Console.WriteLine("Enter the number of seconds to load energy:");
             int seconds = GetRobotMenuSelection(1, 9);
-            robot.LoadEnergy(seconds);
+
+            LoadResult loadResult = robot.LoadEnergy(seconds);
+
+            if (!loadResult.HasRobotSurvived)
+            {
+                return false;
+            }
+            return true;
         }
 
         public static bool MoveRobot(RobotBase robot)
         {
-            return robot.Move().HasRobotSurvived;
+            PositionResult positionResult = robot.Move();
+
+            if (!positionResult.IsSuccess)
+            {
+                Console.WriteLine($"{positionResult.Message}");
+            }
+
+            if (!positionResult.HasRobotSurvived)
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        public static void RotateRobot(RobotBase robot)
+        public static bool RotateRobot(RobotBase robot)
         {
-            robot.Rotate(SelectRotation());
+            RotationResult rotationResult = robot.Rotate(SelectRotation());
+
+            if (!rotationResult.HasRobotSurvived)
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        public static void ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)
+        public static bool ScanEnvironment(RobotBase robot, ControlCenter.ControlCenter controlCenter)
         {
             if (robot.RobotVariant == RobotVariant.SCOUT)
             {
@@ -107,7 +133,15 @@ namespace ExoplanetGame.Menus
                 {
                     ScoutScanResult scoutScanResult = scoutBot.ScoutScan();
 
-                    controlCenter.AddMeasures(scoutScanResult.Measures);
+                    if (scoutScanResult.IsSuccess)
+                    {
+                        controlCenter.AddMeasures(scoutScanResult.Measures);
+                    }
+
+                    if (!scoutScanResult.HasRobotSurvived)
+                    {
+                        return false;
+                    }
                 }
             }
             else
@@ -118,7 +152,13 @@ namespace ExoplanetGame.Menus
                 {
                     controlCenter.AddMeasure(scanResult.Measure, robot.RobotInformation.Position);
                 }
+
+                if (!scanResult.HasRobotSurvived)
+                {
+                    return false;
+                }
             }
+            return true;
         }
 
         public static Position SelectLandPosition()
@@ -143,9 +183,24 @@ namespace ExoplanetGame.Menus
             return rotation == 1 ? Rotation.LEFT : Rotation.RIGHT;
         }
 
-        public static void ShowCurrentPosition(RobotBase robot)
+        public static bool ShowCurrentPosition(RobotBase robot)
         {
-            Console.WriteLine($"Robot is at {robot.GetPosition().Position}");
+            PositionResult positionResult = robot.GetPosition();
+
+            if (positionResult.IsSuccess)
+            {
+                Console.WriteLine($"Robot is at {robot.GetPosition().Position}");
+            }
+            else
+            {
+                Console.WriteLine($"{positionResult.Message}");
+
+                if (!positionResult.HasRobotSurvived)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private static void PrintCurrentPlanetWeather()

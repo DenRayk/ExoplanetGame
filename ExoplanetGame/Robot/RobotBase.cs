@@ -65,10 +65,14 @@ namespace ExoplanetGame.Robot
             if (scanResult.IsSuccess)
             {
                 Console.WriteLine($"Scanned {scanResult.Measure}");
-            } 
+            }
             else
             {
                 Console.WriteLine($"{scanResult.Message}");
+                if (!scanResult.HasRobotSurvived)
+                {
+                    Crash();
+                }
             }
 
             return scanResult;
@@ -107,10 +111,12 @@ namespace ExoplanetGame.Robot
             }
             else
             {
+                if (!rotationResult.HasRobotSurvived)
+                {
+                    Crash();
+                }
                 Console.WriteLine($"{rotationResult.Message}");
             }
-
-            
 
             return rotationResult;
         }
@@ -122,10 +128,17 @@ namespace ExoplanetGame.Robot
 
         public virtual PositionResult GetPosition()
         {
+            PositionResult positionResult = exoPlanet.GetRobotPosition(this);
+
+            if (!positionResult.HasRobotSurvived)
+            {
+                Crash();
+            }
+
             return exoPlanet.GetRobotPosition(this);
         }
 
-        public virtual void LoadEnergy(int seconds)
+        public virtual LoadResult LoadEnergy(int seconds)
         {
             Console.WriteLine("Loading energy...");
             LoadResult loadResult = exoPlanet.LoadEnergy(this, seconds);
@@ -143,6 +156,7 @@ namespace ExoplanetGame.Robot
 
                 Console.WriteLine($"{loadResult.Message}");
             }
+            return loadResult;
         }
 
         private void HandleOtherRobotPositionUpdated(object? sender, RobotPositionEventArgs e)

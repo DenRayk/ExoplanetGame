@@ -7,7 +7,7 @@ namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Lavaria : ExoplanetBase
     {
-        private static readonly int volcanicEruptionChance = 99;
+        private static readonly int volcanicEruptionChance = 5;
 
         private readonly List<string[]> lavariaVariants = new()
         {
@@ -110,6 +110,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             {
                 return true;
             }
+
             return false;
         }
 
@@ -161,38 +162,32 @@ namespace ExoplanetGame.Exoplanet.Variants
             return base.ScoutScan(robot);
         }
 
-        private void DestroyRandomRobot()
+        private bool IsRobotDestroyedRandomly(RobotBase robot)
         {
-            Dictionary<RobotBase, Position> robots = robotManager.robots;
+            Random rand = new();
+            int randomRobot = rand.Next(0, 100);
 
-            if (robots.Count == 0)
+            if (randomRobot <= 50)
             {
-                return;
+                return true;
             }
 
-            int randomRobotIndex = random.Next(0, robots.Count);
-            RobotBase robotToDestroy = robots.Keys.ElementAt(randomRobotIndex);
-
-            RemoveRobot(robotToDestroy);
+            return false;
         }
 
         private bool HandleVolcaincEruption(RobotBase robot, out RotationResult rotationResult)
         {
             rotationResult = new();
-            if (VolcanicEruption())
+
+            if (VolcanicEruption(robot))
             {
-                if (IsCurrentRobotDestroyed(robot))
+                rotationResult = new RotationResult()
                 {
-                    {
-                        rotationResult = new RotationResult()
-                        {
-                            IsSuccess = false,
-                            HasRobotSurvived = false,
-                            Message = "Robot is destroyed by volcanic eruption."
-                        };
-                        return true;
-                    }
-                }
+                    IsSuccess = false,
+                    HasRobotSurvived = false,
+                    Message = $"Robot {robot.RobotInformation.RobotID} is destroyed by volcanic eruption."
+                };
+                return true;
             }
 
             return false;
@@ -201,20 +196,16 @@ namespace ExoplanetGame.Exoplanet.Variants
         private bool HandleVolcaincEruption(RobotBase robot, out ScanResult scanResult)
         {
             scanResult = new();
-            if (VolcanicEruption())
+
+            if (VolcanicEruption(robot))
             {
-                if (IsCurrentRobotDestroyed(robot))
+                scanResult = new ScanResult()
                 {
-                    {
-                        scanResult = new ScanResult()
-                        {
-                            IsSuccess = false,
-                            HasRobotSurvived = false,
-                            Message = "Robot is destroyed by volcanic eruption."
-                        };
-                        return true;
-                    }
-                }
+                    IsSuccess = false,
+                    HasRobotSurvived = false,
+                    Message = $"Robot {robot.RobotInformation.RobotID} is destroyed by volcanic eruption."
+                };
+                return true;
             }
 
             return false;
@@ -223,20 +214,16 @@ namespace ExoplanetGame.Exoplanet.Variants
         private bool HandleVolcanicEruption(RobotBase robot, out LoadResult loadResult)
         {
             loadResult = new();
-            if (VolcanicEruption())
+
+            if (VolcanicEruption(robot))
             {
-                if (IsCurrentRobotDestroyed(robot))
+                loadResult = new LoadResult()
                 {
-                    {
-                        loadResult = new LoadResult()
-                        {
-                            IsSuccess = false,
-                            HasRobotSurvived = false,
-                            Message = "Robot is destroyed by volcanic eruption."
-                        };
-                        return true;
-                    }
-                }
+                    IsSuccess = false,
+                    HasRobotSurvived = false,
+                    Message = $"Robot {robot.RobotInformation.RobotID} is destroyed by volcanic eruption."
+                };
+                return true;
             }
 
             return false;
@@ -245,20 +232,16 @@ namespace ExoplanetGame.Exoplanet.Variants
         private bool HandleVolcanicEruption(RobotBase robot, out ScoutScanResult scoutScanResult)
         {
             scoutScanResult = new();
-            if (VolcanicEruption())
+
+            if (VolcanicEruption(robot))
             {
-                if (IsCurrentRobotDestroyed(robot))
+                scoutScanResult = new ScoutScanResult()
                 {
-                    {
-                        scoutScanResult = new ScoutScanResult()
-                        {
-                            IsSuccess = false,
-                            HasRobotSurvived = false,
-                            Message = "Robot is destroyed by volcanic eruption."
-                        };
-                        return true;
-                    }
-                }
+                    IsSuccess = false,
+                    HasRobotSurvived = false,
+                    Message = $"Robot {robot.RobotInformation.RobotID} is destroyed by volcanic eruption."
+                };
+                return true;
             }
 
             return false;
@@ -267,39 +250,30 @@ namespace ExoplanetGame.Exoplanet.Variants
         private bool HandleVolcanicEruption(RobotBase robot, out PositionResult positionResult)
         {
             positionResult = new();
-            if (VolcanicEruption())
+
+            if (VolcanicEruption(robot))
             {
-                if (IsCurrentRobotDestroyed(robot))
+                positionResult = new PositionResult()
                 {
-                    {
-                        positionResult = new PositionResult()
-                        {
-                            IsSuccess = false,
-                            HasRobotSurvived = false,
-                            Message = "Robot is destroyed by volcanic eruption."
-                        };
-                        return true;
-                    }
-                }
+                    IsSuccess = false,
+                    HasRobotSurvived = false,
+                    Message = $"Robot {robot.RobotInformation.RobotID} is destroyed by volcanic eruption."
+                };
+                return true;
             }
 
             return false;
         }
 
-        private bool IsCurrentRobotDestroyed(RobotBase robot)
-        {
-            return !robotManager.robots.ContainsKey(robot);
-        }
-
-        private bool VolcanicEruption()
+        private bool VolcanicEruption(RobotBase robot)
         {
             if (DoesVolcanicEruptionHappen())
             {
-                DestroyRandomRobot();
-
-                return true;
+                if (IsRobotDestroyedRandomly(robot))
+                {
+                    return true;
+                }
             }
-
             return false;
         }
     }
