@@ -86,14 +86,25 @@ namespace ExoplanetGame.Exoplanet.Variants
         {
             int weatherChange = random.Next(1, 101);
 
-            if (weatherChange <= 50)
+            switch (weatherChange)
             {
-                Weather = Weather.SNOWY;
+                case <= 50:
+                    Weather = Weather.SNOWY;
+                    break;
+                case <= 75:
+                    Weather = Weather.WINDY;
+                    break;
+                default:
+                    Weather = Weather.SUNNY;
+                    break;
             }
-            else
-            {
-                Weather = Weather.WINDY;
-            }
+        }
+
+        public override PositionResult Land(RobotBase robot, Position landPosition)
+        {
+            FreezeRobotIfItHasntMovedForAWhile(robot);
+
+            return base.Land(robot, landPosition);
         }
 
         public override PositionResult Move(RobotBase robot)
@@ -133,22 +144,40 @@ namespace ExoplanetGame.Exoplanet.Variants
             return base.Rotate(robot, rotation);
         }
 
-        public void FreezeRobotIfItHasntMovedForAWhile(RobotBase robot)
+        private void FreezeRobotIfItHasntMovedForAWhile(RobotBase robot)
         {
-            if (robotManager.robotStatusManager.RobotFreezeTracker.IsFrozen(robot))
-            {
+            bool isRobotAlreadyFrozen = robotManager.robotStatusManager.RobotFreezeTracker.IsFrozen(robot);
+            if (isRobotAlreadyFrozen)
                 return;
-            }
+            
+            int resistanceTimeAgainstFreezing = GetFreezingTimeByWeatherConditions();
 
-            if (DateTime.Now - robotManager.robotStatusManager.RobotFreezeTracker.GetLastMove(robot) > TimeSpan.FromSeconds(60))
-            {
+            DateTime lastMoveTime = robotManager.robotStatusManager.RobotFreezeTracker.GetLastMove(robot);
+            TimeSpan timeSpanSinceLastMove = DateTime.Now - lastMoveTime;
+            bool isRobotFrozen = timeSpanSinceLastMove > TimeSpan.FromSeconds(resistanceTimeAgainstFreezing);
+
+            if (isRobotFrozen)
                 RobotFreeze(robot);
-            }
 
             robotManager.robotStatusManager.RobotFreezeTracker.UpdateLastMove(robot);
         }
 
-        public void RobotFreeze(RobotBase robot)
+        private int GetFreezingTimeByWeatherConditions()
+        {
+            switch (Weather)
+            {
+                case Weather.WINDY:
+                    return 15;
+                case Weather.SNOWY:
+                    return 20;
+                case Weather.SUNNY:
+                    return 30;
+                default:
+                    return 30;
+            }
+        }
+
+        private void RobotFreeze(RobotBase robot)
         {
             robotManager.robotStatusManager.RobotFreezeTracker.FreezeRobot(robot);
         }
