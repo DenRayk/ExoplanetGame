@@ -25,7 +25,7 @@ namespace ExoplanetGame.Menus.Controller
                         return PlanetManager.GetPlanet(PlanetVariant.TERRA);
 
                     case 4:
-                        return PlanetManager.GetPlanet(PlanetVariant.Frostfell);
+                        return PlanetManager.GetPlanet(PlanetVariant.FROSTFELL);
 
                     case 5:
                         return PlanetManager.GetPlanet(PlanetVariant.LAVARIA);

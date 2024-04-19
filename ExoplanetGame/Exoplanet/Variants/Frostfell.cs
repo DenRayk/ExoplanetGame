@@ -72,7 +72,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             }
         };
 
-        public Frostfell() : base(PlanetVariant.Frostfell)
+        public Frostfell() : base(PlanetVariant.FROSTFELL)
         {
             Weather = Weather.SNOWY;
 

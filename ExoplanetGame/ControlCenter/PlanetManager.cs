@@ -45,7 +45,7 @@ namespace ExoplanetGame.ControlCenter
                     TargetPlanet = exoplanets[4];
                     return TargetPlanet;
 
-                case PlanetVariant.Frostfell:
+                case PlanetVariant.FROSTFELL:
                     TargetPlanet = exoplanets[5];
                     return TargetPlanet;
 

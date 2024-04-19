@@ -186,7 +186,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             {
                 IsSuccess = false,
                 HasRobotSurvived = false,
-                Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
+                Message = $"{robot.GetLanderName()} was destroyed by a volcanic eruption."
             };
             return true;
 

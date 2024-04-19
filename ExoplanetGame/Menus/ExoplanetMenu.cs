@@ -23,7 +23,7 @@ namespace ExoplanetGame.Menus
             Console.WriteLine($"{PlanetVariant.GAIA.GetDescriptionFromEnum()}:\t Beginner level");
             Console.WriteLine($"{PlanetVariant.AQUATICA.GetDescriptionFromEnum()}:\t Casual level");
             Console.WriteLine($"{PlanetVariant.TERRA.GetDescriptionFromEnum()}:\t Intermediate level");
-            Console.WriteLine($"{PlanetVariant.Frostfell.GetDescriptionFromEnum()}:\t Advanced level");
+            Console.WriteLine($"{PlanetVariant.FROSTFELL.GetDescriptionFromEnum()}:\t Advanced level");
             Console.WriteLine($"{PlanetVariant.LAVARIA.GetDescriptionFromEnum()}:\t Expert level");
             Console.WriteLine($"{PlanetVariant.TROPICA.GetDescriptionFromEnum()}:\t Grandmaster level\n");
             Console.WriteLine("Press ESC to go back");
