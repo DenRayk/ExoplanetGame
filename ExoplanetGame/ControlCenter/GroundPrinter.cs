@@ -1,5 +1,4 @@
-﻿using ExoplanetGame.Exoplanet;
-using ExoplanetGame.Exoplanet.Environment;
+﻿using ExoplanetGame.Exoplanet.Environment;
 using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.ControlCenter

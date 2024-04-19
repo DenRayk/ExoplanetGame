@@ -88,15 +88,19 @@ namespace ExoplanetGame.Exoplanet.Variants
                 case <= 25:
                     Weather = Weather.SUNNY;
                     break;
+
                 case <= 50:
                     Weather = Weather.FOGGY;
                     break;
+
                 case <= 75:
                     Weather = Weather.ASH_IN_THE_AIR;
                     break;
+
                 case <= 85:
                     Weather = Weather.WINDY;
                     break;
+
                 default:
                     Weather = Weather.CLOUDY;
                     break;
@@ -179,7 +183,7 @@ namespace ExoplanetGame.Exoplanet.Variants
         {
             robotResult = new RobotResultBase();
 
-            if (!VolcanicEruption()) 
+            if (!VolcanicEruption())
                 return false;
 
             robotResult = new PositionResult()
@@ -189,22 +193,21 @@ namespace ExoplanetGame.Exoplanet.Variants
                 Message = $"{robot.GetLanderName()} was destroyed by a volcanic eruption."
             };
             return true;
-
         }
 
         private bool VolcanicEruption()
         {
-            if (!DoesVolcanicEruptionHappen()) 
+            if (!DoesVolcanicEruptionHappen())
                 return false;
 
             return true;
         }
-        
+
         public bool DoesVolcanicEruptionHappen()
         {
             int randomEruption = random.Next(1, 101);
             bool isVolcanicEruption = randomEruption <= volcanicEruptionChance;
-            
+
             return isVolcanicEruption;
         }
     }

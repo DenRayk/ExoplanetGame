@@ -1,7 +1,7 @@
 ﻿using ExoplanetGame.Exoplanet.Environment;
+using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.RobotResults;
-using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Exoplanet.Variants
 {
@@ -103,12 +103,15 @@ namespace ExoplanetGame.Exoplanet.Variants
                 case <= 70:
                     Weather = Weather.RAINY;
                     break;
+
                 case <= 80:
                     Weather = Weather.SUNNY;
                     break;
+
                 case <= 90:
                     Weather = Weather.CLOUDY;
                     break;
+
                 default:
                     Weather = Weather.FOGGY;
                     break;
@@ -214,12 +217,16 @@ namespace ExoplanetGame.Exoplanet.Variants
             {
                 case <= 20:
                     return "a sudden surge of untraceable energy";
+
                 case <= 40:
                     return "a trap set in the trees";
+
                 case <= 60:
                     return "a large animal";
+
                 case <= 80:
                     return "a mysterious jungle creature";
+
                 default:
                     return "a mysterious attack";
             }

@@ -91,9 +91,11 @@ namespace ExoplanetGame.Exoplanet.Variants
                 case <= 50:
                     Weather = Weather.SNOWY;
                     break;
+
                 case <= 75:
                     Weather = Weather.WINDY;
                     break;
+
                 default:
                     Weather = Weather.SUNNY;
                     break;
@@ -149,7 +151,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             bool isRobotAlreadyFrozen = robotManager.robotStatusManager.RobotFreezeTracker.IsFrozen(robot);
             if (isRobotAlreadyFrozen)
                 return;
-            
+
             int resistanceTimeAgainstFreezing = GetFreezingTimeByWeatherConditions();
 
             DateTime lastMoveTime = robotManager.robotStatusManager.RobotFreezeTracker.GetLastMove(robot);
@@ -168,10 +170,13 @@ namespace ExoplanetGame.Exoplanet.Variants
             {
                 case Weather.WINDY:
                     return 15;
+
                 case Weather.SNOWY:
                     return 20;
+
                 case Weather.SUNNY:
                     return 30;
+
                 default:
                     return 30;
             }

@@ -2,7 +2,7 @@
 {
     public class MainMenuController
     {
-        public static void RunMainMenu(GameServer gameServer,ControlCenter.ControlCenter controlCenter)
+        public static void RunMainMenu(GameServer gameServer, ControlCenter.ControlCenter controlCenter)
         {
             while (true)
             {

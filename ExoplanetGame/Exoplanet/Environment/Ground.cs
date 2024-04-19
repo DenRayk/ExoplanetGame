@@ -4,7 +4,6 @@ namespace ExoplanetGame.Exoplanet.Environment;
 
 public enum Ground
 {
-
     [Description("Unknown ground")]
     NOTHING,
 
@@ -34,6 +33,4 @@ public enum Ground
 
     [Description("Ice")]
     ICE,
-
-
 }

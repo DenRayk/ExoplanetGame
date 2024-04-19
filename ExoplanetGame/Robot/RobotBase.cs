@@ -95,7 +95,6 @@ namespace ExoplanetGame.Robot
                 {
                     Crash();
                 }
-
             }
 
             return positionResult;

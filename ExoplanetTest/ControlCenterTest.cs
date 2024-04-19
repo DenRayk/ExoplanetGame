@@ -1,6 +1,4 @@
-﻿using ExoplanetGame;
-using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Exoplanet;
+﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Factory;

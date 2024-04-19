@@ -88,15 +88,19 @@ namespace ExoplanetGame.Exoplanet.Variants
                 case <= 30:
                     Weather = Weather.SUNNY;
                     break;
+
                 case <= 50:
                     Weather = Weather.RAINY;
                     break;
+
                 case <= 70:
                     Weather = Weather.CLOUDY;
                     break;
+
                 case <= 90:
                     Weather = Weather.WINDY;
                     break;
+
                 default:
                     Weather = Weather.FOGGY;
                     break;
