@@ -7,7 +7,7 @@ namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Lavaria : ExoplanetBase
     {
-        private static readonly int volcanicEruptionChance = 99;
+        private static readonly int volcanicEruptionChance = 5;
 
         private readonly List<string[]> lavariaVariants = new()
         {
@@ -116,53 +116,77 @@ namespace ExoplanetGame.Exoplanet.Variants
 
         public override PositionResult GetRobotPosition(RobotBase robot)
         {
-            if (HandleVolcanicEruption(robot, out PositionResult positionResult))
+            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
+            {
+                PositionResult positionResult = new PositionResult(robotResult);
+
                 return positionResult;
+            }
 
             return base.GetRobotPosition(robot);
         }
 
         public override LoadResult LoadEnergy(RobotBase robot, int seconds)
         {
-            if (HandleVolcanicEruption(robot, out LoadResult loadResult))
+            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
+            {
+                LoadResult loadResult = new LoadResult(robotResult);
+
                 return loadResult;
+            }
 
             return base.LoadEnergy(robot, seconds);
         }
 
         public override PositionResult Move(RobotBase robot)
         {
-            if (HandleVolcanicEruption(robot, out PositionResult positionResult))
+            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
+            {
+                PositionResult positionResult = new PositionResult(robotResult);
+
                 return positionResult;
+            }
 
             return base.Move(robot);
         }
 
         public override RotationResult Rotate(RobotBase robot, Rotation rotation)
         {
-            if (HandleVolcaincEruption(robot, out RotationResult rotationResult))
+            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
+            {
+                RotationResult rotationResult = new RotationResult(robotResult);
+
                 return rotationResult;
+            }
 
             return base.Rotate(robot, rotation);
         }
 
         public override ScanResult Scan(RobotBase robot)
         {
-            if (HandleVolcaincEruption(robot, out ScanResult scanResult))
+            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
+            {
+                ScanResult scanResult = new ScanResult(robotResult);
+
                 return scanResult;
+            }
 
             return base.Scan(robot);
         }
 
         public override ScoutScanResult ScoutScan(RobotBase robot)
         {
-            if (HandleVolcanicEruption(robot, out ScoutScanResult scoutScanResult))
+            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
+            {
+                ScoutScanResult scoutScanResult = new ScoutScanResult(robotResult);
+
                 return scoutScanResult;
+            }
 
             return base.ScoutScan(robot);
         }
 
-        private bool IsRobotDestroyedRandomly(RobotBase robot)
+        private bool IsRobotDestroyedRandomly()
         {
             Random rand = new();
             int randomRobot = rand.Next(0, 100);
@@ -175,13 +199,13 @@ namespace ExoplanetGame.Exoplanet.Variants
             return false;
         }
 
-        private bool HandleVolcaincEruption(RobotBase robot, out RotationResult rotationResult)
+        private bool HandleVolcanicEruption(RobotBase robot, out RobotResultBase robotResult)
         {
-            rotationResult = new();
+            robotResult = new();
 
-            if (VolcanicEruption(robot))
+            if (VolcanicEruption())
             {
-                rotationResult = new RotationResult()
+                robotResult = new PositionResult()
                 {
                     IsSuccess = false,
                     HasRobotSurvived = false,
@@ -193,83 +217,11 @@ namespace ExoplanetGame.Exoplanet.Variants
             return false;
         }
 
-        private bool HandleVolcaincEruption(RobotBase robot, out ScanResult scanResult)
-        {
-            scanResult = new();
-
-            if (VolcanicEruption(robot))
-            {
-                scanResult = new ScanResult()
-                {
-                    IsSuccess = false,
-                    HasRobotSurvived = false,
-                    Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
-                };
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool HandleVolcanicEruption(RobotBase robot, out LoadResult loadResult)
-        {
-            loadResult = new();
-
-            if (VolcanicEruption(robot))
-            {
-                loadResult = new LoadResult()
-                {
-                    IsSuccess = false,
-                    HasRobotSurvived = false,
-                    Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
-                };
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool HandleVolcanicEruption(RobotBase robot, out ScoutScanResult scoutScanResult)
-        {
-            scoutScanResult = new();
-
-            if (VolcanicEruption(robot))
-            {
-                scoutScanResult = new ScoutScanResult()
-                {
-                    IsSuccess = false,
-                    HasRobotSurvived = false,
-                    Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
-                };
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool HandleVolcanicEruption(RobotBase robot, out PositionResult positionResult)
-        {
-            positionResult = new();
-
-            if (VolcanicEruption(robot))
-            {
-                positionResult = new PositionResult()
-                {
-                    IsSuccess = false,
-                    HasRobotSurvived = false,
-                    Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
-                };
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool VolcanicEruption(RobotBase robot)
+        private bool VolcanicEruption()
         {
             if (DoesVolcanicEruptionHappen())
             {
-                if (IsRobotDestroyedRandomly(robot))
+                if (IsRobotDestroyedRandomly())
                 {
                     return true;
                 }
