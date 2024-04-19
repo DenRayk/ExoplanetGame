@@ -89,12 +89,13 @@ namespace ExoplanetGame.Robot
             }
             else
             {
+                Console.WriteLine($"{positionResult.Message}");
+
                 if (!positionResult.HasRobotSurvived)
                 {
                     Crash();
                 }
 
-                Console.WriteLine($"{positionResult.Message}");
             }
 
             return positionResult;

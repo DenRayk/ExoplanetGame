@@ -100,11 +100,6 @@ namespace ExoplanetGame.Menus
         {
             PositionResult positionResult = robot.Move();
 
-            if (!positionResult.IsSuccess)
-            {
-                Console.WriteLine($"{positionResult.Message}");
-            }
-
             if (!positionResult.HasRobotSurvived)
             {
                 return false;
