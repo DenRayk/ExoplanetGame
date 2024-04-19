@@ -67,7 +67,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             }
         };
 
-        private Random random = new();
+        private readonly Random random = new();
 
         public Lavaria() : base(PlanetVariant.LAVARIA)
         {
@@ -83,35 +83,24 @@ namespace ExoplanetGame.Exoplanet.Variants
         {
             int weatherChange = random.Next(1, 101);
 
-            if (weatherChange <= 25)
+            switch (weatherChange)
             {
-                Weather = Weather.SUNNY;
+                case <= 25:
+                    Weather = Weather.SUNNY;
+                    break;
+                case <= 50:
+                    Weather = Weather.FOGGY;
+                    break;
+                case <= 75:
+                    Weather = Weather.ASH_IN_THE_AIR;
+                    break;
+                case <= 85:
+                    Weather = Weather.WINDY;
+                    break;
+                default:
+                    Weather = Weather.CLOUDY;
+                    break;
             }
-            else if (weatherChange <= 50)
-            {
-                Weather = Weather.FOGGY;
-            }
-            else if (weatherChange <= 75)
-            {
-                Weather = Weather.ASH_IN_THE_AIR;
-            }
-            else
-            {
-                int cloudyOrWindy = random.Next(1, 3);
-                Weather = (cloudyOrWindy == 1) ? Weather.CLOUDY : Weather.WINDY;
-            }
-        }
-
-        public bool DoesVolcanicEruptionHappen()
-        {
-            int randomEruption = random.Next(1, 101);
-
-            if (randomEruption <= volcanicEruptionChance)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         public override PositionResult GetRobotPosition(RobotBase robot)
@@ -186,47 +175,37 @@ namespace ExoplanetGame.Exoplanet.Variants
             return base.ScoutScan(robot);
         }
 
-        private bool IsRobotDestroyedRandomly()
-        {
-            Random rand = new();
-            int randomRobot = rand.Next(0, 100);
-
-            if (randomRobot <= 50)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         private bool HandleVolcanicEruption(RobotBase robot, out RobotResultBase robotResult)
         {
-            robotResult = new();
+            robotResult = new RobotResultBase();
 
-            if (VolcanicEruption())
+            if (!VolcanicEruption()) 
+                return false;
+
+            robotResult = new PositionResult()
             {
-                robotResult = new PositionResult()
-                {
-                    IsSuccess = false,
-                    HasRobotSurvived = false,
-                    Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
-                };
-                return true;
-            }
+                IsSuccess = false,
+                HasRobotSurvived = false,
+                Message = $"{robot.GetLanderName()} is destroyed by volcanic eruption."
+            };
+            return true;
 
-            return false;
         }
 
         private bool VolcanicEruption()
         {
-            if (DoesVolcanicEruptionHappen())
-            {
-                if (IsRobotDestroyedRandomly())
-                {
-                    return true;
-                }
-            }
-            return false;
+            if (!DoesVolcanicEruptionHappen()) 
+                return false;
+
+            return true;
+        }
+        
+        public bool DoesVolcanicEruptionHappen()
+        {
+            int randomEruption = random.Next(1, 101);
+            bool isVolcanicEruption = randomEruption <= volcanicEruptionChance;
+            
+            return isVolcanicEruption;
         }
     }
 }
