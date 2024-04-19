@@ -79,10 +79,6 @@ namespace ExoplanetGame.Robot
             PositionResult positionResult = exoPlanet.Move(this);
             if (positionResult.IsSuccess)
             {
-                if (positionResult.Message is not null)
-                {
-                    Console.WriteLine($"{positionResult.Message}");
-                }
                 Console.WriteLine($"Robot moved to {positionResult.Position}");
                 RobotInformation.Position = positionResult.Position;
                 controlCenter.UpdateRobotPosition(this, positionResult.Position);

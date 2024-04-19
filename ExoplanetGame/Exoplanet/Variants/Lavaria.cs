@@ -77,6 +77,24 @@ namespace ExoplanetGame.Exoplanet.Variants
             robotManager = new RobotManager(this);
         }
 
+        public override PositionResult Move(RobotBase robot)
+        {
+            if (VolcanicEruption())
+            {
+                if (!robotManager.robots.ContainsKey(robot))
+                {
+                    return new PositionResult()
+                    {
+                        IsSuccess = false,
+                        HasRobotSurvived = false,
+                        Message = "Robot is destroyed by volcanic eruption."
+                    };
+                }
+            }
+
+            return base.Move(robot);
+        }
+
         public override void ChangeWeather()
         {
             int weatherChange = random.Next(1, 101);
@@ -100,60 +118,31 @@ namespace ExoplanetGame.Exoplanet.Variants
             }
         }
 
-        public override PositionResult Move(RobotBase robot)
-        {
-            PositionResult moveResult = base.Move(robot);
-
-            if (VolcanicEruption())
-            {
-                string destroyedRobotName;
-
-                if (!robotManager.robots.ContainsKey(robot))
-                {
-                    destroyedRobotName = robot.GetLanderName();
-                    return new PositionResult()
-                    {
-                        IsSuccess = false,
-                        HasRobotSurvived = false,
-                        Message = $"{destroyedRobotName} was destroyed by volcanic eruption."
-                    };
-                }
-                else
-                {
-                    destroyedRobotName = DestroyRandomRobotAndReturnName();
-                    moveResult.Message = $"{destroyedRobotName} was destroyed by volcanic eruption.";
-                }
-            }
-
-            return moveResult;
-        }
-
         public bool VolcanicEruption()
         {
             int randomEruption = random.Next(1, 101);
 
             if (randomEruption <= 5)
             {
+                DestroyRandomRobot();
                 return true;
             }
             return false;
         }
 
-        private string DestroyRandomRobotAndReturnName()
+        private void DestroyRandomRobot()
         {
             Dictionary<RobotBase, Position> robots = robotManager.robots;
 
             if (robots.Count == 0)
             {
-                return null;
+                return;
             }
 
             int randomRobotIndex = random.Next(0, robots.Count);
             RobotBase robotToDestroy = robots.Keys.ElementAt(randomRobotIndex);
-            string robotName = robotToDestroy.GetLanderName();
-            robotToDestroy.Crash();
 
-            return robotName;
+            RemoveRobot(robotToDestroy);
         }
     }
 }
