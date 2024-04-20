@@ -230,5 +230,10 @@ namespace ExoplanetGame.Exoplanet
         {
             robotStatusManager.RobotPartsTracker.RepairRobotPart(robot, robotPart);
         }
+
+        public Dictionary<RobotPart, int> GetRobotPartsByRobot(RobotBase robotBase)
+        {
+            return robotStatusManager.RobotPartsTracker.GetRobotPartsByRobot(robotBase);
+        }
     }
 }

@@ -19,7 +19,7 @@
                     case 2:
                         if (controlCenter.GetRobotCount() == 0)
                         {
-                            Console.WriteLine("No robots to control.");
+                            Console.WriteLine("No robots to control. \n");
                             break;
                         }
                         RobotMenuController.RunRobotSelectionMenu(gameServer, controlCenter);
@@ -28,10 +28,10 @@
                     case 3:
                         if (controlCenter.GetRobotCount() == 0)
                         {
-                            Console.WriteLine("No robots to repair.");
+                            Console.WriteLine("No robots to repair. \n");
                             break;
                         }
-                        MainMenu.SelectRobotAndPartToRepair(gameServer, controlCenter);
+                        RobotRepairMenuController.RunRobotRepairMenu(controlCenter);
                         break;
 
                     case 4:

@@ -55,7 +55,7 @@ namespace ExoplanetGame.Robot
 
         public virtual string GetLanderName()
         {
-            return $"Robot {RobotInformation.RobotID} ({RobotVariant})";
+            return $"Robot {RobotInformation.RobotID} ({RobotVariant.GetDescriptionFromEnum()})";
         }
 
         public virtual ScanResult Scan()
