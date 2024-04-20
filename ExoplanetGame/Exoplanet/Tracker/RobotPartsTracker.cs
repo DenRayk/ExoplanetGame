@@ -48,9 +48,9 @@ namespace ExoplanetGame.Exoplanet.Tracker
 
         public Dictionary<RobotPart, int> GetRobotPartsByRobot(RobotBase robot)
         {
-            if (DoesRobotExist(robot)) 
+            if (DoesRobotExist(robot))
                 return robotParts[robot];
-            
+
             return null;
         }
 

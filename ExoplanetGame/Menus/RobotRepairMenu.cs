@@ -57,14 +57,19 @@ namespace ExoplanetGame.Menus
             {
                 case <= 0:
                     return "Broken";
+
                 case <= 25:
                     return "Critical";
+
                 case <= 50:
                     return "Damaged";
+
                 case <= 75:
                     return "Worn";
+
                 case <= 90:
                     return "Good";
+
                 default:
                     return "Like new";
             }
