@@ -187,6 +187,8 @@ namespace ExoplanetGame.Exoplanet
 
         internal Position WaterDrift(RobotBase robot, Position position, Topography topography)
         {
+            bool isRobotWaterDrifting = false;
+
             robotStatusManager.RobotHeatTracker.WaterCoolDown(robot);
 
             if (robot.RobotVariant == RobotVariant.AQUA)
@@ -197,11 +199,18 @@ namespace ExoplanetGame.Exoplanet
             while (position.Y < topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WATER)
             {
                 position = new Position(position.X, position.Y + 1);
+                isRobotWaterDrifting = true;
             }
 
             while (position.Y == topography.PlanetSize.Height - 1 && topography.GetMeasureAtPosition(position).Ground == Ground.WATER)
             {
                 position = new Position(position.X + 1, position.Y);
+                isRobotWaterDrifting = true;
+            }
+
+            if (isRobotWaterDrifting)
+            {
+                Console.WriteLine($"{robot.GetLanderName()} has been carried away in the water.");
             }
 
             return position;
