@@ -17,12 +17,13 @@ namespace ExoplanetGame.Menus
 
             if (robotPart != null)
             {
-                Console.WriteLine($"{robotToRepair.GetLanderName()} has used the following parts: \n");
+                Console.WriteLine($"{robotToRepair.GetLanderName()} has used the following parts:");
+                Console.WriteLine("Select one to repair it \n");
 
                 int counter = 1;
                 foreach (KeyValuePair<RobotPart, int> part in robotPart)
                 {
-                    Console.WriteLine($"{counter}. {part.Key.GetDescriptionFromEnum(),-15} - {GetDescriptionFromPartDurability(part.Value)}");
+                    Console.WriteLine($"{counter}. {part.Key.GetDescriptionFromEnum(),-15} - Durability: {GetDescriptionFromPartDurability(part.Value)}");
                     counter++;
                 }
                 return true;
@@ -48,7 +49,7 @@ namespace ExoplanetGame.Menus
 
             KeyValuePair<RobotPart, int> partToRepair = robotPart.ElementAt(partChoice);
             controlCenter.RepairRobotPart(robotToRepair, partToRepair.Key);
-            Console.WriteLine($"Repaired: {partToRepair.Key.GetDescriptionFromEnum()} on {robotToRepair.GetLanderName()} \n");
+            Console.WriteLine($"Repaired {partToRepair.Key.GetDescriptionFromEnum()} on {robotToRepair.GetLanderName()} \n");
         }
 
         private static string GetDescriptionFromPartDurability(int durability)

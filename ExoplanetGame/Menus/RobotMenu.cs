@@ -13,7 +13,7 @@ namespace ExoplanetGame.Menus
             if (hasLanded)
             {
                 Console.WriteLine("Robot Menu Information\n");
-                Console.WriteLine("Position:\t\t Show current position of the Robot");
+                Console.WriteLine("Position:\t Show current position of the Robot");
                 Console.WriteLine("Scan:\t\t Scan the environment");
                 Console.WriteLine("Move:\t\t Move the robot in the direction it is facing");
                 Console.WriteLine("Rotate:\t\t Rotate the robot left or right");
@@ -110,12 +110,15 @@ namespace ExoplanetGame.Menus
 
         public static bool RotateRobot(RobotBase robot)
         {
-            RotationResult rotationResult = robot.Rotate(SelectRotation());
+            Rotation selectedRotation = SelectRotation();
+
+            if (selectedRotation == Rotation.NONE)
+                return true;
+
+            RotationResult rotationResult = robot.Rotate(selectedRotation);
 
             if (!rotationResult.HasRobotSurvived)
-            {
                 return false;
-            }
 
             return true;
         }
@@ -172,10 +175,21 @@ namespace ExoplanetGame.Menus
             Console.WriteLine("Enter the rotation:");
             Console.WriteLine("1. Left");
             Console.WriteLine("2. Right");
+            Console.WriteLine("3. Back");
 
-            int rotation = GetRobotMenuSelection(1, 2);
+            int rotation = GetRobotMenuSelection(1, 3);
 
-            return rotation == 1 ? Rotation.LEFT : Rotation.RIGHT;
+            switch (rotation)
+            {
+                case 1:
+                    return Rotation.LEFT;
+
+                case 2:
+                    return Rotation.RIGHT;
+
+                default:
+                    return Rotation.NONE;
+            }
         }
 
         public static bool ShowCurrentPosition(RobotBase robot)
