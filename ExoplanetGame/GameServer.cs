@@ -68,16 +68,16 @@ namespace ExoplanetGame
                         break;
 
                     default:
-                        Console.WriteLine("Invalid robot variant.");
+                        Console.WriteLine("Invalid robot variant. \n");
                         return;
                 }
 
                 controlCenter.AddRobot(robotBase);
-                Console.WriteLine($"{robotBase.GetLanderName()} added successfully.");
+                Console.WriteLine($"{robotBase.GetLanderName()} added successfully. \n");
             }
             else
             {
-                Console.WriteLine("The maximum number of available robots has been reached.");
+                Console.WriteLine("The maximum number of available robots has been reached. \n");
             }
         }
 

@@ -11,7 +11,10 @@ namespace ExoplanetGame.Menus.Controller
 
             while (keepMenuRunning)
             {
-                Console.WriteLine($"\n{robot.GetLanderName()} Menu");
+                Console.WriteLine(Console.CursorTop == 0
+                    ? $"{robot.GetLanderName()} Menu"
+                    : $"\n{robot.GetLanderName()} Menu");
+
                 RobotMenu.LoadCurrentExploredMap(controlCenter);
                 RobotMenu.DisplayRobotMenuOptions(hasRobotLanded);
 
@@ -105,7 +108,7 @@ namespace ExoplanetGame.Menus.Controller
 
         public static void RunRobotSelectionMenu(GameServer gameServer, ControlCenter.ControlCenter controlCenter)
         {
-            Console.WriteLine("Select a robot to control:");
+            Console.WriteLine("Select a robot to control: \n");
             controlCenter.DisplayRobots();
 
             int choice = MenuSelection.GetMenuSelection(1, controlCenter.GetRobotCount(), false);

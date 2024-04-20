@@ -1,9 +1,4 @@
 ﻿using ExoplanetGame.Robot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExoplanetGame.Menus.Controller
 {
@@ -11,11 +6,16 @@ namespace ExoplanetGame.Menus.Controller
     {
         public static void RunRobotRepairMenu(ControlCenter.ControlCenter controlCenter)
         {
-            RobotRepairMenu.DisplayRobotRepairMenuOptions(controlCenter);
-            int robotChoice = RobotRepairMenu.GetRobotRepairMenuSelection(1, controlCenter.GetRobotCount());
+            RobotRepairMenu.ShowRobotRepairMenuOptions(controlCenter);
+            int robotChoice = RobotRepairMenu.SelectRobotForRepair(1, controlCenter.GetRobotCount());
             RobotBase selectedRobot = controlCenter.GetRobotByID(robotChoice - 1);
 
-            RobotRepairMenu.ShowAndSelectRobotPartsToRepair(selectedRobot, controlCenter);
+            bool anyRobotParts = RobotRepairMenu.ShowRobotPartsForRepairIfTheyExist(selectedRobot, controlCenter);
+            if (!anyRobotParts)
+                return;
+
+            int partChoice = RobotRepairMenu.GetRobotPartsSelection(1, controlCenter.GetRobotPartsByRobot(selectedRobot).Count);
+            RobotRepairMenu.RepairRobotPart(controlCenter, selectedRobot, partChoice - 1);
         }
     }
 }
