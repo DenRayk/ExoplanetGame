@@ -29,7 +29,7 @@ namespace ExoplanetGame.Robot
 
         public virtual void Crash()
         {
-            Console.WriteLine("Robot crashed");
+            Console.WriteLine("Robot crashed \n");
             exoPlanet.RemoveRobot(this);
             controlCenter.RemoveRobot(this);
         }
