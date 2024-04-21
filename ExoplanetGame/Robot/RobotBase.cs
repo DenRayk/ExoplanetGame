@@ -8,9 +8,9 @@ namespace ExoplanetGame.Robot
 {
     public class RobotBase
     {
-        protected ExoplanetBase exoPlanet;
-        protected ControlCenter.ControlCenter controlCenter;
-        public RobotInformation RobotInformation { get; set; }
+        protected readonly ExoplanetBase exoPlanet;
+        protected readonly ControlCenter.ControlCenter controlCenter;
+        public RobotInformation RobotInformation { get; }
         public RobotVariant RobotVariant { get; }
 
         protected RobotBase(ExoplanetBase exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID,
@@ -172,7 +172,6 @@ namespace ExoplanetGame.Robot
             return exoPlanet.Equals(other.exoPlanet) &&
                    controlCenter.Equals(other.controlCenter) &&
                    RobotInformation.Equals(other.RobotInformation) &&
-                   RobotInformation.MaxHeat == other.RobotInformation.MaxHeat &&
                    RobotVariant == other.RobotVariant;
         }
 
@@ -182,6 +181,11 @@ namespace ExoplanetGame.Robot
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((RobotBase)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(exoPlanet, controlCenter, RobotInformation, (int)RobotVariant);
         }
     }
 }
