@@ -113,6 +113,9 @@ public class RobotEnergyTracker
             case RobotAction.SCAN:
                 return 2;
 
+            case RobotAction.GETPOSITION:
+                return 1;
+
             default:
                 return 0;
         }
@@ -124,5 +127,16 @@ public class RobotEnergyTracker
         {
             Console.WriteLine($"Warning: Robot {robot.RobotInformation.RobotID} at low energy.");
         }
+    }
+
+    public bool DoesRobotHaveEnoughEneryToAction(RobotBase robot, RobotAction robotAction)
+    {
+        if (GetRobotEnergy(robot) < CalculateEneryConsumtion(robotAction))
+        {
+            Console.WriteLine($"Robot {robot.RobotInformation.RobotID} does not have enough energy to perform action.");
+            return false;
+        }
+
+        return true;
     }
 }

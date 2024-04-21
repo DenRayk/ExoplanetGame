@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.Exoplanet.Controller;
 using ExoplanetGame.Exoplanet.Environment;
+using ExoplanetGame.Exoplanet.Tracker;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.RobotResults;
@@ -52,13 +53,24 @@ namespace ExoplanetGame.Exoplanet
 
         public PositionResult GetRobotPosition(RobotBase robot)
         {
-            PositionResult positionResult = new PositionResult();
-            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, exoplanet.Topography);
+            if (robotStatusManager.RobotEnergyTracker.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.GETPOSITION))
+            {
+                robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, exoplanet.Topography);
+                robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.GETPOSITION);
+                return new PositionResult
+                {
+                    Position = robots[robot],
+                    IsSuccess = true,
+                    HasRobotSurvived = true
+                };
+            }
 
-            positionResult.Position = robots[robot];
-            positionResult.IsSuccess = true;
-            positionResult.HasRobotSurvived = true;
-            return positionResult;
+            return new PositionResult
+            {
+                IsSuccess = false,
+                HasRobotSurvived = true,
+                Message = "The robot doesn't have enough energy to get its position."
+            };
         }
 
         public LoadResult LoadEnergy(RobotBase robot, int seconds)
@@ -90,25 +102,16 @@ namespace ExoplanetGame.Exoplanet
             RotationResult rotationResult = new RotationResult();
             Position robotPosition = robots[robot];
 
-            if (robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.RIGHTMOTOR) && rotation == Rotation.RIGHT)
+            if (!CanRobotRotate(robot, rotation, ref rotationResult))
             {
                 rotationResult.Direction = robotPosition.Direction;
-                rotationResult.IsSuccess = false;
                 rotationResult.HasRobotSurvived = true;
-                rotationResult.Message = "The robot's right motor is damaged and can't rotate right.";
-                return rotationResult;
-            }
-
-            if (robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.LEFTMOTOR) && rotation == Rotation.LEFT)
-            {
-                rotationResult.Direction = robotPosition.Direction;
                 rotationResult.IsSuccess = false;
-                rotationResult.HasRobotSurvived = true;
-                rotationResult.Message = "The robot's left motor is damaged and can't rotate left.";
                 return rotationResult;
             }
 
             robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.ROTATE, exoplanet.Topography);
+            robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.ROTATE);
 
             if (robotStatusManager.RobotStuckTracker.IsRobotStuck(robot))
             {
@@ -129,6 +132,32 @@ namespace ExoplanetGame.Exoplanet
             rotationResult.Direction = robotPosition.Rotate(rotation);
 
             return rotationResult;
+        }
+
+        private bool CanRobotRotate(RobotBase robot, Rotation rotation, ref RotationResult rotationResult)
+        {
+            bool isRightMotorDamaged = robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.RIGHTMOTOR);
+            bool isLeftMotorDamaged = robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.LEFTMOTOR);
+            bool doesRobotHaveEnery = robotStatusManager.RobotEnergyTracker.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.ROTATE);
+
+            if (isRightMotorDamaged && rotation == Rotation.RIGHT)
+            {
+                rotationResult.Message = "Right motor is damaged. Please repair in Control Center.";
+            }
+
+            if (isLeftMotorDamaged && rotation == Rotation.LEFT)
+            {
+                rotationResult.Message = "Left motor is damaged. Please repair in Control Center.";
+            }
+
+            if (!doesRobotHaveEnery)
+            {
+                rotationResult.Message = "Robot does not have enough energy to rotate.";
+            }
+
+            bool canRotate = !isRightMotorDamaged && !isLeftMotorDamaged && doesRobotHaveEnery;
+
+            return canRotate;
         }
 
         internal void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position newPosition)
