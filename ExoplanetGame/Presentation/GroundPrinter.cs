@@ -1,7 +1,7 @@
 ﻿using ExoplanetGame.Exoplanet.Environment;
 using ExoplanetGame.Robot;
 
-namespace ExoplanetGame.ControlCenter
+namespace ExoplanetGame.Presentation
 {
     internal class GroundPrinter
     {
