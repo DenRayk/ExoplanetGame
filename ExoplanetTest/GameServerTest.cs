@@ -3,7 +3,7 @@ using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot.Variants;
 
-namespace GameServerTest
+namespace ExoplanetGameTest
 {
     [TestClass]
     public class GameServerTest

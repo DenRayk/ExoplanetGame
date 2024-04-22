@@ -1,11 +1,10 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Factory;
 using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.Variants;
 
-namespace ControlCenterTest
+namespace ExoplanetGameTest
 {
     [TestClass]
     public class ControlCenterTest

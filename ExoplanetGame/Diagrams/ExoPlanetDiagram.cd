@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ExoplanetGame.Exoplanet.RobotStatusManager">
+    <Position X="13.75" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAIAAgAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Exoplanet\RobotStatusManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RobotEnergyTracker" />
+      <Property Name="RobotHeatTracker" />
+      <Property Name="RobotPartsTracker" />
+      <Property Name="RobotFreezeTracker" />
+      <Property Name="RobotStuckTracker" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ExoplanetGame.Exoplanet.Tracker.RobotEnergyTracker">
+    <Position X="6.75" Y="10.5" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAiAAEAAAAAAAAAAAAAAAAAgABAAQBAAACAAAAAA=</HashCode>
+      <FileName>Exoplanet\Tracker\RobotEnergyTracker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Exoplanet.Tracker.RobotFreezeTracker">
+    <Position X="19" Y="10.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAKgQgAAgAAAAAAAAAA=</HashCode>
+      <FileName>Exoplanet\Tracker\RobotFreezeTracker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Exoplanet.Tracker.RobotHeatTracker">
+    <Position X="12" Y="10.5" Width="4.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAoAAAAAAQAAAAAAgAAIAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Exoplanet\Tracker\RobotHeatTracker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Exoplanet.Tracker.RobotPartsTracker">
+    <Position X="16.5" Y="10.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEBAAAAABAABgAAEAAAIAAAAAAAAAAAgAAQACAAAAAA=</HashCode>
+      <FileName>Exoplanet\Tracker\RobotPartsTracker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Exoplanet.Tracker.RobotStuckTracker">
+    <Position X="9.75" Y="10.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAQAAAQAAAAAAAAAAAAAABAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Exoplanet\Tracker\RobotStuckTracker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Exoplanet.RobotManager">
+    <Position X="13.25" Y="1.75" Width="2.75" />
+    <AssociationLine Name="robotStatusManager" Type="ExoplanetGame.Exoplanet.RobotStatusManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.625" Y="7.411" />
+        <Point X="14.625" Y="8" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAVAAAAAAAoBEAIEAAAEAAAQQAAAAAAEFAAABwAAAGA=</HashCode>
+      <FileName>Exoplanet\RobotManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="robotStatusManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
