@@ -3,6 +3,7 @@ using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Factory;
 using ExoplanetGame.Robot.Movement;
+using ExoplanetGame.Robot.Variants;
 
 namespace ControlCenterTest
 {
@@ -22,11 +23,9 @@ namespace ControlCenterTest
             // Arrange
             Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
-            RobotFactory robotFactory = RobotFactory.GetInstance();
 
             // Act
-            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            controlCenter.AddRobot(robot);
+            controlCenter.AddRobot(RobotVariant.DEFAULT);
 
             // Assert
             Assert.AreEqual(1, controlCenter.GetRobotCount());
@@ -38,15 +37,21 @@ namespace ControlCenterTest
             // Arrange
             Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
-            RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            controlCenter.AddRobot(robot);
+            controlCenter.AddRobot(RobotVariant.DEFAULT);
+            RobotBase robot = controlCenter.GetRobotByID(0);
 
             // Act
             robot.Land(new Position(0, 5, Direction.NORTH));
 
             // Assert
-            Assert.AreEqual(true, controlCenter.GetRobotByID(0).RobotInformation.HasLanded);
+            Assert.AreEqual(true, robot.RobotInformation.HasLanded);
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            Gaia exoplanet = new Gaia();
+            ControlCenter.GetInstance(exoplanet).ClearRobots();
         }
     }
 }

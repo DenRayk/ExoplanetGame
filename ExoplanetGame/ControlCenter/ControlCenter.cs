@@ -50,27 +50,27 @@ namespace ExoplanetGame.ControlCenter
                 switch (robotVariant)
                 {
                     case RobotVariant.DEFAULT:
-                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, exoPlanet, robotID++);
                         break;
 
                     case RobotVariant.SCOUT:
-                        robotBase = robotFactory.CreateScoutRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        robotBase = robotFactory.CreateScoutRobot(controlCenter, exoPlanet, robotID++);
                         break;
 
                     case RobotVariant.LAVA:
-                        robotBase = robotFactory.CreateLavaRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        robotBase = robotFactory.CreateLavaRobot(controlCenter, exoPlanet, robotID++);
                         break;
 
                     case RobotVariant.AQUA:
-                        robotBase = robotFactory.CreateAquaRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        robotBase = robotFactory.CreateAquaRobot(controlCenter, exoPlanet, robotID++);
                         break;
 
                     case RobotVariant.MUD:
-                        robotBase = robotFactory.CreateMudRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        robotBase = robotFactory.CreateMudRobot(controlCenter, exoPlanet, robotID++);
                         break;
 
                     default:
-                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, exoPlanet, robotID++);
                         return;
                 }
 
