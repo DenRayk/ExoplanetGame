@@ -45,12 +45,5 @@ namespace ExoplanetGameTest
             // Assert
             Assert.AreEqual(true, robot.RobotInformation.HasLanded);
         }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            Gaia exoplanet = new Gaia();
-            ControlCenter.GetInstance(exoplanet).ClearRobots();
-        }
     }
 }
