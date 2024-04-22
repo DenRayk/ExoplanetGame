@@ -104,7 +104,7 @@ namespace ExoplanetGame.ControlCenter
         {
             foreach (var measure in measures)
             {
-                planetMap.updateMap(measure.Value, measure.Key.Ground);
+                AddMeasure(measure.Key, measure.Value);
             }
         }
 
