@@ -40,6 +40,7 @@ public class MoveController(RobotManager robotManager, RobotStatusManager robotS
         bool isMovementSensorDamaged = robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.MOVEMENTSENSOR);
         bool areWheelsDamaged = robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.WHEELS);
         bool isRobotStuck = robotStatusManager.RobotStuckTracker.IsRobotStuck(robot);
+        bool doesRobotHaveEnery = robotStatusManager.RobotEnergyTracker.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.MOVE);
 
         if (isMovementSensorDamaged)
         {
@@ -56,7 +57,12 @@ public class MoveController(RobotManager robotManager, RobotStatusManager robotS
             positionResult.Message += "Robot is stuck. Try to rotate.\n";
         }
 
-        bool canMove = !isMovementSensorDamaged && !areWheelsDamaged && !isRobotStuck;
+        if (doesRobotHaveEnery)
+        {
+            positionResult.Message += "Robot does not have enough energy to move.\n";
+        }
+
+        bool canMove = !isMovementSensorDamaged && !areWheelsDamaged && !isRobotStuck && doesRobotHaveEnery;
 
         if (!canMove)
         {
