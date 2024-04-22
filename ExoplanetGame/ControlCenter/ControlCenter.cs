@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Factory;
 using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.Variants;
 
@@ -8,10 +9,14 @@ namespace ExoplanetGame.ControlCenter
     public class ControlCenter
     {
         private static ControlCenter controlCenter;
+        public ExoplanetBase exoPlanet;
 
         private PlanetMap planetMap;
         private Dictionary<RobotBase, Position> robots;
-        public ExoplanetBase exoPlanet;
+        private IRobotFactory robotFactory;
+
+        private readonly int maxRobots = 5;
+        private static int robotID = 1;
 
         public event EventHandler<RobotPositionEventArgs> RobotPositionUpdated;
 
@@ -19,6 +24,7 @@ namespace ExoplanetGame.ControlCenter
         {
             robots = new Dictionary<RobotBase, Position>();
             this.exoPlanet = exoPlanet;
+            robotFactory = RobotFactory.GetInstance();
         }
 
         public static ControlCenter GetInstance(ExoplanetBase exoPlanet)
@@ -35,9 +41,46 @@ namespace ExoplanetGame.ControlCenter
             planetMap = new PlanetMap(exoPlanet.Topography.PlanetSize);
         }
 
-        public void AddRobot(RobotBase robotBase)
+        public void AddRobot(RobotVariant robotVariant)
         {
-            robots.Add(robotBase, null);
+            if (controlCenter.GetRobotCount() < maxRobots)
+            {
+                RobotBase robotBase;
+
+                switch (robotVariant)
+                {
+                    case RobotVariant.DEFAULT:
+                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        break;
+
+                    case RobotVariant.SCOUT:
+                        robotBase = robotFactory.CreateScoutRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        break;
+
+                    case RobotVariant.LAVA:
+                        robotBase = robotFactory.CreateLavaRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        break;
+
+                    case RobotVariant.AQUA:
+                        robotBase = robotFactory.CreateAquaRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        break;
+
+                    case RobotVariant.MUD:
+                        robotBase = robotFactory.CreateMudRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        break;
+
+                    default:
+                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, PlanetManager.TargetPlanet, robotID++);
+                        return;
+                }
+
+                Console.WriteLine($"{robotBase.GetLanderName()} added successfully. \n");
+                robots.Add(robotBase, null);
+            }
+            else
+            {
+                Console.WriteLine("The maximum number of available robots has been reached. \n");
+            }
         }
 
         public void UpdateRobotPosition(RobotBase robot, Position position)
