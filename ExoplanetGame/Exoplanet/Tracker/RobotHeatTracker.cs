@@ -135,7 +135,7 @@ namespace ExoplanetGame.Exoplanet.Tracker
         {
             for (int i = 0; i < seconds; i++)
             {
-                Console.WriteLine($"Cooling down {robot.GetLanderName()} Heat: {heatLevels[robot]}");
+                Console.WriteLine($"Cooling down {robot.GetLanderName()} Heat: {Math.Round(heatLevels[robot] , 2)}");
                 if (heatLevels[robot] > 0)
                 {
                     heatLevels[robot] -= COOL_DOWN_RATE;
