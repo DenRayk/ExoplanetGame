@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Factory;
 using ExoplanetGame.Robot.Movement;
@@ -9,7 +10,7 @@ namespace ExoplanetGame.ControlCenter
     public class ControlCenter
     {
         private static ControlCenter controlCenter;
-        public ExoplanetBase exoPlanet;
+        public IExoplanet exoPlanet;
 
         private PlanetMap planetMap;
         private Dictionary<RobotBase, Position> robots;
@@ -20,14 +21,14 @@ namespace ExoplanetGame.ControlCenter
 
         public event EventHandler<RobotPositionEventArgs> RobotPositionUpdated;
 
-        public ControlCenter(ExoplanetBase exoPlanet)
+        public ControlCenter(IExoplanet exoPlanet)
         {
             robots = new Dictionary<RobotBase, Position>();
             this.exoPlanet = exoPlanet;
             robotFactory = RobotFactory.GetInstance();
         }
 
-        public static ControlCenter GetInstance(ExoplanetBase exoPlanet)
+        public static ControlCenter GetInstance(IExoplanet exoPlanet)
         {
             if (controlCenter == null)
             {
@@ -36,7 +37,7 @@ namespace ExoplanetGame.ControlCenter
             return controlCenter;
         }
 
-        public void Init(ExoplanetBase exoPlanet)
+        public void Init(IExoplanet exoPlanet)
         {
             planetMap = new PlanetMap(exoPlanet.Topography.PlanetSize);
         }

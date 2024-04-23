@@ -1,12 +1,13 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Variants;
 
 namespace ExoplanetGame.Menus.Controller
 {
     public class ExoplanetMenuController
     {
-        public static ExoplanetBase SelectTargetExoplanet()
+        public static IExoplanet SelectTargetExoplanet()
         {
             while (true)
             {

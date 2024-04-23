@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
 using ExoplanetGame.Menus.Controller;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Factory;
@@ -12,7 +13,7 @@ namespace ExoplanetGame
         private static GameServer gameServer;
         private ControlCenter.ControlCenter controlCenter;
 
-        public GameServer(ExoplanetBase targetExoplanetBase)
+        public GameServer(IExoplanet targetExoplanetBase)
         {
             controlCenter = ControlCenter.ControlCenter.GetInstance(targetExoplanetBase);
             controlCenter.Init(targetExoplanetBase);
@@ -23,7 +24,7 @@ namespace ExoplanetGame
             MainMenuController.RunMainMenu(this, controlCenter);
         }
 
-        public static GameServer GetInstance(ExoplanetBase targetExoplanetBase)
+        public static GameServer GetInstance(IExoplanet targetExoplanetBase)
         {
             if (gameServer == null)
             {

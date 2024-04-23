@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Exoplanet.Environment;
+using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Movement;
@@ -6,7 +7,7 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Exoplanet
 {
-    public class ExoplanetBase
+    public class ExoplanetBase : IExoplanet
     {
         internal Weather Weather { get; set; }
         public Topography Topography { get; set; }

@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
 using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.RobotResults;
 using ExoplanetGame.Robot.Variants;
@@ -8,12 +9,12 @@ namespace ExoplanetGame.Robot
 {
     public class RobotBase
     {
-        protected readonly ExoplanetBase exoPlanet;
+        protected readonly IExoplanet exoPlanet;
         protected readonly ControlCenter.ControlCenter controlCenter;
         public RobotInformation RobotInformation { get; }
         public RobotVariant RobotVariant { get; }
 
-        protected RobotBase(ExoplanetBase exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID,
+        protected RobotBase(IExoplanet exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID,
             RobotVariant robotVariant)
         {
             this.exoPlanet = exoPlanet;

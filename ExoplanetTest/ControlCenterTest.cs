@@ -40,7 +40,7 @@ namespace ExoplanetGameTest
             RobotBase robot = controlCenter.GetRobotByID(0);
 
             // Act
-            robot.Land(new Position(0, 5, Direction.NORTH));
+            robot.Land(new Position(1, 1, Direction.NORTH));
 
             // Assert
             Assert.AreEqual(true, robot.RobotInformation.HasLanded);
