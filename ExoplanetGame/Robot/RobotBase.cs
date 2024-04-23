@@ -28,6 +28,19 @@ namespace ExoplanetGame.Robot
             };
         }
 
+        protected bool DoesOtherRobotBlockMove()
+        {
+            foreach (var otherRobot in RobotInformation.OtherRobotPositions.Keys)
+            {
+                if (RobotInformation.OtherRobotPositions[otherRobot].Equals(RobotInformation.Position.GetAdjacentPosition()))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public virtual void Crash()
         {
             Console.WriteLine("Robot crashed \n");
@@ -81,7 +94,25 @@ namespace ExoplanetGame.Robot
 
         public virtual PositionResult Move()
         {
-            PositionResult positionResult = exoPlanet.Move(this);
+            PositionResult positionResult;
+
+            if (DoesOtherRobotBlockMove())
+            {
+                positionResult = new PositionResult()
+                {
+                    IsSuccess = false,
+                    Message = "Robot cannot move because another robot is blocking the way",
+                    HasRobotSurvived = true,
+                    Position = RobotInformation.Position
+                };
+
+                Console.WriteLine(positionResult.Message);
+
+                return positionResult;
+            }
+
+            positionResult = exoPlanet.Move(this);
+
             if (positionResult.IsSuccess)
             {
                 Console.WriteLine($"Robot moved to {positionResult.Position}");
