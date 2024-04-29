@@ -9,19 +9,13 @@ namespace ExoplanetGameTest
     [TestClass]
     public class ControlCenterTest
     {
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            Gaia exoplanet = new Gaia();
-            ControlCenter.GetInstance(exoplanet).ClearRobots();
-        }
-
         [TestMethod]
         public void AddRobots()
         {
             // Arrange
-            Gaia exoplanet = new Gaia();
-            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            MockPlanet mockPlanet = new MockPlanet();
+            ControlCenter controlCenter = ControlCenter.GetInstance(mockPlanet);
+            controlCenter.exoPlanet = mockPlanet;
 
             // Act
             controlCenter.AddRobot(RobotVariant.DEFAULT);
@@ -36,6 +30,7 @@ namespace ExoplanetGameTest
             // Arrange
             Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            controlCenter.exoPlanet = exoplanet;
             controlCenter.AddRobot(RobotVariant.DEFAULT);
             RobotBase robot = controlCenter.GetRobotByID(0);
 

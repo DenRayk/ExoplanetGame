@@ -17,6 +17,7 @@ namespace ExoplanetGameTest
             // Arrange
             Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            controlCenter.exoPlanet = exoplanet;
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             Position landPosition = new Position(0, 5, Direction.NORTH);
@@ -34,6 +35,7 @@ namespace ExoplanetGameTest
             // Arrange
             Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            controlCenter.exoPlanet = exoplanet;
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             robot.Land(new Position(0, 5, Direction.NORTH));
@@ -51,6 +53,7 @@ namespace ExoplanetGameTest
             // Arrange
             Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            controlCenter.exoPlanet = exoplanet;
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             robot.Land(new Position(0, 5, Direction.NORTH));
@@ -68,6 +71,7 @@ namespace ExoplanetGameTest
             // Arrange
             Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            controlCenter.exoPlanet = exoplanet;
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             robot.Land(new Position(0, 5, Direction.NORTH));
@@ -85,6 +89,7 @@ namespace ExoplanetGameTest
             // Arrange
             Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            controlCenter.exoPlanet = exoplanet;
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             robot.Land(new Position(0, 5, Direction.NORTH));
@@ -102,6 +107,7 @@ namespace ExoplanetGameTest
             // Arrange
             Gaia exoplanet = new Gaia();
             ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
+            controlCenter.exoPlanet = exoplanet;
             RobotFactory robotFactory = RobotFactory.GetInstance();
             RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
             robot.Land(new Position(0, 5, Direction.NORTH));

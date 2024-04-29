@@ -12,8 +12,10 @@ namespace ExoplanetGameTest
         public void AddRobots()
         {
             // Arrange
-            GameServer server = GameServer.GetInstance(new Gaia());
-            ControlCenter controlCenter = ControlCenter.GetInstance(new Gaia());
+            MockPlanet mockPlanet = new MockPlanet();
+            GameServer server = GameServer.GetInstance(mockPlanet);
+            ControlCenter controlCenter = ControlCenter.GetInstance(mockPlanet);
+            controlCenter.exoPlanet = mockPlanet;
 
             // Act
             server.AddRobot(RobotVariant.DEFAULT);
@@ -30,8 +32,10 @@ namespace ExoplanetGameTest
         public void AddRobotsOverLimit()
         {
             // Arrange
-            GameServer server = GameServer.GetInstance(new Gaia());
-            ControlCenter controlCenter = ControlCenter.GetInstance(new Gaia());
+            MockPlanet mockPlanet = new MockPlanet();
+            GameServer server = GameServer.GetInstance(mockPlanet);
+            ControlCenter controlCenter = ControlCenter.GetInstance(mockPlanet);
+            controlCenter.exoPlanet = mockPlanet;
 
             // Act
             server.AddRobot(RobotVariant.DEFAULT);
@@ -46,10 +50,13 @@ namespace ExoplanetGameTest
         }
 
         [TestCleanup]
-        public void Cleanup()
+        public void ClearRobots()
         {
-            GameServer server = GameServer.GetInstance(new Gaia());
-            server.ClearRobots();
+            // Arrange
+            MockPlanet mockPlanet = new MockPlanet();
+            GameServer server = new GameServer(mockPlanet);
+            ControlCenter controlCenter = ControlCenter.GetInstance(mockPlanet);
+            controlCenter.ClearRobots();
         }
     }
 }
