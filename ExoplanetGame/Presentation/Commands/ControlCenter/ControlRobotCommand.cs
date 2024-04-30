@@ -1,14 +1,18 @@
-﻿namespace ExoplanetGame.Presentation.Commands.ControlCenter
+﻿using ExoplanetGame.Application;
+
+namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
     public class ControlRobotCommand : BaseCommand
     {
-        public ControlRobotCommand()
+        private UCCollection ucCollection;
+
+        public ControlRobotCommand(UCCollection ucCollection)
         {
+            this.ucCollection = ucCollection;
         }
 
         public override void Execute()
         {
-            throw new NotImplementedException();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Application;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Helper;
 using ExoplanetGame.Presentation.Commands.PlanetSelection;
@@ -12,6 +13,8 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
     internal class SelectRobotTypeCommand : BaseCommand
     {
+        private UCCollection ucCollection;
+
         private readonly string helpText =
             "Robot Variant Information\n" +
             $"{RobotVariant.DEFAULT.GetDescriptionFromEnum()}:\t Basic robot with no special abilities\n" +
@@ -19,6 +22,11 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             $"{RobotVariant.LAVA.GetDescriptionFromEnum()}:\t Robot that can withstand high temperatures\n" +
             $"{RobotVariant.AQUA.GetDescriptionFromEnum()}:\t Robot that can withstand water drift\n" +
             $"{RobotVariant.MUD.GetDescriptionFromEnum()}:\t Robot that can move through mud\n";
+
+        public SelectRobotTypeCommand(UCCollection ucCollection)
+        {
+            this.ucCollection = ucCollection;
+        }
 
         public override void Execute()
         {
@@ -44,9 +52,9 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
             foreach (RobotVariant planetVariant in Enum.GetValues(typeof(RobotVariant)))
             {
-                options.Add(planetVariant.GetDescriptionFromEnum(), new AddRobotCommand(planetVariant));
+                options.Add(planetVariant.GetDescriptionFromEnum(), new AddRobotCommand(planetVariant, ucCollection));
             }
-            options.Add("Random", new AddRobotCommand(getRandomRobotVariant()));
+            options.Add("Random", new AddRobotCommand(getRandomRobotVariant(), ucCollection));
             return options;
         }
 

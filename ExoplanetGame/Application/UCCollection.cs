@@ -8,12 +8,12 @@ using ExoplanetGame.Application.Robot;
 
 namespace ExoplanetGame.Application
 {
-    internal class UCCollection
+    public class UCCollection
     {
         public UCCollection()
         {
-            UcCollectionControlCenter = new();
-            UcCollectionRobot = new();
+            UcCollectionControlCenter = new UCCollectionControlCenter();
+            UcCollectionRobot = new UCCollectionRobot();
         }
 
         public UCCollectionControlCenter UcCollectionControlCenter { get; }

@@ -133,7 +133,7 @@ namespace ExoplanetGame.Menus
 
                     if (scoutScanResult.IsSuccess)
                     {
-                        controlCenter.AddMeasures(scoutScanResult.Measures);
+                        //controlCenter.AddMeasures(scoutScanResult.Measures);
                     }
 
                     if (!scoutScanResult.HasRobotSurvived)
@@ -148,7 +148,7 @@ namespace ExoplanetGame.Menus
 
                 if (scanResult.IsSuccess)
                 {
-                    controlCenter.AddMeasure(scanResult.Measure, robot.RobotInformation.Position);
+                    //controlCenter.AddMeasure(scanResult.Measure, robot.RobotInformation.Position);
                 }
 
                 if (!scanResult.HasRobotSurvived)

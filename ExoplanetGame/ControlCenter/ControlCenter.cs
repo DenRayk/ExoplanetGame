@@ -11,20 +11,25 @@ namespace ExoplanetGame.ControlCenter
     public class ControlCenter
     {
         private static ControlCenter controlCenter;
+        private static int RobotId = 1;
         public IExoPlanet exoPlanet;
 
         public PlanetMap PlanetMap { get; set; }
-        private Dictionary<RobotBase, Position> robots;
+        public Dictionary<RobotBase, Position> Robots { get; set; }
         private IRobotFactory robotFactory;
 
-        private readonly int maxRobots = 5;
-        private static int robotID = 1;
+        public int MaxRobots { get; } = 5;
+
+        public int getRobotIDandIncrement()
+        {
+            return RobotId++;
+        }
 
         public event EventHandler<RobotPositionEventArgs> RobotPositionUpdated;
 
         public ControlCenter()
         {
-            robots = new Dictionary<RobotBase, Position>();
+            Robots = new Dictionary<RobotBase, Position>();
             robotFactory = RobotFactory.GetInstance();
         }
 
@@ -39,24 +44,23 @@ namespace ExoplanetGame.ControlCenter
 
         public void AddRobot(RobotVariant robotVariant)
         {
-            if (controlCenter.GetRobotCount() < maxRobots)
+            if (controlCenter.GetRobotCount() < MaxRobots)
             {
                 RobotBase robotBase;
 
-                robotBase = robotFactory.CreateRobot(controlCenter, exoPlanet, robotID, robotVariant);
+                robotBase = robotFactory.CreateRobot(controlCenter, exoPlanet, getRobotIDandIncrement(), robotVariant);
 
-                Console.WriteLine($"{robotBase.GetLanderName()} added successfully. \n");
-                robots.Add(robotBase, null);
+                Robots.Add(robotBase, null);
             }
             else
             {
-                Console.WriteLine("The maximum number of available robots has been reached. \n");
+                throw new RobotCapacityReachException("The maximum number of available Robots has been reached.");
             }
         }
 
         public void UpdateRobotPosition(RobotBase robot, Position position)
         {
-            robots[robot] = position;
+            Robots[robot] = position;
 
             OnRobotPositionUpdated(robot, position);
         }
@@ -68,13 +72,13 @@ namespace ExoplanetGame.ControlCenter
 
         public int GetRobotCount()
         {
-            return robots.Count;
+            return Robots.Count;
         }
 
         public void DisplayRobots()
         {
             int i = 1;
-            foreach (var robot in robots.Keys)
+            foreach (var robot in Robots.Keys)
             {
                 Console.WriteLine(i + ". " + robot.GetLanderName());
                 i++;
@@ -83,24 +87,24 @@ namespace ExoplanetGame.ControlCenter
 
         public RobotBase GetRobotByID(int robotId)
         {
-            return robots.Keys.ElementAt(robotId);
+            return Robots.Keys.ElementAt(robotId);
         }
 
         public void RemoveRobot(RobotBase Robot)
         {
-            robots.Remove(Robot);
+            Robots.Remove(Robot);
             exoPlanet.RemoveRobot(Robot);
         }
 
         public void PrintMap()
         {
-            Console.WriteLine(planetMap.GetPercentageOfExploredArea());
-            planetMap.printMap(robots);
+            Console.WriteLine(PlanetMap.GetPercentageOfExploredArea());
+            PlanetMap.printMap(Robots);
         }
 
         public void ClearRobots()
         {
-            robots.Clear();
+            Robots.Clear();
         }
 
         public void RepairRobotPart(RobotBase robot, RobotPart robotPart)

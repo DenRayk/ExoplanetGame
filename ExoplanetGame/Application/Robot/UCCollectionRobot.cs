@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExoplanetGame.Application.Robot
 {
-    internal class UCCollectionRobot
+    public class UCCollectionRobot
     {
     }
 }

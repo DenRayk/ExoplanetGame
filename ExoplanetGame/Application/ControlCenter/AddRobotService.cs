@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
+using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Factory;
 using ExoplanetGame.Robot.Variants;
 
@@ -10,17 +13,29 @@ namespace ExoplanetGame.Application.ControlCenter
 {
     internal class AddRobotService : AddRobotUseCase
     {
-        private global::ExoplanetGame.ControlCenter.ControlCenter controlCenter;
-        private RobotFactory robotFactory;
+        private readonly global::ExoplanetGame.ControlCenter.ControlCenter controlCenter;
+        private readonly RobotFactory robotFactory;
+        private readonly RobotRepository robotRepository;
 
         public AddRobotService()
         {
             controlCenter = global::ExoplanetGame.ControlCenter.ControlCenter.GetInstance();
             robotFactory = RobotFactory.GetInstance();
+            robotRepository = RobotRepository.GetInstance();
         }
 
         public void AddRobot(RobotVariant robotVariant)
         {
+            if (controlCenter.GetRobotCount() < controlCenter.MaxRobots)
+            {
+                var robotBase = robotFactory.CreateRobot(controlCenter, controlCenter.exoPlanet, controlCenter.getRobotIDandIncrement(), robotVariant);
+
+                robotRepository.AddRobot(robotBase, null);
+            }
+            else
+            {
+                throw new RobotCapacityReachException("The maximum number of available Robots has been reached.");
+            }
         }
     }
 }

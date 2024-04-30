@@ -12,7 +12,6 @@ namespace ExoplanetGame
         public GameServer(IExoPlanet targetExoPlanetBase)
         {
             controlCenter = ControlCenter.ControlCenter.GetInstance();
-            controlCenter.Init(targetExoPlanetBase);
         }
 
         public void Start()
