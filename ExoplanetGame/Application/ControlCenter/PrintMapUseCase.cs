@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExoplanetGame.Application.ControlCenter
 {
-    internal class ControlCenterService
+    internal class PrintMapUseCase
     {
     }
 }

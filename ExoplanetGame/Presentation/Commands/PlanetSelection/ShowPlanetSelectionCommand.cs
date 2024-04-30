@@ -5,7 +5,38 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 {
     internal class ShowPlanetSelectionCommand : BaseCommand
     {
+        private readonly string helpText =
+            "Exoplanet Menu Information\n" +
+            $"{PlanetVariant.GAIA.GetDescriptionFromEnum()}:\t Beginner level\n" +
+            $"{PlanetVariant.AQUATICA.GetDescriptionFromEnum()}:\t Casual level\n" +
+            $"{PlanetVariant.TERRA.GetDescriptionFromEnum()}:\t Intermediate level\n" +
+            $"{PlanetVariant.FROSTFELL.GetDescriptionFromEnum()}:\t Advanced level\n" +
+            $"{PlanetVariant.LAVARIA.GetDescriptionFromEnum()}:\t Expert level\n" +
+            $"{PlanetVariant.TROPICA.GetDescriptionFromEnum()}:\t Grandmaster level\n";
+
         public override void Execute()
+        {
+            Console.WriteLine("Choose a destination planet (press F1 for help):\n");
+
+            var options = getPlanetOptions();
+
+            BaseCommand baseCommand;
+            do
+            {
+                baseCommand = ReadUserInputWithOptions(options);
+
+                if (baseCommand is HelpCommand helpCommand)
+                {
+                    helpCommand.HelpText = helpText;
+                    helpCommand.PreviousCommand = this;
+                    helpCommand.Execute();
+                }
+            } while (baseCommand is HelpCommand);
+
+            baseCommand.Execute();
+        }
+
+        private Dictionary<string, BaseCommand> getPlanetOptions()
         {
             var options = new Dictionary<string, BaseCommand>();
 
@@ -14,9 +45,7 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
                 options.Add(planetVariant.GetDescriptionFromEnum(), new SelectPlanetCommand(planetVariant));
             }
             options.Add("Random", new SelectPlanetCommand(getRandomPlanetVariant()));
-
-            BaseCommand selectPlanetCommand = readUserInputWithOptions(options);
-            selectPlanetCommand.Execute();
+            return options;
         }
 
         private PlanetVariant getRandomPlanetVariant()

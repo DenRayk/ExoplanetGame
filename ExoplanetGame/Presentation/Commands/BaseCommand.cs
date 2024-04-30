@@ -4,17 +4,26 @@ public abstract class BaseCommand
 {
     public abstract void Execute();
 
-    public BaseCommand readUserInputWithOptions(Dictionary<string, BaseCommand> options)
+    public BaseCommand ReadUserInputWithOptions(Dictionary<string, BaseCommand> options)
     {
         showOptions(options);
         int input = GetMenuSelection(options.Count);
 
+        if (input == (int)ConsoleKey.F1)
+        {
+            return new HelpCommand();
+        }
+
+        if (input == (int)ConsoleKey.Escape)
+        {
+            return new ExitCommand();
+        }
+
         return options.Values.ElementAt(input - 1);
     }
 
-    protected void showOptions(Dictionary<string, BaseCommand> options)
+    private void showOptions(Dictionary<string, BaseCommand> options)
     {
-        Console.WriteLine("Please select an option:");
         int i = 1;
         foreach (var option in options)
         {
@@ -23,7 +32,7 @@ public abstract class BaseCommand
         }
     }
 
-    private int GetMenuSelection(int maxValue)
+    private static int GetMenuSelection(int maxValue)
     {
         while (true)
         {

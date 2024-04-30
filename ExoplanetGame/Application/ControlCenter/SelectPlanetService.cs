@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Exoplanet.Variants;
+using ExoplanetGame.ControlCenter;
 
 namespace ExoplanetGame.Application.ControlCenter
 {
@@ -6,7 +7,6 @@ namespace ExoplanetGame.Application.ControlCenter
     {
         public void SelectPlanet(PlanetVariant planetVariant)
         {
-            throw new NotImplementedException();
         }
     }
 }

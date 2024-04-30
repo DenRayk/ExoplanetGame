@@ -1,4 +1,6 @@
-﻿using ExoplanetGame.Exoplanet.Variants;
+﻿using ExoplanetGame.Application.ControlCenter;
+using ExoplanetGame.Exoplanet.Variants;
+using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 {
@@ -6,8 +8,14 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
     {
         private PlanetVariant planetVariant = planetVariant;
 
+        private SelectPlanetUseCase selectPlanetUseCase;
+
         public override void Execute()
         {
+            //selectPlanetUseCase.SelectPlanet(planetVariant);
+
+            ControlCenterCommand controlCenterCommand = new();
+            controlCenterCommand.Execute();
         }
     }
 }

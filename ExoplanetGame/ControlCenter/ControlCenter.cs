@@ -114,16 +114,6 @@ namespace ExoplanetGame.ControlCenter
             return robots.Count;
         }
 
-        public List<RobotVariant> GetRobotVariants()
-        {
-            List<RobotVariant> robotVariants = new List<RobotVariant>();
-            foreach (var robot in robots.Keys)
-            {
-                robotVariants.Add(robot.RobotVariant);
-            }
-            return robotVariants;
-        }
-
         public void DisplayRobots()
         {
             int i = 1;

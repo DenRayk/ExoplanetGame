@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Application\Robot\" />
-    <Folder Include="Presentation\Commands\RobotMenu\" />
   </ItemGroup>
 
 </Project>
