@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace ExoplanetGame
+namespace ExoplanetGame.Helper
 {
     public static class EnumController
     {

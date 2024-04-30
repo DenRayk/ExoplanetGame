@@ -12,4 +12,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Robot\" />
+    <Folder Include="Presentation\Commands\RobotMenu\" />
+  </ItemGroup>
+
 </Project>
