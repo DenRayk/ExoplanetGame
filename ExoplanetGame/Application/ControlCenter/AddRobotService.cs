@@ -26,7 +26,7 @@ namespace ExoplanetGame.Application.ControlCenter
 
         public void AddRobot(RobotVariant robotVariant)
         {
-            if (controlCenter.GetRobotCount() < controlCenter.MaxRobots)
+            if (robotRepository.GetRobotCount() < controlCenter.MaxRobots)
             {
                 var robotBase = robotFactory.CreateRobot(controlCenter, controlCenter.exoPlanet, controlCenter.getRobotIDandIncrement(), robotVariant);
 

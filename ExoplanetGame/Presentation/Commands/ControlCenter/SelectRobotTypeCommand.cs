@@ -35,14 +35,19 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
             var options = getRobotOptions();
 
-            BaseCommand baseCommand = ReadUserInputWithOptions(options);
-
-            if (baseCommand is HelpCommand helpCommand)
+            BaseCommand baseCommand;
+            do
             {
-                helpCommand.HelpText = helpText;
-                helpCommand.PreviousCommand = this;
-                helpCommand.Execute();
-            }
+                baseCommand = ReadUserInputWithOptions(options);
+
+                if (baseCommand is HelpCommand helpCommand)
+                {
+                    helpCommand.HelpText = helpText;
+                    helpCommand.PreviousCommand = this;
+                    helpCommand.Execute();
+                }
+            } while (baseCommand is HelpCommand);
+
             baseCommand.Execute();
         }
 

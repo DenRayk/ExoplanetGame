@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Application;
+using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter
@@ -17,7 +18,15 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
         public override void Execute()
         {
-            ucCollection.UcCollectionControlCenter.AddRobotUseCase.AddRobot(robotVariant);
+            try
+            {
+                ucCollection.UcCollectionControlCenter.AddRobotUseCase.AddRobot(robotVariant);
+            }
+            catch (RobotCapacityReachException robotCapacityReachException)
+            {
+                Console.WriteLine(robotCapacityReachException.Message);
+            }
+
             ControlCenterCommand controlCenterCommand = new(ucCollection);
             controlCenterCommand.Execute();
         }
