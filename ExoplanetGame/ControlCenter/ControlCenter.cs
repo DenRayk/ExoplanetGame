@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.Factory;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Factory;
 using ExoplanetGame.Robot.Movement;
@@ -10,9 +11,9 @@ namespace ExoplanetGame.ControlCenter
     public class ControlCenter
     {
         private static ControlCenter controlCenter;
-        public IExoplanet exoPlanet;
+        public IExoPlanet exoPlanet;
 
-        private PlanetMap planetMap;
+        public PlanetMap PlanetMap { get; set; }
         private Dictionary<RobotBase, Position> robots;
         private IRobotFactory robotFactory;
 
@@ -21,25 +22,19 @@ namespace ExoplanetGame.ControlCenter
 
         public event EventHandler<RobotPositionEventArgs> RobotPositionUpdated;
 
-        public ControlCenter(IExoplanet exoPlanet)
+        public ControlCenter()
         {
             robots = new Dictionary<RobotBase, Position>();
-            this.exoPlanet = exoPlanet;
             robotFactory = RobotFactory.GetInstance();
         }
 
-        public static ControlCenter GetInstance(IExoplanet exoPlanet)
+        public static ControlCenter GetInstance()
         {
             if (controlCenter == null)
             {
-                controlCenter = new ControlCenter(exoPlanet);
+                controlCenter = new ControlCenter();
             }
             return controlCenter;
-        }
-
-        public void Init(IExoplanet exoPlanet)
-        {
-            planetMap = new PlanetMap(exoPlanet.Topography.PlanetSize);
         }
 
         public void AddRobot(RobotVariant robotVariant)
@@ -48,32 +43,7 @@ namespace ExoplanetGame.ControlCenter
             {
                 RobotBase robotBase;
 
-                switch (robotVariant)
-                {
-                    case RobotVariant.DEFAULT:
-                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, exoPlanet, robotID++);
-                        break;
-
-                    case RobotVariant.SCOUT:
-                        robotBase = robotFactory.CreateScoutRobot(controlCenter, exoPlanet, robotID++);
-                        break;
-
-                    case RobotVariant.LAVA:
-                        robotBase = robotFactory.CreateLavaRobot(controlCenter, exoPlanet, robotID++);
-                        break;
-
-                    case RobotVariant.AQUA:
-                        robotBase = robotFactory.CreateAquaRobot(controlCenter, exoPlanet, robotID++);
-                        break;
-
-                    case RobotVariant.MUD:
-                        robotBase = robotFactory.CreateMudRobot(controlCenter, exoPlanet, robotID++);
-                        break;
-
-                    default:
-                        robotBase = robotFactory.CreateDefaultRobot(controlCenter, exoPlanet, robotID++);
-                        return;
-                }
+                robotBase = robotFactory.CreateRobot(controlCenter, exoPlanet, robotID, robotVariant);
 
                 Console.WriteLine($"{robotBase.GetLanderName()} added successfully. \n");
                 robots.Add(robotBase, null);
@@ -94,19 +64,6 @@ namespace ExoplanetGame.ControlCenter
         protected virtual void OnRobotPositionUpdated(RobotBase robot, Position position)
         {
             RobotPositionUpdated?.Invoke(this, new RobotPositionEventArgs(robot, position));
-        }
-
-        public void AddMeasure(Measure measure, Position position)
-        {
-            planetMap.updateMap(position, measure.Ground);
-        }
-
-        public void AddMeasures(Dictionary<Measure, Position> measures)
-        {
-            foreach (var measure in measures)
-            {
-                AddMeasure(measure.Key, measure.Value);
-            }
         }
 
         public int GetRobotCount()

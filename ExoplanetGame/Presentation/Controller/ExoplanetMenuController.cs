@@ -7,7 +7,7 @@ namespace ExoplanetGame.Menus.Controller
 {
     public class ExoplanetMenuController
     {
-        public static IExoplanet SelectTargetExoplanet()
+        public static IExoPlanet SelectTargetExoplanet()
         {
             while (true)
             {

@@ -5,9 +5,9 @@ namespace ExoplanetGame.ControlCenter
 {
     public static class PlanetManager
     {
-        private static List<ExoplanetBase> exoplanets = new List<ExoplanetBase>();
+        private static List<ExoPlanetBase> exoplanets = new List<ExoPlanetBase>();
 
-        public static ExoplanetBase TargetPlanet { get; set; }
+        public static ExoPlanetBase TargetPlanet { get; set; }
 
         public static void ScanForExoplanets()
         {
@@ -21,7 +21,7 @@ namespace ExoplanetGame.ControlCenter
             exoplanets.Add(new Frostfell());
         }
 
-        public static ExoplanetBase GetPlanet(PlanetVariant planet)
+        public static ExoPlanetBase GetPlanet(PlanetVariant planet)
         {
             switch (planet)
             {
@@ -54,7 +54,7 @@ namespace ExoplanetGame.ControlCenter
             }
         }
 
-        public static ExoplanetBase GetRandomPlanet()
+        public static ExoPlanetBase GetRandomPlanet()
         {
             Random random = new Random();
             int randomPlanet = random.Next(0, exoplanets.Count);

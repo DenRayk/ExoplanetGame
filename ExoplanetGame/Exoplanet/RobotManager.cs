@@ -14,11 +14,11 @@ namespace ExoplanetGame.Exoplanet
 
         internal readonly RobotStatusManager robotStatusManager;
 
-        private readonly ExoplanetBase exoplanet;
+        private readonly ExoPlanetBase _exoPlanet;
 
-        public RobotManager(ExoplanetBase exoplanet)
+        public RobotManager(ExoPlanetBase exoPlanet)
         {
-            this.exoplanet = exoplanet;
+            this._exoPlanet = exoPlanet;
             robots = new Dictionary<RobotBase, Position>();
 
             robotStatusManager = new RobotStatusManager();
@@ -55,7 +55,7 @@ namespace ExoplanetGame.Exoplanet
         {
             if (robotStatusManager.RobotEnergyTracker.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.GETPOSITION))
             {
-                robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, exoplanet.Topography);
+                robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, _exoPlanet.Topography);
                 robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.GETPOSITION);
                 return new PositionResult
                 {
@@ -79,7 +79,7 @@ namespace ExoplanetGame.Exoplanet
 
             if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.SOLARPANELS))
             {
-                loadResult = robotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds, exoplanet.Weather);
+                loadResult = robotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds, _exoPlanet.Weather);
                 robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.SOLARPANELS);
             }
             else
@@ -110,7 +110,7 @@ namespace ExoplanetGame.Exoplanet
                 return rotationResult;
             }
 
-            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.ROTATE, exoplanet.Topography);
+            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.ROTATE, _exoPlanet.Topography);
             robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.ROTATE);
 
             if (robotStatusManager.RobotStuckTracker.IsRobotStuck(robot))

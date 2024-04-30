@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExoplanetGame.Application.ControlCenter
+namespace ExoplanetGame.Presentation.Commands.Robot
 {
-    internal interface PrintMapUseCase
+    internal class SelectRobotActionCommand
     {
-        void PrintMap();
     }
 }

@@ -10,12 +10,12 @@ namespace ExoplanetGame.Robot
 {
     public class RobotBase
     {
-        protected readonly IExoplanet exoPlanet;
+        protected readonly IExoPlanet exoPlanet;
         protected readonly ControlCenter.ControlCenter controlCenter;
         public RobotInformation RobotInformation { get; }
         public RobotVariant RobotVariant { get; }
 
-        protected RobotBase(IExoplanet exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID,
+        protected RobotBase(IExoPlanet exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID,
             RobotVariant robotVariant)
         {
             this.exoPlanet = exoPlanet;

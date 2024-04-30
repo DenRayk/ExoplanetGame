@@ -17,8 +17,5 @@ public enum RobotVariant
     AQUA,
 
     [Description("Mud robot")]
-    MUD,
-
-    [Description("Solar robot")]
-    SOLAR,
+    MUD
 }

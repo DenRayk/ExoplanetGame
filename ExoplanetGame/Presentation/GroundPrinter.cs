@@ -5,7 +5,7 @@ namespace ExoplanetGame.Presentation
 {
     internal class GroundPrinter
     {
-        public static void printGround(Ground ground)
+        public static void PrintGround(Ground ground)
         {
             switch (ground)
             {

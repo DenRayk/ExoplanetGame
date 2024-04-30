@@ -9,10 +9,10 @@ namespace ExoplanetGame
         private static GameServer gameServer;
         private ControlCenter.ControlCenter controlCenter;
 
-        public GameServer(IExoplanet targetExoplanetBase)
+        public GameServer(IExoPlanet targetExoPlanetBase)
         {
-            controlCenter = ControlCenter.ControlCenter.GetInstance(targetExoplanetBase);
-            controlCenter.Init(targetExoplanetBase);
+            controlCenter = ControlCenter.ControlCenter.GetInstance();
+            controlCenter.Init(targetExoPlanetBase);
         }
 
         public void Start()
@@ -20,11 +20,11 @@ namespace ExoplanetGame
             ControlCenterController.RunMainMenu(this, controlCenter);
         }
 
-        public static GameServer GetInstance(IExoplanet targetExoplanetBase)
+        public static GameServer GetInstance(IExoPlanet targetExoPlanetBase)
         {
             if (gameServer == null)
             {
-                gameServer = new GameServer(targetExoplanetBase);
+                gameServer = new GameServer(targetExoPlanetBase);
             }
 
             return gameServer;

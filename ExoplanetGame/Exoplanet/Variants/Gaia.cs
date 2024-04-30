@@ -2,7 +2,7 @@
 
 namespace ExoplanetGame.Exoplanet.Variants
 {
-    public class Gaia : ExoplanetBase
+    public class Gaia : ExoPlanetBase
     {
         private Random random = new();
 

@@ -20,29 +20,38 @@ namespace ExoplanetGame.Robot.Factory
             return instance;
         }
 
-        public DefaultBot CreateDefaultRobot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotID)
+        public RobotBase CreateRobot(ControlCenter.ControlCenter controlCenter, IExoPlanet exoPlanet, int robotID, RobotVariant robotVariant)
         {
-            return new DefaultBot(controlCenter, exoPlanet, robotID);
-        }
+            RobotBase robotBase;
 
-        public ScoutBot CreateScoutRobot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotID)
-        {
-            return new ScoutBot(controlCenter, exoPlanet, robotID);
-        }
+            switch (robotVariant)
+            {
+                case RobotVariant.DEFAULT:
+                    robotBase = new DefaultBot(controlCenter, exoPlanet, robotID);
+                    break;
 
-        public LavaBot CreateLavaRobot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotID)
-        {
-            return new LavaBot(controlCenter, exoPlanet, robotID);
-        }
+                case RobotVariant.SCOUT:
+                    robotBase = new ScoutBot(controlCenter, exoPlanet, robotID);
+                    break;
 
-        public AquaBot CreateAquaRobot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotID)
-        {
-            return new AquaBot(controlCenter, exoPlanet, robotID);
-        }
+                case RobotVariant.LAVA:
+                    robotBase = new LavaBot(controlCenter, exoPlanet, robotID);
+                    break;
 
-        public MudBot CreateMudRobot(ControlCenter.ControlCenter controlCenter, IExoplanet exoPlanet, int robotID)
-        {
-            return new MudBot(controlCenter, exoPlanet, robotID);
+                case RobotVariant.AQUA:
+                    robotBase = new AquaBot(controlCenter, exoPlanet, robotID);
+                    break;
+
+                case RobotVariant.MUD:
+                    robotBase = new MudBot(controlCenter, exoPlanet, robotID);
+                    break;
+
+                default:
+                    robotBase = new DefaultBot(controlCenter, exoPlanet, robotID);
+                    break;
+            }
+
+            return robotBase;
         }
     }
 }

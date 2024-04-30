@@ -5,7 +5,7 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Exoplanet.Variants
 {
-    public class Tropica : ExoplanetBase
+    public class Tropica : ExoPlanetBase
     {
         private static readonly int mysteriousAttackChance = 50;
 

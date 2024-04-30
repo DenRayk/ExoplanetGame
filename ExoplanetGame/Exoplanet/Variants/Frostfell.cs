@@ -5,7 +5,7 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Exoplanet.Variants
 {
-    public class Frostfell : ExoplanetBase
+    public class Frostfell : ExoPlanetBase
     {
         private Random random = new();
 

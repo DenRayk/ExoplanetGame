@@ -5,7 +5,7 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Exoplanet.Variants
 {
-    public class Lavaria : ExoplanetBase
+    public class Lavaria : ExoPlanetBase
     {
         private static readonly int volcanicEruptionChance = 5;
 

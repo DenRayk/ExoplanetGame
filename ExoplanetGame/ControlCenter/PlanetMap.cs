@@ -5,7 +5,7 @@ using ExoplanetGame.Robot.Movement;
 
 namespace ExoplanetGame.ControlCenter
 {
-    internal class PlanetMap
+    public class PlanetMap
     {
         public PlanetSize planetSize { get; set; }
         public Ground[,] map { get; set; }
@@ -43,7 +43,7 @@ namespace ExoplanetGame.ControlCenter
                     }
                     else
                     {
-                        GroundPrinter.printGround(map[i, j]);
+                        GroundPrinter.PrintGround(map[i, j]);
                     }
                 }
                 Console.WriteLine();

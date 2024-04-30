@@ -2,7 +2,7 @@
 
 namespace ExoplanetGame.Exoplanet.Variants
 {
-    public class Aquatica : ExoplanetBase
+    public class Aquatica : ExoPlanetBase
     {
         private Random random = new();
 

@@ -2,7 +2,7 @@
 
 namespace ExoplanetGame.Exoplanet.Variants
 {
-    public class Terra : ExoplanetBase
+    public class Terra : ExoPlanetBase
     {
         private Random random = new();
 

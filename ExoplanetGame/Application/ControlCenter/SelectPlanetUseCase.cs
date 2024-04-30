@@ -2,7 +2,7 @@
 
 namespace ExoplanetGame.Application.ControlCenter
 {
-    internal interface SelectPlanetUseCase
+    public interface SelectPlanetUseCase
     {
         void SelectPlanet(PlanetVariant planetVariant);
     }

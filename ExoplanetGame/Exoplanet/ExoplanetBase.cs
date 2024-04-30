@@ -7,14 +7,14 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Exoplanet
 {
-    public class ExoplanetBase : IExoplanet
+    public class ExoPlanetBase : IExoPlanet
     {
         internal Weather Weather { get; set; }
         public Topography Topography { get; set; }
         protected RobotManager robotManager;
         public PlanetVariant PlanetVariant { get; }
 
-        public ExoplanetBase(PlanetVariant planetVariant)
+        public ExoPlanetBase(PlanetVariant planetVariant)
         {
             PlanetVariant = planetVariant;
             Weather = Weather.SUNNY;

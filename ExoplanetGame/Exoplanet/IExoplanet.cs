@@ -13,7 +13,7 @@ namespace ExoplanetGame.Exoplanet
 {
     namespace ExoplanetGame.Exoplanet
     {
-        public interface IExoplanet
+        public interface IExoPlanet
         {
             Topography Topography { get; set; }
             PlanetVariant PlanetVariant { get; }
