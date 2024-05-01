@@ -24,7 +24,11 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
             if (positionResult.IsSuccess)
             {
-                Console.WriteLine($"RobotPositionManager moved to {positionResult.Position}");
+                if (positionResult.Message != null)
+                {
+                    Console.WriteLine($"{positionResult.Message}");
+                }
+                Console.WriteLine($"Robot moved to {positionResult.Position}");
             }
             else
             {

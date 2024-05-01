@@ -18,6 +18,7 @@ namespace ExoplanetGame.Application.Exoplanet
         public MoveOnExoplanetUseCase MoveOnExoplanetService { get; }
         public LandOnExoplanetUseCase LandOnExoplanetService { get; }
         public RotateOnExoplanetUseCase RotateOnExoplanetService { get; }
+        public LoadOnExoplanetUseCase LoadOnExoplanetService { get; }
 
         public ExoplanetService()
         {
@@ -33,6 +34,7 @@ namespace ExoplanetGame.Application.Exoplanet
             MoveOnExoplanetService = new MoveOnExoplanetService(this);
             LandOnExoplanetService = new LandOnExoplanetService(this);
             RotateOnExoplanetService = new RotateOnExoplanetService(this);
+            LoadOnExoplanetService = new LoadOnExoplanetService(this);
         }
 
         public ExoPlanetBase ExoPlanet { get; private set; }

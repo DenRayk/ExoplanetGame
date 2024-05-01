@@ -23,7 +23,13 @@ namespace ExoplanetGame.Application.Exoplanet
                 return moveResult;
 
             Position newPosition = robotPosition.GetAdjacentPosition();
-            newPosition = exoplanetService.RobotPostionsService.WaterDrift(robot, newPosition, exoplanetService.ExoPlanet.Topography);
+            Position waterDriftPosition = exoplanetService.RobotPostionsService.WaterDrift(robot, newPosition, exoplanetService.ExoPlanet.Topography);
+
+            if (!Equals(waterDriftPosition, newPosition))
+            {
+                moveResult.AddMessage("Robot landed in water and drifted to a safe position.");
+                newPosition = waterDriftPosition;
+            }
 
             if (!exoplanetService.RobotPostionsService.IsPositionSafeForRobot(robot, newPosition, exoplanetService.ExoPlanet.Topography, ref moveResult))
                 return moveResult;

@@ -15,6 +15,7 @@ namespace ExoplanetGame.Application.Robot
         public RobotMoveUseCase MoveRobotService;
         public RobotRotateUseCase RotateRobotService;
         public RobotCrashUseCase CrashRobotService;
+        public RobotLoadUseCase LoadRobotService;
 
         public UCCollectionRobot(ExoplanetService exoplanetService)
         {
@@ -24,6 +25,7 @@ namespace ExoplanetGame.Application.Robot
             MoveRobotService = new RobotMoveService(exoplanetService);
             RotateRobotService = new RobotRotateService(exoplanetService);
             CrashRobotService = new RobotCrashService(exoplanetService);
+            LoadRobotService = new RobotLoadService(exoplanetService);
         }
     }
 }

@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExoplanetGame.Application.Robot
+namespace ExoplanetGame.Application.Exoplanet
 {
-    public interface RobotLoadUseCase
+    public interface LoadOnExoplanetUseCase
     {
-        LoadResult LoadEnergy(RobotBase robotBase, int seconds);
+        LoadResult LoadEnergy(RobotBase robot, int seconds);
     }
 }

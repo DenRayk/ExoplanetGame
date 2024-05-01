@@ -33,6 +33,10 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
             if (landResult.IsSuccess)
             {
+                if (landResult.Message != null)
+                {
+                    Console.WriteLine(landResult.Message);
+                }
                 Console.WriteLine($"Robot landed on {landResult.Position}");
                 robotRepository.MoveRobot(robotBase, landResult.Position);
                 SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase, this, controlCenterCommand);

@@ -18,7 +18,14 @@ namespace ExoplanetGame.Application.Exoplanet
         {
             ExoPlanetBase exoPlanet = exoplanetService.ExoPlanet;
             PositionResult landResult = new();
-            landPosition = exoplanetService.RobotPostionsService.WaterDrift(robot, landPosition, exoPlanet.Topography);
+
+            Position waterDriftPosition = exoplanetService.RobotPostionsService.WaterDrift(robot, landPosition, exoPlanet.Topography);
+
+            if (!Equals(waterDriftPosition, landPosition))
+            {
+                landResult.AddMessage("Robot landed in water and drifted to a safe position.");
+                landPosition = waterDriftPosition;
+            }
 
             if (!exoPlanet.RobotPositionManager.Robots.ContainsKey(robot) && exoplanetService.RobotPostionsService.IsPositionSafeForRobot(robot, landPosition, exoPlanet.Topography, ref landResult))
             {
@@ -29,12 +36,11 @@ namespace ExoplanetGame.Application.Exoplanet
                 landResult.IsSuccess = true;
                 landResult.HasRobotSurvived = true;
                 landResult.Position = landPosition;
-                landResult.AddMessage("RobotPositionManager landed successful");
 
                 return landResult;
             }
 
-            landResult.AddMessage("RobotPositionManager cannot land.");
+            landResult.AddMessage("Robot cannot land.");
 
             return landResult;
         }
