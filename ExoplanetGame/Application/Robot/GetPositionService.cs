@@ -23,14 +23,14 @@ namespace ExoplanetGame.Application.Robot
 
         public PositionResult GetPosition(RobotBase robot)
         {
-            PositionResult positionResult = exoplanetService.RobotPostionUseCase.GetRobotPosition(robot);
+            PositionResult positionResult = exoplanetService.RobotPostions.GetRobotPosition(robot);
 
             if (!positionResult.HasRobotSurvived)
             {
-                exoplanetService.RobotPostionUseCase.RemoveRobot(robot);
+                exoplanetService.RobotPostions.RemoveRobot(robot);
                 robotRepository.RemoveRobot(robot);
             }
-            return exoplanetService.RobotPostionUseCase.GetRobotPosition(robot);
+            return exoplanetService.RobotPostions.GetRobotPosition(robot);
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Application;
+﻿using ExoplanetGame.Application;
 using ExoplanetGame.Presentation.Commands.ControlCenter;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.RobotResults;
@@ -23,7 +18,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            PositionResult positionResult = ucCollection.UcCollectionRobot.GetPositionUseCase.GetPosition(robotBase);
+            PositionResult positionResult = ucCollection.UcCollectionRobot.GetPositionService.GetPosition(robotBase);
 
             if (positionResult.IsSuccess)
             {

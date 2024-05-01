@@ -18,22 +18,29 @@ namespace ExoplanetGame.Application.Exoplanet
 
         public void FreezeRobot(RobotBase robot)
         {
-            throw new NotImplementedException();
+            exoplanetService.ExoPlanet.RobotStatusManager.RobotsFrozen[robot] = true;
         }
 
         public bool IsFrozen(RobotBase robot)
         {
-            throw new NotImplementedException();
+            return exoplanetService.ExoPlanet.RobotStatusManager.RobotsFrozen.ContainsKey(robot) && exoplanetService.ExoPlanet.RobotStatusManager.RobotsFrozen[robot];
         }
 
         public void UpdateLastMove(RobotBase robot)
         {
-            throw new NotImplementedException();
+            exoplanetService.ExoPlanet.RobotStatusManager.RobotsLastMove[robot] = DateTime.Now;
         }
 
         public DateTime GetLastMove(RobotBase robot)
         {
-            throw new NotImplementedException();
+            if (exoplanetService.ExoPlanet.RobotStatusManager.RobotsLastMove.ContainsKey(robot))
+            {
+                return exoplanetService.ExoPlanet.RobotStatusManager.RobotsLastMove[robot];
+            }
+            else
+            {
+                return DateTime.Now;
+            }
         }
     }
 }

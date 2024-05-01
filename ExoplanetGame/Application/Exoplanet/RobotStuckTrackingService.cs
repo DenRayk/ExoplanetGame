@@ -10,6 +10,7 @@ namespace ExoplanetGame.Application.Exoplanet
     internal class RobotStuckTrackingService : RobotStuckTrackingUseCase
     {
         private ExoplanetService exoplanetService;
+        private Random random = new();
 
         public RobotStuckTrackingService(ExoplanetService exoplanetService)
         {
@@ -18,17 +19,20 @@ namespace ExoplanetGame.Application.Exoplanet
 
         public void RobotGetStuckRandomly(RobotBase robot)
         {
-            throw new NotImplementedException();
+            if (random.Next(0, 100) < 30)
+            {
+                exoplanetService.ExoPlanet.RobotStatusManager.RobotsStuck[robot] = true;
+            }
         }
 
         public bool IsRobotStuck(RobotBase robot)
         {
-            throw new NotImplementedException();
+            return exoplanetService.ExoPlanet.RobotStatusManager.RobotsStuck.ContainsKey(robot) && exoplanetService.ExoPlanet.RobotStatusManager.RobotsStuck[robot];
         }
 
         public void UnstuckRobot(RobotBase robot)
         {
-            throw new NotImplementedException();
+            exoplanetService.ExoPlanet.RobotStatusManager.RobotsStuck[robot] = false;
         }
     }
 }

@@ -13,7 +13,6 @@ namespace ExoplanetGame.Application.ControlCenter
         {
             this.SelectPlanetUseCase = new SelectPlanetService();
             this.AddRobotUseCase = new AddRobotService();
-            this.AddMeasureUseCase = new AddMeasureService();
             this.GetRobotsService = new GetRobotsService();
             this.GetPlanetMapUseCase = new GetPlanetMapService();
             this.GetCurrentWeatherUseCase = new GetCurrentWeatherService();
@@ -22,8 +21,6 @@ namespace ExoplanetGame.Application.ControlCenter
 
         public SelectPlanetUseCase SelectPlanetUseCase { get; }
         public AddRobotUseCase AddRobotUseCase { get; }
-        public AddMeasureUseCase AddMeasureUseCase { get; }
-
         public GetRobotsService GetRobotsService { get; }
 
         public GetCurrentWeatherUseCase GetCurrentWeatherUseCase { get; }

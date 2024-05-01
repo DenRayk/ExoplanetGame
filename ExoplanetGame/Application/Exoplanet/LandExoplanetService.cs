@@ -20,13 +20,13 @@ namespace ExoplanetGame.Application.Exoplanet
         {
             ExoPlanetBase exoPlanet = exoplanetService.ExoPlanet;
             PositionResult landResult = new();
-            landPosition = exoplanetService.RobotPostionUseCase.WaterDrift(robot, landPosition, exoPlanet.Topography);
+            landPosition = exoplanetService.RobotPostions.WaterDrift(robot, landPosition, exoPlanet.Topography);
 
-            if (!exoPlanet.RobotPositionManager.Robots.ContainsKey(robot) && exoplanetService.RobotPostionUseCase.IsPositionSafeForRobot(robot, landPosition, exoPlanet.Topography, ref landResult))
+            if (!exoPlanet.RobotPositionManager.Robots.ContainsKey(robot) && exoplanetService.RobotPostions.IsPositionSafeForRobot(robot, landPosition, exoPlanet.Topography, ref landResult))
             {
                 exoPlanet.RobotPositionManager.Robots.Add(robot, landPosition);
-                exoplanetService.HeatTrackingUseCase.PerformAction(robot, RobotAction.LAND, exoPlanet.Topography, landPosition);
-                exoplanetService.EnergyTrackingUseCase.ConsumeEnergy(robot, RobotAction.LAND);
+                exoplanetService.HeatTracking.PerformAction(robot, RobotAction.LAND, exoPlanet.Topography, landPosition);
+                exoplanetService.EnergyTracking.ConsumeEnergy(robot, RobotAction.LAND);
 
                 landResult.IsSuccess = true;
                 landResult.HasRobotSurvived = true;

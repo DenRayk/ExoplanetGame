@@ -1,4 +1,5 @@
-﻿using ExoplanetGame.Exoplanet;
+﻿using ExoplanetGame.Application.Robot;
+using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Factory;
 using ExoplanetGame.Exoplanet.Variants;
 
@@ -7,25 +8,26 @@ namespace ExoplanetGame.Application.Exoplanet
     public class ExoplanetService
     {
         private ExoPlanetBaseFactory exoPlanetFactory;
+        public EnergyTrackingUseCase EnergyTracking { get; }
+        public HeatTrackingUseCase HeatTracking { get; }
+        public FreezeTrackingUseCase FreezeTracking { get; }
+        public RobotStuckTrackingUseCase RobotStuckTracking { get; }
+        public RobotPartsTrackingUseCase RobotPartsTracking { get; }
+        public RobotPostionUseCase RobotPostions { get; }
 
-        public EnergyTrackingUseCase EnergyTrackingUseCase { get; }
-        public HeatTrackingUseCase HeatTrackingUseCase { get; }
-        public FreezeTrackingUseCase FreezeTrackingUseCase { get; }
-        public RobotStuckTrackingUseCase RobotStuckTrackingUseCase { get; }
-        public RobotPartsTrackingUseCase RobotPartsTrackingUseCase { get; }
-
-        public RobotPostionUseCase RobotPostionUseCase { get; }
+        public ScanExoplanetUseCase ScanExoplanetService { get; }
 
         public ExoplanetService()
         {
             exoPlanetFactory = ExoPlanetFactory.GetInstance();
 
-            EnergyTrackingUseCase = new EnergyTrackingService(this);
-            HeatTrackingUseCase = new HeatTrackingService(this);
-            FreezeTrackingUseCase = new FreezeTrackingService(this);
-            RobotStuckTrackingUseCase = new RobotStuckTrackingService(this);
-            RobotPartsTrackingUseCase = new RobotPartsTrackingService(this);
-            RobotPostionUseCase = new RobotPositionService(this);
+            EnergyTracking = new EnergyTrackingService(this);
+            HeatTracking = new HeatTrackingService(this);
+            FreezeTracking = new FreezeTrackingService(this);
+            RobotStuckTracking = new RobotStuckTrackingService(this);
+            RobotPartsTracking = new RobotPartsTrackingService(this);
+            RobotPostions = new RobotPositionService(this);
+            ScanExoplanetService = new ScanExoplanetService(this);
         }
 
         public ExoPlanetBase ExoPlanet { get; private set; }

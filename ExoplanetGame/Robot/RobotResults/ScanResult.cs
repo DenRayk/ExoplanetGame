@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Robot.Movement;
 
 namespace ExoplanetGame.Robot.RobotResults
 {
@@ -15,6 +16,6 @@ namespace ExoplanetGame.Robot.RobotResults
             Message = robotResultBase.Message;
         }
 
-        public Measure Measure { get; set; }
+        public Dictionary<Measure, Position> Measures { get; set; } = new();
     }
 }

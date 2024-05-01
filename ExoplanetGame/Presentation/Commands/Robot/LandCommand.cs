@@ -30,12 +30,12 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
             Position position = SelectLandPosition(planetMap);
 
-            PositionResult landResult = ucCollection.UcCollectionRobot.landRobotUseCase.LandRobot(robotBase, position);
+            PositionResult landResult = ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, position);
 
             if (landResult.IsSuccess)
             {
                 Console.WriteLine($"RobotPositionManager landed on {landResult.Position}");
-                ucCollection.UcCollectionControlCenter.UpdateRobotPositionUseCase.UpdateRobotPosition(robotBase, position);
+                ucCollection.UcCollectionControlCenter.UpdateRobotPositionUseCase.UpdateRobotPosition(robotBase, landResult.Position);
                 SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
                 selectRobotActionCommand.Execute();
             }

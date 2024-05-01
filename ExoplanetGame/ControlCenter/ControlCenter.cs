@@ -30,6 +30,19 @@ namespace ExoplanetGame.ControlCenter
         {
         }
 
+        public void AddMeasure(Measure measure, Position position)
+        {
+            PlanetMap.updateMap(position, measure.Ground);
+        }
+
+        public void AddMeasures(Dictionary<Measure, Position> measures)
+        {
+            foreach (var measure in measures)
+            {
+                AddMeasure(measure.Key, measure.Value);
+            }
+        }
+
         public static ControlCenter GetInstance()
         {
             if (controlCenter == null)

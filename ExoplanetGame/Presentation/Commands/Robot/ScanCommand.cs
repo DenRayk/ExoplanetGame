@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Application;
+﻿using ExoplanetGame.Application;
+using ExoplanetGame.Presentation.Commands.ControlCenter;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -21,7 +18,28 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            throw new NotImplementedException();
+            ScanResult scanResult = ucCollection.UcCollectionRobot.ScanExoplanetService.Scan(robotBase);
+
+            if (scanResult.IsSuccess)
+            {
+                foreach (var measure in scanResult.Measures)
+                {
+                    Console.WriteLine($"Scanned {measure.Key} at {measure.Value}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{scanResult.Message}");
+
+                if (!scanResult.HasRobotSurvived)
+                {
+                    ControlCenterCommand controlCenterCommand = new(ucCollection);
+                    controlCenterCommand.Execute();
+                }
+            }
+
+            SelectRobotActionCommand selectRobotActionCommand = new SelectRobotActionCommand(ucCollection, robotBase);
+            selectRobotActionCommand.Execute();
         }
     }
 }

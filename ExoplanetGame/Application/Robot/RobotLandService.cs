@@ -11,12 +11,12 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Application.Robot
 {
-    internal class LandRobotService : LandRobotUseCase
+    internal class RobotLandService : RobotLandUseCase
     {
         private LandExoplanetService landRobotExoplanetService;
         private global::ExoplanetGame.ControlCenter.ControlCenter controlCenter;
 
-        public LandRobotService(ExoplanetService exoplanetService)
+        public RobotLandService(ExoplanetService exoplanetService)
         {
             controlCenter = global::ExoplanetGame.ControlCenter.ControlCenter.GetInstance();
             landRobotExoplanetService = new LandExoplanetService(exoplanetService);

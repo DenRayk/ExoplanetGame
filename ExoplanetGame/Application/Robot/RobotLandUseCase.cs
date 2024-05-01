@@ -4,7 +4,7 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Application.Robot;
 
-public interface LandRobotUseCase
+public interface RobotLandUseCase
 {
     PositionResult LandRobot(RobotBase robotBase, Position landPosition);
 }
