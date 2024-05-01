@@ -15,34 +15,36 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
+        private Rotation rotation;
 
         public RotateCommand(RobotBase robotBase, UCCollection ucCollection, Rotation rotation)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
+            this.rotation = rotation;
         }
 
         public override void Execute()
         {
-            //PositionResult positionResult = ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robotBase);
+            RotationResult rotationResult = ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robotBase, rotation);
 
-            //if (positionResult.IsSuccess)
-            //{
-            //    Console.WriteLine($"RobotPositionManager moved to {positionResult.Position}");
-            //}
-            //else
-            //{
-            //    Console.WriteLine($"{positionResult.Message}");
+            if (rotationResult.IsSuccess)
+            {
+                Console.WriteLine($"Robot rotated to {rotationResult.Direction}");
+            }
+            else
+            {
+                Console.WriteLine($"{rotationResult.Message}");
 
-            //    if (!positionResult.HasRobotSurvived)
-            //    {
-            //        ControlCenterCommand controlCenterCommand = new(ucCollection);
-            //        controlCenterCommand.Execute();
-            //    }
-            //}
+                if (!rotationResult.HasRobotSurvived)
+                {
+                    ControlCenterCommand controlCenterCommand = new(ucCollection);
+                    controlCenterCommand.Execute();
+                }
+            }
 
-            //SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
-            //selectRobotActionCommand.Execute();
+            SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
+            selectRobotActionCommand.Execute();
         }
     }
 }

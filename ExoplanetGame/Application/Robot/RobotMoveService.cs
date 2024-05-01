@@ -27,6 +27,7 @@ namespace ExoplanetGame.Application.Robot
 
             if (positionResult.IsSuccess)
             {
+                robot.RobotInformation.Position = positionResult.Position;
                 robotRepository.MoveRobot(robot, positionResult.Position);
                 return positionResult;
             }

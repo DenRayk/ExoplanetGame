@@ -7,22 +7,20 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {
     internal class EnergyTrackingService : EnergyTrackingUseCase
     {
-        private ExoPlanetBase exoPlanet;
-        private Dictionary<RobotBase, int> robotEnergy = new();
+        private ExoplanetService exoplanetService;
 
         public EnergyTrackingService(ExoplanetService exoplanetService)
         {
-            exoPlanet = exoplanetService.ExoPlanet;
+            this.exoplanetService = exoplanetService;
         }
 
         public LoadResult LoadEnergy(RobotBase robot, int seconds, Weather weather)
         {
-            robotEnergy = exoPlanet.RobotPositionManager.RobotStatusManager.RobotsEnergy;
             LoadResult loadResult = new();
 
-            if (!robotEnergy.ContainsKey(robot))
+            if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy.ContainsKey(robot))
             {
-                robotEnergy.Add(robot, robot.RobotInformation.MaxEnergy);
+                exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy.Add(robot, robot.RobotInformation.MaxEnergy);
             }
             else
             {
@@ -30,15 +28,14 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
                 for (int i = 0; i < seconds; i++)
                 {
-                    if (robotEnergy[robot] < robot.RobotInformation.MaxEnergy)
+                    if (exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy[robot] < robot.RobotInformation.MaxEnergy)
                     {
-                        Console.WriteLine($"Loading energy {robotEnergy[robot]}%...");
-                        robotEnergy[robot] += energyLoad;
+                        exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy[robot] += energyLoad;
 
                         loadResult.IsSuccess = true;
                         loadResult.HasRobotSurvived = true;
-                        loadResult.Message = $"RobotPositionManager energy loaded to {robotEnergy[robot]}%";
-                        loadResult.EnergyLoad = robotEnergy[robot];
+                        loadResult.Message = $"RobotPositionManager energy loaded to {exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy[robot]}%";
+                        loadResult.EnergyLoad = exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy[robot];
                     }
                     else
                     {
@@ -83,14 +80,14 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
         public void ConsumeEnergy(RobotBase robot, RobotAction robotAction)
         {
-            if (!robotEnergy.ContainsKey(robot))
+            if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy.ContainsKey(robot))
             {
-                robotEnergy.Add(robot, robot.RobotInformation.MaxEnergy);
+                exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy.Add(robot, robot.RobotInformation.MaxEnergy);
             }
 
             int energyConsumed = CalculateEneryConsumtion(robotAction);
 
-            robotEnergy[robot] -= energyConsumed;
+            exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy[robot] -= energyConsumed;
         }
 
         private int CalculateEneryConsumtion(RobotAction robotAction)
@@ -119,19 +116,18 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
         public int GetRobotEnergy(RobotBase robot)
         {
-            if (!robotEnergy.ContainsKey(robot))
+            if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy.ContainsKey(robot))
             {
-                robotEnergy.Add(robot, robot.RobotInformation.MaxEnergy);
+                exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy.Add(robot, robot.RobotInformation.MaxEnergy);
             }
 
-            return robotEnergy[robot];
+            return exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy[robot];
         }
 
         public bool DoesRobotHaveEnoughEneryToAction(RobotBase robot, RobotAction robotAction)
         {
             if (GetRobotEnergy(robot) < CalculateEneryConsumtion(robotAction))
             {
-                Console.WriteLine($"RobotPositionManager {robot.RobotInformation.RobotID} does not have enough energy to perform action.");
                 return false;
             }
 

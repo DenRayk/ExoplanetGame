@@ -53,7 +53,7 @@ namespace ExoplanetGame.Application.Exoplanet
             bool isMovementSensorDamaged = exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.MOVEMENTSENSOR);
             bool areWheelsDamaged = exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.WHEELS);
             bool isRobotStuck = exoplanetService.RobotStuckTracking.IsRobotStuck(robot);
-            bool doesRobotHaveEnery = exoplanetService.EnergyTracking.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.MOVE);
+            bool doesRobotHaveEnergy = exoplanetService.EnergyTracking.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.MOVE);
 
             if (isMovementSensorDamaged)
             {
@@ -70,12 +70,12 @@ namespace ExoplanetGame.Application.Exoplanet
                 positionResult.Message += "Robot is stuck. Try to rotate.\n";
             }
 
-            if (doesRobotHaveEnery)
+            if (!doesRobotHaveEnergy)
             {
                 positionResult.Message += "Robot does not have enough energy to move.\n";
             }
 
-            bool canMove = !isMovementSensorDamaged && !areWheelsDamaged && !isRobotStuck && doesRobotHaveEnery;
+            bool canMove = !isMovementSensorDamaged && !areWheelsDamaged && !isRobotStuck && doesRobotHaveEnergy;
 
             if (!canMove)
             {
