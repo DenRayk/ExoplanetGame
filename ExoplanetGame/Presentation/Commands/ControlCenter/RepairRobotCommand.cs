@@ -6,5 +6,9 @@
         {
             throw new NotImplementedException();
         }
+
+        public RepairRobotCommand(BaseCommand previousCommand) : base(previousCommand)
+        {
+        }
     }
 }

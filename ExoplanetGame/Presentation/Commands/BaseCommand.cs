@@ -2,6 +2,13 @@
 
 public abstract class BaseCommand
 {
+    protected BaseCommand previousCommand { get; }
+
+    protected BaseCommand(BaseCommand previousCommand)
+    {
+        this.previousCommand = previousCommand;
+    }
+
     public abstract void Execute();
 
     public BaseCommand ReadUserInputWithOptions(Dictionary<string, BaseCommand> options)
@@ -11,12 +18,12 @@ public abstract class BaseCommand
 
         if (input == (int)ConsoleKey.F1)
         {
-            return new HelpCommand();
+            return new HelpCommand(this);
         }
 
         if (input == (int)ConsoleKey.Escape)
         {
-            return new ExitCommand();
+            return new ExitCommand(this);
         }
 
         return options.Values.ElementAt(input - 1);

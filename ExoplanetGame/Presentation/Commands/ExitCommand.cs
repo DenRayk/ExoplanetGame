@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExoplanetGame.Presentation.Commands
 {
-    internal class ExitCommand : BaseCommand
+    internal class ExitCommand(BaseCommand previousCommand) : BaseCommand(previousCommand)
     {
         public override void Execute()
         {

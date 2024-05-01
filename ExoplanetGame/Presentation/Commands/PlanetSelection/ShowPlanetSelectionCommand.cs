@@ -19,7 +19,7 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
             $"{PlanetVariant.LAVARIA.GetDescriptionFromEnum()}:\t Expert level\n" +
             $"{PlanetVariant.TROPICA.GetDescriptionFromEnum()}:\t Grandmaster level\n";
 
-        public ShowPlanetSelectionCommand(UCCollection ucCollection, ExoplanetService exoplanetService)
+        public ShowPlanetSelectionCommand(UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand) : base(previousCommand)
         {
             this.ucCollection = ucCollection;
             this.exoplanetService = exoplanetService;
@@ -39,7 +39,6 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
                 if (baseCommand is HelpCommand helpCommand)
                 {
                     helpCommand.HelpText = helpText;
-                    helpCommand.PreviousCommand = this;
                     helpCommand.Execute();
                 }
             } while (baseCommand is HelpCommand);
@@ -53,9 +52,9 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 
             foreach (PlanetVariant planetVariant in Enum.GetValues(typeof(PlanetVariant)))
             {
-                options.Add(planetVariant.GetDescriptionFromEnum(), new SelectPlanetCommand(planetVariant, ucCollection, exoplanetService));
+                options.Add(planetVariant.GetDescriptionFromEnum(), new SelectPlanetCommand(planetVariant, ucCollection, exoplanetService, this));
             }
-            options.Add("Random", new SelectPlanetCommand(getRandomPlanetVariant(), ucCollection, exoplanetService));
+            options.Add("Random", new SelectPlanetCommand(getRandomPlanetVariant(), ucCollection, exoplanetService, this));
             return options;
         }
 

@@ -11,7 +11,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
         private RobotVariant robotVariant;
 
-        public AddRobotCommand(RobotVariant robotVariant, UCCollection ucCollection)
+        public AddRobotCommand(RobotVariant robotVariant, UCCollection ucCollection, BaseCommand previousCommand) : base(previousCommand)
         {
             this.robotVariant = robotVariant;
             this.ucCollection = ucCollection;
@@ -28,8 +28,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
                 Console.WriteLine(robotCapacityReachException.Message);
             }
 
-            ControlCenterCommand controlCenterCommand = new(ucCollection);
-            controlCenterCommand.Execute();
+            previousCommand.Execute();
         }
     }
 }

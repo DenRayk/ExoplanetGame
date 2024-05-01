@@ -7,7 +7,7 @@ using ExoplanetGame.Presentation.Commands.PlanetSelection;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
-    internal class ControlCenterCommand : BaseCommand
+    public class ControlCenterCommand : BaseCommand
     {
         private UCCollection ucCollection;
 
@@ -18,7 +18,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             "Repair RobotPositionManager:\t Repair a robot's part\n" +
             "Print Map:\t Display status of the exoplanet's exploration area\n";
 
-        public ControlCenterCommand(UCCollection ucCollection)
+        public ControlCenterCommand(UCCollection ucCollection, BaseCommand previousCommand) : base(previousCommand)
         {
             this.ucCollection = ucCollection;
         }
@@ -35,7 +35,6 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             if (baseCommand is HelpCommand helpCommand)
             {
                 helpCommand.HelpText = helpText;
-                helpCommand.PreviousCommand = this;
                 helpCommand.Execute();
             }
 
@@ -46,11 +45,11 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
         {
             var options = new Dictionary<string, BaseCommand>
             {
-                { "Add Robot", new SelectRobotTypeCommand(ucCollection) },
-                { "Control Robot" , new ControlRobotCommand(ucCollection) },
-                { "Repair Robot", new RepairRobotCommand() },
+                { "Add Robot", new SelectRobotTypeCommand(ucCollection, this) },
+                { "Control Robot" , new ControlRobotCommand(ucCollection,this) },
+                { "Repair Robot", new RepairRobotCommand(this) },
                 { "Print Map", new PrintMapCommand(ucCollection, this) },
-                { "Exit", new ExitCommand()}
+                { "Exit", new ExitCommand(this)}
             };
 
             return options;

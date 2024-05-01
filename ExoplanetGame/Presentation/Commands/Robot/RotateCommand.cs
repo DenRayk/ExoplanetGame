@@ -11,17 +11,19 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
-    internal class RotateCommand : BaseCommand
+    internal class RotateCommand : RobotCommand
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
         private Rotation rotation;
+        private ControlCenterCommand controlCenterCommand;
 
-        public RotateCommand(RobotBase robotBase, UCCollection ucCollection, Rotation rotation)
+        public RotateCommand(RobotBase robotBase, UCCollection ucCollection, Rotation rotation, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
             this.rotation = rotation;
+            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
@@ -38,13 +40,11 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
                 if (!rotationResult.HasRobotSurvived)
                 {
-                    ControlCenterCommand controlCenterCommand = new(ucCollection);
                     controlCenterCommand.Execute();
                 }
             }
 
-            SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
-            selectRobotActionCommand.Execute();
+            previousCommand.Execute();
         }
     }
 }

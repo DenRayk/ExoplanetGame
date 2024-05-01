@@ -2,23 +2,11 @@
 {
     internal class HelpCommand : BaseCommand
     {
-        public HelpCommand()
+        public HelpCommand(BaseCommand previousCommand) : base(previousCommand)
         {
-        }
-
-        public HelpCommand(BaseCommand previousCommand)
-        {
-            this.PreviousCommand = previousCommand;
-        }
-
-        public HelpCommand(BaseCommand previousCommand, string helpText)
-        {
-            this.PreviousCommand = previousCommand;
-            HelpText = helpText;
         }
 
         public string HelpText { get; set; }
-        public BaseCommand PreviousCommand { get; set; }
 
         public override void Execute()
         {
@@ -28,7 +16,7 @@
             Console.ReadKey();
             Console.Clear();
 
-            PreviousCommand.Execute();
+            previousCommand.Execute();
         }
     }
 }

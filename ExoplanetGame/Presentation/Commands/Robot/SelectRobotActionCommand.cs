@@ -14,24 +14,26 @@ using ExoplanetGame.Robot.Movement;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
-    internal class SelectRobotActionCommand : BaseCommand
+    internal class SelectRobotActionCommand : RobotCommand
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
+        private ControlCenterCommand controlCenterCommand;
 
         private readonly string helpText =
-            "RobotPositionManager Menu Information\n" +
-            "Position:\t Show current position of the RobotPositionManager\n" +
+            "Robot Menu Information\n" +
+            "Position:\t Show current position of the robot\n" +
             "Scan:\t\t Scan the environment\n" +
             "Move:\t\t Move the robot in the direction it is facing\n" +
             "Rotate:\t\t Rotate the robot left or right\n" +
             "Load:\t\t Load energy to the robot\n" +
             "Crash:\t\t Crash the robot\n";
 
-        public SelectRobotActionCommand(UCCollection ucCollection, RobotBase robotBase)
+        public SelectRobotActionCommand(UCCollection ucCollection, RobotBase robotBase, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
         {
             this.ucCollection = ucCollection;
             this.robotBase = robotBase;
+            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
@@ -55,13 +57,13 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         {
             var options = new Dictionary<string, BaseCommand>
             {
-                { "Position", new GetPositionCommand(robotBase, ucCollection) },
-                { "Scan", new ScanCommand(robotBase, ucCollection) },
-                { "Move", new MoveCommand(robotBase, ucCollection) },
-                { "Rotate", new ShowRotationOptionsCommand(robotBase, ucCollection) },
-                { "Load", new LoadCommand(robotBase, ucCollection) },
-                { "Crash", new CrashCommand(robotBase, ucCollection) },
-                { "Back", new ControlCenterCommand(ucCollection) }
+                { "Position", new GetPositionCommand(robotBase, ucCollection, this, controlCenterCommand) },
+                { "Scan", new ScanCommand(robotBase, ucCollection, this, controlCenterCommand) },
+                { "Move", new MoveCommand(robotBase, ucCollection, this, controlCenterCommand) },
+                { "Rotate", new ShowRotationOptionsCommand(robotBase, ucCollection, this, controlCenterCommand) },
+                { "Load", new LoadCommand(robotBase, ucCollection, this, controlCenterCommand) },
+                { "Crash", new CrashCommand(robotBase, ucCollection, this, controlCenterCommand) },
+                { "Back", new ControlCenterCommand(ucCollection, this) }
             };
 
             return options;

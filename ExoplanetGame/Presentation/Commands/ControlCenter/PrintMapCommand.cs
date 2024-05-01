@@ -10,12 +10,10 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
     internal class PrintMapCommand : BaseCommand
     {
         private UCCollection ucCollection;
-        private BaseCommand previousCommand;
 
-        public PrintMapCommand(UCCollection ucCollection, BaseCommand previousCommand)
+        public PrintMapCommand(UCCollection ucCollection, BaseCommand previousCommand) : base(previousCommand)
         {
             this.ucCollection = ucCollection;
-            this.previousCommand = previousCommand;
         }
 
         public override void Execute()

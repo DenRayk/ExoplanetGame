@@ -13,16 +13,18 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
-    internal class LandCommand : BaseCommand
+    internal class LandCommand : RobotCommand
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
         private IRobotRepository robotRepository;
+        private ControlCenterCommand controlCenterCommand;
 
-        public LandCommand(RobotBase robotBase, UCCollection ucCollection, ExoplanetService exoplanetService)
+        public LandCommand(RobotBase robotBase, UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
+            this.controlCenterCommand = controlCenterCommand;
             this.robotRepository = RobotRepository.GetInstance();
         }
 
@@ -38,13 +40,12 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             {
                 Console.WriteLine($"Robot landed on {landResult.Position}");
                 robotRepository.MoveRobot(robotBase, landResult.Position);
-                SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
+                SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase, this, controlCenterCommand);
                 selectRobotActionCommand.Execute();
             }
             else
             {
                 Console.WriteLine($"{landResult.Message}");
-                ControlCenterCommand controlCenterCommand = new(ucCollection);
                 controlCenterCommand.Execute();
             }
         }

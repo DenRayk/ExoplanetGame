@@ -15,7 +15,7 @@ namespace ExoplanetGame
 
             ucCollection.init(exoplanetService);
 
-            ShowPlanetSelectionCommand showPlanetSelectionCommand = new(ucCollection, exoplanetService);
+            ShowPlanetSelectionCommand showPlanetSelectionCommand = new(ucCollection, exoplanetService, null);
             showPlanetSelectionCommand.Execute();
         }
     }

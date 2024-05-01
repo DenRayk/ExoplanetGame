@@ -17,21 +17,21 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
         private UCCollection ucCollection;
 
         private readonly string helpText =
-            "RobotPositionManager Variant Information\n" +
+            "Robot Variant Information\n" +
             $"{RobotVariant.DEFAULT.GetDescriptionFromEnum()}:\t Basic robot with no special abilities\n" +
             $"{RobotVariant.SCOUT.GetDescriptionFromEnum()}:\t Scan roboter with a larger scanning range\n" +
-            $"{RobotVariant.LAVA.GetDescriptionFromEnum()}:\t RobotPositionManager that can withstand high temperatures\n" +
-            $"{RobotVariant.AQUA.GetDescriptionFromEnum()}:\t RobotPositionManager that can withstand water drift\n" +
-            $"{RobotVariant.MUD.GetDescriptionFromEnum()}:\t RobotPositionManager that can move through mud\n";
+            $"{RobotVariant.LAVA.GetDescriptionFromEnum()}:\t Robot that can withstand high temperatures\n" +
+            $"{RobotVariant.AQUA.GetDescriptionFromEnum()}:\t Robot that can withstand water drift\n" +
+            $"{RobotVariant.MUD.GetDescriptionFromEnum()}:\t Robot that can move through mud\n";
 
-        public SelectRobotTypeCommand(UCCollection ucCollection)
+        public SelectRobotTypeCommand(UCCollection ucCollection, BaseCommand previousCommand) : base(previousCommand)
         {
             this.ucCollection = ucCollection;
         }
 
         public override void Execute()
         {
-            Console.WriteLine("RobotPositionManager Variant Menu");
+            Console.WriteLine("Robot Variant Menu");
             Console.WriteLine("Select a robot variant (press F1 for help):\n");
 
             var options = getRobotOptions();
@@ -44,7 +44,6 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
                 if (baseCommand is HelpCommand helpCommand)
                 {
                     helpCommand.HelpText = helpText;
-                    helpCommand.PreviousCommand = this;
                     helpCommand.Execute();
                 }
             } while (baseCommand is HelpCommand);
@@ -58,9 +57,9 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
             foreach (RobotVariant planetVariant in Enum.GetValues(typeof(RobotVariant)))
             {
-                options.Add(planetVariant.GetDescriptionFromEnum(), new AddRobotCommand(planetVariant, ucCollection));
+                options.Add(planetVariant.GetDescriptionFromEnum(), new AddRobotCommand(planetVariant, ucCollection, previousCommand));
             }
-            options.Add("Random", new AddRobotCommand(getRandomRobotVariant(), ucCollection));
+            options.Add("Random", new AddRobotCommand(getRandomRobotVariant(), ucCollection, previousCommand));
             return options;
         }
 

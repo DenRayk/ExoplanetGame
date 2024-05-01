@@ -5,15 +5,17 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
-    internal class GetPositionCommand : BaseCommand
+    internal class GetPositionCommand : RobotCommand
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
+        private ControlCenterCommand controlCenterCommand;
 
-        public GetPositionCommand(RobotBase robotBase, UCCollection ucCollection)
+        public GetPositionCommand(RobotBase robotBase, UCCollection ucCollection, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
+            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
@@ -30,13 +32,11 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
                 if (!positionResult.HasRobotSurvived)
                 {
-                    ControlCenterCommand controlCenterCommand = new(ucCollection);
                     controlCenterCommand.Execute();
                 }
             }
 
-            SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
-            selectRobotActionCommand.Execute();
+            previousCommand.Execute();
         }
     }
 }
