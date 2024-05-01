@@ -4,15 +4,13 @@ using ExoplanetGame.Helper;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
 {
-    internal class SelectRobotPartToRepairCommand : RobotCommand
+    internal class SelectRobotPartToRepairCommand : BaseCommand
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
-        private ControlCenterCommand controlCenterCommand;
 
-        public SelectRobotPartToRepairCommand(BaseCommand previousCommand, ControlCenterCommand controlCenterCommand, RobotBase robotBase, UCCollection ucCollection) : base(previousCommand, controlCenterCommand)
+        public SelectRobotPartToRepairCommand(BaseCommand previousCommand, RobotBase robotBase, UCCollection ucCollection)
         {
-            this.controlCenterCommand = controlCenterCommand;
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
         }
@@ -31,8 +29,6 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
                 baseCommand.Execute();
             }
             Console.WriteLine($"{robotBase.GetLanderName()} has not used any parts yet. \n");
-
-            controlCenterCommand.Execute();
         }
 
         private Dictionary<string, BaseCommand> getRobotPartOptions(Dictionary<RobotPart, int> robotParts)
@@ -40,7 +36,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             Dictionary<string, BaseCommand> options = new();
             foreach (var robotPart in robotParts)
             {
-                options.Add($"{robotPart.Key.GetDescriptionFromEnum(),-15} - Durability {GetDescriptionFromPartDurability(robotPart.Value)}", new RepairRobotPartCommand(previousCommand, controlCenterCommand, robotBase, robotPart.Key, ucCollection));
+                options.Add($"{robotPart.Key.GetDescriptionFromEnum(),-15} - Durability {GetDescriptionFromPartDurability(robotPart.Value)}", new RepairRobotPartCommand(robotBase, robotPart.Key, ucCollection));
             }
             return options;
         }

@@ -4,15 +4,13 @@ using ExoplanetGame.Domain.Robot;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
 {
-    internal class SelectRobotToRepairCommand : RobotCommand
+    internal class SelectRobotToRepairCommand : BaseCommand
     {
         private UCCollection ucCollection;
-        private ControlCenterCommand controlCenterCommand;
 
-        public SelectRobotToRepairCommand(UCCollection ucCollection, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
+        public SelectRobotToRepairCommand(UCCollection ucCollection, BaseCommand previousCommand)
         {
             this.ucCollection = ucCollection;
-            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
@@ -32,7 +30,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             Dictionary<string, BaseCommand> options = new();
             foreach (var robot in getAllRobots)
             {
-                options.Add(robot.Key.GetLanderName(), new SelectRobotPartToRepairCommand(this, controlCenterCommand, robot.Key, ucCollection));
+                options.Add(robot.Key.GetLanderName(), new SelectRobotPartToRepairCommand(this, robot.Key, ucCollection));
             }
             return options;
         }

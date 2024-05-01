@@ -1,7 +1,6 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.RobotResults;
-using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -9,29 +8,25 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
-        private ControlCenterCommand controlCenterCommand;
 
-        public CrashCommand(RobotBase robotBase, UCCollection ucCollection, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
+        public CrashCommand(RobotBase robotBase, UCCollection ucCollection)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
-            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
         {
-            RobotResultBase robotResult = ucCollection.UcCollectionRobot.CrashRobotService.Crash(robotBase);
+            RobotResult = ucCollection.UcCollectionRobot.CrashRobotService.Crash(robotBase);
 
-            if (robotResult.IsSuccess)
+            if (RobotResult.IsSuccess)
             {
                 Console.WriteLine($"{robotBase.GetLanderName()} crashed.");
             }
             else
             {
-                Console.WriteLine($"{robotResult.Message}");
+                Console.WriteLine($"{RobotResult.Message}");
             }
-
-            controlCenterCommand.Execute();
         }
     }
 }

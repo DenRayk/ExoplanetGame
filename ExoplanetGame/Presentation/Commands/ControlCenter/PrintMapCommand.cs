@@ -11,7 +11,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
     {
         private UCCollection ucCollection;
 
-        public PrintMapCommand(UCCollection ucCollection, BaseCommand previousCommand) : base(previousCommand)
+        public PrintMapCommand(UCCollection ucCollection)
         {
             this.ucCollection = ucCollection;
         }
@@ -25,8 +25,6 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             Console.WriteLine($"Current weather: {weather.GetDescriptionFromEnum()}");
             Console.WriteLine($"Discovered area of the planet: {planetMap.GetPercentageOfExploredArea()}");
             MapPrinter.PrintMap(robots, planetMap);
-
-            previousCommand.Execute();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.RobotResults;
-using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -9,18 +8,17 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
-        private ControlCenterCommand controlCenterCommand;
 
-        public GetPositionCommand(RobotBase robotBase, UCCollection ucCollection, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
+        public GetPositionCommand(RobotBase robotBase, UCCollection ucCollection)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
-            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
         {
             PositionResult positionResult = ucCollection.UcCollectionRobot.GetPositionService.GetPosition(robotBase);
+            RobotResult = positionResult;
 
             if (positionResult.IsSuccess)
             {
@@ -28,15 +26,8 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             }
             else
             {
-                Console.WriteLine($"{positionResult.Message}");
-
-                if (!positionResult.HasRobotSurvived)
-                {
-                    controlCenterCommand.Execute();
-                }
+                Console.WriteLine($"{RobotResult.Message}");
             }
-
-            previousCommand.Execute();
         }
     }
 }

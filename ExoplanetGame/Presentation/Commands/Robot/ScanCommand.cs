@@ -1,7 +1,6 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.RobotResults;
-using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -9,18 +8,17 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
-        private ControlCenterCommand controlCenterCommand;
 
-        public ScanCommand(RobotBase robotBase, UCCollection ucCollection, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
+        public ScanCommand(RobotBase robotBase, UCCollection ucCollection)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
-            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
         {
             ScanResult scanResult = ucCollection.UcCollectionRobot.ScanExoplanetService.Scan(robotBase);
+            RobotResult = scanResult;
 
             if (scanResult.IsSuccess)
             {
@@ -32,14 +30,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             else
             {
                 Console.WriteLine($"{scanResult.Message}");
-
-                if (!scanResult.HasRobotSurvived)
-                {
-                    controlCenterCommand.Execute();
-                }
             }
-
-            previousCommand.Execute();
         }
     }
 }

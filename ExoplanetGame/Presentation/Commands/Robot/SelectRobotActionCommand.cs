@@ -3,16 +3,15 @@ using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Exoplanet.Environment;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
+using ExoplanetGame.Domain.Robot.RobotResults;
 using ExoplanetGame.Helper;
-using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
-    internal class SelectRobotActionCommand : RobotCommand
+    internal class SelectRobotActionCommand : BaseCommand
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
-        private ControlCenterCommand controlCenterCommand;
 
         private readonly string helpText =
             "Robot Menu Information\n" +
@@ -23,47 +22,63 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             "Load:\t\t Load energy to the robot\n" +
             "Crash:\t\t Crash the robot\n";
 
-        public SelectRobotActionCommand(UCCollection ucCollection, RobotBase robotBase, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
+        public SelectRobotActionCommand(UCCollection ucCollection, RobotBase robotBase, BaseCommand previousCommand)
         {
             this.ucCollection = ucCollection;
             this.robotBase = robotBase;
-            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
         {
-            Console.WriteLine($"{robotBase.GetLanderName()} Menu");
-
-            PlanetMap planetMap = ucCollection.UcCollectionControlCenter.GetPlanetMapUseCase.GetPlanetMap();
-            Dictionary<RobotBase, Position> robots = ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots();
-            Weather weather = ucCollection.UcCollectionControlCenter.GetCurrentWeatherUseCase.GetCurrentWeather();
-
-            Console.WriteLine($"Current weather: {weather.GetDescriptionFromEnum()}");
-            Console.WriteLine($"Discovered area of the planet: {planetMap.GetPercentageOfExploredArea()}");
-            MapPrinter.PrintMap(robots, planetMap);
-
-            var options = GetRobotMenuOptions();
-
-            BaseCommand baseCommand = ReadUserInputWithOptions(options);
-            if (baseCommand is HelpCommand helpCommand)
+            BaseCommand baseCommand;
+            do
             {
-                helpCommand.HelpText = helpText;
-                helpCommand.Execute();
+                Console.WriteLine($"{robotBase.GetLanderName()} Menu");
+
+                PlanetMap planetMap = ucCollection.UcCollectionControlCenter.GetPlanetMapUseCase.GetPlanetMap();
+                Dictionary<RobotBase, Position> robots = ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots();
+                Weather weather = ucCollection.UcCollectionControlCenter.GetCurrentWeatherUseCase.GetCurrentWeather();
+
+                Console.WriteLine($"Current weather: {weather.GetDescriptionFromEnum()}");
+                Console.WriteLine($"Discovered area of the planet: {planetMap.GetPercentageOfExploredArea()}");
+                MapPrinter.PrintMap(robots, planetMap);
+
+                var options = GetRobotMenuOptions();
+
+                baseCommand = ReadUserInputWithOptions(options);
+
+                if (baseCommand is HelpCommand helpCommand)
+                {
+                    helpCommand.HelpText = helpText;
+                    helpCommand.Execute();
+                }
+                baseCommand.Execute();
+            } while (baseCommand is not CrashCommand && baseCommand is not BackCommand && HasRobotSurvived(baseCommand));
+        }
+
+        private bool HasRobotSurvived(BaseCommand baseCommand)
+        {
+            if (baseCommand is RobotCommand robotCommand)
+            {
+                if (!robotCommand.RobotResult.HasRobotSurvived)
+                {
+                    return false;
+                }
             }
-            baseCommand.Execute();
+            return true;
         }
 
         private Dictionary<string, BaseCommand> GetRobotMenuOptions()
         {
             var options = new Dictionary<string, BaseCommand>
             {
-                { "Position", new GetPositionCommand(robotBase, ucCollection, this, controlCenterCommand) },
-                { "Scan", new ScanCommand(robotBase, ucCollection, this, controlCenterCommand) },
-                { "Move", new MoveCommand(robotBase, ucCollection, this, controlCenterCommand) },
-                { "Rotate", new ShowRotationOptionsCommand(robotBase, ucCollection, this, controlCenterCommand) },
-                { "Load", new LoadCommand(robotBase, ucCollection, this, controlCenterCommand) },
-                { "Crash", new CrashCommand(robotBase, ucCollection, this, controlCenterCommand) },
-                { "Back", new ControlCenterCommand(ucCollection, this) }
+                { "Position", new GetPositionCommand(robotBase, ucCollection) },
+                { "Scan", new ScanCommand(robotBase, ucCollection) },
+                { "Move", new MoveCommand(robotBase, ucCollection) },
+                { "Rotate", new ShowRotationOptionsCommand(robotBase, ucCollection) },
+                { "Load", new LoadCommand(robotBase, ucCollection) },
+                { "Crash", new CrashCommand(robotBase, ucCollection) },
+                { "Back", new BackCommand(this) }
             };
 
             return options;

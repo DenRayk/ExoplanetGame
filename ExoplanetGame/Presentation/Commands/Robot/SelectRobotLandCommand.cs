@@ -9,23 +9,21 @@ using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
-    internal class SelectRobotLandCommand : RobotCommand
+    internal class SelectRobotLandCommand : BaseCommand
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
         private ExoplanetService exoplanetService;
-        private ControlCenterCommand controlCenterCommand;
 
         private string helpText =
             "Land:\t Land the robot on the planet\n" +
             "Back:\t Return to the control center\n";
 
-        public SelectRobotLandCommand(UCCollection ucCollection, RobotBase robotBase, ExoplanetService exoplanetService, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
+        public SelectRobotLandCommand(UCCollection ucCollection, RobotBase robotBase, ExoplanetService exoplanetService, BaseCommand previousCommand)
         {
             this.ucCollection = ucCollection;
             this.robotBase = robotBase;
             this.exoplanetService = exoplanetService;
-            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
@@ -59,8 +57,8 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         private Dictionary<string, BaseCommand> getLandOptions()
         {
             var options = new Dictionary<string, BaseCommand>();
-            options.Add("Land", new LandCommand(robotBase, ucCollection, exoplanetService, this, controlCenterCommand));
-            options.Add("Back", new ControlCenterCommand(ucCollection, previousCommand));
+            options.Add("Land", new LandCommand(robotBase, ucCollection, exoplanetService, this));
+            options.Add("Back", new ControlCenterCommand(ucCollection));
             return options;
         }
     }

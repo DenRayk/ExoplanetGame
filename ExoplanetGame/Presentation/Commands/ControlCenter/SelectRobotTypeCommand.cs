@@ -16,7 +16,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             $"{RobotVariant.AQUA.GetDescriptionFromEnum()}:\t Robot that can withstand water drift\n" +
             $"{RobotVariant.MUD.GetDescriptionFromEnum()}:\t Robot that can move through mud\n";
 
-        public SelectRobotTypeCommand(UCCollection ucCollection, BaseCommand previousCommand) : base(previousCommand)
+        public SelectRobotTypeCommand(UCCollection ucCollection, BaseCommand previousCommand)
         {
             this.ucCollection = ucCollection;
         }
@@ -49,9 +49,9 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
             foreach (RobotVariant planetVariant in Enum.GetValues(typeof(RobotVariant)))
             {
-                options.Add(planetVariant.GetDescriptionFromEnum(), new AddRobotCommand(planetVariant, ucCollection, previousCommand));
+                options.Add(planetVariant.GetDescriptionFromEnum(), new AddRobotCommand(planetVariant, ucCollection));
             }
-            options.Add("Random", new AddRobotCommand(getRandomRobotVariant(), ucCollection, previousCommand));
+            options.Add("Random", new AddRobotCommand(getRandomRobotVariant(), ucCollection));
             return options;
         }
 

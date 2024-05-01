@@ -6,17 +6,16 @@ using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
-    internal class ShowRotationOptionsCommand : RobotCommand
+    internal class ShowRotationOptionsCommand : BaseCommand
     {
         private RobotBase robotBase;
         private UCCollection ucCollection;
         private ControlCenterCommand controlCenterCommand;
 
-        public ShowRotationOptionsCommand(RobotBase robotBase, UCCollection ucCollection, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
+        public ShowRotationOptionsCommand(RobotBase robotBase, UCCollection ucCollection)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
-            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
@@ -33,7 +32,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             Dictionary<string, BaseCommand> options = new();
             foreach (Rotation rotation in Enum.GetValues(typeof(Rotation)))
             {
-                options.Add(rotation.GetDescriptionFromEnum(), new RotateCommand(robotBase, ucCollection, rotation, previousCommand, controlCenterCommand));
+                options.Add(rotation.GetDescriptionFromEnum(), new RotateCommand(robotBase, ucCollection, rotation));
             }
             return options;
         }

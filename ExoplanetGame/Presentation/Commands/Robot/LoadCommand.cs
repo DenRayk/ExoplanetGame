@@ -1,7 +1,6 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.RobotResults;
-using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -9,13 +8,11 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
-        private ControlCenterCommand controlCenterCommand;
 
-        public LoadCommand(RobotBase robotBase, UCCollection ucCollection, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
+        public LoadCommand(RobotBase robotBase, UCCollection ucCollection)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
-            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
@@ -25,6 +22,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
             Console.WriteLine("Loading energy...");
             LoadResult loadResult = ucCollection.UcCollectionRobot.LoadRobotService.LoadEnergy(robotBase, seconds);
+            RobotResult = loadResult;
 
             if (loadResult.IsSuccess)
             {
@@ -33,12 +31,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             else
             {
                 Console.WriteLine($"{loadResult.Message}");
-                if (!loadResult.HasRobotSurvived)
-                {
-                    controlCenterCommand.Execute();
-                }
             }
-            previousCommand.Execute();
         }
     }
 }

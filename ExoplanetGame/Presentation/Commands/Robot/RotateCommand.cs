@@ -2,7 +2,6 @@
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
-using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -11,19 +10,18 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         private UCCollection ucCollection;
         private RobotBase robotBase;
         private Rotation rotation;
-        private ControlCenterCommand controlCenterCommand;
 
-        public RotateCommand(RobotBase robotBase, UCCollection ucCollection, Rotation rotation, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
+        public RotateCommand(RobotBase robotBase, UCCollection ucCollection, Rotation rotation)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
             this.rotation = rotation;
-            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
         {
             RotationResult rotationResult = ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robotBase, rotation);
+            RobotResult = rotationResult;
 
             if (rotationResult.IsSuccess)
             {
@@ -32,14 +30,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             else
             {
                 Console.WriteLine($"{rotationResult.Message}");
-
-                if (!rotationResult.HasRobotSurvived)
-                {
-                    controlCenterCommand.Execute();
-                }
             }
-
-            previousCommand.Execute();
         }
     }
 }

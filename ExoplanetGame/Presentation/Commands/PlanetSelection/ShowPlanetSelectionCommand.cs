@@ -19,7 +19,7 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
             $"{PlanetVariant.LAVARIA.GetDescriptionFromEnum()}:\t Expert level\n" +
             $"{PlanetVariant.TROPICA.GetDescriptionFromEnum()}:\t Grandmaster level\n";
 
-        public ShowPlanetSelectionCommand(UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand) : base(previousCommand)
+        public ShowPlanetSelectionCommand(UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand)
         {
             this.ucCollection = ucCollection;
             this.exoplanetService = exoplanetService;

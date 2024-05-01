@@ -4,7 +4,6 @@ using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
-using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -13,13 +12,11 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         private UCCollection ucCollection;
         private RobotBase robotBase;
         private IRobotRepository robotRepository;
-        private ControlCenterCommand controlCenterCommand;
 
-        public LandCommand(RobotBase robotBase, UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand, ControlCenterCommand controlCenterCommand) : base(previousCommand, controlCenterCommand)
+        public LandCommand(RobotBase robotBase, UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
-            this.controlCenterCommand = controlCenterCommand;
             robotRepository = RobotRepository.GetInstance();
         }
 
@@ -29,23 +26,24 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
             Position position = SelectLandPosition(planetMap);
 
-            PositionResult landResult = ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, position);
+            PositionResult positionResult = ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, position);
+            RobotResult = positionResult;
 
-            if (landResult.IsSuccess)
+            if (RobotResult.IsSuccess)
             {
-                if (landResult.Message != null)
+                if (RobotResult.Message != null)
                 {
-                    Console.WriteLine(landResult.Message);
+                    Console.WriteLine(positionResult.Message);
                 }
-                Console.WriteLine($"Robot landed on {landResult.Position}");
-                robotRepository.MoveRobot(robotBase, landResult.Position);
-                SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase, this, controlCenterCommand);
+                Console.WriteLine($"Robot landed on {positionResult.Position}");
+                robotRepository.MoveRobot(robotBase, positionResult.Position);
+
+                SelectRobotActionCommand selectRobotActionCommand = new SelectRobotActionCommand(ucCollection, robotBase, this);
                 selectRobotActionCommand.Execute();
             }
             else
             {
-                Console.WriteLine($"{landResult.Message}");
-                controlCenterCommand.Execute();
+                Console.WriteLine($"{positionResult.Message}");
             }
         }
 

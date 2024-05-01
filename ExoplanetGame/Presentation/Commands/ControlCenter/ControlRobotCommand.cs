@@ -11,7 +11,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
         private UCCollection ucCollection;
         private ExoplanetService exoplanetService;
 
-        public ControlRobotCommand(UCCollection ucCollection, BaseCommand previousCommand) : base(previousCommand)
+        public ControlRobotCommand(UCCollection ucCollection, BaseCommand previousCommand)
         {
             this.ucCollection = ucCollection;
         }
@@ -24,7 +24,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             {
                 Console.Clear();
                 Console.WriteLine("No Robots to control.");
-                ControlCenterCommand controlCenterCommand = new(ucCollection, this);
+                ControlCenterCommand controlCenterCommand = new(ucCollection);
                 controlCenterCommand.Execute();
             }
 
@@ -42,11 +42,11 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             {
                 if (robot.Key.HasLanded())
                 {
-                    robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotActionCommand(ucCollection, robot.Key, this, (ControlCenterCommand)previousCommand));
+                    robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotActionCommand(ucCollection, robot.Key, this));
                 }
                 else
                 {
-                    robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotLandCommand(ucCollection, robot.Key, exoplanetService, this, (ControlCenterCommand)previousCommand));
+                    robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotLandCommand(ucCollection, robot.Key, exoplanetService, this));
                 }
             }
 

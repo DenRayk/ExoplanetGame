@@ -14,27 +14,31 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             "Repair robot:\t Repair a robot's part\n" +
             "Print Map:\t Display status of the exoplanet's exploration area\n";
 
-        public ControlCenterCommand(UCCollection ucCollection, BaseCommand previousCommand) : base(previousCommand)
+        public ControlCenterCommand(UCCollection ucCollection)
         {
             this.ucCollection = ucCollection;
         }
 
         public override void Execute()
         {
-            Console.WriteLine("Control Center");
-            Console.WriteLine("Select an option (press F1 for help):\n");
-
-            var options = getControlCenterOptions();
-
-            BaseCommand baseCommand = ReadUserInputWithOptions(options);
-
-            if (baseCommand is HelpCommand helpCommand)
+            BaseCommand baseCommand;
+            do
             {
-                helpCommand.HelpText = helpText;
-                helpCommand.Execute();
-            }
+                Console.WriteLine("Control Center");
+                Console.WriteLine("Select an option (press F1 for help):\n");
 
-            baseCommand.Execute();
+                var options = getControlCenterOptions();
+
+                baseCommand = ReadUserInputWithOptions(options);
+
+                if (baseCommand is HelpCommand helpCommand)
+                {
+                    helpCommand.HelpText = helpText;
+                    helpCommand.Execute();
+                }
+
+                baseCommand.Execute();
+            } while (baseCommand is not ExitCommand);
         }
 
         private Dictionary<string, BaseCommand> getControlCenterOptions()
@@ -43,9 +47,9 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             {
                 { "Add Robot", new SelectRobotTypeCommand(ucCollection, this) },
                 { "Control Robot" , new ControlRobotCommand(ucCollection,this) },
-                { "Repair Robot", new SelectRobotToRepairCommand(ucCollection, this, this) },
-                { "Print Map", new PrintMapCommand(ucCollection, this) },
-                { "Exit", new ExitCommand(this)}
+                { "Repair Robot", new SelectRobotToRepairCommand(ucCollection, this) },
+                { "Print Map", new PrintMapCommand(ucCollection) },
+                { "Exit", new ExitCommand()}
             };
 
             return options;

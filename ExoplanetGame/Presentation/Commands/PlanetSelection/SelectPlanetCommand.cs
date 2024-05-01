@@ -13,7 +13,7 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 
         private ExoplanetService exoplanetService;
 
-        public SelectPlanetCommand(PlanetVariant planetVariant, UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand) : base(previousCommand)
+        public SelectPlanetCommand(PlanetVariant planetVariant, UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand)
         {
             this.planetVariant = planetVariant;
             this.ucCollection = ucCollection;
@@ -25,7 +25,7 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
             exoplanetService.CreateExoPlanet(planetVariant);
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
 
-            ControlCenterCommand controlCenterCommand = new(ucCollection, this);
+            ControlCenterCommand controlCenterCommand = new(ucCollection);
             controlCenterCommand.Execute();
         }
     }

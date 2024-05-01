@@ -2,13 +2,6 @@
 
 public abstract class BaseCommand
 {
-    protected BaseCommand previousCommand { get; }
-
-    protected BaseCommand(BaseCommand previousCommand)
-    {
-        this.previousCommand = previousCommand;
-    }
-
     public abstract void Execute();
 
     public BaseCommand ReadUserInputWithOptions(Dictionary<string, BaseCommand> options)
@@ -23,7 +16,7 @@ public abstract class BaseCommand
 
         if (input == (int)ConsoleKey.Escape)
         {
-            return new ExitCommand(this);
+            return new ExitCommand();
         }
 
         return options.Values.ElementAt(input - 1);

@@ -4,19 +4,18 @@ using ExoplanetGame.Helper;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
 {
-    internal class RepairRobotPartCommand : RobotCommand
+    internal class RepairRobotPartCommand : BaseCommand
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
         private RobotPart robotPart;
         private ControlCenterCommand controlCenterCommand;
 
-        public RepairRobotPartCommand(BaseCommand previousCommand, ControlCenterCommand controlCenterCommand, RobotBase robotBase, RobotPart robotPart, UCCollection ucCollection) : base(previousCommand, controlCenterCommand)
+        public RepairRobotPartCommand(RobotBase robotBase, RobotPart robotPart, UCCollection ucCollection)
         {
             this.robotBase = robotBase;
             this.robotPart = robotPart;
             this.ucCollection = ucCollection;
-            this.controlCenterCommand = controlCenterCommand;
         }
 
         public override void Execute()
