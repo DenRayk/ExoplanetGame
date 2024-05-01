@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Application.Exoplanet.PlanetEvents;
 using ExoplanetGame.Domain.Exoplanet;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
@@ -13,15 +14,19 @@ namespace ExoplanetGame.Application.Exoplanet
     internal class RotateOnExoplanetService : RotateOnExoplanetUseCase
     {
         private ExoplanetService exoplanetService;
+        private PlanetEventsService planetEventsService;
 
-        public RotateOnExoplanetService(ExoplanetService exoplanetService)
+        public RotateOnExoplanetService(ExoplanetService exoplanetService, PlanetEventsService planetEventsService)
         {
             this.exoplanetService = exoplanetService;
+            this.planetEventsService = planetEventsService;
         }
 
         public RotationResult Rotate(RobotBase robot, Rotation rotation)
         {
-            RotationResult rotationResult = new RotationResult();
+            RobotResultBase robotResult = planetEventsService.ExecutePlanetEvents(robot);
+
+            RotationResult rotationResult = new RotationResult(robotResult);
             Position robotPosition = exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot];
 
             if (!CanRobotRotate(robot, rotation, ref rotationResult))

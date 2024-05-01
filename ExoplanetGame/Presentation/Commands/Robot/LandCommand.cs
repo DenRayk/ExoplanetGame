@@ -20,7 +20,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
             this.controlCenterCommand = controlCenterCommand;
-            this.robotRepository = RobotRepository.GetInstance();
+            robotRepository = RobotRepository.GetInstance();
         }
 
         public override void Execute()

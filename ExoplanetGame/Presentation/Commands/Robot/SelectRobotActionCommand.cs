@@ -43,7 +43,13 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             MapPrinter.PrintMap(robots, planetMap);
 
             var options = GetRobotMenuOptions();
+
             BaseCommand baseCommand = ReadUserInputWithOptions(options);
+            if (baseCommand is HelpCommand helpCommand)
+            {
+                helpCommand.HelpText = helpText;
+                helpCommand.Execute();
+            }
             baseCommand.Execute();
         }
 

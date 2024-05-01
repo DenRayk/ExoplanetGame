@@ -1,4 +1,5 @@
-﻿using ExoplanetGame.Application.Exoplanet.StatusTracking;
+﻿using ExoplanetGame.Application.Exoplanet.PlanetEvents;
+using ExoplanetGame.Application.Exoplanet.StatusTracking;
 using ExoplanetGame.Domain.Exoplanet;
 using ExoplanetGame.Domain.Exoplanet.Factory;
 using ExoplanetGame.Domain.Exoplanet.Variants;
@@ -19,10 +20,12 @@ namespace ExoplanetGame.Application.Exoplanet
         public LandOnExoplanetUseCase LandOnExoplanetService { get; }
         public RotateOnExoplanetUseCase RotateOnExoplanetService { get; }
         public LoadOnExoplanetUseCase LoadOnExoplanetService { get; }
+        public PlanetEventsService PlanetEventsService { get; }
 
         public ExoplanetService()
         {
             exoPlanetFactory = ExoPlanetFactory.GetInstance();
+            PlanetEventsService = new PlanetEventsService(this);
 
             EnergyTracking = new EnergyTrackingService(this);
             HeatTracking = new HeatTrackingService(this);
@@ -31,9 +34,9 @@ namespace ExoplanetGame.Application.Exoplanet
             RobotPartsTracking = new RobotPartsTrackingService(this);
             RobotPostionsService = new RobotPositionService(this);
             ScanOnExoplanetService = new ScanOnExoplanetService(this);
-            MoveOnExoplanetService = new MoveOnExoplanetService(this);
+            MoveOnExoplanetService = new MoveOnExoplanetService(this, PlanetEventsService);
             LandOnExoplanetService = new LandOnExoplanetService(this);
-            RotateOnExoplanetService = new RotateOnExoplanetService(this);
+            RotateOnExoplanetService = new RotateOnExoplanetService(this, PlanetEventsService);
             LoadOnExoplanetService = new LoadOnExoplanetService(this);
         }
 

@@ -5,8 +5,6 @@ namespace ExoplanetGame.Domain.Exoplanet.Variants
 {
     public class Lavaria : ExoPlanetBase
     {
-        private static readonly int volcanicEruptionChance = 5;
-
         private readonly List<string[]> lavariaVariants = new()
         {
             new string[]

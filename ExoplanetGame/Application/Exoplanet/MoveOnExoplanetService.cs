@@ -1,4 +1,5 @@
-﻿using ExoplanetGame.Domain.Exoplanet;
+﻿using ExoplanetGame.Application.Exoplanet.PlanetEvents;
+using ExoplanetGame.Domain.Exoplanet;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
@@ -8,15 +9,19 @@ namespace ExoplanetGame.Application.Exoplanet
     internal class MoveOnExoplanetService : MoveOnExoplanetUseCase
     {
         private ExoplanetService exoplanetService;
+        private PlanetEventsService planetEventsService;
 
-        public MoveOnExoplanetService(ExoplanetService exoplanetService)
+        public MoveOnExoplanetService(ExoplanetService exoplanetService, PlanetEventsService planetEventsService)
         {
             this.exoplanetService = exoplanetService;
+            this.planetEventsService = planetEventsService;
         }
 
         public PositionResult MoveRobot(RobotBase robot)
         {
-            PositionResult moveResult = new();
+            RobotResultBase robotResult = planetEventsService.ExecutePlanetEvents(robot);
+
+            PositionResult moveResult = new(robotResult);
             Position robotPosition = exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot];
 
             if (!CanRobotMove(robot, ref moveResult))

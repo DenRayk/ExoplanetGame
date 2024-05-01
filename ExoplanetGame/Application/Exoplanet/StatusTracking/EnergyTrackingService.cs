@@ -1,4 +1,5 @@
-﻿using ExoplanetGame.Domain.Exoplanet;
+﻿using ExoplanetGame.Application.Exoplanet.PlanetEvents;
+using ExoplanetGame.Domain.Exoplanet;
 using ExoplanetGame.Domain.Exoplanet.Environment;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.RobotResults;
