@@ -1,5 +1,7 @@
 ﻿using ExoplanetGame.Application;
+using ExoplanetGame.Presentation.Commands.ControlCenter;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -16,7 +18,19 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            throw new NotImplementedException();
+            RobotResultBase robotResult = ucCollection.UcCollectionRobot.CrashRobotService.Crash(robotBase);
+
+            if (robotResult.IsSuccess)
+            {
+                Console.WriteLine($"{robotBase.GetLanderName()} crashed.");
+            }
+            else
+            {
+                Console.WriteLine($"{robotResult.Message}");
+            }
+
+            ControlCenterCommand controlCenterCommand = new(ucCollection);
+            controlCenterCommand.Execute();
         }
     }
 }
