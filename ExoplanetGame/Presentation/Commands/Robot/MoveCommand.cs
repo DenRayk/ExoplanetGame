@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Application;
-using ExoplanetGame.ControlCenter;
+﻿using ExoplanetGame.Application;
 using ExoplanetGame.Presentation.Commands.ControlCenter;
 using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
@@ -30,15 +23,20 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             if (positionResult.IsSuccess)
             {
                 Console.WriteLine($"RobotPositionManager moved to {positionResult.Position}");
-                SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
-                selectRobotActionCommand.Execute();
             }
             else
             {
                 Console.WriteLine($"{positionResult.Message}");
-                ControlCenterCommand controlCenterCommand = new(ucCollection);
-                controlCenterCommand.Execute();
+
+                if (!positionResult.HasRobotSurvived)
+                {
+                    ControlCenterCommand controlCenterCommand = new(ucCollection);
+                    controlCenterCommand.Execute();
+                }
             }
+
+            SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
+            selectRobotActionCommand.Execute();
         }
     }
 }
