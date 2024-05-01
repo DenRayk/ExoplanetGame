@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Movement;
 
 namespace ExoplanetGame.ControlCenter
@@ -47,6 +42,7 @@ namespace ExoplanetGame.ControlCenter
         public void MoveRobot(RobotBase robot, Position position)
         {
             robots[robot] = position;
+            OnRobotPositionUpdated(robot, position);
         }
 
         public Position GetRobotPosition(RobotBase robot)

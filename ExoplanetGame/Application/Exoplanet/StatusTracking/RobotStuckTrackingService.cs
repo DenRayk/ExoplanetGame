@@ -9,7 +9,7 @@ using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.Variants;
 
-namespace ExoplanetGame.Application.Exoplanet
+namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {
     internal class RobotStuckTrackingService : RobotStuckTrackingUseCase
     {

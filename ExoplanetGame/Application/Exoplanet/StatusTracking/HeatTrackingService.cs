@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExoplanetGame.Application.Exoplanet
+namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {
     internal class HeatTrackingService : HeatTrackingUseCase
     {

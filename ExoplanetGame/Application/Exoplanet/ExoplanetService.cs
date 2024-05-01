@@ -1,4 +1,5 @@
-﻿using ExoplanetGame.Application.Robot;
+﻿using ExoplanetGame.Application.Exoplanet.StatusTracking;
+using ExoplanetGame.Application.Robot;
 using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Factory;
 using ExoplanetGame.Exoplanet.Variants;
@@ -14,8 +15,10 @@ namespace ExoplanetGame.Application.Exoplanet
         public RobotStuckTrackingUseCase RobotStuckTracking { get; }
         public RobotPartsTrackingUseCase RobotPartsTracking { get; }
         public RobotPostionUseCase RobotPostionsService { get; }
-
-        public ScanExoplanetUseCase ScanExoplanetService { get; }
+        public ScanOnExoplanetUseCase ScanOnExoplanetService { get; }
+        public MoveOnExoplanetUseCase MoveOnExoplanetService { get; }
+        public LandOnExoplanetUseCase LandOnExoplanetService { get; }
+        public RotateOnExoplanetUseCase RotateOnExoplanetService { get; }
 
         public ExoplanetService()
         {
@@ -27,7 +30,10 @@ namespace ExoplanetGame.Application.Exoplanet
             RobotStuckTracking = new RobotStuckTrackingService(this);
             RobotPartsTracking = new RobotPartsTrackingService(this);
             RobotPostionsService = new RobotPositionService(this);
-            ScanExoplanetService = new ScanExoplanetService(this);
+            ScanOnExoplanetService = new ScanOnExoplanetService(this);
+            MoveOnExoplanetService = new MoveOnExoplanetService(this);
+            LandOnExoplanetService = new LandOnExoplanetService(this);
+            RotateOnExoplanetService = new RotateOnExoplanetService(this);
         }
 
         public ExoPlanetBase ExoPlanet { get; private set; }

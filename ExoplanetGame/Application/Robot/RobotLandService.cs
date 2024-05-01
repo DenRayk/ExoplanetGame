@@ -13,18 +13,18 @@ namespace ExoplanetGame.Application.Robot
 {
     internal class RobotLandService : RobotLandUseCase
     {
-        private LandExoplanetUseCase landRobotExoplanetService;
+        private ExoplanetService exoplanetService;
         private IRobotRepository robotRepository;
 
         public RobotLandService(ExoplanetService exoplanetService)
         {
+            this.exoplanetService = exoplanetService;
             robotRepository = RobotRepository.GetInstance();
-            landRobotExoplanetService = new LandExoplanetService(exoplanetService);
         }
 
         public PositionResult LandRobot(RobotBase robotBase, Position landPosition)
         {
-            PositionResult positionResult = landRobotExoplanetService.LandExoplanet(robotBase, landPosition);
+            PositionResult positionResult = exoplanetService.LandOnExoplanetService.LandExoplanet(robotBase, landPosition);
 
             if (positionResult.IsSuccess)
             {

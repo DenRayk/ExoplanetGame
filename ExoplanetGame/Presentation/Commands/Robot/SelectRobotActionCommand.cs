@@ -58,7 +58,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
                 { "Position", new GetPositionCommand(robotBase, ucCollection) },
                 { "Scan", new ScanCommand(robotBase, ucCollection) },
                 { "Move", new MoveCommand(robotBase, ucCollection) },
-                { "Rotate", new RotateCommand(robotBase, ucCollection) },
+                { "Rotate", new ShowRotationOptionsCommand(robotBase, ucCollection) },
                 { "Load", new LoadCommand(robotBase, ucCollection) },
                 { "Crash", new CrashCommand(robotBase, ucCollection) },
                 { "Back", new ControlCenterCommand(ucCollection) }

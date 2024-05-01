@@ -8,8 +8,5 @@ public enum Rotation
     RIGHT,
 
     [Description("Left")]
-    LEFT,
-
-    [Description("None")]
-    NONE
+    LEFT
 }

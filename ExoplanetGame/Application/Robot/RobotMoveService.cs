@@ -14,18 +14,16 @@ namespace ExoplanetGame.Application.Robot
     {
         private ExoplanetService exoplanetService;
         private IRobotRepository robotRepository;
-        private MoveExoplanetUseCase moveExoplanetService;
 
         public RobotMoveService(ExoplanetService exoplanetService)
         {
             this.exoplanetService = exoplanetService;
             robotRepository = RobotRepository.GetInstance();
-            moveExoplanetService = new MoveExoplanetService(exoplanetService);
         }
 
         public PositionResult Move(RobotBase robot)
         {
-            PositionResult positionResult = moveExoplanetService.MoveRobot(robot);
+            PositionResult positionResult = exoplanetService.MoveOnExoplanetService.MoveRobot(robot);
 
             if (positionResult.IsSuccess)
             {

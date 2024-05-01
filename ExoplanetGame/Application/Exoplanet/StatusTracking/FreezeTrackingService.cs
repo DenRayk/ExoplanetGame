@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ExoplanetGame.Robot;
 
-namespace ExoplanetGame.Application.Exoplanet
+namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {
     internal class FreezeTrackingService : FreezeTrackingUseCase
     {

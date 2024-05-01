@@ -3,7 +3,7 @@ using ExoplanetGame.Exoplanet.Environment;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.RobotResults;
 
-namespace ExoplanetGame.Application.Exoplanet
+namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {
     internal class EnergyTrackingService : EnergyTrackingUseCase
     {

@@ -9,7 +9,7 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Application.Exoplanet
 {
-    internal interface LandExoplanetUseCase
+    public interface LandOnExoplanetUseCase
     {
         PositionResult LandExoplanet(RobotBase robot, Position landPosition);
     }

@@ -11,11 +11,11 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Application.Exoplanet
 {
-    internal class MoveExoplanetService : MoveExoplanetUseCase
+    internal class MoveOnExoplanetService : MoveOnExoplanetUseCase
     {
         private ExoplanetService exoplanetService;
 
-        public MoveExoplanetService(ExoplanetService exoplanetService)
+        public MoveOnExoplanetService(ExoplanetService exoplanetService)
         {
             this.exoplanetService = exoplanetService;
         }

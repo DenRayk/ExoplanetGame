@@ -1,4 +1,4 @@
-﻿using ExoplanetGame.Exoplanet.Environment;
+﻿using ExoplanetGame.Robot.Movement;
 using ExoplanetGame.Robot.RobotResults;
 using ExoplanetGame.Robot;
 using System;
@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace ExoplanetGame.Application.Exoplanet
 {
-    internal interface MoveExoplanetUseCase
+    public interface RotateOnExoplanetUseCase
     {
-        public PositionResult MoveRobot(RobotBase robot);
+        RotationResult Rotate(RobotBase robot, Rotation rotation);
     }
 }

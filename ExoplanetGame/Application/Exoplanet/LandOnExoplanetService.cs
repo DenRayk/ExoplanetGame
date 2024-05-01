@@ -7,11 +7,11 @@ using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Application.Exoplanet
 {
-    internal class LandExoplanetService : LandExoplanetUseCase
+    internal class LandOnExoplanetService : LandOnExoplanetUseCase
     {
         private readonly ExoplanetService exoplanetService;
 
-        public LandExoplanetService(ExoplanetService exoplanetService)
+        public LandOnExoplanetService(ExoplanetService exoplanetService)
         {
             this.exoplanetService = exoplanetService;
         }

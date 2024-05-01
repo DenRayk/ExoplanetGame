@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExoplanetGame.Application.Exoplanet
 {
-    public interface ScanExoplanetUseCase
+    public interface ScanOnExoplanetUseCase
     {
         ScanResult Scan(RobotBase robot);
     }

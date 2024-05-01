@@ -25,7 +25,7 @@ namespace ExoplanetGame.Application.Robot
 
         public ScanResult Scan(RobotBase robot)
         {
-            ScanResult scanResult = exoplanetService.ScanExoplanetService.Scan(robot);
+            ScanResult scanResult = exoplanetService.ScanOnExoplanetService.Scan(robot);
 
             if (scanResult.IsSuccess)
             {
