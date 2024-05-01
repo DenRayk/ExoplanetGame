@@ -79,7 +79,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             int randomVariant = random.Next(0, frostfellVariants.Count);
             Topography = new Topography(frostfellVariants[randomVariant]);
 
-            RobotManager = new RobotManager(this);
+            RobotPositionManager = new RobotPositionManager(this);
         }
 
         public override void ChangeWeather()
@@ -100,91 +100,6 @@ namespace ExoplanetGame.Exoplanet.Variants
                     Weather = Weather.SUNNY;
                     break;
             }
-        }
-
-        public override PositionResult Land(RobotBase robot, Position landPosition)
-        {
-            FreezeRobotIfItHasntMovedForAWhile(robot);
-
-            return base.Land(robot, landPosition);
-        }
-
-        public override PositionResult Move(RobotBase robot)
-        {
-            FreezeRobotIfItHasntMovedForAWhile(robot);
-
-            if (!RobotManager.RobotStatusManager.RobotFreezeTracker.IsFrozen(robot))
-            {
-                return base.Move(robot);
-            }
-
-            return new PositionResult()
-            {
-                HasRobotSurvived = true,
-                IsSuccess = false,
-                Message = "Robot is frozen and cannot move anymore.",
-                Position = robot.RobotInformation.Position
-            };
-        }
-
-        public override RotationResult Rotate(RobotBase robot, Rotation rotation)
-        {
-            RotationResult rotationResult = new();
-
-            FreezeRobotIfItHasntMovedForAWhile(robot);
-
-            if (RobotManager.RobotStatusManager.RobotFreezeTracker.IsFrozen(robot))
-            {
-                rotationResult.IsSuccess = false;
-                rotationResult.HasRobotSurvived = true;
-                rotationResult.Message = "Robot is frozen and cannot rotate anymore.";
-                rotationResult.Direction = robot.RobotInformation.Position.Direction;
-
-                return rotationResult;
-            }
-
-            return base.Rotate(robot, rotation);
-        }
-
-        private void FreezeRobotIfItHasntMovedForAWhile(RobotBase robot)
-        {
-            bool isRobotAlreadyFrozen = RobotManager.RobotStatusManager.RobotFreezeTracker.IsFrozen(robot);
-            if (isRobotAlreadyFrozen)
-                return;
-
-            int resistanceTimeAgainstFreezing = GetFreezingTimeByWeatherConditions();
-
-            DateTime lastMoveTime = RobotManager.RobotStatusManager.RobotFreezeTracker.GetLastMove(robot);
-            TimeSpan timeSpanSinceLastMove = DateTime.Now - lastMoveTime;
-            bool isRobotFrozen = timeSpanSinceLastMove > TimeSpan.FromSeconds(resistanceTimeAgainstFreezing);
-
-            if (isRobotFrozen)
-                RobotFreeze(robot);
-
-            RobotManager.RobotStatusManager.RobotFreezeTracker.UpdateLastMove(robot);
-        }
-
-        private int GetFreezingTimeByWeatherConditions()
-        {
-            switch (Weather)
-            {
-                case Weather.WINDY:
-                    return 15;
-
-                case Weather.SNOWY:
-                    return 20;
-
-                case Weather.SUNNY:
-                    return 30;
-
-                default:
-                    return 30;
-            }
-        }
-
-        private void RobotFreeze(RobotBase robot)
-        {
-            RobotManager.RobotStatusManager.RobotFreezeTracker.FreezeRobot(robot);
         }
     }
 }

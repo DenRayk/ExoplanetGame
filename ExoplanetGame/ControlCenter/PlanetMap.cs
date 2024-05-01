@@ -7,12 +7,12 @@ namespace ExoplanetGame.ControlCenter
 {
     public class PlanetMap
     {
-        public PlanetSize planetSize { get; set; }
+        public PlanetSize PlanetSize { get; set; }
         public Ground[,] map { get; set; }
 
         public PlanetMap(PlanetSize planetSize)
         {
-            this.planetSize = planetSize;
+            PlanetSize = planetSize;
             map = new Ground[planetSize.Height, planetSize.Width];
             for (int i = 0; i < planetSize.Height; i++)
             {
@@ -20,33 +20,6 @@ namespace ExoplanetGame.ControlCenter
                 {
                     map[i, j] = Ground.NOTHING;
                 }
-            }
-        }
-
-        public void printMap(Dictionary<RobotBase, Position> robots)
-        {
-            for (int i = 0; i < planetSize.Height; i++)
-            {
-                for (int j = 0; j < planetSize.Width; j++)
-                {
-                    if (robots.ContainsValue(new Position(j, i)))
-                    {
-                        foreach (var robot in robots)
-                        {
-                            if (robot.Value == null) continue;
-
-                            if (robot.Value.X == j && robot.Value.Y == i)
-                            {
-                                GroundPrinter.printGroundWithRobot(map[i, j], robot.Key);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        GroundPrinter.PrintGround(map[i, j]);
-                    }
-                }
-                Console.WriteLine();
             }
         }
 
@@ -62,12 +35,12 @@ namespace ExoplanetGame.ControlCenter
 
         public string GetPercentageOfExploredArea()
         {
-            int totalArea = planetSize.Height * planetSize.Width;
+            int totalArea = PlanetSize.Height * PlanetSize.Width;
             int exploredArea = 0;
 
-            for (int rowIndex = 0; rowIndex < planetSize.Height; rowIndex++)
+            for (int rowIndex = 0; rowIndex < PlanetSize.Height; rowIndex++)
             {
-                for (int columnIndex = 0; columnIndex < planetSize.Width; columnIndex++)
+                for (int columnIndex = 0; columnIndex < PlanetSize.Width; columnIndex++)
                 {
                     bool isAreaExplored = map[rowIndex, columnIndex] != Ground.NOTHING;
 

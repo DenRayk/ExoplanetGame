@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Application;
 using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
     internal class LoadCommand : BaseCommand
     {
-        public LoadCommand(RobotBase robotBase)
+        private UCCollection ucCollection;
+        private RobotBase robotBase;
+
+        public LoadCommand(RobotBase robotBase, UCCollection ucCollection)
         {
-            throw new NotImplementedException();
+            this.robotBase = robotBase;
+            this.ucCollection = ucCollection;
         }
 
         public override void Execute()

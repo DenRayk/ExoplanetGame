@@ -1,5 +1,4 @@
 ﻿using ExoplanetGame.Exoplanet;
-using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
 using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Robot.Factory
@@ -20,7 +19,7 @@ namespace ExoplanetGame.Robot.Factory
             return instance;
         }
 
-        public RobotBase CreateRobot(ControlCenter.ControlCenter controlCenter, IExoPlanet exoPlanet, int robotID, RobotVariant robotVariant)
+        public RobotBase CreateRobot(ControlCenter.ControlCenter controlCenter, ExoPlanetBase exoPlanet, int robotID, RobotVariant robotVariant)
         {
             RobotBase robotBase;
 

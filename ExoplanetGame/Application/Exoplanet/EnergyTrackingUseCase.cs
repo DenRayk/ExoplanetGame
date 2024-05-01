@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ExoplanetGame.Application.Exoplanet
 {
-    internal interface EnergyTrackingUseCase
+    public interface EnergyTrackingUseCase
     {
         public LoadResult LoadEnergy(RobotBase robot, int seconds, Weather weather);
 

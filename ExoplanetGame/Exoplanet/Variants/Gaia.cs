@@ -66,7 +66,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             int randomVariant = random.Next(0, gaiaVariants.Count);
             Topography = new Topography(gaiaVariants[randomVariant]);
 
-            RobotManager = new RobotManager(this);
+            RobotPositionManager = new RobotPositionManager(this);
         }
 
         public override void ChangeWeather()

@@ -1,8 +1,5 @@
 ﻿using ExoplanetGame.Application;
-using ExoplanetGame.Application.ControlCenter;
 using ExoplanetGame.Application.Exoplanet;
-using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Menus.Controller;
 using ExoplanetGame.Presentation.Commands.PlanetSelection;
 
 namespace ExoplanetGame

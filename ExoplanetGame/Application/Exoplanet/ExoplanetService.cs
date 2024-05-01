@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
+﻿using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Factory;
 using ExoplanetGame.Exoplanet.Variants;
 
@@ -11,14 +6,29 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     public class ExoplanetService
     {
-        private IExoPlanetFactory exoPlanetFactory;
+        private ExoPlanetBaseFactory exoPlanetFactory;
+
+        public EnergyTrackingUseCase EnergyTrackingUseCase { get; }
+        public HeatTrackingUseCase HeatTrackingUseCase { get; }
+        public FreezeTrackingUseCase FreezeTrackingUseCase { get; }
+        public RobotStuckTrackingUseCase RobotStuckTrackingUseCase { get; }
+        public RobotPartsTrackingUseCase RobotPartsTrackingUseCase { get; }
+
+        public RobotPostionUseCase RobotPostionUseCase { get; }
 
         public ExoplanetService()
         {
             exoPlanetFactory = ExoPlanetFactory.GetInstance();
+
+            EnergyTrackingUseCase = new EnergyTrackingService(this);
+            HeatTrackingUseCase = new HeatTrackingService(this);
+            FreezeTrackingUseCase = new FreezeTrackingService(this);
+            RobotStuckTrackingUseCase = new RobotStuckTrackingService(this);
+            RobotPartsTrackingUseCase = new RobotPartsTrackingService(this);
+            RobotPostionUseCase = new RobotPositionService(this);
         }
 
-        public IExoPlanet ExoPlanet { get; private set; }
+        public ExoPlanetBase ExoPlanet { get; private set; }
 
         public void CreateExoPlanet(PlanetVariant planetVariant)
         {

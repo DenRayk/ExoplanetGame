@@ -67,20 +67,20 @@ namespace ExoplanetGame.Exoplanet.Variants
             }
         };
 
-        private readonly Random random = new();
-
         public Lavaria() : base(PlanetVariant.LAVARIA)
         {
             Weather = Weather.FOGGY;
 
+            Random random = new();
             int randomVariant = random.Next(0, lavariaVariants.Count);
             Topography = new Topography(lavariaVariants[randomVariant]);
 
-            RobotManager = new RobotManager(this);
+            RobotPositionManager = new RobotPositionManager(this);
         }
 
         public override void ChangeWeather()
         {
+            Random random = new();
             int weatherChange = random.Next(1, 101);
 
             switch (weatherChange)
@@ -105,110 +105,6 @@ namespace ExoplanetGame.Exoplanet.Variants
                     Weather = Weather.CLOUDY;
                     break;
             }
-        }
-
-        public override PositionResult GetRobotPosition(RobotBase robot)
-        {
-            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
-            {
-                PositionResult positionResult = new PositionResult(robotResult);
-
-                return positionResult;
-            }
-
-            return base.GetRobotPosition(robot);
-        }
-
-        public override LoadResult LoadEnergy(RobotBase robot, int seconds)
-        {
-            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
-            {
-                LoadResult loadResult = new LoadResult(robotResult);
-
-                return loadResult;
-            }
-
-            return base.LoadEnergy(robot, seconds);
-        }
-
-        public override PositionResult Move(RobotBase robot)
-        {
-            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
-            {
-                PositionResult positionResult = new PositionResult(robotResult);
-
-                return positionResult;
-            }
-
-            return base.Move(robot);
-        }
-
-        public override RotationResult Rotate(RobotBase robot, Rotation rotation)
-        {
-            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
-            {
-                RotationResult rotationResult = new RotationResult(robotResult);
-
-                return rotationResult;
-            }
-
-            return base.Rotate(robot, rotation);
-        }
-
-        public override ScanResult Scan(RobotBase robot)
-        {
-            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
-            {
-                ScanResult scanResult = new ScanResult(robotResult);
-
-                return scanResult;
-            }
-
-            return base.Scan(robot);
-        }
-
-        public override ScoutScanResult ScoutScan(RobotBase robot)
-        {
-            if (HandleVolcanicEruption(robot, out RobotResultBase robotResult))
-            {
-                ScoutScanResult scoutScanResult = new ScoutScanResult(robotResult);
-
-                return scoutScanResult;
-            }
-
-            return base.ScoutScan(robot);
-        }
-
-        private bool HandleVolcanicEruption(RobotBase robot, out RobotResultBase robotResult)
-        {
-            robotResult = new RobotResultBase();
-
-            if (!VolcanicEruption())
-                return false;
-
-            robotResult = new PositionResult()
-            {
-                IsSuccess = false,
-                HasRobotSurvived = false,
-                Message = $"{robot.GetLanderName()} was destroyed by a volcanic eruption."
-            };
-            return true;
-        }
-
-        private bool VolcanicEruption()
-        {
-            if (!DoesVolcanicEruptionHappen())
-                return false;
-
-            return true;
-        }
-
-        public bool DoesVolcanicEruptionHappen()
-        {
-            int randomEruption = random.Next(1, 101);
-            bool isVolcanicEruption = randomEruption <= volcanicEruptionChance;
-
-            return isVolcanicEruption;
         }
     }
 }

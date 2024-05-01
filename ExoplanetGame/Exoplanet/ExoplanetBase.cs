@@ -1,5 +1,4 @@
 ﻿using ExoplanetGame.Exoplanet.Environment;
-using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Movement;
@@ -7,11 +6,12 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Exoplanet
 {
-    public class ExoPlanetBase : IExoPlanet
+    public class ExoPlanetBase
     {
         internal Weather Weather { get; set; }
 
-        public RobotManager RobotManager { get; set; }
+        public RobotPositionManager RobotPositionManager { get; set; }
+        public RobotStatusManager RobotStatusManager { get; }
 
         public Topography Topography { get; set; }
         public PlanetVariant PlanetVariant { get; set; }
@@ -20,74 +20,16 @@ namespace ExoplanetGame.Exoplanet
         {
             PlanetVariant = PlanetVariant.GAIA;
             Weather = Weather.SUNNY;
-            RobotManager = new RobotManager(this);
+            RobotPositionManager = new RobotPositionManager(this);
+            RobotStatusManager = new RobotStatusManager();
         }
 
         public ExoPlanetBase(PlanetVariant planetVariant)
         {
             PlanetVariant = planetVariant;
             Weather = Weather.SUNNY;
-            RobotManager = new RobotManager(this);
-        }
-
-        public virtual int GetRobotCount()
-        {
-            return RobotManager.GetRobotCount();
-        }
-
-        public virtual void RemoveRobot(RobotBase Robot)
-        {
-            RobotManager.RemoveRobot(Robot);
-        }
-
-        public virtual PositionResult Land(RobotBase robot, Position landPosition)
-        {
-            return RobotManager.LandController.LandRobot(robot, landPosition, Topography);
-        }
-
-        public virtual PositionResult Move(RobotBase robot)
-        {
-            ChangeWeather();
-            return RobotManager.MoveController.MoveRobot(robot, Topography);
-        }
-
-        public virtual RotationResult Rotate(RobotBase robot, Rotation rotation)
-        {
-            ChangeWeather();
-            return RobotManager.RotateRobot(robot, rotation);
-        }
-
-        public virtual ScanResult Scan(RobotBase robot)
-        {
-            ChangeWeather();
-            return RobotManager.ScanController.Scan(robot, Topography);
-        }
-
-        public virtual ScoutScanResult ScoutScan(RobotBase robot)
-        {
-            ChangeWeather();
-            return RobotManager.ScanController.ScoutScan(robot, Topography);
-        }
-
-        public virtual PositionResult GetRobotPosition(RobotBase robot)
-        {
-            ChangeWeather();
-            return RobotManager.GetRobotPosition(robot);
-        }
-
-        public virtual LoadResult LoadEnergy(RobotBase robot, int seconds)
-        {
-            return RobotManager.LoadEnergy(robot, seconds);
-        }
-
-        public virtual void RepairRobotPart(RobotBase robot, RobotPart robotPart)
-        {
-            RobotManager.RepairRobotPart(robot, robotPart);
-        }
-
-        public virtual Dictionary<RobotPart, int> GetRobotPartsByRobot(RobotBase robotBase)
-        {
-            return RobotManager.GetRobotPartsByRobot(robotBase);
+            RobotPositionManager = new RobotPositionManager(this);
+            RobotStatusManager = new RobotStatusManager();
         }
 
         public virtual void ChangeWeather()

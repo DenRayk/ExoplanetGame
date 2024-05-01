@@ -76,7 +76,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             int randomVariant = random.Next(0, terraVariants.Count);
             Topography = new Topography(terraVariants[randomVariant]);
 
-            RobotManager = new RobotManager(this);
+            RobotPositionManager = new RobotPositionManager(this);
         }
 
         public override void ChangeWeather()

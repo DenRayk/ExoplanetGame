@@ -1,26 +1,38 @@
 ﻿using ExoplanetGame.Exoplanet.Environment;
-using ExoplanetGame.Robot;
+using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Robot.Movement;
+using ExoplanetGame.Robot;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ExoplanetGame.Exoplanet.Tracker
+namespace ExoplanetGame.Application.Exoplanet
 {
-    public class RobotHeatTracker
+    internal class HeatTrackingService : HeatTrackingUseCase
     {
         private const int COOL_DOWN_RATE = 10;
-        public Dictionary<RobotBase, double> HeatLevels { get; } = new();
+
+        private ExoplanetService exoplanetService;
+
+        public HeatTrackingService(ExoplanetService exoplanetService)
+        {
+            this.exoplanetService = exoplanetService;
+        }
 
         public void PerformAction(RobotBase robot, RobotAction robotAction, Topography topography)
         {
-            if (!HeatLevels.ContainsKey(robot))
+            if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels.ContainsKey(robot))
             {
-                HeatLevels[robot] = 0;
+                exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] = 0;
             }
 
             double heatGain = CalculateHeatGainDependentOnFieldAndAction(robot, robotAction, topography);
 
-            HeatLevels[robot] += heatGain;
+            exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] += heatGain;
 
-            if (HeatLevels[robot] >= robot.RobotInformation.MaxHeat)
+            if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] >= robot.RobotInformation.MaxHeat)
             {
                 Console.WriteLine($"Overheating {robot.GetLanderName()}");
                 CoolDown(robot, robot.RobotInformation.MaxHeat / 10);
@@ -29,16 +41,16 @@ namespace ExoplanetGame.Exoplanet.Tracker
 
         public void PerformAction(RobotBase robot, RobotAction robotAction, Topography topography, Position landPosition)
         {
-            if (!HeatLevels.ContainsKey(robot))
+            if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels.ContainsKey(robot))
             {
-                HeatLevels[robot] = 0;
+                exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] = 0;
             }
 
             double heatGain = CalculateHeatGainDependentOnFieldAndAction(landPosition, robotAction, topography);
 
-            HeatLevels[robot] += heatGain;
+            exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] += heatGain;
 
-            if (HeatLevels[robot] >= robot.RobotInformation.MaxHeat)
+            if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] >= robot.RobotInformation.MaxHeat)
             {
                 Console.WriteLine($"Overheating {robot.GetLanderName()}");
                 CoolDown(robot, robot.RobotInformation.MaxHeat / 10);
@@ -47,9 +59,9 @@ namespace ExoplanetGame.Exoplanet.Tracker
 
         public void WaterCoolDown(RobotBase robot)
         {
-            if (HeatLevels.ContainsKey(robot))
+            if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels.ContainsKey(robot))
             {
-                HeatLevels[robot] = 0;
+                exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] = 0;
             }
         }
 
@@ -135,10 +147,10 @@ namespace ExoplanetGame.Exoplanet.Tracker
         {
             for (int i = 0; i < seconds; i++)
             {
-                Console.WriteLine($"Cooling down {robot.GetLanderName()} Heat: {Math.Round(HeatLevels[robot], 2)}");
-                if (HeatLevels[robot] > 0)
+                Console.WriteLine($"Cooling down {robot.GetLanderName()} Heat: {Math.Round(exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot], 2)}");
+                if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] > 0)
                 {
-                    HeatLevels[robot] -= COOL_DOWN_RATE;
+                    exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] -= COOL_DOWN_RATE;
                 }
                 Thread.Sleep(200);
             }

@@ -24,7 +24,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             if (robotsToControl.Count == 0)
             {
                 Console.Clear();
-                Console.WriteLine("No robots to control.");
+                Console.WriteLine("No Robots to control.");
                 ControlCenterCommand controlCenterCommand = new(ucCollection);
                 controlCenterCommand.Execute();
             }

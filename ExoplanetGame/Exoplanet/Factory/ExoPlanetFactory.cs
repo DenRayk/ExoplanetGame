@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
-using ExoplanetGame.Exoplanet.Variants;
-using ExoplanetGame.Robot.Factory;
+﻿using ExoplanetGame.Exoplanet.Variants;
 
 namespace ExoplanetGame.Exoplanet.Factory
 {
-    internal class ExoPlanetFactory : IExoPlanetFactory
+    internal class ExoPlanetFactory : ExoPlanetBaseFactory
     {
         private static ExoPlanetFactory instance;
 
-        public IExoPlanet CreateExoPlanet(PlanetVariant planetVariant)
+        public ExoPlanetBase CreateExoPlanet(PlanetVariant planetVariant)
         {
             switch (planetVariant)
             {

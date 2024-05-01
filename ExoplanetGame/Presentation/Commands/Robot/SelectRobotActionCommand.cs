@@ -5,8 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using ExoplanetGame.Application;
 using ExoplanetGame.Application.Exoplanet;
+using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet.Environment;
+using ExoplanetGame.Helper;
 using ExoplanetGame.Presentation.Commands.ControlCenter;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Movement;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -16,8 +20,8 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         private RobotBase robotBase;
 
         private readonly string helpText =
-            "Robot Menu Information\n" +
-            "Position:\t Show current position of the Robot\n" +
+            "RobotPositionManager Menu Information\n" +
+            "Position:\t Show current position of the RobotPositionManager\n" +
             "Scan:\t\t Scan the environment\n" +
             "Move:\t\t Move the robot in the direction it is facing\n" +
             "Rotate:\t\t Rotate the robot left or right\n" +
@@ -32,8 +36,17 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            var options = GetRobotMenuOptions();
+            Console.WriteLine($"{robotBase.GetLanderName()} Menu");
 
+            PlanetMap planetMap = ucCollection.UcCollectionControlCenter.GetPlanetMapUseCase.GetPlanetMap();
+            Dictionary<RobotBase, Position> robots = ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots();
+            Weather weather = ucCollection.UcCollectionControlCenter.GetCurrentWeatherUseCase.GetCurrentWeather();
+
+            Console.WriteLine($"Current weather: {weather.GetDescriptionFromEnum()}");
+            Console.WriteLine($"Discovered area of the planet: {planetMap.GetPercentageOfExploredArea()}");
+            MapPrinter.PrintMap(robots, planetMap);
+
+            var options = GetRobotMenuOptions();
             BaseCommand baseCommand = ReadUserInputWithOptions(options);
             baseCommand.Execute();
         }
@@ -42,12 +55,12 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         {
             var options = new Dictionary<string, BaseCommand>
             {
-                { "Position", new GetPositionCommand(robotBase) },
-                { "Scan", new ScanCommand(robotBase) },
-                { "Move", new MoveCommand(robotBase) },
-                { "Rotate", new RotateCommand(robotBase) },
-                { "Load", new LoadCommand(robotBase) },
-                { "Crash", new CrashCommand(robotBase) },
+                { "Position", new GetPositionCommand(robotBase, ucCollection) },
+                { "Scan", new ScanCommand(robotBase, ucCollection) },
+                { "Move", new MoveCommand(robotBase, ucCollection) },
+                { "Rotate", new RotateCommand(robotBase, ucCollection) },
+                { "Load", new LoadCommand(robotBase, ucCollection) },
+                { "Crash", new CrashCommand(robotBase, ucCollection) },
                 { "Back", new ControlCenterCommand(ucCollection) }
             };
 

@@ -30,7 +30,6 @@ namespace ExoplanetGame.Application.Robot
             {
                 robotBase.RobotInformation.HasLanded = true;
                 robotBase.RobotInformation.Position = positionResult.Position;
-                controlCenter.UpdateRobotPosition(robotBase, positionResult.Position);
             }
 
             return positionResult;

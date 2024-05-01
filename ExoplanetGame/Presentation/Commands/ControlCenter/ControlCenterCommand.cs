@@ -13,9 +13,9 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
         private readonly string helpText =
             "Control Center Menu Information\n" +
-            "Add Robot:\t Add a robot to the current layout\n" +
-            "Control Robot:\t Select a robot to be sent from the layout to the exoplanet\n" +
-            "Repair Robot:\t Repair a robot's part\n" +
+            "Add RobotPositionManager:\t Add a robot to the current layout\n" +
+            "Control RobotPositionManager:\t Select a robot to be sent from the layout to the exoplanet\n" +
+            "Repair RobotPositionManager:\t Repair a robot's part\n" +
             "Print Map:\t Display status of the exoplanet's exploration area\n";
 
         public ControlCenterCommand(UCCollection ucCollection)
@@ -49,7 +49,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
                 { "Add Robot", new SelectRobotTypeCommand(ucCollection) },
                 { "Control Robot" , new ControlRobotCommand(ucCollection) },
                 { "Repair Robot", new RepairRobotCommand() },
-                { "Print Map", new PrintMapCommand() },
+                { "Print Map", new PrintMapCommand(ucCollection, this) },
                 { "Exit", new ExitCommand()}
             };
 

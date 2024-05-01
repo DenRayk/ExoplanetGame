@@ -17,12 +17,12 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
         private UCCollection ucCollection;
 
         private readonly string helpText =
-            "Robot Variant Information\n" +
+            "RobotPositionManager Variant Information\n" +
             $"{RobotVariant.DEFAULT.GetDescriptionFromEnum()}:\t Basic robot with no special abilities\n" +
             $"{RobotVariant.SCOUT.GetDescriptionFromEnum()}:\t Scan roboter with a larger scanning range\n" +
-            $"{RobotVariant.LAVA.GetDescriptionFromEnum()}:\t Robot that can withstand high temperatures\n" +
-            $"{RobotVariant.AQUA.GetDescriptionFromEnum()}:\t Robot that can withstand water drift\n" +
-            $"{RobotVariant.MUD.GetDescriptionFromEnum()}:\t Robot that can move through mud\n";
+            $"{RobotVariant.LAVA.GetDescriptionFromEnum()}:\t RobotPositionManager that can withstand high temperatures\n" +
+            $"{RobotVariant.AQUA.GetDescriptionFromEnum()}:\t RobotPositionManager that can withstand water drift\n" +
+            $"{RobotVariant.MUD.GetDescriptionFromEnum()}:\t RobotPositionManager that can move through mud\n";
 
         public SelectRobotTypeCommand(UCCollection ucCollection)
         {
@@ -31,7 +31,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
         public override void Execute()
         {
-            Console.WriteLine("Robot Variant Menu");
+            Console.WriteLine("RobotPositionManager Variant Menu");
             Console.WriteLine("Select a robot variant (press F1 for help):\n");
 
             var options = getRobotOptions();

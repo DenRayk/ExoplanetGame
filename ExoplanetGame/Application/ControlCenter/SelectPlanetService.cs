@@ -1,9 +1,5 @@
-﻿using ExoplanetGame.Application.Exoplanet;
-using ExoplanetGame.Exoplanet.Variants;
-using ExoplanetGame.ControlCenter;
+﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Exoplanet;
-using ExoplanetGame.Exoplanet.Factory;
-using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
 
 namespace ExoplanetGame.Application.ControlCenter
 {
@@ -16,7 +12,7 @@ namespace ExoplanetGame.Application.ControlCenter
             controlCenter = global::ExoplanetGame.ControlCenter.ControlCenter.GetInstance();
         }
 
-        public void SelectPlanet(IExoPlanet exoPlanet)
+        public void SelectPlanet(ExoPlanetBase exoPlanet)
         {
             controlCenter.exoPlanet = exoPlanet;
             controlCenter.PlanetMap = new PlanetMap(exoPlanet.Topography.PlanetSize);

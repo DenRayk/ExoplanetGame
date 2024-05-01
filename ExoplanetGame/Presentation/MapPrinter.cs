@@ -1,11 +1,46 @@
 ﻿using ExoplanetGame.Exoplanet.Environment;
 using ExoplanetGame.Robot;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Robot.Movement;
 
 namespace ExoplanetGame.Presentation
 {
-    internal class GroundPrinter
+    internal class MapPrinter
     {
-        public static void PrintGround(Ground ground)
+        public static void PrintMap(Dictionary<RobotBase, Position> robots, PlanetMap planetMap)
+        {
+            for (int i = 0; i < planetMap.PlanetSize.Height; i++)
+            {
+                for (int j = 0; j < planetMap.PlanetSize.Width; j++)
+                {
+                    if (robots.ContainsValue(new Position(j, i)))
+                    {
+                        foreach (var robot in robots)
+                        {
+                            if (robot.Value == null) continue;
+
+                            if (robot.Value.X == j && robot.Value.Y == i)
+                            {
+                                printGroundWithRobot(planetMap.map[i, j], robot.Key);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        printGround(planetMap.map[i, j]);
+                    }
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public static void printGround(Ground ground)
         {
             switch (ground)
             {

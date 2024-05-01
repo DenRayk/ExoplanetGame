@@ -34,7 +34,8 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
             if (landResult.IsSuccess)
             {
-                Console.WriteLine($"Robot landed on {landResult.Position}");
+                Console.WriteLine($"RobotPositionManager landed on {landResult.Position}");
+                ucCollection.UcCollectionControlCenter.UpdateRobotPositionUseCase.UpdateRobotPosition(robotBase, position);
                 SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
                 selectRobotActionCommand.Execute();
             }
@@ -49,10 +50,10 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         private Position SelectLandPosition(PlanetMap planetMap)
         {
             Console.WriteLine("Enter the X coordinate:");
-            int x = GetMenuSelection(planetMap.planetSize.Width - 1);
+            int x = GetMenuSelection(planetMap.PlanetSize.Width - 1);
 
             Console.WriteLine("Enter the Y coordinate:");
-            int y = GetMenuSelection(planetMap.planetSize.Height - 1);
+            int y = GetMenuSelection(planetMap.PlanetSize.Height - 1);
 
             return new Position(x, y);
         }

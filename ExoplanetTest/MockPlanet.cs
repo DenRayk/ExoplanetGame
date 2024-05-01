@@ -12,7 +12,7 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGameTest
 {
-    internal class MockPlanet : IExoPlanet
+    internal class MockPlanet : ExoPlanetBase
     {
         public Topography Topography { get; set; }
         public PlanetVariant PlanetVariant { get; }
