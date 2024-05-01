@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using ExoplanetGame.Application;
 using ExoplanetGame.Application.Exoplanet;
+using ExoplanetGame.Domain.Robot.Variants;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Helper;
 using ExoplanetGame.Presentation.Commands.PlanetSelection;
-using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {

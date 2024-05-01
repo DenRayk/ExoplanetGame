@@ -1,6 +1,6 @@
-﻿using ExoplanetGame.Exoplanet.Environment;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Movement;
+﻿using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Movement;
+using ExoplanetGame.Exoplanet.Environment;
 using System;
 using System.Collections.Generic;
 using System.Linq;

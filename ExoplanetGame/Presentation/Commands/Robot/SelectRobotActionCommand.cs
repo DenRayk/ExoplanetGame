@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using ExoplanetGame.Application;
 using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Exoplanet.Environment;
 using ExoplanetGame.Helper;
 using ExoplanetGame.Presentation.Commands.ControlCenter;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Movement;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {

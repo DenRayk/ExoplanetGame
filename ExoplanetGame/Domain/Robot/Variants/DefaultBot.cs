@@ -1,6 +1,7 @@
-﻿using ExoplanetGame.Exoplanet;
+﻿using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Exoplanet;
 
-namespace ExoplanetGame.Robot.Variants
+namespace ExoplanetGame.Domain.Robot.Variants
 {
     public sealed class DefaultBot : RobotBase
     {

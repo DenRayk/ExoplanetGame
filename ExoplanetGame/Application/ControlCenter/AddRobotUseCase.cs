@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Variants;
+using ExoplanetGame.Domain.Robot.Variants;
+using ExoplanetGame;
 
 namespace ExoplanetGame.Application.ControlCenter
 {

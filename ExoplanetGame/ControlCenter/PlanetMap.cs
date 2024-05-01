@@ -1,7 +1,5 @@
-﻿using ExoplanetGame.Exoplanet.Environment;
-using ExoplanetGame.Presentation;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Movement;
+﻿using ExoplanetGame.Domain.Robot.Movement;
+using ExoplanetGame.Exoplanet.Environment;
 
 namespace ExoplanetGame.ControlCenter
 {

@@ -1,7 +1,4 @@
 ﻿using ExoplanetGame.Exoplanet.Environment;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Movement;
-using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Exoplanet.Variants
 {

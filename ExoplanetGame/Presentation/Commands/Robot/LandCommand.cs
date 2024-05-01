@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using ExoplanetGame.Application;
 using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Movement;
+using ExoplanetGame.Domain.Robot.RobotResults;
 using ExoplanetGame.Presentation.Commands.ControlCenter;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Movement;
-using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {

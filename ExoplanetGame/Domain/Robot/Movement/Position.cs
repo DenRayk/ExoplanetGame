@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ExoplanetGame.Robot.Movement;
+namespace ExoplanetGame.Domain.Robot.Movement;
 
 [Serializable]
 public class Position

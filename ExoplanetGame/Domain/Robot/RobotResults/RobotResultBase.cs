@@ -1,4 +1,4 @@
-﻿namespace ExoplanetGame.Robot.RobotResults
+﻿namespace ExoplanetGame.Domain.Robot.RobotResults
 {
     public class RobotResultBase
     {

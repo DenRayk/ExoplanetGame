@@ -1,11 +1,9 @@
 ﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Domain.Robot.Variants;
 using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Helper;
-using ExoplanetGame.Robot.Movement;
-using ExoplanetGame.Robot.RobotResults;
-using ExoplanetGame.Robot.Variants;
 
-namespace ExoplanetGame.Robot
+namespace ExoplanetGame.Domain.Robot
 {
     public class RobotBase
     {
@@ -57,7 +55,7 @@ namespace ExoplanetGame.Robot
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((RobotBase)obj);
         }
 

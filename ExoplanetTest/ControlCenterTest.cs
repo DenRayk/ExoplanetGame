@@ -1,8 +1,9 @@
 ﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Movement;
+using ExoplanetGame.Domain.Robot.Variants;
 using ExoplanetGame.Exoplanet.Variants;
-using ExoplanetGame.Robot;
 using ExoplanetGame.Robot.Movement;
-using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGameTest
 {

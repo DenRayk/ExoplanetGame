@@ -1,6 +1,6 @@
-﻿using ExoplanetGame.Robot.Movement;
+﻿using ExoplanetGame.Domain.Robot.Movement;
 
-namespace ExoplanetGame.Robot.RobotResults
+namespace ExoplanetGame.Domain.Robot.RobotResults
 {
     public class PositionResult : RobotResultBase
     {

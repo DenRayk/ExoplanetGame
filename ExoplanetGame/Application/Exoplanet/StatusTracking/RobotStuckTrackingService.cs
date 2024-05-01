@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Movement;
+using ExoplanetGame.Domain.Robot.Variants;
 using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Exoplanet.Environment;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Movement;
-using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {

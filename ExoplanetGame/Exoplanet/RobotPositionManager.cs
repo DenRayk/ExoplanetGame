@@ -1,8 +1,5 @@
-﻿using ExoplanetGame.Exoplanet.Environment;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Movement;
-using ExoplanetGame.Robot.RobotResults;
-using ExoplanetGame.Robot.Variants;
+﻿using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Movement;
 
 namespace ExoplanetGame.Exoplanet
 {
@@ -12,11 +9,11 @@ namespace ExoplanetGame.Exoplanet
 
         public RobotStatusManager RobotStatusManager { get; }
 
-        private readonly ExoPlanetBase _exoPlanet;
+        private readonly ExoPlanetBase exoPlanet;
 
         public RobotPositionManager(ExoPlanetBase exoPlanet)
         {
-            this._exoPlanet = exoPlanet;
+            this.exoPlanet = exoPlanet;
             Robots = new Dictionary<RobotBase, Position>();
 
             RobotStatusManager = new RobotStatusManager();

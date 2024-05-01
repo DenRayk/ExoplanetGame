@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExoplanetGame.Application;
+using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Presentation.Commands.ControlCenter;
-using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {

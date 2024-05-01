@@ -1,9 +1,9 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Application.Exoplanet;
+using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Presentation.Commands.PlanetSelection;
 using ExoplanetGame.Presentation.Commands.Robot;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Movement;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {

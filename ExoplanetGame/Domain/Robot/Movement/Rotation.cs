@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ExoplanetGame.Robot.Movement;
+namespace ExoplanetGame.Domain.Robot.Movement;
 
 public enum Rotation
 {

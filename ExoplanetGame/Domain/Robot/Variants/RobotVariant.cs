@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ExoplanetGame.Robot.Variants;
+namespace ExoplanetGame.Domain.Robot.Variants;
 
 public enum RobotVariant
 {

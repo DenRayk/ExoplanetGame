@@ -1,9 +1,6 @@
-﻿using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Exoplanet;
-using ExoplanetGame.Robot.Movement;
-using ExoplanetGame.Robot.RobotResults;
+﻿using ExoplanetGame.Exoplanet;
 
-namespace ExoplanetGame.Robot.Variants
+namespace ExoplanetGame.Domain.Robot.Variants
 {
     public class ScoutBot : RobotBase
     {

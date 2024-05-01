@@ -1,7 +1,8 @@
-﻿using ExoplanetGame.Exoplanet;
-using ExoplanetGame.Robot.Variants;
+﻿using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Variants;
+using ExoplanetGame.Exoplanet;
 
-namespace ExoplanetGame.Robot.Factory;
+namespace ExoplanetGame.Domain.Robot.Factory;
 
 public interface IRobotFactory
 {

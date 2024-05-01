@@ -1,4 +1,4 @@
-﻿using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Domain.Robot;
 
 namespace ExoplanetGame.Exoplanet
 {

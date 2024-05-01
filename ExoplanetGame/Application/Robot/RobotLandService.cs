@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.ControlCenter;
-using ExoplanetGame.Robot;
-using ExoplanetGame.Robot.Movement;
-using ExoplanetGame.Robot.RobotResults;
+using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Movement;
+using ExoplanetGame.Domain.Robot.RobotResults;
 
 namespace ExoplanetGame.Application.Robot
 {
