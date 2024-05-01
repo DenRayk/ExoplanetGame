@@ -113,7 +113,7 @@ namespace ExoplanetGame.Application.Exoplanet
 
         public void UpdateRobotPosition(RobotBase robot, Position newPosition)
         {
-            throw new NotImplementedException();
+            exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot] = newPosition;
         }
 
         public Position WaterDrift(RobotBase robot, Position position, Topography topography)

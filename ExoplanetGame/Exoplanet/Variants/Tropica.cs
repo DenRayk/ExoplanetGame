@@ -7,8 +7,6 @@ namespace ExoplanetGame.Exoplanet.Variants
 {
     public class Tropica : ExoPlanetBase
     {
-        private static readonly int mysteriousAttackChance = 50;
-
         private readonly List<string[]> tropicaVariants = new()
         {
             new string[]

@@ -10,10 +10,12 @@ namespace ExoplanetGame.Application.Robot
     public class UCCollectionRobot
     {
         public LandRobotUseCase landRobotUseCase;
+        public GetPositionUseCase GetPositionUseCase;
 
         public UCCollectionRobot(ExoplanetService exoplanetService)
         {
             landRobotUseCase = new LandRobotService(exoplanetService);
+            GetPositionUseCase = new GetPositionService(exoplanetService);
         }
     }
 }

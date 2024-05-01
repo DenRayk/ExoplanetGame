@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExoplanetGame.Application;
+using ExoplanetGame.Presentation.Commands.ControlCenter;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -21,7 +23,25 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            throw new NotImplementedException();
+            PositionResult positionResult = ucCollection.UcCollectionRobot.GetPositionUseCase.GetPosition(robotBase);
+
+            if (positionResult.IsSuccess)
+            {
+                Console.WriteLine($"Robot is at {positionResult.Position}");
+            }
+            else
+            {
+                Console.WriteLine($"{positionResult.Message}");
+
+                if (!positionResult.HasRobotSurvived)
+                {
+                    ControlCenterCommand controlCenterCommand = new(ucCollection);
+                    controlCenterCommand.Execute();
+                }
+            }
+
+            SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
+            selectRobotActionCommand.Execute();
         }
     }
 }
