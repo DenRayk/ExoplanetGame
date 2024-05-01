@@ -45,9 +45,9 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
         {
             var options = new Dictionary<string, BaseCommand>
             {
-                { "Add Robot", new SelectRobotTypeCommand(ucCollection, this) },
-                { "Control Robot" , new ControlRobotCommand(ucCollection,this) },
-                { "Repair Robot", new SelectRobotToRepairCommand(ucCollection, this) },
+                { "Add Robot", new SelectRobotTypeCommand(ucCollection) },
+                { "Control Robot" , new ControlRobotCommand(ucCollection) },
+                { "Repair Robot", new SelectRobotToRepairCommand(ucCollection) },
                 { "Print Map", new PrintMapCommand(ucCollection) },
                 { "Exit", new ExitCommand()}
             };

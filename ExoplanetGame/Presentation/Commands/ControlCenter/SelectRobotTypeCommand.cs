@@ -16,7 +16,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             $"{RobotVariant.AQUA.GetDescriptionFromEnum()}:\t Robot that can withstand water drift\n" +
             $"{RobotVariant.MUD.GetDescriptionFromEnum()}:\t Robot that can move through mud\n";
 
-        public SelectRobotTypeCommand(UCCollection ucCollection, BaseCommand previousCommand)
+        public SelectRobotTypeCommand(UCCollection ucCollection)
         {
             this.ucCollection = ucCollection;
         }

@@ -11,7 +11,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
         private UCCollection ucCollection;
         private ExoplanetService exoplanetService;
 
-        public ControlRobotCommand(UCCollection ucCollection, BaseCommand previousCommand)
+        public ControlRobotCommand(UCCollection ucCollection)
         {
             this.ucCollection = ucCollection;
         }
