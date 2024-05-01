@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Application;
+using ExoplanetGame.Presentation.Commands.ControlCenter.Repair;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
@@ -42,7 +43,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             {
                 { "Add Robot", new SelectRobotTypeCommand(ucCollection, this) },
                 { "Control Robot" , new ControlRobotCommand(ucCollection,this) },
-                { "Repair Robot", new RepairRobotCommand(this) },
+                { "Repair Robot", new SelectRobotToRepairCommand(ucCollection, this, this) },
                 { "Print Map", new PrintMapCommand(ucCollection, this) },
                 { "Exit", new ExitCommand(this)}
             };

@@ -107,7 +107,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
                 return;
             }
 
-            exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth[robot][part] = 100;
+            exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth[robot][part] = robot.RobotInformation.RobotParts[part];
         }
     }
 }

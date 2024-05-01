@@ -34,7 +34,6 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
             if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] >= robot.RobotInformation.MaxHeat)
             {
-                Console.WriteLine($"Overheating {robot.GetLanderName()}");
                 CoolDown(robot, robot.RobotInformation.MaxHeat / 10);
             }
         }
@@ -52,7 +51,6 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
             if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] >= robot.RobotInformation.MaxHeat)
             {
-                Console.WriteLine($"Overheating {robot.GetLanderName()}");
                 CoolDown(robot, robot.RobotInformation.MaxHeat / 10);
             }
         }
@@ -147,7 +145,6 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
         {
             for (int i = 0; i < seconds; i++)
             {
-                Console.WriteLine($"Cooling down {robot.GetLanderName()} Heat: {Math.Round(exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot], 2)}");
                 if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] > 0)
                 {
                     exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] -= COOL_DOWN_RATE;
