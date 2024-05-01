@@ -1,5 +1,4 @@
-﻿using ExoplanetGame.Domain.Exoplanet;
-using ExoplanetGame.Domain.Exoplanet.Environment;
+﻿using ExoplanetGame.Domain.Exoplanet.Environment;
 
 namespace ExoplanetGame.Domain.Exoplanet.Variants
 {

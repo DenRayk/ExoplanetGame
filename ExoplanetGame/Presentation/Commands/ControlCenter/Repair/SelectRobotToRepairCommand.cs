@@ -1,11 +1,6 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
 {

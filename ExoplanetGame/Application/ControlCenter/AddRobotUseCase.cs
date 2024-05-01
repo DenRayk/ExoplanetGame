@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Domain.Robot.Variants;
-using ExoplanetGame;
+﻿using ExoplanetGame.Domain.Robot.Variants;
 
 namespace ExoplanetGame.Application.ControlCenter
 {
