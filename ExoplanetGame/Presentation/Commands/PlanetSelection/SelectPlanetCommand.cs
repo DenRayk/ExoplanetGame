@@ -5,7 +5,7 @@ using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 {
-    internal class SelectPlanetCommand : BaseCommand
+    public class SelectPlanetCommand : BaseCommand
     {
         private PlanetVariant planetVariant;
 
@@ -13,7 +13,7 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 
         private ExoplanetService exoplanetService;
 
-        public SelectPlanetCommand(PlanetVariant planetVariant, UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand)
+        public SelectPlanetCommand(PlanetVariant planetVariant, UCCollection ucCollection, ExoplanetService exoplanetService)
         {
             this.planetVariant = planetVariant;
             this.ucCollection = ucCollection;

@@ -12,7 +12,7 @@ namespace ExoplanetGame.Domain.Robot
         public RobotInformation RobotInformation { get; }
         public RobotVariant RobotVariant { get; }
 
-        protected RobotBase(ExoPlanetBase exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID,
+        public RobotBase(ExoPlanetBase exoPlanet, ControlCenter.ControlCenter controlCenter, int robotID,
             RobotVariant robotVariant)
         {
             this.exoPlanet = exoPlanet;

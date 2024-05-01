@@ -52,9 +52,9 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 
             foreach (PlanetVariant planetVariant in Enum.GetValues(typeof(PlanetVariant)))
             {
-                options.Add(planetVariant.GetDescriptionFromEnum(), new SelectPlanetCommand(planetVariant, ucCollection, exoplanetService, this));
+                options.Add(planetVariant.GetDescriptionFromEnum(), new SelectPlanetCommand(planetVariant, ucCollection, exoplanetService));
             }
-            options.Add("Random", new SelectPlanetCommand(getRandomPlanetVariant(), ucCollection, exoplanetService, this));
+            options.Add("Random", new SelectPlanetCommand(getRandomPlanetVariant(), ucCollection, exoplanetService));
             return options;
         }
 

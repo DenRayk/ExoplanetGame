@@ -1,8 +1,14 @@
-﻿using ExoplanetGame.ControlCenter;
+﻿using ExoplanetGame.Application;
+using ExoplanetGame.Application.ControlCenter;
+using ExoplanetGame.Application.Exoplanet;
+using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Exoplanet.Environment;
 using ExoplanetGame.Domain.Exoplanet.Variants;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Factory;
+using ExoplanetGame.Domain.Robot.Variants;
+using ExoplanetGame.Presentation.Commands.Robot;
+using ExoplanetGame.Presentation.Commands.PlanetSelection;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
 
@@ -15,116 +21,124 @@ namespace ExoplanetGameTest
         public void TestLand()
         {
             // Arrange
-            Gaia exoplanet = new Gaia();
-            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
-            controlCenter.exoPlanet = exoplanet;
-            RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            Position landPosition = new Position(0, 5, Direction.NORTH);
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService();
+            exoplanetService.CreateExoPlanet(PlanetVariant.GAIA);
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+
+            ucCollection.init(exoplanetService);
 
             // Act
-            robot.Land(new Position(0, 5, Direction.NORTH));
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
 
             // Assert
-            Assert.AreEqual(landPosition, robot.RobotInformation.Position);
+            Assert.IsTrue(robotBase.HasLanded());
         }
 
         [TestMethod]
         public void TestMove()
         {
             // Arrange
-            Gaia exoplanet = new Gaia();
-            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
-            controlCenter.exoPlanet = exoplanet;
-            RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            robot.Land(new Position(0, 5, Direction.NORTH));
+            MockedPlanet mockedPlanet = new MockedPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService();
+            exoplanetService.ExoPlanet = mockedPlanet;
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+
+            ucCollection.init(exoplanetService);
 
             // Act
-            robot.Move();
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
+            PositionResult positionResult = ucCollection.UcCollectionRobot.MoveRobotService.Move(robotBase);
 
             // Assert
-            Assert.AreEqual(new Position(0, 4, Direction.NORTH), robot.RobotInformation.Position);
+            Assert.AreEqual(new Position(1, 0), positionResult.Position);
         }
 
         [TestMethod]
         public void TestTurnLeft()
         {
             // Arrange
-            Gaia exoplanet = new Gaia();
-            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
-            controlCenter.exoPlanet = exoplanet;
-            RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            robot.Land(new Position(0, 5, Direction.NORTH));
+            MockedPlanet mockedPlanet = new MockedPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService();
+            exoplanetService.ExoPlanet = mockedPlanet;
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+
+            ucCollection.init(exoplanetService);
 
             // Act
-            robot.Rotate(Rotation.LEFT);
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
+            RotationResult rotationResult = ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robotBase, Rotation.LEFT);
 
             // Assert
-            Assert.AreEqual(new Position(0, 5, Direction.WEST), robot.RobotInformation.Position);
+            Assert.AreEqual(Direction.WEST, rotationResult.Direction);
         }
 
         [TestMethod]
         public void TestTurnRight()
         {
             // Arrange
-            Gaia exoplanet = new Gaia();
-            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
-            controlCenter.exoPlanet = exoplanet;
-            RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            robot.Land(new Position(0, 5, Direction.NORTH));
+            MockedPlanet mockedPlanet = new MockedPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService();
+            exoplanetService.ExoPlanet = mockedPlanet;
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+
+            ucCollection.init(exoplanetService);
 
             // Act
-            robot.Rotate(Rotation.RIGHT);
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
+            RotationResult rotationResult = ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robotBase, Rotation.RIGHT);
 
             // Assert
-            Assert.AreEqual(new Position(0, 5, Direction.EAST), robot.RobotInformation.Position);
+            Assert.AreEqual(Direction.EAST, rotationResult.Direction);
         }
 
         [TestMethod]
         public void TestCrash()
         {
             // Arrange
-            Gaia exoplanet = new Gaia();
-            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
-            controlCenter.exoPlanet = exoplanet;
-            RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            robot.Land(new Position(0, 5, Direction.NORTH));
+            MockedPlanet mockedPlanet = new MockedPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService();
+            exoplanetService.ExoPlanet = mockedPlanet;
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+
+            ucCollection.init(exoplanetService);
 
             // Act
-            robot.Crash();
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
+            RobotResultBase robotResult = ucCollection.UcCollectionRobot.CrashRobotService.Crash(robotBase);
 
             // Assert
-            Assert.AreEqual(0, exoplanet.GetRobotCount());
+            Assert.IsFalse(robotResult.HasRobotSurvived);
         }
 
         [TestMethod]
         public void TestScan()
         {
             // Arrange
-            Gaia exoplanet = new Gaia();
-            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
-            controlCenter.exoPlanet = exoplanet;
-            RobotFactory robotFactory = RobotFactory.GetInstance();
-            RobotBase robot = robotFactory.CreateDefaultRobot(controlCenter, exoplanet, 0);
-            robot.Land(new Position(0, 5, Direction.NORTH));
+            MockedPlanet mockedPlanet = new MockedPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService();
+            exoplanetService.ExoPlanet = mockedPlanet;
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+
+            ucCollection.init(exoplanetService);
 
             // Act
-            ScanResult scanResult = robot.Scan();
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
+            ScanResult scanResult = ucCollection.UcCollectionRobot.RobotScanService.Scan(robotBase);
 
             // Assert
-            Assert.AreEqual(Ground.SAND, scanResult.Measure.Ground);
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            Gaia exoplanet = new Gaia();
-            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
-            controlCenter.ClearRobots();
+            Assert.AreEqual(new Measure(Ground.NOTHING, 0), scanResult.Measures.Keys.First());
         }
     }
 }

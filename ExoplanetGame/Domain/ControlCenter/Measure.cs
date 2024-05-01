@@ -20,6 +20,24 @@ namespace ExoplanetGame.Domain.ControlCenter
             Temperature = temperature;
         }
 
+        protected bool Equals(Measure other)
+        {
+            return Ground == other.Ground && Temperature.Equals(other.Temperature);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Measure)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine((int)Ground, Temperature);
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new();

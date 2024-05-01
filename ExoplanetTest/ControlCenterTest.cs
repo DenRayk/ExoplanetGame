@@ -1,9 +1,11 @@
-﻿using ExoplanetGame.ControlCenter;
+﻿using ExoplanetGame.Application;
+using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Exoplanet.Variants;
 using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Factory;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.Variants;
-using ExoplanetGame.Robot.Movement;
+using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGameTest
 {
@@ -11,35 +13,38 @@ namespace ExoplanetGameTest
     public class ControlCenterTest
     {
         [TestMethod]
-        public void AddRobots()
+        public void AddRobot()
         {
             // Arrange
-            MockPlanet mockPlanet = new MockPlanet();
-            ControlCenter controlCenter = ControlCenter.GetInstance(mockPlanet);
-            controlCenter.exoPlanet = mockPlanet;
+            UCCollection ucCollection = new UCCollection();
+
+            AddRobotCommand addRobotCommand = new AddRobotCommand(RobotVariant.DEFAULT, ucCollection);
 
             // Act
-            controlCenter.AddRobot(RobotVariant.DEFAULT);
+            addRobotCommand.Execute();
 
             // Assert
-            Assert.AreEqual(1, controlCenter.GetRobotCount());
+            Assert.AreEqual(1, ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots().Count);
         }
 
         [TestMethod]
-        public void LandRobot()
+        public void AddTooManyRobots()
         {
             // Arrange
-            Gaia exoplanet = new Gaia();
-            ControlCenter controlCenter = ControlCenter.GetInstance(exoplanet);
-            controlCenter.exoPlanet = exoplanet;
-            controlCenter.AddRobot(RobotVariant.DEFAULT);
-            RobotBase robot = controlCenter.GetRobotByID(0);
+            UCCollection ucCollection = new UCCollection();
+
+            AddRobotCommand addRobotCommand = new AddRobotCommand(RobotVariant.DEFAULT, ucCollection);
 
             // Act
-            robot.Land(new Position(1, 1, Direction.NORTH));
+            addRobotCommand.Execute();
+            addRobotCommand.Execute();
+            addRobotCommand.Execute();
+            addRobotCommand.Execute();
+            addRobotCommand.Execute();
+            addRobotCommand.Execute();
 
             // Assert
-            Assert.AreEqual(true, robot.RobotInformation.HasLanded);
+            Assert.AreEqual(5, ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots().Count);
         }
     }
 }

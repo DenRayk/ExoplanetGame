@@ -7,13 +7,13 @@ using ExoplanetGame.Domain.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
-    internal class LandCommand : RobotCommand
+    public class LandCommand : RobotCommand
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
         private IRobotRepository robotRepository;
 
-        public LandCommand(RobotBase robotBase, UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand)
+        public LandCommand(RobotBase robotBase, UCCollection ucCollection)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;

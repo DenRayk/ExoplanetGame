@@ -57,7 +57,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         private Dictionary<string, BaseCommand> getLandOptions()
         {
             var options = new Dictionary<string, BaseCommand>();
-            options.Add("Land", new LandCommand(robotBase, ucCollection, exoplanetService, this));
+            options.Add("Land", new LandCommand(robotBase, ucCollection));
             options.Add("Back", new ControlCenterCommand(ucCollection));
             return options;
         }

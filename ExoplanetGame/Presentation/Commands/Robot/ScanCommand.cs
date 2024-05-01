@@ -17,7 +17,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            ScanResult scanResult = ucCollection.UcCollectionRobot.ScanExoplanetService.Scan(robotBase);
+            ScanResult scanResult = ucCollection.UcCollectionRobot.RobotScanService.Scan(robotBase);
             RobotResult = scanResult;
 
             if (scanResult.IsSuccess)

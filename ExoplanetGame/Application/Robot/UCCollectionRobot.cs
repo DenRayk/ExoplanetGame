@@ -6,7 +6,7 @@ namespace ExoplanetGame.Application.Robot
     {
         public RobotLandUseCase RobotLandService;
         public GetPositionUseCase GetPositionService;
-        public RobotScanUseCase ScanExoplanetService;
+        public RobotScanUseCase RobotScanService;
         public RobotMoveUseCase MoveRobotService;
         public RobotRotateUseCase RotateRobotService;
         public RobotCrashUseCase CrashRobotService;
@@ -17,7 +17,7 @@ namespace ExoplanetGame.Application.Robot
         {
             RobotLandService = new RobotLandService(exoplanetService);
             GetPositionService = new GetPositionService(exoplanetService);
-            ScanExoplanetService = new RobotScanService(exoplanetService);
+            RobotScanService = new RobotScanService(exoplanetService);
             MoveRobotService = new RobotMoveService(exoplanetService);
             RotateRobotService = new RobotRotateService(exoplanetService);
             CrashRobotService = new RobotCrashService(exoplanetService);
