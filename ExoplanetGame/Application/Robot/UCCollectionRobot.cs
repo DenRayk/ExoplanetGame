@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Application.Exoplanet;
 
 namespace ExoplanetGame.Application.Robot
 {
     public class UCCollectionRobot
     {
-        private LandRobotUseCase landRobotUseCase;
+        public LandRobotUseCase landRobotUseCase;
 
-        public UCCollectionRobot()
+        public UCCollectionRobot(ExoplanetService exoplanetService)
         {
-            landRobotUseCase = new LandRobotService();
+            landRobotUseCase = new LandRobotService(exoplanetService);
         }
     }
 }

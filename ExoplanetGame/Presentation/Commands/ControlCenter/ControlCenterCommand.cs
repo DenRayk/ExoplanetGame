@@ -1,4 +1,6 @@
-﻿using ExoplanetGame.Application;
+﻿using System.Runtime.CompilerServices;
+using ExoplanetGame.Application;
+using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Helper;
 using ExoplanetGame.Presentation.Commands.PlanetSelection;
@@ -24,7 +26,6 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
         public override void Execute()
         {
             Console.WriteLine("Control Center");
-            //Console.WriteLine($"Research Exoplanet {planetVariant.GetDescriptionFromEnum()}");TODO: Add planet variant
             Console.WriteLine("Select an option (press F1 for help):\n");
 
             var options = getControlCenterOptions();

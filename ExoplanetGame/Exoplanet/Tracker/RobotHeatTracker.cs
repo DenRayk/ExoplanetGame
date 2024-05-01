@@ -7,20 +7,20 @@ namespace ExoplanetGame.Exoplanet.Tracker
     public class RobotHeatTracker
     {
         private const int COOL_DOWN_RATE = 10;
-        private Dictionary<RobotBase, double> heatLevels = new();
+        public Dictionary<RobotBase, double> HeatLevels { get; } = new();
 
         public void PerformAction(RobotBase robot, RobotAction robotAction, Topography topography)
         {
-            if (!heatLevels.ContainsKey(robot))
+            if (!HeatLevels.ContainsKey(robot))
             {
-                heatLevels[robot] = 0;
+                HeatLevels[robot] = 0;
             }
 
             double heatGain = CalculateHeatGainDependentOnFieldAndAction(robot, robotAction, topography);
 
-            heatLevels[robot] += heatGain;
+            HeatLevels[robot] += heatGain;
 
-            if (heatLevels[robot] >= robot.RobotInformation.MaxHeat)
+            if (HeatLevels[robot] >= robot.RobotInformation.MaxHeat)
             {
                 Console.WriteLine($"Overheating {robot.GetLanderName()}");
                 CoolDown(robot, robot.RobotInformation.MaxHeat / 10);
@@ -29,16 +29,16 @@ namespace ExoplanetGame.Exoplanet.Tracker
 
         public void PerformAction(RobotBase robot, RobotAction robotAction, Topography topography, Position landPosition)
         {
-            if (!heatLevels.ContainsKey(robot))
+            if (!HeatLevels.ContainsKey(robot))
             {
-                heatLevels[robot] = 0;
+                HeatLevels[robot] = 0;
             }
 
             double heatGain = CalculateHeatGainDependentOnFieldAndAction(landPosition, robotAction, topography);
 
-            heatLevels[robot] += heatGain;
+            HeatLevels[robot] += heatGain;
 
-            if (heatLevels[robot] >= robot.RobotInformation.MaxHeat)
+            if (HeatLevels[robot] >= robot.RobotInformation.MaxHeat)
             {
                 Console.WriteLine($"Overheating {robot.GetLanderName()}");
                 CoolDown(robot, robot.RobotInformation.MaxHeat / 10);
@@ -47,9 +47,9 @@ namespace ExoplanetGame.Exoplanet.Tracker
 
         public void WaterCoolDown(RobotBase robot)
         {
-            if (heatLevels.ContainsKey(robot))
+            if (HeatLevels.ContainsKey(robot))
             {
-                heatLevels[robot] = 0;
+                HeatLevels[robot] = 0;
             }
         }
 
@@ -135,10 +135,10 @@ namespace ExoplanetGame.Exoplanet.Tracker
         {
             for (int i = 0; i < seconds; i++)
             {
-                Console.WriteLine($"Cooling down {robot.GetLanderName()} Heat: {Math.Round(heatLevels[robot] , 2)}");
-                if (heatLevels[robot] > 0)
+                Console.WriteLine($"Cooling down {robot.GetLanderName()} Heat: {Math.Round(HeatLevels[robot], 2)}");
+                if (HeatLevels[robot] > 0)
                 {
-                    heatLevels[robot] -= COOL_DOWN_RATE;
+                    HeatLevels[robot] -= COOL_DOWN_RATE;
                 }
                 Thread.Sleep(200);
             }

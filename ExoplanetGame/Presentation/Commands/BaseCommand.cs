@@ -32,7 +32,7 @@ public abstract class BaseCommand
         }
     }
 
-    private static int GetMenuSelection(int maxValue)
+    public static int GetMenuSelection(int maxValue)
     {
         while (true)
         {

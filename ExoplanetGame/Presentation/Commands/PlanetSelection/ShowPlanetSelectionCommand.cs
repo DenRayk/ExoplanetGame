@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Application;
+using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.Exoplanet.Variants;
 using ExoplanetGame.Helper;
 
@@ -7,6 +8,7 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
     internal class ShowPlanetSelectionCommand : BaseCommand
     {
         private UCCollection ucCollection;
+        private ExoplanetService exoplanetService;
 
         private readonly string helpText =
             "Exoplanet Menu Information\n" +
@@ -17,9 +19,10 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
             $"{PlanetVariant.LAVARIA.GetDescriptionFromEnum()}:\t Expert level\n" +
             $"{PlanetVariant.TROPICA.GetDescriptionFromEnum()}:\t Grandmaster level\n";
 
-        public ShowPlanetSelectionCommand(UCCollection ucCollection)
+        public ShowPlanetSelectionCommand(UCCollection ucCollection, ExoplanetService exoplanetService)
         {
             this.ucCollection = ucCollection;
+            this.exoplanetService = exoplanetService;
         }
 
         public override void Execute()
@@ -50,9 +53,9 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 
             foreach (PlanetVariant planetVariant in Enum.GetValues(typeof(PlanetVariant)))
             {
-                options.Add(planetVariant.GetDescriptionFromEnum(), new SelectPlanetCommand(planetVariant, ucCollection));
+                options.Add(planetVariant.GetDescriptionFromEnum(), new SelectPlanetCommand(planetVariant, ucCollection, exoplanetService));
             }
-            options.Add("Random", new SelectPlanetCommand(getRandomPlanetVariant(), ucCollection));
+            options.Add("Random", new SelectPlanetCommand(getRandomPlanetVariant(), ucCollection, exoplanetService));
             return options;
         }
 

@@ -12,7 +12,7 @@ namespace ExoplanetGame.Exoplanet
     {
         internal readonly Dictionary<RobotBase, Position> robots;
 
-        internal readonly RobotStatusManager robotStatusManager;
+        public RobotStatusManager RobotStatusManager { get; }
 
         private readonly ExoPlanetBase _exoPlanet;
 
@@ -21,10 +21,10 @@ namespace ExoplanetGame.Exoplanet
             this._exoPlanet = exoPlanet;
             robots = new Dictionary<RobotBase, Position>();
 
-            robotStatusManager = new RobotStatusManager();
-            MoveController = new MoveController(this, robotStatusManager);
-            LandController = new LandController(this, robotStatusManager);
-            ScanController = new ScanController(this, robotStatusManager);
+            RobotStatusManager = new RobotStatusManager();
+            MoveController = new MoveController(this, RobotStatusManager);
+            LandController = new LandController(this, RobotStatusManager);
+            ScanController = new ScanController(this, RobotStatusManager);
         }
 
         public LandController LandController { get; }
@@ -53,10 +53,10 @@ namespace ExoplanetGame.Exoplanet
 
         public PositionResult GetRobotPosition(RobotBase robot)
         {
-            if (robotStatusManager.RobotEnergyTracker.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.GETPOSITION))
+            if (RobotStatusManager.RobotEnergyTracker.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.GETPOSITION))
             {
-                robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, _exoPlanet.Topography);
-                robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.GETPOSITION);
+                RobotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.GETPOSITION, _exoPlanet.Topography);
+                RobotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.GETPOSITION);
                 return new PositionResult
                 {
                     Position = robots[robot],
@@ -77,10 +77,10 @@ namespace ExoplanetGame.Exoplanet
         {
             LoadResult loadResult = new LoadResult();
 
-            if (!robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.SOLARPANELS))
+            if (!RobotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.SOLARPANELS))
             {
-                loadResult = robotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds, _exoPlanet.Weather);
-                robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.SOLARPANELS);
+                loadResult = RobotStatusManager.RobotEnergyTracker.LoadEnergy(robot, seconds, _exoPlanet.Weather);
+                RobotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.SOLARPANELS);
             }
             else
             {
@@ -110,21 +110,21 @@ namespace ExoplanetGame.Exoplanet
                 return rotationResult;
             }
 
-            robotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.ROTATE, _exoPlanet.Topography);
-            robotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.ROTATE);
+            RobotStatusManager.RobotHeatTracker.PerformAction(robot, RobotAction.ROTATE, _exoPlanet.Topography);
+            RobotStatusManager.RobotEnergyTracker.ConsumeEnergy(robot, RobotAction.ROTATE);
 
-            if (robotStatusManager.RobotStuckTracker.IsRobotStuck(robot))
+            if (RobotStatusManager.RobotStuckTracker.IsRobotStuck(robot))
             {
-                robotStatusManager.RobotStuckTracker.UnstuckRobot(robot);
+                RobotStatusManager.RobotStuckTracker.UnstuckRobot(robot);
             }
 
             if (rotation == Rotation.RIGHT)
             {
-                robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.RIGHTMOTOR);
+                RobotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.RIGHTMOTOR);
             }
             else
             {
-                robotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.LEFTMOTOR);
+                RobotStatusManager.RobotPartsTracker.RobotPartDamage(robot, RobotPart.LEFTMOTOR);
             }
 
             rotationResult.IsSuccess = true;
@@ -136,9 +136,9 @@ namespace ExoplanetGame.Exoplanet
 
         private bool CanRobotRotate(RobotBase robot, Rotation rotation, ref RotationResult rotationResult)
         {
-            bool isRightMotorDamaged = robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.RIGHTMOTOR);
-            bool isLeftMotorDamaged = robotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.LEFTMOTOR);
-            bool doesRobotHaveEnery = robotStatusManager.RobotEnergyTracker.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.ROTATE);
+            bool isRightMotorDamaged = RobotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.RIGHTMOTOR);
+            bool isLeftMotorDamaged = RobotStatusManager.RobotPartsTracker.isRobotPartDamaged(robot, RobotPart.LEFTMOTOR);
+            bool doesRobotHaveEnery = RobotStatusManager.RobotEnergyTracker.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.ROTATE);
 
             if (isRightMotorDamaged && rotation == Rotation.RIGHT)
             {
@@ -169,7 +169,7 @@ namespace ExoplanetGame.Exoplanet
 
             if (newGround == Ground.MUD || newGround == Ground.PLANT)
             {
-                robotStatusManager.RobotStuckTracker.RobotGetStuckRandomly(robot);
+                RobotStatusManager.RobotStuckTracker.RobotGetStuckRandomly(robot);
             }
         }
 
@@ -218,7 +218,7 @@ namespace ExoplanetGame.Exoplanet
         {
             bool isRobotWaterDrifting = false;
 
-            robotStatusManager.RobotHeatTracker.WaterCoolDown(robot);
+            RobotStatusManager.RobotHeatTracker.WaterCoolDown(robot);
 
             if (robot.RobotVariant == RobotVariant.AQUA)
             {
@@ -266,12 +266,12 @@ namespace ExoplanetGame.Exoplanet
 
         public void RepairRobotPart(RobotBase robot, RobotPart robotPart)
         {
-            robotStatusManager.RobotPartsTracker.RepairRobotPart(robot, robotPart);
+            RobotStatusManager.RobotPartsTracker.RepairRobotPart(robot, robotPart);
         }
 
         public Dictionary<RobotPart, int> GetRobotPartsByRobot(RobotBase robotBase)
         {
-            return robotStatusManager.RobotPartsTracker.GetRobotPartsByRobot(robotBase);
+            return RobotStatusManager.RobotPartsTracker.GetRobotPartsByRobot(robotBase);
         }
     }
 }

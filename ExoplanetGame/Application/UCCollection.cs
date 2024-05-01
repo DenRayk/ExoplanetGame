@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExoplanetGame.Application.ControlCenter;
+using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.Application.Robot;
 
 namespace ExoplanetGame.Application
@@ -13,10 +14,14 @@ namespace ExoplanetGame.Application
         public UCCollection()
         {
             UcCollectionControlCenter = new UCCollectionControlCenter();
-            UcCollectionRobot = new UCCollectionRobot();
         }
 
         public UCCollectionControlCenter UcCollectionControlCenter { get; }
-        public UCCollectionRobot UcCollectionRobot { get; }
+        public UCCollectionRobot UcCollectionRobot { get; set; }
+
+        public void init(ExoplanetService exoplanetService)
+        {
+            UcCollectionRobot = new UCCollectionRobot(exoplanetService);
+        }
     }
 }

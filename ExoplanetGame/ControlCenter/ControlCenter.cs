@@ -42,22 +42,6 @@ namespace ExoplanetGame.ControlCenter
             return controlCenter;
         }
 
-        public void AddRobot(RobotVariant robotVariant)
-        {
-            if (controlCenter.GetRobotCount() < MaxRobots)
-            {
-                RobotBase robotBase;
-
-                robotBase = robotFactory.CreateRobot(controlCenter, exoPlanet, getRobotIDandIncrement(), robotVariant);
-
-                Robots.Add(robotBase, null);
-            }
-            else
-            {
-                throw new RobotCapacityReachException("The maximum number of available Robots has been reached.");
-            }
-        }
-
         public void UpdateRobotPosition(RobotBase robot, Position position)
         {
             Robots[robot] = position;

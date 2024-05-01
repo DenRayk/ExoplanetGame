@@ -1,4 +1,5 @@
 ﻿using ExoplanetGame.Application;
+using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.Presentation.Commands.PlanetSelection;
 using ExoplanetGame.Presentation.Commands.Robot;
 using ExoplanetGame.Robot;
@@ -9,6 +10,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
     public class ControlRobotCommand : BaseCommand
     {
         private UCCollection ucCollection;
+        private ExoplanetService exoplanetService;
 
         public ControlRobotCommand(UCCollection ucCollection)
         {
@@ -45,7 +47,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
                 }
                 else
                 {
-                    robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotLandCommand(ucCollection, robot.Key));
+                    robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotLandCommand(ucCollection, robot.Key, exoplanetService));
                 }
             }
 

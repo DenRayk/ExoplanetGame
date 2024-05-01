@@ -79,7 +79,7 @@ namespace ExoplanetGame.Exoplanet.Variants
             int randomVariant = random.Next(0, frostfellVariants.Count);
             Topography = new Topography(frostfellVariants[randomVariant]);
 
-            robotManager = new RobotManager(this);
+            RobotManager = new RobotManager(this);
         }
 
         public override void ChangeWeather()
@@ -113,7 +113,7 @@ namespace ExoplanetGame.Exoplanet.Variants
         {
             FreezeRobotIfItHasntMovedForAWhile(robot);
 
-            if (!robotManager.robotStatusManager.RobotFreezeTracker.IsFrozen(robot))
+            if (!RobotManager.RobotStatusManager.RobotFreezeTracker.IsFrozen(robot))
             {
                 return base.Move(robot);
             }
@@ -133,7 +133,7 @@ namespace ExoplanetGame.Exoplanet.Variants
 
             FreezeRobotIfItHasntMovedForAWhile(robot);
 
-            if (robotManager.robotStatusManager.RobotFreezeTracker.IsFrozen(robot))
+            if (RobotManager.RobotStatusManager.RobotFreezeTracker.IsFrozen(robot))
             {
                 rotationResult.IsSuccess = false;
                 rotationResult.HasRobotSurvived = true;
@@ -148,20 +148,20 @@ namespace ExoplanetGame.Exoplanet.Variants
 
         private void FreezeRobotIfItHasntMovedForAWhile(RobotBase robot)
         {
-            bool isRobotAlreadyFrozen = robotManager.robotStatusManager.RobotFreezeTracker.IsFrozen(robot);
+            bool isRobotAlreadyFrozen = RobotManager.RobotStatusManager.RobotFreezeTracker.IsFrozen(robot);
             if (isRobotAlreadyFrozen)
                 return;
 
             int resistanceTimeAgainstFreezing = GetFreezingTimeByWeatherConditions();
 
-            DateTime lastMoveTime = robotManager.robotStatusManager.RobotFreezeTracker.GetLastMove(robot);
+            DateTime lastMoveTime = RobotManager.RobotStatusManager.RobotFreezeTracker.GetLastMove(robot);
             TimeSpan timeSpanSinceLastMove = DateTime.Now - lastMoveTime;
             bool isRobotFrozen = timeSpanSinceLastMove > TimeSpan.FromSeconds(resistanceTimeAgainstFreezing);
 
             if (isRobotFrozen)
                 RobotFreeze(robot);
 
-            robotManager.robotStatusManager.RobotFreezeTracker.UpdateLastMove(robot);
+            RobotManager.RobotStatusManager.RobotFreezeTracker.UpdateLastMove(robot);
         }
 
         private int GetFreezingTimeByWeatherConditions()
@@ -184,7 +184,7 @@ namespace ExoplanetGame.Exoplanet.Variants
 
         private void RobotFreeze(RobotBase robot)
         {
-            robotManager.robotStatusManager.RobotFreezeTracker.FreezeRobot(robot);
+            RobotManager.RobotStatusManager.RobotFreezeTracker.FreezeRobot(robot);
         }
     }
 }

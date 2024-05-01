@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Application.ControlCenter;
+using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Menus.Controller;
 using ExoplanetGame.Presentation.Commands.PlanetSelection;
@@ -13,8 +14,11 @@ namespace ExoplanetGame
             Console.WriteLine("ExoplanetGame starting...");
 
             UCCollection ucCollection = new();
+            ExoplanetService exoplanetService = new();
 
-            ShowPlanetSelectionCommand showPlanetSelectionCommand = new(ucCollection);
+            ucCollection.init(exoplanetService);
+
+            ShowPlanetSelectionCommand showPlanetSelectionCommand = new(ucCollection, exoplanetService);
             showPlanetSelectionCommand.Execute();
         }
     }

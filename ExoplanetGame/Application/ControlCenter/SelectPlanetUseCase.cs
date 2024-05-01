@@ -1,9 +1,11 @@
-﻿using ExoplanetGame.Exoplanet.Variants;
+﻿using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.Variants;
 
 namespace ExoplanetGame.Application.ControlCenter
 {
     public interface SelectPlanetUseCase
     {
-        void SelectPlanet(PlanetVariant planetVariant);
+        void SelectPlanet(IExoPlanet exoPlanetBase);
     }
 }

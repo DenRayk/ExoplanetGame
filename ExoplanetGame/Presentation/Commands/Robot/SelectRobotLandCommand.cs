@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExoplanetGame.Application;
+using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.Presentation.Commands.ControlCenter;
 using ExoplanetGame.Robot;
 
@@ -13,15 +14,17 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
+        private ExoplanetService exoplanetService;
 
         private string helpText =
             "Land:\t Land the robot on the planet\n" +
             "Back:\t Return to the control center\n";
 
-        public SelectRobotLandCommand(UCCollection ucCollection, RobotBase robotKey)
+        public SelectRobotLandCommand(UCCollection ucCollection, RobotBase robotBase, ExoplanetService exoplanetService)
         {
             this.ucCollection = ucCollection;
-            this.robotBase = robotKey;
+            this.robotBase = robotBase;
+            this.exoplanetService = exoplanetService;
         }
 
         public override void Execute()
@@ -48,7 +51,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         private Dictionary<string, BaseCommand> getLandOptions()
         {
             var options = new Dictionary<string, BaseCommand>();
-            options.Add("Land", new LandCommand(robotBase, ucCollection));
+            options.Add("Land", new LandCommand(robotBase, ucCollection, exoplanetService));
             options.Add("Back", new ControlCenterCommand(ucCollection));
             return options;
         }

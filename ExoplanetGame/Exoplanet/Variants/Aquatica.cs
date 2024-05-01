@@ -77,7 +77,7 @@ namespace ExoplanetGame.Exoplanet.Variants
 
             Topography = new Topography(aquaticaVariants[randomVariant]);
 
-            robotManager = new RobotManager(this);
+            RobotManager = new RobotManager(this);
         }
 
         public override void ChangeWeather()

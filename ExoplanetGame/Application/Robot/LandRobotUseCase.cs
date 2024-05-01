@@ -1,8 +1,10 @@
 ﻿using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Movement;
+using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Application.Robot;
 
 public interface LandRobotUseCase
 {
-    void LandRobot(RobotBase robotBase);
+    PositionResult LandRobot(RobotBase robotBase, Position landPosition);
 }

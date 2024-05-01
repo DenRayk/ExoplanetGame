@@ -7,7 +7,7 @@ using ExoplanetGame.ControlCenter;
 
 namespace ExoplanetGame.Application.ControlCenter
 {
-    internal interface GetPlanetMapUseCase
+    public interface GetPlanetMapUseCase
     {
         PlanetMap GetPlanetMap();
     }

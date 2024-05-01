@@ -6,7 +6,7 @@ namespace ExoplanetGame.Exoplanet.Tracker;
 
 public class RobotEnergyTracker
 {
-    private readonly Dictionary<RobotBase, int> robotEnergy = new();
+    public Dictionary<RobotBase, int> robotEnergy = new();
 
     public void ConsumeEnergy(RobotBase robot, RobotAction robotAction)
     {

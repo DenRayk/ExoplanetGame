@@ -15,8 +15,10 @@ namespace ExoplanetGame.Exoplanet
     {
         public interface IExoPlanet
         {
+            public RobotManager RobotManager { get; }
             Topography Topography { get; set; }
-            PlanetVariant PlanetVariant { get; }
+
+            PlanetVariant PlanetVariant { get; set; }
 
             int GetRobotCount();
 

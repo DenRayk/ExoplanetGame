@@ -31,7 +31,7 @@ namespace ExoplanetGame
 
         public void AddRobot(RobotVariant robotVariant)
         {
-            controlCenter.AddRobot(robotVariant);
+            //controlCenter.AddRobot(robotVariant);
         }
 
         public void ControlRobot(int robotID)
