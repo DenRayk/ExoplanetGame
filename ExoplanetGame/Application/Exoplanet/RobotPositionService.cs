@@ -1,9 +1,9 @@
-﻿using ExoplanetGame.Domain.Robot;
+﻿using ExoplanetGame.Domain.Exoplanet;
+using ExoplanetGame.Domain.Exoplanet.Environment;
+using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
 using ExoplanetGame.Domain.Robot.Variants;
-using ExoplanetGame.Exoplanet;
-using ExoplanetGame.Exoplanet.Environment;
 
 namespace ExoplanetGame.Application.Exoplanet
 {

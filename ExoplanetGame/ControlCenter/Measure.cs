@@ -1,4 +1,4 @@
-﻿using ExoplanetGame.Exoplanet.Environment;
+﻿using ExoplanetGame.Domain.Exoplanet.Environment;
 using System.Text;
 
 namespace ExoplanetGame.ControlCenter

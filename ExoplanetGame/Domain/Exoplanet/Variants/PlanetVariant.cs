@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ExoplanetGame.Exoplanet.Variants;
+namespace ExoplanetGame.Domain.Exoplanet.Variants;
 
 public enum PlanetVariant
 {

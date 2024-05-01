@@ -1,4 +1,4 @@
-﻿using ExoplanetGame.Exoplanet;
+﻿using ExoplanetGame.Domain.Exoplanet;
 
 namespace ExoplanetGame.Application.ControlCenter
 {

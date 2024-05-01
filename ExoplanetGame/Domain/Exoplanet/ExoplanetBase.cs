@@ -1,7 +1,7 @@
-﻿using ExoplanetGame.Exoplanet.Environment;
-using ExoplanetGame.Exoplanet.Variants;
+﻿using ExoplanetGame.Domain.Exoplanet.Environment;
+using ExoplanetGame.Domain.Exoplanet.Variants;
 
-namespace ExoplanetGame.Exoplanet
+namespace ExoplanetGame.Domain.Exoplanet
 {
     public class ExoPlanetBase
     {

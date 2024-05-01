@@ -1,14 +1,13 @@
 ﻿using ExoplanetGame.Application.Exoplanet.StatusTracking;
-using ExoplanetGame.Application.Robot;
-using ExoplanetGame.Exoplanet;
-using ExoplanetGame.Exoplanet.Factory;
-using ExoplanetGame.Exoplanet.Variants;
+using ExoplanetGame.Domain.Exoplanet;
+using ExoplanetGame.Domain.Exoplanet.Factory;
+using ExoplanetGame.Domain.Exoplanet.Variants;
 
 namespace ExoplanetGame.Application.Exoplanet
 {
     public class ExoplanetService
     {
-        private ExoPlanetBaseFactory exoPlanetFactory;
+        private IExoPlanetBaseFactory exoPlanetFactory;
         public EnergyTrackingUseCase EnergyTracking { get; }
         public HeatTrackingUseCase HeatTracking { get; }
         public FreezeTrackingUseCase FreezeTracking { get; }

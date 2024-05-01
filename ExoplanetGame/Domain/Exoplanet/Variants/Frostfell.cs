@@ -1,6 +1,7 @@
-﻿using ExoplanetGame.Exoplanet.Environment;
+﻿using ExoplanetGame.Domain.Exoplanet;
+using ExoplanetGame.Domain.Exoplanet.Environment;
 
-namespace ExoplanetGame.Exoplanet.Variants
+namespace ExoplanetGame.Domain.Exoplanet.Variants
 {
     public class Frostfell : ExoPlanetBase
     {

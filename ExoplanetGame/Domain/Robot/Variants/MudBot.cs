@@ -1,5 +1,5 @@
-﻿using ExoplanetGame.Domain.Robot;
-using ExoplanetGame.Exoplanet;
+﻿using ExoplanetGame.Domain.Exoplanet;
+using ExoplanetGame.Domain.Robot;
 
 namespace ExoplanetGame.Domain.Robot.Variants
 {

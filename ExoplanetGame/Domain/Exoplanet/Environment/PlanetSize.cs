@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ExoplanetGame.Exoplanet.Environment;
+namespace ExoplanetGame.Domain.Exoplanet.Environment;
 
 public class PlanetSize(int width, int height)
 {

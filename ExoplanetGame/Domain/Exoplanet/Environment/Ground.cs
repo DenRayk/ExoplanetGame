@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ExoplanetGame.Exoplanet.Environment;
+namespace ExoplanetGame.Domain.Exoplanet.Environment;
 
 public enum Ground
 {

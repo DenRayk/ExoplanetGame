@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Domain.Exoplanet.Environment;
+using ExoplanetGame.Domain.Exoplanet.Variants;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
-using ExoplanetGame.Exoplanet.Environment;
 using ExoplanetGame.Exoplanet.ExoplanetGame.Exoplanet;
-using ExoplanetGame.Exoplanet.Variants;
 
 namespace ExoplanetGameTest
 {

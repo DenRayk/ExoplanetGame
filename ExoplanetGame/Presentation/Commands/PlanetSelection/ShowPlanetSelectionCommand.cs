@@ -1,6 +1,6 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Application.Exoplanet;
-using ExoplanetGame.Exoplanet.Variants;
+using ExoplanetGame.Domain.Exoplanet.Variants;
 using ExoplanetGame.Helper;
 
 namespace ExoplanetGame.Presentation.Commands.PlanetSelection

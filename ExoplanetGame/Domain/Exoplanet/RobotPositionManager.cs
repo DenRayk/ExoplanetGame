@@ -1,7 +1,7 @@
 ﻿using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
 
-namespace ExoplanetGame.Exoplanet
+namespace ExoplanetGame.Domain.Exoplanet
 {
     public class RobotPositionManager
     {

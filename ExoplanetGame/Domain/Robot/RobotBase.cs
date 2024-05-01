@@ -1,6 +1,6 @@
 ﻿using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Domain.Exoplanet;
 using ExoplanetGame.Domain.Robot.Variants;
-using ExoplanetGame.Exoplanet;
 using ExoplanetGame.Helper;
 
 namespace ExoplanetGame.Domain.Robot

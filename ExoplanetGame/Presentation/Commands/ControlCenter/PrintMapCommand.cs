@@ -1,8 +1,8 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Domain.Exoplanet.Environment;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
-using ExoplanetGame.Exoplanet.Environment;
 using ExoplanetGame.Helper;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter

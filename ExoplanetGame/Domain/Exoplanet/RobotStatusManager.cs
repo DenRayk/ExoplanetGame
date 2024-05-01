@@ -1,6 +1,6 @@
 ﻿using ExoplanetGame.Domain.Robot;
 
-namespace ExoplanetGame.Exoplanet
+namespace ExoplanetGame.Domain.Exoplanet
 {
     public class RobotStatusManager
     {

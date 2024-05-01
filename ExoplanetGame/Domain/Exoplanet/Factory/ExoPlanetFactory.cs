@@ -1,8 +1,8 @@
-﻿using ExoplanetGame.Exoplanet.Variants;
+﻿using ExoplanetGame.Domain.Exoplanet.Variants;
 
-namespace ExoplanetGame.Exoplanet.Factory
+namespace ExoplanetGame.Domain.Exoplanet.Factory
 {
-    internal class ExoPlanetFactory : ExoPlanetBaseFactory
+    internal class ExoPlanetFactory : IExoPlanetBaseFactory
     {
         private static ExoPlanetFactory instance;
 

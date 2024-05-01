@@ -1,7 +1,7 @@
-﻿using ExoplanetGame.Domain.Robot;
+﻿using ExoplanetGame.Domain.Exoplanet;
+using ExoplanetGame.Domain.Exoplanet.Environment;
+using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.RobotResults;
-using ExoplanetGame.Exoplanet;
-using ExoplanetGame.Exoplanet.Environment;
 
 namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {

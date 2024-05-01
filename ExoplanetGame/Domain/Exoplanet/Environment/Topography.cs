@@ -1,7 +1,7 @@
 ﻿using ExoplanetGame.ControlCenter;
 using ExoplanetGame.Domain.Robot.Movement;
 
-namespace ExoplanetGame.Exoplanet.Environment
+namespace ExoplanetGame.Domain.Exoplanet.Environment
 {
     public class Topography
     {

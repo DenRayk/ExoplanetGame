@@ -1,9 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using ExoplanetGame.Application;
-using ExoplanetGame.Application.Exoplanet;
-using ExoplanetGame.Exoplanet.Variants;
-using ExoplanetGame.Helper;
-using ExoplanetGame.Presentation.Commands.PlanetSelection;
+﻿using ExoplanetGame.Application;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
