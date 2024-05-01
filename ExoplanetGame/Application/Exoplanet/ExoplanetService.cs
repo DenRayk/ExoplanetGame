@@ -13,7 +13,7 @@ namespace ExoplanetGame.Application.Exoplanet
         public FreezeTrackingUseCase FreezeTracking { get; }
         public RobotStuckTrackingUseCase RobotStuckTracking { get; }
         public RobotPartsTrackingUseCase RobotPartsTracking { get; }
-        public RobotPostionUseCase RobotPostions { get; }
+        public RobotPostionUseCase RobotPostionsService { get; }
 
         public ScanExoplanetUseCase ScanExoplanetService { get; }
 
@@ -26,7 +26,7 @@ namespace ExoplanetGame.Application.Exoplanet
             FreezeTracking = new FreezeTrackingService(this);
             RobotStuckTracking = new RobotStuckTrackingService(this);
             RobotPartsTracking = new RobotPartsTrackingService(this);
-            RobotPostions = new RobotPositionService(this);
+            RobotPostionsService = new RobotPositionService(this);
             ScanExoplanetService = new ScanExoplanetService(this);
         }
 

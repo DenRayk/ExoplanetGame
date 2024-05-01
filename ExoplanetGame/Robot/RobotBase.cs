@@ -10,7 +10,7 @@ namespace ExoplanetGame.Robot
     public class RobotBase
     {
         protected readonly ExoPlanetBase exoPlanet;
-        protected readonly ControlCenter.ControlCenter controlCenter;
+        private RobotRepository robotRepository;
         public RobotInformation RobotInformation { get; }
         public RobotVariant RobotVariant { get; }
 
@@ -18,8 +18,8 @@ namespace ExoplanetGame.Robot
             RobotVariant robotVariant)
         {
             this.exoPlanet = exoPlanet;
-            this.controlCenter = controlCenter;
-            controlCenter.RobotPositionUpdated += HandleOtherRobotPositionUpdated;
+            robotRepository = RobotRepository.GetInstance();
+            robotRepository.RobotPositionUpdated += HandleOtherRobotPositionUpdated;
             RobotVariant = robotVariant;
 
             RobotInformation = new RobotInformation
@@ -49,7 +49,6 @@ namespace ExoplanetGame.Robot
         protected bool Equals(RobotBase other)
         {
             return exoPlanet.Equals(other.exoPlanet) &&
-                   controlCenter.Equals(other.controlCenter) &&
                    RobotInformation.Equals(other.RobotInformation) &&
                    RobotVariant == other.RobotVariant;
         }
@@ -64,7 +63,7 @@ namespace ExoplanetGame.Robot
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(exoPlanet, controlCenter, RobotInformation, (int)RobotVariant);
+            return HashCode.Combine(exoPlanet, RobotInformation, (int)RobotVariant);
         }
     }
 }

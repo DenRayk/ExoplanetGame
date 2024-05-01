@@ -49,8 +49,8 @@ namespace ExoplanetGame.Application.Exoplanet
             Position firstForwardPosition = currentRobotPosition.GetAdjacentPosition();
             Position secondForwardPosition = firstForwardPosition.GetAdjacentPosition();
 
-            bool isFirstPositionValid = exoplanetService.RobotPostions.IsPositionInBounds(firstForwardPosition, exoplanetService.ExoPlanet.Topography);
-            bool isSecondPositionValid = exoplanetService.RobotPostions.IsPositionInBounds(secondForwardPosition, exoplanetService.ExoPlanet.Topography);
+            bool isFirstPositionValid = exoplanetService.RobotPostionsService.IsPositionInBounds(firstForwardPosition, exoplanetService.ExoPlanet.Topography);
+            bool isSecondPositionValid = exoplanetService.RobotPostionsService.IsPositionInBounds(secondForwardPosition, exoplanetService.ExoPlanet.Topography);
 
             if (isFirstPositionValid)
             {

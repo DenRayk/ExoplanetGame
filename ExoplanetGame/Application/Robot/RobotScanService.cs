@@ -37,7 +37,7 @@ namespace ExoplanetGame.Application.Robot
                 if (!scanResult.HasRobotSurvived)
                 {
                     robotRepository.RemoveRobot(robot);
-                    exoplanetService.RobotPostions.RemoveRobot(robot);
+                    exoplanetService.RobotPostionsService.RemoveRobot(robot);
                 }
             }
 

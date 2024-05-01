@@ -13,12 +13,12 @@ namespace ExoplanetGame.Application.Robot
 {
     internal class RobotLandService : RobotLandUseCase
     {
-        private LandExoplanetService landRobotExoplanetService;
-        private global::ExoplanetGame.ControlCenter.ControlCenter controlCenter;
+        private LandExoplanetUseCase landRobotExoplanetService;
+        private IRobotRepository robotRepository;
 
         public RobotLandService(ExoplanetService exoplanetService)
         {
-            controlCenter = global::ExoplanetGame.ControlCenter.ControlCenter.GetInstance();
+            robotRepository = RobotRepository.GetInstance();
             landRobotExoplanetService = new LandExoplanetService(exoplanetService);
         }
 
@@ -28,6 +28,7 @@ namespace ExoplanetGame.Application.Robot
 
             if (positionResult.IsSuccess)
             {
+                robotRepository.MoveRobot(robotBase, positionResult.Position);
                 robotBase.RobotInformation.HasLanded = true;
                 robotBase.RobotInformation.Position = positionResult.Position;
             }

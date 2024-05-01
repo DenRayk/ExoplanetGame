@@ -12,19 +12,12 @@ namespace ExoplanetGame.ControlCenter
 
         public PlanetMap PlanetMap { get; set; }
 
-        public int MaxRobots { get; } = 5;
+        public int MaxRobots => 5;
 
         public int getRobotIDandIncrement()
         {
             return RobotId++;
         }
-
-        public virtual void OnRobotPositionUpdated(RobotBase robot, Position position)
-        {
-            RobotPositionUpdated?.Invoke(this, new RobotPositionEventArgs(robot, position));
-        }
-
-        public event EventHandler<RobotPositionEventArgs> RobotPositionUpdated;
 
         public ControlCenter()
         {

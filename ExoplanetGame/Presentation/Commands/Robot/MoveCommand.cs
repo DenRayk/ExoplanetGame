@@ -4,7 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExoplanetGame.Application;
+using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Presentation.Commands.ControlCenter;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Movement;
+using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
@@ -21,7 +25,20 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            throw new NotImplementedException();
+            PositionResult positionResult = ucCollection.UcCollectionRobot.MoveRobotService.Move(robotBase);
+
+            if (positionResult.IsSuccess)
+            {
+                Console.WriteLine($"RobotPositionManager moved to {positionResult.Position}");
+                SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
+                selectRobotActionCommand.Execute();
+            }
+            else
+            {
+                Console.WriteLine($"{positionResult.Message}");
+                ControlCenterCommand controlCenterCommand = new(ucCollection);
+                controlCenterCommand.Execute();
+            }
         }
     }
 }

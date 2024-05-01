@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Exoplanet;
+using ExoplanetGame.Exoplanet.Environment;
 using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Movement;
+using ExoplanetGame.Robot.Variants;
 
 namespace ExoplanetGame.Application.Exoplanet
 {
@@ -15,6 +19,19 @@ namespace ExoplanetGame.Application.Exoplanet
         public RobotStuckTrackingService(ExoplanetService exoplanetService)
         {
             this.exoplanetService = exoplanetService;
+        }
+
+        public void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position position)
+        {
+            if (robot.RobotVariant == RobotVariant.MUD)
+                return;
+
+            Ground newGround = topography.GetMeasureAtPosition(position).Ground;
+
+            if (newGround == Ground.MUD || newGround == Ground.PLANT)
+            {
+                RobotGetStuckRandomly(robot);
+            }
         }
 
         public void RobotGetStuckRandomly(RobotBase robot)

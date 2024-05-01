@@ -10,27 +10,36 @@ using ExoplanetGame.Robot.RobotResults;
 
 namespace ExoplanetGame.Application.Robot
 {
-    internal class GetPositionService : GetPositionUseCase
+    internal class RobotMoveService : RobotMoveUseCase
     {
         private ExoplanetService exoplanetService;
-        private RobotRepository robotRepository;
+        private IRobotRepository robotRepository;
+        private MoveExoplanetUseCase moveExoplanetService;
 
-        public GetPositionService(ExoplanetService exoplanetService)
+        public RobotMoveService(ExoplanetService exoplanetService)
         {
             this.exoplanetService = exoplanetService;
             robotRepository = RobotRepository.GetInstance();
+            moveExoplanetService = new MoveExoplanetService(exoplanetService);
         }
 
-        public PositionResult GetPosition(RobotBase robot)
+        public PositionResult Move(RobotBase robot)
         {
-            PositionResult positionResult = exoplanetService.RobotPostionsService.GetRobotPosition(robot);
+            PositionResult positionResult = moveExoplanetService.MoveRobot(robot);
+
+            if (positionResult.IsSuccess)
+            {
+                robotRepository.MoveRobot(robot, positionResult.Position);
+                return positionResult;
+            }
 
             if (!positionResult.HasRobotSurvived)
             {
                 exoplanetService.RobotPostionsService.RemoveRobot(robot);
                 robotRepository.RemoveRobot(robot);
             }
-            return exoplanetService.RobotPostionsService.GetRobotPosition(robot);
+
+            return positionResult;
         }
     }
 }

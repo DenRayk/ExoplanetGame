@@ -12,12 +12,14 @@ namespace ExoplanetGame.Application.Robot
         public RobotLandUseCase RobotLandService;
         public GetPositionUseCase GetPositionService;
         public RobotScanUseCase ScanExoplanetService;
+        public RobotMoveUseCase MoveRobotService;
 
         public UCCollectionRobot(ExoplanetService exoplanetService)
         {
             RobotLandService = new RobotLandService(exoplanetService);
             GetPositionService = new GetPositionService(exoplanetService);
             ScanExoplanetService = new RobotScanService(exoplanetService);
+            MoveRobotService = new RobotMoveService(exoplanetService);
         }
     }
 }

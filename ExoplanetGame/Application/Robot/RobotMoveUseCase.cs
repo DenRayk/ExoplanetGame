@@ -1,12 +1,15 @@
-﻿using System;
+﻿using ExoplanetGame.Robot.RobotResults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExoplanetGame.Robot;
 
 namespace ExoplanetGame.Application.Robot
 {
-    internal class RobotMoveUseCase
+    public interface RobotMoveUseCase
     {
+        PositionResult Move(RobotBase robotBase);
     }
 }

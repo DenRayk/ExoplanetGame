@@ -20,9 +20,9 @@ namespace ExoplanetGame.Application.Exoplanet
         {
             ExoPlanetBase exoPlanet = exoplanetService.ExoPlanet;
             PositionResult landResult = new();
-            landPosition = exoplanetService.RobotPostions.WaterDrift(robot, landPosition, exoPlanet.Topography);
+            landPosition = exoplanetService.RobotPostionsService.WaterDrift(robot, landPosition, exoPlanet.Topography);
 
-            if (!exoPlanet.RobotPositionManager.Robots.ContainsKey(robot) && exoplanetService.RobotPostions.IsPositionSafeForRobot(robot, landPosition, exoPlanet.Topography, ref landResult))
+            if (!exoPlanet.RobotPositionManager.Robots.ContainsKey(robot) && exoplanetService.RobotPostionsService.IsPositionSafeForRobot(robot, landPosition, exoPlanet.Topography, ref landResult))
             {
                 exoPlanet.RobotPositionManager.Robots.Add(robot, landPosition);
                 exoplanetService.HeatTracking.PerformAction(robot, RobotAction.LAND, exoPlanet.Topography, landPosition);

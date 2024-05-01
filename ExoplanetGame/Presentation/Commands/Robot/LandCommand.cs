@@ -17,11 +17,13 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
+        private IRobotRepository robotRepository;
 
         public LandCommand(RobotBase robotBase, UCCollection ucCollection, ExoplanetService exoplanetService)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
+            this.robotRepository = RobotRepository.GetInstance();
         }
 
         public override void Execute()
@@ -34,8 +36,8 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
             if (landResult.IsSuccess)
             {
-                Console.WriteLine($"RobotPositionManager landed on {landResult.Position}");
-                ucCollection.UcCollectionControlCenter.UpdateRobotPositionUseCase.UpdateRobotPosition(robotBase, landResult.Position);
+                Console.WriteLine($"Robot landed on {landResult.Position}");
+                robotRepository.MoveRobot(robotBase, landResult.Position);
                 SelectRobotActionCommand selectRobotActionCommand = new(ucCollection, robotBase);
                 selectRobotActionCommand.Execute();
             }

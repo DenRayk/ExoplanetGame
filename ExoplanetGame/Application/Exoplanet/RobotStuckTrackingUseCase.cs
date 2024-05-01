@@ -1,4 +1,6 @@
-﻿using ExoplanetGame.Robot;
+﻿using ExoplanetGame.Exoplanet.Environment;
+using ExoplanetGame.Robot;
+using ExoplanetGame.Robot.Movement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,8 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     public interface RobotStuckTrackingUseCase
     {
+        public void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position position);
+
         void RobotGetStuckRandomly(RobotBase robot);
 
         bool IsRobotStuck(RobotBase robot);

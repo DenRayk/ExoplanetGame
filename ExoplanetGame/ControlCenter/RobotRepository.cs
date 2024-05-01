@@ -13,6 +13,13 @@ namespace ExoplanetGame.ControlCenter
         private static RobotRepository instance;
         private Dictionary<RobotBase, Position> robots;
 
+        public virtual void OnRobotPositionUpdated(RobotBase robot, Position position)
+        {
+            RobotPositionUpdated?.Invoke(this, new RobotPositionEventArgs(robot, position));
+        }
+
+        public event EventHandler<RobotPositionEventArgs> RobotPositionUpdated;
+
         private RobotRepository()
         {
             robots = new Dictionary<RobotBase, Position>();
