@@ -1,7 +1,7 @@
 ﻿using ExoplanetGame.Domain.Exoplanet;
 using ExoplanetGame.Domain.Robot.Movement;
 
-namespace ExoplanetGame.ControlCenter
+namespace ExoplanetGame.Domain.ControlCenter
 {
     public class ControlCenter
     {

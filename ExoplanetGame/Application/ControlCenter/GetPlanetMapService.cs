@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.ControlCenter;
+﻿using ExoplanetGame.Domain.ControlCenter;
 
 namespace ExoplanetGame.Application.ControlCenter
 {
     internal class GetPlanetMapService : GetPlanetMapUseCase
     {
-        private global::ExoplanetGame.ControlCenter.ControlCenter controlCenter;
+        private Domain.ControlCenter.ControlCenter controlCenter;
 
         public GetPlanetMapService()
         {
-            controlCenter = global::ExoplanetGame.ControlCenter.ControlCenter.GetInstance();
+            controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
         }
 
         public PlanetMap GetPlanetMap()

@@ -1,4 +1,4 @@
-﻿using ExoplanetGame.ControlCenter;
+﻿using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Robot.Factory;
 using ExoplanetGame.Domain.Robot.Variants;
 
@@ -6,13 +6,13 @@ namespace ExoplanetGame.Application.ControlCenter
 {
     internal class AddRobotService : AddRobotUseCase
     {
-        private readonly global::ExoplanetGame.ControlCenter.ControlCenter controlCenter;
+        private readonly Domain.ControlCenter.ControlCenter controlCenter;
         private readonly RobotFactory robotFactory;
         private readonly RobotRepository robotRepository;
 
         public AddRobotService()
         {
-            controlCenter = global::ExoplanetGame.ControlCenter.ControlCenter.GetInstance();
+            controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
             robotFactory = RobotFactory.GetInstance();
             robotRepository = RobotRepository.GetInstance();
         }

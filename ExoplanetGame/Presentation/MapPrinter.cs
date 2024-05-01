@@ -1,4 +1,4 @@
-﻿using ExoplanetGame.ControlCenter;
+﻿using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Exoplanet.Environment;

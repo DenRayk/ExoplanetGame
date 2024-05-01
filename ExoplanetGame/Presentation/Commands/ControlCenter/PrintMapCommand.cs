@@ -1,5 +1,5 @@
 ﻿using ExoplanetGame.Application;
-using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Exoplanet.Environment;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;

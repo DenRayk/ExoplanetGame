@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Domain.Exoplanet.Environment;
+﻿using ExoplanetGame.Domain.Exoplanet.Environment;
 
 namespace ExoplanetGame.Application.ControlCenter
 {
     internal class GetCurrentWeatherService : GetCurrentWeatherUseCase
     {
-        private global::ExoplanetGame.ControlCenter.ControlCenter controlCenter;
+        private Domain.ControlCenter.ControlCenter controlCenter;
 
         public GetCurrentWeatherService()
         {
-            this.controlCenter = global::ExoplanetGame.ControlCenter.ControlCenter.GetInstance();
+            this.controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
         }
 
         public Weather GetCurrentWeather()

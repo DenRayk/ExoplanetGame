@@ -1,15 +1,15 @@
-﻿using ExoplanetGame.ControlCenter;
+﻿using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Exoplanet;
 
 namespace ExoplanetGame.Application.ControlCenter
 {
     internal class SelectPlanetService : SelectPlanetUseCase
     {
-        private global::ExoplanetGame.ControlCenter.ControlCenter controlCenter;
+        private Domain.ControlCenter.ControlCenter controlCenter;
 
         public SelectPlanetService()
         {
-            controlCenter = global::ExoplanetGame.ControlCenter.ControlCenter.GetInstance();
+            controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
         }
 
         public void SelectPlanet(ExoPlanetBase exoPlanet)

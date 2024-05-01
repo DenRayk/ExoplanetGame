@@ -1,7 +1,7 @@
 ﻿using ExoplanetGame.Domain.Exoplanet.Environment;
 using System.Text;
 
-namespace ExoplanetGame.ControlCenter
+namespace ExoplanetGame.Domain.ControlCenter
 {
     public class Measure
     {

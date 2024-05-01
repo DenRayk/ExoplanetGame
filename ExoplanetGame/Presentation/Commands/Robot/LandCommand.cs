@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Application;
+﻿using ExoplanetGame.Application;
 using ExoplanetGame.Application.Exoplanet;
-using ExoplanetGame.ControlCenter;
+using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;

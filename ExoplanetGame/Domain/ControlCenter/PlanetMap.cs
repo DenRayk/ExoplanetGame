@@ -1,7 +1,7 @@
 ﻿using ExoplanetGame.Domain.Exoplanet.Environment;
 using ExoplanetGame.Domain.Robot.Movement;
 
-namespace ExoplanetGame.ControlCenter
+namespace ExoplanetGame.Domain.ControlCenter
 {
     public class PlanetMap
     {

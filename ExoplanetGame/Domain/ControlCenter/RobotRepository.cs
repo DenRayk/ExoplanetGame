@@ -1,7 +1,7 @@
 ﻿using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Movement;
 
-namespace ExoplanetGame.ControlCenter
+namespace ExoplanetGame.Domain.ControlCenter
 {
     internal class RobotRepository : IRobotRepository
     {
