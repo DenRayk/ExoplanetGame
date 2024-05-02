@@ -12,7 +12,11 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
             RobotResultBase robotResult = new RobotResultBase();
 
             if (!MysteriousAttack())
+            {
+                robotResult.IsSuccess = true;
+                robotResult.HasRobotSurvived = true;
                 return robotResult;
+            }
 
             string typeOfAttack = GetRandomAttackType();
 

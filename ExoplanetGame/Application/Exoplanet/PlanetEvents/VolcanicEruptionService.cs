@@ -12,7 +12,11 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
             RobotResultBase robotResult = new RobotResultBase();
 
             if (!VolcanicEruption())
+            {
+                robotResult.IsSuccess = true;
+                robotResult.HasRobotSurvived = true;
                 return robotResult;
+            }
 
             robotResult = new RobotResultBase()
             {

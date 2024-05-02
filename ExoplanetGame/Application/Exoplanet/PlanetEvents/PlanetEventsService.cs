@@ -27,7 +27,8 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
         {
             RobotResultBase robotResult = new RobotResultBase()
             {
-                IsSuccess = true
+                IsSuccess = true,
+                HasRobotSurvived = true
             };
 
             if (exoplanetService.ExoPlanet is Frostfell)
