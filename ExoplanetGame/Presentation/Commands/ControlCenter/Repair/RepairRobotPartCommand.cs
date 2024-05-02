@@ -9,7 +9,6 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
         private UCCollection ucCollection;
         private RobotBase robotBase;
         private RobotPart robotPart;
-        private ControlCenterCommand controlCenterCommand;
 
         public RepairRobotPartCommand(RobotBase robotBase, RobotPart robotPart, UCCollection ucCollection)
         {
@@ -23,8 +22,6 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             ucCollection.UcCollectionRobot.RobotPartsHealthService.RepairRobotPart(robotBase, robotPart);
 
             Console.WriteLine($"Repaired {robotPart.GetDescriptionFromEnum()} on {robotBase.GetLanderName()} \n");
-
-            controlCenterCommand.Execute();
         }
     }
 }
