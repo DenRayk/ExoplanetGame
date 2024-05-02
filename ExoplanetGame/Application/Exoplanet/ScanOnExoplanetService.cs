@@ -84,7 +84,7 @@ namespace ExoplanetGame.Application.Exoplanet
                 robotResult.Message = "Scan sensor is damaged. Please repair in Control Center.\n";
             }
 
-            if (doesRobotHaveEnery)
+            if (!doesRobotHaveEnery)
             {
                 robotResult.Message += "Robot does not have enough energy to scan.\n";
             }
