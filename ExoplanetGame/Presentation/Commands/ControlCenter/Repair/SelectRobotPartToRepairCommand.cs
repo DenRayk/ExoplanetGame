@@ -28,7 +28,11 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
                 BaseCommand baseCommand = ReadUserInputWithOptions(options);
                 baseCommand.Execute();
             }
-            Console.WriteLine($"{robotBase.GetLanderName()} has not used any parts yet. \n");
+            else
+            {
+                Console.WriteLine($"{robotBase.GetLanderName()} has not used any parts yet. \n");
+            }
+
         }
 
         private Dictionary<string, BaseCommand> getRobotPartOptions(Dictionary<RobotPart, int> robotParts)
