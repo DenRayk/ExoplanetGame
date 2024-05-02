@@ -1,14 +1,10 @@
 ﻿using ExoplanetGame.Application;
-using ExoplanetGame.Application.ControlCenter;
 using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Exoplanet.Environment;
 using ExoplanetGame.Domain.Exoplanet.Variants;
 using ExoplanetGame.Domain.Robot;
-using ExoplanetGame.Domain.Robot.Factory;
 using ExoplanetGame.Domain.Robot.Variants;
-using ExoplanetGame.Presentation.Commands.Robot;
-using ExoplanetGame.Presentation.Commands.PlanetSelection;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
 
@@ -34,6 +30,27 @@ namespace ExoplanetGameTest
 
             // Assert
             Assert.IsTrue(robotBase.HasLanded());
+        }
+
+        [TestMethod]
+        public void TestLandOnAnotherRobot()
+        {
+            // Arrange
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService();
+            exoplanetService.CreateExoPlanet(PlanetVariant.GAIA);
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+            RobotBase robotBase2 = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 1, RobotVariant.DEFAULT);
+
+            ucCollection.init(exoplanetService);
+
+            // Act
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase2, new Position(1, 1));
+
+            // Assert
+            Assert.IsFalse(robotBase2.HasLanded());
         }
 
         [TestMethod]

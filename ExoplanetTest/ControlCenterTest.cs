@@ -1,9 +1,4 @@
 ﻿using ExoplanetGame.Application;
-using ExoplanetGame.Domain.ControlCenter;
-using ExoplanetGame.Domain.Exoplanet.Variants;
-using ExoplanetGame.Domain.Robot;
-using ExoplanetGame.Domain.Robot.Factory;
-using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.Variants;
 using ExoplanetGame.Presentation.Commands.ControlCenter;
 
