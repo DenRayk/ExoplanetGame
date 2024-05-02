@@ -7,12 +7,12 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
     {
         private static readonly int mysteriousAttackChance = 50;
 
-        public bool HandleMysteriousAttack(RobotBase robot, out RobotResultBase robotResult)
+        public RobotResultBase HandleMysteriousAttack(RobotBase robot)
         {
-            robotResult = new RobotResultBase();
+            RobotResultBase robotResult = new RobotResultBase();
 
             if (!MysteriousAttack())
-                return false;
+                return robotResult;
 
             string typeOfAttack = GetRandomAttackType();
 
@@ -23,7 +23,7 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
                 Message = $"{robot.GetLanderName()} was destroyed by {typeOfAttack}."
             };
 
-            return true;
+            return robotResult;
         }
 
         private string GetRandomAttackType()

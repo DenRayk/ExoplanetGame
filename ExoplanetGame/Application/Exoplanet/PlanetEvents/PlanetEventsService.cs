@@ -33,11 +33,11 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
             }
             else if (exoplanetService.ExoPlanet is Lavaria)
             {
-                VolcanicEruptionService.HandleVolcanicEruption(robot, out robotResult);
+                robotResult = VolcanicEruptionService.HandleVolcanicEruption(robot);
             }
             else if (exoplanetService.ExoPlanet is Tropica)
             {
-                RandomAttackService.HandleMysteriousAttack(robot, out robotResult);
+                robotResult = RandomAttackService.HandleMysteriousAttack(robot);
             }
 
             ChangeWeatherService.ChangeWeather();

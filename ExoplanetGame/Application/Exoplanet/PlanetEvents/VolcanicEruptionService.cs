@@ -7,20 +7,20 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
     {
         private static readonly int volcanicEruptionChance = 5;
 
-        public bool HandleVolcanicEruption(RobotBase robot, out RobotResultBase robotResult)
+        public RobotResultBase HandleVolcanicEruption(RobotBase robot)
         {
-            robotResult = new RobotResultBase();
+            RobotResultBase robotResult = new RobotResultBase();
 
             if (!VolcanicEruption())
-                return false;
+                return robotResult;
 
-            robotResult = new PositionResult()
+            robotResult = new RobotResultBase()
             {
                 IsSuccess = false,
                 HasRobotSurvived = false,
                 Message = $"{robot.GetLanderName()} was destroyed by a volcanic eruption."
             };
-            return true;
+            return robotResult;
         }
 
         private bool VolcanicEruption()

@@ -20,6 +20,10 @@ namespace ExoplanetGame.Application.Exoplanet
         public RotationResult Rotate(RobotBase robot, Rotation rotation)
         {
             RobotResultBase robotResult = planetEventsService.ExecutePlanetEvents(robot);
+            if (!robotResult.IsSuccess)
+            {
+                return new RotationResult(robotResult);
+            }
 
             RotationResult rotationResult = new RotationResult(robotResult);
             Position robotPosition = exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot];

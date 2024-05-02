@@ -21,6 +21,11 @@ namespace ExoplanetGame.Application.Exoplanet
         {
             RobotResultBase robotResult = planetEventsService.ExecutePlanetEvents(robot);
 
+            if (robotResult.IsSuccess == false)
+            {
+                return new PositionResult(robotResult);
+            }
+
             PositionResult moveResult = new(robotResult);
             Position robotPosition = exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot];
 

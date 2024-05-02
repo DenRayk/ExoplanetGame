@@ -6,11 +6,10 @@ using ExoplanetGame.Presentation.Commands.ControlCenter;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
 {
-    internal class ShowRotationOptionsCommand : BaseCommand
+    internal class ShowRotationOptionsCommand : RobotCommand
     {
         private RobotBase robotBase;
         private UCCollection ucCollection;
-        private ControlCenterCommand controlCenterCommand;
 
         public ShowRotationOptionsCommand(RobotBase robotBase, UCCollection ucCollection)
         {
@@ -25,6 +24,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             BaseCommand baseCommand = ReadUserInputWithOptions(options);
 
             baseCommand.Execute();
+            RobotResult = ((RobotCommand)baseCommand).RobotResult;
         }
 
         private Dictionary<string, BaseCommand> getRotationOptions()
