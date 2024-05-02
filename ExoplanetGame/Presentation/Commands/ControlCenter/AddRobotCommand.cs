@@ -1,6 +1,8 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Domain.ControlCenter;
+using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Variants;
+using ExoplanetGame.Helper;
 
 namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
@@ -21,6 +23,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             try
             {
                 ucCollection.UcCollectionControlCenter.AddRobotUseCase.AddRobot(robotVariant);
+                Console.WriteLine($"{robotVariant.GetDescriptionFromEnum()} added successfully. \n");
             }
             catch (RobotCapacityReachException robotCapacityReachException)
             {
