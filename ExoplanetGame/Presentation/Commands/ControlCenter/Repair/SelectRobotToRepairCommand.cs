@@ -32,7 +32,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             }
         }
 
-        private Dictionary<string, BaseCommand> getRobotOptions(Dictionary<RobotBase, Position> getAllRobots)
+        private Dictionary<string, BaseCommand> getRobotOptions(Dictionary<IRobot, Position> getAllRobots)
         {
             Dictionary<string, BaseCommand> options = new();
             foreach (var robot in getAllRobots)

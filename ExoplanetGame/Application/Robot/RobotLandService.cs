@@ -17,15 +17,15 @@ namespace ExoplanetGame.Application.Robot
             robotRepository = RobotRepository.GetInstance();
         }
 
-        public PositionResult LandRobot(RobotBase robotBase, Position landPosition)
+        public PositionResult LandRobot(IRobot robot, Position landPosition)
         {
-            PositionResult positionResult = exoplanetService.LandOnExoplanetService.LandExoplanet(robotBase, landPosition);
+            PositionResult positionResult = exoplanetService.LandOnExoplanetService.LandExoplanet(robot, landPosition);
 
             if (positionResult.IsSuccess)
             {
-                robotRepository.MoveRobot(robotBase, positionResult.Position);
-                robotBase.RobotInformation.HasLanded = true;
-                robotBase.RobotInformation.Position = positionResult.Position;
+                robotRepository.MoveRobot(robot, positionResult.Position);
+                robot.RobotInformation.HasLanded = true;
+                robot.RobotInformation.Position = positionResult.Position;
             }
 
             return positionResult;

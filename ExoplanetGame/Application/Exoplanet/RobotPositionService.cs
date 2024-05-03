@@ -31,7 +31,7 @@ namespace ExoplanetGame.Application.Exoplanet
             return isPositionInBounds;
         }
 
-        public PositionResult GetRobotPosition(RobotBase robot)
+        public PositionResult GetRobotPosition(IRobot robot)
         {
             ExoPlanetBase exoPlanet = exoplanetService.ExoPlanet;
             if (exoplanetService.EnergyTracking.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.GETPOSITION))
@@ -54,12 +54,12 @@ namespace ExoplanetGame.Application.Exoplanet
             };
         }
 
-        public void RemoveRobot(RobotBase robot)
+        public void RemoveRobot(IRobot robot)
         {
             exoplanetService.ExoPlanet.RobotPositionManager.Robots.Remove(robot);
         }
 
-        public bool IsPositionSafeForRobot(RobotBase robot, Position newPosition, Topography topography,
+        public bool IsPositionSafeForRobot(IRobot robot, Position newPosition, Topography topography,
             ref PositionResult positionResult)
         {
             if (newPosition == null) return false;
@@ -91,14 +91,14 @@ namespace ExoplanetGame.Application.Exoplanet
             return true;
         }
 
-        private bool IsAnotherRobotAlreadyAtThisPosition(RobotBase robotBase, Position position)
+        private bool IsAnotherRobotAlreadyAtThisPosition(IRobot robot, Position position)
         {
             var robots = exoplanetService.ExoPlanet.RobotPositionManager.Robots;
-            foreach (var robot in robots.Keys)
+            foreach (var otherRobot in robots.Keys)
             {
-                if (robot.Equals(robotBase)) continue;
+                if (otherRobot.Equals(robot)) continue;
 
-                if (robots[robot].X == position.X && robots[robot].Y == position.Y)
+                if (robots[otherRobot].X == position.X && robots[otherRobot].Y == position.Y)
                 {
                     return true;
                 }
@@ -116,7 +116,7 @@ namespace ExoplanetGame.Application.Exoplanet
             exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot] = newPosition;
         }
 
-        public Position WaterDrift(RobotBase robot, Position position, Topography topography)
+        public Position WaterDrift(IRobot robot, Position position, Topography topography)
         {
             ExoPlanetBase exoplanet = exoplanetService.ExoPlanet;
             exoplanetService.HeatTracking.WaterCoolDown(robot);

@@ -16,7 +16,7 @@ namespace ExoplanetGame.Application.Robot
             robotRepository = RobotRepository.GetInstance();
         }
 
-        public PositionResult Move(RobotBase robot)
+        public PositionResult Move(IRobot robot)
         {
             PositionResult positionResult = exoplanetService.MoveOnExoplanetService.MoveRobot(robot);
 

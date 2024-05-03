@@ -5,6 +5,6 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     public interface LoadOnExoplanetUseCase
     {
-        LoadResult LoadEnergy(RobotBase robot, int seconds);
+        LoadResult LoadEnergy(IRobot robot, int seconds);
     }
 }

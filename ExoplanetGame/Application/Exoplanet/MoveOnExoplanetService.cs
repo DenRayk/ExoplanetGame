@@ -17,7 +17,7 @@ namespace ExoplanetGame.Application.Exoplanet
             this.planetEventsService = planetEventsService;
         }
 
-        public PositionResult MoveRobot(RobotBase robot)
+        public PositionResult MoveRobot(IRobot robot)
         {
             RobotResultBase robotResult = planetEventsService.ExecutePlanetEvents(robot);
 
@@ -58,7 +58,7 @@ namespace ExoplanetGame.Application.Exoplanet
             return moveResult;
         }
 
-        private bool CanRobotMove(RobotBase robot, ref PositionResult positionResult)
+        private bool CanRobotMove(IRobot robot, ref PositionResult positionResult)
         {
             bool isMovementSensorDamaged = exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.MOVEMENTSENSOR);
             bool areWheelsDamaged = exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.WHEELS);

@@ -6,9 +6,9 @@ namespace ExoplanetGame.Domain.ControlCenter
     internal class RobotRepository : IRobotRepository
     {
         private static RobotRepository instance;
-        private Dictionary<RobotBase, Position> robots;
+        private Dictionary<IRobot, Position> robots;
 
-        public virtual void OnRobotPositionUpdated(RobotBase robot, Position position)
+        public virtual void OnRobotPositionUpdated(IRobot robot, Position position)
         {
             RobotPositionUpdated?.Invoke(this, new RobotPositionEventArgs(robot, position));
         }
@@ -17,7 +17,7 @@ namespace ExoplanetGame.Domain.ControlCenter
 
         private RobotRepository()
         {
-            robots = new Dictionary<RobotBase, Position>();
+            robots = new Dictionary<IRobot, Position>();
         }
 
         public static RobotRepository GetInstance()
@@ -34,12 +34,12 @@ namespace ExoplanetGame.Domain.ControlCenter
             robots.Add(robot, position);
         }
 
-        public void RemoveRobot(RobotBase robot)
+        public void RemoveRobot(IRobot robot)
         {
             robots.Remove(robot);
         }
 
-        public void MoveRobot(RobotBase robot, Position position)
+        public void MoveRobot(IRobot robot, Position position)
         {
             robots[robot] = position;
             OnRobotPositionUpdated(robot, position);
@@ -50,7 +50,7 @@ namespace ExoplanetGame.Domain.ControlCenter
             return robots[robot];
         }
 
-        public Dictionary<RobotBase, Position> GetRobots()
+        public Dictionary<IRobot, Position> GetRobots()
         {
             return robots;
         }

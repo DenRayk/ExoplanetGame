@@ -7,13 +7,13 @@ public interface IRobotRepository
 {
     void AddRobot(RobotBase robot, Position position);
 
-    void RemoveRobot(RobotBase robot);
+    void RemoveRobot(IRobot robot);
 
-    void MoveRobot(RobotBase robot, Position position);
+    void MoveRobot(IRobot robot, Position position);
 
     Position GetRobotPosition(RobotBase robot);
 
-    Dictionary<RobotBase, Position> GetRobots();
+    Dictionary<IRobot, Position> GetRobots();
 
     public int GetRobotCount();
 

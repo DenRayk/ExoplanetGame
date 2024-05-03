@@ -14,7 +14,7 @@ namespace ExoplanetGame.Application.Exoplanet
             this.exoplanetService = exoplanetService;
         }
 
-        public PositionResult LandExoplanet(RobotBase robot, Position landPosition)
+        public PositionResult LandExoplanet(IRobot robot, Position landPosition)
         {
             ExoPlanetBase exoPlanet = exoplanetService.ExoPlanet;
             PositionResult landResult = new();

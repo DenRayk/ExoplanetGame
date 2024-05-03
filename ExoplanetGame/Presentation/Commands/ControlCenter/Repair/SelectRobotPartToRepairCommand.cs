@@ -7,21 +7,21 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
     internal class SelectRobotPartToRepairCommand : BaseCommand
     {
         private UCCollection ucCollection;
-        private RobotBase robotBase;
+        private IRobot robot;
 
-        public SelectRobotPartToRepairCommand(RobotBase robotBase, UCCollection ucCollection)
+        public SelectRobotPartToRepairCommand(IRobot robot, UCCollection ucCollection)
         {
-            this.robotBase = robotBase;
+            this.robot = robot;
             this.ucCollection = ucCollection;
         }
 
         public override void Execute()
         {
-            var robotParts = ucCollection.UcCollectionRobot.RobotPartsHealthService.GetRobotPartsByRobot(robotBase);
+            var robotParts = ucCollection.UcCollectionRobot.RobotPartsHealthService.GetRobotPartsByRobot(robot);
 
             if (robotParts != null)
             {
-                Console.WriteLine($"{robotBase.GetLanderName()} has used the following parts:");
+                Console.WriteLine($"{robot.GetLanderName()} has used the following parts:");
                 Console.WriteLine("Select one to repair it \n");
                 var options = getRobotPartOptions(robotParts);
 
@@ -30,7 +30,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             }
             else
             {
-                Console.WriteLine($"{robotBase.GetLanderName()} has not used any parts yet. \n");
+                Console.WriteLine($"{robot.GetLanderName()} has not used any parts yet. \n");
             }
         }
 
@@ -39,7 +39,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             Dictionary<string, BaseCommand> options = new();
             foreach (var robotPart in robotParts)
             {
-                options.Add($"{robotPart.Key.GetDescriptionFromEnum(),-15} - Durability {GetDescriptionFromPartDurability(robotPart.Value)}", new RepairRobotPartCommand(robotBase, robotPart.Key, ucCollection));
+                options.Add($"{robotPart.Key.GetDescriptionFromEnum(),-15} - Durability {GetDescriptionFromPartDurability(robotPart.Value)}", new RepairRobotPartCommand(robot, robotPart.Key, ucCollection));
             }
             return options;
         }

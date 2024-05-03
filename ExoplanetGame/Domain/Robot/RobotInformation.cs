@@ -5,7 +5,7 @@ namespace ExoplanetGame.Domain.Robot
     public class RobotInformation
     {
         public Position Position { get; set; }
-        public Dictionary<RobotBase, Position> OtherRobotPositions { get; set; } = new();
+        public Dictionary<IRobot, Position> OtherRobotPositions { get; set; } = new();
         public int RobotID { get; set; }
         public bool HasLanded { get; set; }
         public int MaxHeat { get; set; } = 100;

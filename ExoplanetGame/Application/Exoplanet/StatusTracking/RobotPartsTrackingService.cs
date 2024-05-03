@@ -12,7 +12,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             this.exoplanetService = exoplanetService;
         }
 
-        public void RobotPartDamage(RobotBase robot, RobotPart part)
+        public void RobotPartDamage(IRobot robot, RobotPart part)
         {
             CreateRobotIfNotExists(robot);
 
@@ -21,7 +21,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth[robot][part] -= random.Next(1, 10);
         }
 
-        private void CreatePartIfNotExists(RobotBase robot, RobotPart robotPart)
+        private void CreatePartIfNotExists(IRobot robot, RobotPart robotPart)
         {
             if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth[robot].ContainsKey(robotPart))
             {
@@ -29,7 +29,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             }
         }
 
-        private void CreateRobotIfNotExists(RobotBase robot)
+        private void CreateRobotIfNotExists(IRobot robot)
         {
             if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth.ContainsKey(robot))
             {
@@ -37,7 +37,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             }
         }
 
-        public bool IsRobotPartDamaged(RobotBase robot, RobotPart part)
+        public bool IsRobotPartDamaged(IRobot robot, RobotPart part)
         {
             if (!DoesRobotExist(robot))
             {
@@ -52,7 +52,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             return exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth[robot][part] <= 0;
         }
 
-        private bool DoesPartExist(RobotBase robot, RobotPart robotPart)
+        private bool DoesPartExist(IRobot robot, RobotPart robotPart)
         {
             if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth.ContainsKey(robot))
             {
@@ -62,7 +62,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             return exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth[robot].ContainsKey(robotPart);
         }
 
-        private bool DoesRobotExist(RobotBase robot)
+        private bool DoesRobotExist(IRobot robot)
         {
             return exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth.ContainsKey(robot);
         }
@@ -82,7 +82,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             return exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth[robot][part];
         }
 
-        public Dictionary<RobotPart, int> GetRobotPartsByRobot(RobotBase robot)
+        public Dictionary<RobotPart, int> GetRobotPartsByRobot(IRobot robot)
         {
             if (DoesRobotExist(robot))
                 return exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth[robot];
@@ -90,7 +90,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             return null;
         }
 
-        public void RepairRobotPart(RobotBase robot, RobotPart part)
+        public void RepairRobotPart(IRobot robot, RobotPart part)
         {
             if (!DoesRobotExist(robot))
             {

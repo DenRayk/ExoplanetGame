@@ -6,6 +6,6 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     public interface RotateOnExoplanetUseCase
     {
-        RotationResult Rotate(RobotBase robot, Rotation rotation);
+        RotationResult Rotate(IRobot robot, Rotation rotation);
     }
 }

@@ -5,6 +5,6 @@ namespace ExoplanetGame.Application.Robot
 {
     public interface RobotScanUseCase
     {
-        ScanResult Scan(RobotBase robot);
+        ScanResult Scan(IRobot robot);
     }
 }

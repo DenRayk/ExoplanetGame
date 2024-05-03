@@ -14,7 +14,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             this.exoplanetService = exoplanetService;
         }
 
-        public LoadResult LoadEnergy(RobotBase robot, int seconds, Weather weather)
+        public LoadResult LoadEnergy(IRobot robot, int seconds, Weather weather)
         {
             LoadResult loadResult = new();
 
@@ -78,7 +78,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             }
         }
 
-        public void ConsumeEnergy(RobotBase robot, RobotAction robotAction)
+        public void ConsumeEnergy(IRobot robot, RobotAction robotAction)
         {
             if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy.ContainsKey(robot))
             {
@@ -114,7 +114,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             }
         }
 
-        public int GetRobotEnergy(RobotBase robot)
+        public int GetRobotEnergy(IRobot robot)
         {
             if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy.ContainsKey(robot))
             {
@@ -124,7 +124,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             return exoplanetService.ExoPlanet.RobotStatusManager.RobotsEnergy[robot];
         }
 
-        public bool DoesRobotHaveEnoughEneryToAction(RobotBase robot, RobotAction robotAction)
+        public bool DoesRobotHaveEnoughEneryToAction(IRobot robot, RobotAction robotAction)
         {
             if (GetRobotEnergy(robot) < CalculateEneryConsumtion(robotAction))
             {

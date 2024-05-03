@@ -12,7 +12,7 @@ namespace ExoplanetGame.Application.Exoplanet
             this.exoplanetService = exoplanetService;
         }
 
-        public LoadResult LoadEnergy(RobotBase robot, int seconds)
+        public LoadResult LoadEnergy(IRobot robot, int seconds)
         {
             LoadResult loadResult = new LoadResult();
 

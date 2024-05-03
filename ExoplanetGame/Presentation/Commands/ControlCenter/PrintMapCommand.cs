@@ -19,7 +19,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
         public override void Execute()
         {
             PlanetMap planetMap = ucCollection.UcCollectionControlCenter.GetPlanetMapUseCase.GetPlanetMap();
-            Dictionary<RobotBase, Position> robots = ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots();
+            Dictionary<IRobot, Position> robots = ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots();
             Weather weather = ucCollection.UcCollectionControlCenter.GetCurrentWeatherUseCase.GetCurrentWeather();
 
             Console.WriteLine($"Current weather: {weather.GetDescriptionFromEnum()}");

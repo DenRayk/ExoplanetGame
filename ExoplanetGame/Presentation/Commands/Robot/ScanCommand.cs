@@ -7,17 +7,17 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     internal class ScanCommand : RobotCommand
     {
         private UCCollection ucCollection;
-        private RobotBase robotBase;
+        private IRobot robot;
 
-        public ScanCommand(RobotBase robotBase, UCCollection ucCollection)
+        public ScanCommand(IRobot robot, UCCollection ucCollection)
         {
-            this.robotBase = robotBase;
+            this.robot = robot;
             this.ucCollection = ucCollection;
         }
 
         public override void Execute()
         {
-            ScanResult scanResult = ucCollection.UcCollectionRobot.RobotScanService.Scan(robotBase);
+            ScanResult scanResult = ucCollection.UcCollectionRobot.RobotScanService.Scan(robot);
             RobotResult = scanResult;
 
             if (scanResult.IsSuccess)

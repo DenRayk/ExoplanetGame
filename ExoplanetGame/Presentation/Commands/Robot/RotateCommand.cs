@@ -8,19 +8,19 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     internal class RotateCommand : RobotCommand
     {
         private UCCollection ucCollection;
-        private RobotBase robotBase;
+        private IRobot robot;
         private Rotation rotation;
 
-        public RotateCommand(RobotBase robotBase, UCCollection ucCollection, Rotation rotation)
+        public RotateCommand(IRobot robot, UCCollection ucCollection, Rotation rotation)
         {
-            this.robotBase = robotBase;
+            this.robot = robot;
             this.ucCollection = ucCollection;
             this.rotation = rotation;
         }
 
         public override void Execute()
         {
-            RotationResult rotationResult = ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robotBase, rotation);
+            RotationResult rotationResult = ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robot, rotation);
             RobotResult = rotationResult;
 
             if (rotationResult.IsSuccess)

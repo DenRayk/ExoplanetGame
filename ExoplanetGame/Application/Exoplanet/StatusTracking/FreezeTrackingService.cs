@@ -11,22 +11,22 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             this.exoplanetService = exoplanetService;
         }
 
-        public void FreezeRobot(RobotBase robot)
+        public void FreezeRobot(IRobot robot)
         {
             exoplanetService.ExoPlanet.RobotStatusManager.RobotsFrozen[robot] = true;
         }
 
-        public bool IsFrozen(RobotBase robot)
+        public bool IsFrozen(IRobot robot)
         {
             return exoplanetService.ExoPlanet.RobotStatusManager.RobotsFrozen.ContainsKey(robot) && exoplanetService.ExoPlanet.RobotStatusManager.RobotsFrozen[robot];
         }
 
-        public void UpdateLastMove(RobotBase robot)
+        public void UpdateLastMove(IRobot robot)
         {
             exoplanetService.ExoPlanet.RobotStatusManager.RobotsLastMove[robot] = DateTime.Now;
         }
 
-        public DateTime GetLastMove(RobotBase robot)
+        public DateTime GetLastMove(IRobot robot)
         {
             if (exoplanetService.ExoPlanet.RobotStatusManager.RobotsLastMove.ContainsKey(robot))
             {

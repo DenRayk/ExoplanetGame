@@ -7,21 +7,21 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     internal class CrashCommand : RobotCommand
     {
         private UCCollection ucCollection;
-        private RobotBase robotBase;
+        private IRobot robot;
 
-        public CrashCommand(RobotBase robotBase, UCCollection ucCollection)
+        public CrashCommand(IRobot robot, UCCollection ucCollection)
         {
-            this.robotBase = robotBase;
+            this.robot = robot;
             this.ucCollection = ucCollection;
         }
 
         public override void Execute()
         {
-            RobotResult = ucCollection.UcCollectionRobot.CrashRobotService.Crash(robotBase);
+            RobotResult = ucCollection.UcCollectionRobot.CrashRobotService.Crash(robot);
 
             if (RobotResult.IsSuccess)
             {
-                Console.WriteLine($"{robotBase.GetLanderName()} crashed.");
+                Console.WriteLine($"{robot.GetLanderName()} crashed.");
             }
             else
             {

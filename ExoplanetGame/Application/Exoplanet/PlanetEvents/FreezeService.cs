@@ -13,7 +13,7 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
             this.exoplanetService = exoplanetService;
         }
 
-        public RobotResultBase FreezeRobotIfItHasntMovedForAWhile(RobotBase robot)
+        public RobotResultBase FreezeRobotIfItHasntMovedForAWhile(IRobot robot)
         {
             bool isRobotAlreadyFrozen = exoplanetService.FreezeTracking.IsFrozen(robot);
             if (isRobotAlreadyFrozen)
@@ -68,7 +68,7 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
             }
         }
 
-        private void RobotFreeze(RobotBase robot)
+        private void RobotFreeze(IRobot robot)
         {
             exoplanetService.FreezeTracking.FreezeRobot(robot);
         }

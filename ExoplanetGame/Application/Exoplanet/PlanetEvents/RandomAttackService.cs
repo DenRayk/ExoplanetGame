@@ -7,7 +7,7 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
     {
         private static readonly int mysteriousAttackChance = 50;
 
-        public RobotResultBase HandleMysteriousAttack(RobotBase robot)
+        public RobotResultBase HandleMysteriousAttack(IRobot robot)
         {
             RobotResultBase robotResult = new RobotResultBase();
 

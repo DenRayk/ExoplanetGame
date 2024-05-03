@@ -7,11 +7,11 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     internal class LoadCommand : RobotCommand
     {
         private UCCollection ucCollection;
-        private RobotBase robotBase;
+        private IRobot robot;
 
-        public LoadCommand(RobotBase robotBase, UCCollection ucCollection)
+        public LoadCommand(IRobot robot, UCCollection ucCollection)
         {
-            this.robotBase = robotBase;
+            this.robot = robot;
             this.ucCollection = ucCollection;
         }
 
@@ -21,7 +21,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             int seconds = GetMenuSelection(20);
 
             Console.WriteLine("Loading energy...");
-            LoadResult loadResult = ucCollection.UcCollectionRobot.LoadRobotService.LoadEnergy(robotBase, seconds);
+            LoadResult loadResult = ucCollection.UcCollectionRobot.LoadRobotService.LoadEnergy(robot, seconds);
             RobotResult = loadResult;
 
             if (loadResult.IsSuccess)

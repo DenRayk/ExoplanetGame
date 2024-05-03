@@ -5,6 +5,6 @@ namespace ExoplanetGame.Application.Robot
 {
     public interface RobotCrashUseCase
     {
-        RobotResultBase Crash(RobotBase robot);
+        RobotResultBase Crash(IRobot robot);
     }
 }

@@ -5,6 +5,6 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
 {
     public interface FreezeUseCase
     {
-        RobotResultBase FreezeRobotIfItHasntMovedForAWhile(RobotBase robot);
+        RobotResultBase FreezeRobotIfItHasntMovedForAWhile(IRobot robot);
     }
 }

@@ -4,14 +4,14 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     public interface RobotPartsTrackingUseCase
     {
-        void RobotPartDamage(RobotBase robot, RobotPart part);
+        void RobotPartDamage(IRobot robot, RobotPart part);
 
-        bool IsRobotPartDamaged(RobotBase robot, RobotPart part);
+        bool IsRobotPartDamaged(IRobot robot, RobotPart part);
 
         int GetRobotPartHealth(RobotBase robot, RobotPart part);
 
-        Dictionary<RobotPart, int> GetRobotPartsByRobot(RobotBase robot);
+        Dictionary<RobotPart, int> GetRobotPartsByRobot(IRobot robot);
 
-        void RepairRobotPart(RobotBase robot, RobotPart part);
+        void RepairRobotPart(IRobot robot, RobotPart part);
     }
 }

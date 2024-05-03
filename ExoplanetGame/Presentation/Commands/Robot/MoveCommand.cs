@@ -7,17 +7,17 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     internal class MoveCommand : RobotCommand
     {
         private UCCollection ucCollection;
-        private RobotBase robotBase;
+        private IRobot robot;
 
-        public MoveCommand(RobotBase robotBase, UCCollection ucCollection)
+        public MoveCommand(IRobot robot, UCCollection ucCollection)
         {
-            this.robotBase = robotBase;
+            this.robot = robot;
             this.ucCollection = ucCollection;
         }
 
         public override void Execute()
         {
-            PositionResult positionResult = ucCollection.UcCollectionRobot.MoveRobotService.Move(robotBase);
+            PositionResult positionResult = ucCollection.UcCollectionRobot.MoveRobotService.Move(robot);
             RobotResult = positionResult;
 
             if (positionResult.IsSuccess)

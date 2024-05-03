@@ -17,7 +17,7 @@ namespace ExoplanetGame.Application.Exoplanet
             this.planetEventsService = planetEventsService;
         }
 
-        public RotationResult Rotate(RobotBase robot, Rotation rotation)
+        public RotationResult Rotate(IRobot robot, Rotation rotation)
         {
             RobotResultBase robotResult = planetEventsService.ExecutePlanetEvents(robot);
             if (!robotResult.IsSuccess)
@@ -60,7 +60,7 @@ namespace ExoplanetGame.Application.Exoplanet
             return rotationResult;
         }
 
-        private bool CanRobotRotate(RobotBase robot, Rotation rotation, ref RotationResult rotationResult)
+        private bool CanRobotRotate(IRobot robot, Rotation rotation, ref RotationResult rotationResult)
         {
             bool isRightMotorDamaged = exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.RIGHTMOTOR);
             bool isLeftMotorDamaged = exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.LEFTMOTOR);

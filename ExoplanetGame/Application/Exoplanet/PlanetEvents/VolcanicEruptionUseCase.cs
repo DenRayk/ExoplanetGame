@@ -5,6 +5,6 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
 {
     public interface VolcanicEruptionUseCase
     {
-        RobotResultBase HandleVolcanicEruption(RobotBase robot);
+        RobotResultBase HandleVolcanicEruption(IRobot robot);
     }
 }

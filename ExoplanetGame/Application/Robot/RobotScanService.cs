@@ -18,7 +18,7 @@ namespace ExoplanetGame.Application.Robot
             this.controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
         }
 
-        public ScanResult Scan(RobotBase robot)
+        public ScanResult Scan(IRobot robot)
         {
             ScanResult scanResult = exoplanetService.ScanOnExoplanetService.Scan(robot);
 

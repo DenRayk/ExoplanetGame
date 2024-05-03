@@ -13,7 +13,7 @@ namespace ExoplanetGame.Application.ControlCenter
             robotRepository = RobotRepository.GetInstance();
         }
 
-        public Dictionary<RobotBase, Position> GetAllRobots()
+        public Dictionary<IRobot, Position> GetAllRobots()
         {
             return robotRepository.GetRobots();
         }

@@ -6,12 +6,12 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {
     public interface RobotStuckTrackingUseCase
     {
-        public void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position position);
+        public void CheckIfRobotGetsStuck(IRobot robot, Topography topography, Position position);
 
-        void RobotGetStuckRandomly(RobotBase robot);
+        void RobotGetStuckRandomly(IRobot robot);
 
-        bool IsRobotStuck(RobotBase robot);
+        bool IsRobotStuck(IRobot robot);
 
-        void UnstuckRobot(RobotBase robot);
+        void UnstuckRobot(IRobot robot);
     }
 }

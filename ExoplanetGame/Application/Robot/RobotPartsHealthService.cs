@@ -12,14 +12,14 @@ namespace ExoplanetGame.Application.Robot
             this.exoplanetService = exoplanetService;
         }
 
-        public Dictionary<RobotPart, int> GetRobotPartsByRobot(RobotBase robotBase)
+        public Dictionary<RobotPart, int> GetRobotPartsByRobot(IRobot robot)
         {
-            return exoplanetService.RobotPartsTracking.GetRobotPartsByRobot(robotBase);
+            return exoplanetService.RobotPartsTracking.GetRobotPartsByRobot(robot);
         }
 
-        public void RepairRobotPart(RobotBase robotBase, RobotPart robotPart)
+        public void RepairRobotPart(IRobot robot, RobotPart robotPart)
         {
-            exoplanetService.RobotPartsTracking.RepairRobotPart(robotBase, robotPart);
+            exoplanetService.RobotPartsTracking.RepairRobotPart(robot, robotPart);
         }
     }
 }

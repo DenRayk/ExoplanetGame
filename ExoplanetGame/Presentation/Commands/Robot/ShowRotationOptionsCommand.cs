@@ -8,12 +8,12 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 {
     internal class ShowRotationOptionsCommand : RobotCommand
     {
-        private RobotBase robotBase;
+        private IRobot robot;
         private UCCollection ucCollection;
 
-        public ShowRotationOptionsCommand(RobotBase robotBase, UCCollection ucCollection)
+        public ShowRotationOptionsCommand(IRobot robot, UCCollection ucCollection)
         {
-            this.robotBase = robotBase;
+            this.robot = robot;
             this.ucCollection = ucCollection;
         }
 
@@ -32,7 +32,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             Dictionary<string, BaseCommand> options = new();
             foreach (Rotation rotation in Enum.GetValues(typeof(Rotation)))
             {
-                options.Add(rotation.GetDescriptionFromEnum(), new RotateCommand(robotBase, ucCollection, rotation));
+                options.Add(rotation.GetDescriptionFromEnum(), new RotateCommand(robot, ucCollection, rotation));
             }
             return options;
         }

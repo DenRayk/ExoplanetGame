@@ -6,5 +6,5 @@ namespace ExoplanetGame.Application.Robot;
 
 public interface RobotLandUseCase
 {
-    PositionResult LandRobot(RobotBase robotBase, Position landPosition);
+    PositionResult LandRobot(IRobot robot, Position landPosition);
 }

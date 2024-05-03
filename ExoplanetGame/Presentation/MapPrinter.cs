@@ -7,7 +7,7 @@ namespace ExoplanetGame.Presentation
 {
     internal class MapPrinter
     {
-        public static void PrintMap(Dictionary<RobotBase, Position> robots, PlanetMap planetMap)
+        public static void PrintMap(Dictionary<IRobot, Position> robots, PlanetMap planetMap)
         {
             for (int i = 0; i < planetMap.PlanetSize.Height; i++)
             {
@@ -86,7 +86,7 @@ namespace ExoplanetGame.Presentation
             Console.ResetColor();
         }
 
-        public static void printGroundWithRobot(Ground ground, RobotBase robot)
+        public static void printGroundWithRobot(Ground ground, IRobot robot)
         {
             switch (ground)
             {

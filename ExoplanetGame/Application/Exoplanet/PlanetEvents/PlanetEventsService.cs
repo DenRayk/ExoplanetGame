@@ -23,7 +23,7 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
             VolcanicEruptionService = new VolcanicEruptionService();
         }
 
-        public RobotResultBase ExecutePlanetEvents(RobotBase robot)
+        public RobotResultBase ExecutePlanetEvents(IRobot robot)
         {
             RobotResultBase robotResult = new RobotResultBase()
             {

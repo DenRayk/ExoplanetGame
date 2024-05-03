@@ -16,7 +16,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             this.exoplanetService = exoplanetService;
         }
 
-        public void PerformAction(RobotBase robot, RobotAction robotAction, Topography topography)
+        public void PerformAction(IRobot robot, RobotAction robotAction, Topography topography)
         {
             if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels.ContainsKey(robot))
             {
@@ -33,7 +33,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             }
         }
 
-        public void PerformAction(RobotBase robot, RobotAction robotAction, Topography topography, Position landPosition)
+        public void PerformAction(IRobot robot, RobotAction robotAction, Topography topography, Position landPosition)
         {
             if (!exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels.ContainsKey(robot))
             {
@@ -50,7 +50,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             }
         }
 
-        public void WaterCoolDown(RobotBase robot)
+        public void WaterCoolDown(IRobot robot)
         {
             if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels.ContainsKey(robot))
             {
@@ -58,7 +58,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             }
         }
 
-        private double CalculateHeatGainDependentOnFieldAndAction(RobotBase robot, RobotAction robotAction, Topography topography)
+        private double CalculateHeatGainDependentOnFieldAndAction(IRobot robot, RobotAction robotAction, Topography topography)
         {
             return CalculateHeatGainDependentOnFieldAndAction(robot.RobotInformation.Position, robotAction, topography);
         }
@@ -136,7 +136,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             return heatGain;
         }
 
-        private void CoolDown(RobotBase robot, int seconds)
+        private void CoolDown(IRobot robot, int seconds)
         {
             for (int i = 0; i < seconds; i++)
             {

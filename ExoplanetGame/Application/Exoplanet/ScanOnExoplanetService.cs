@@ -16,7 +16,7 @@ namespace ExoplanetGame.Application.Exoplanet
             this.exoplanetService = exoplanetService;
         }
 
-        public ScanResult Scan(RobotBase robot)
+        public ScanResult Scan(IRobot robot)
         {
             RobotResultBase robotResult = new();
 
@@ -74,7 +74,7 @@ namespace ExoplanetGame.Application.Exoplanet
             return scanResult;
         }
 
-        private bool CanRobotScan(RobotBase robot, ref RobotResultBase robotResult)
+        private bool CanRobotScan(IRobot robot, ref RobotResultBase robotResult)
         {
             bool isScanSensorDamaged = exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.SCANSENSOR);
             bool doesRobotHaveEnery = exoplanetService.EnergyTracking.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.SCAN);

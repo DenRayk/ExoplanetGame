@@ -17,7 +17,7 @@ namespace ExoplanetGame.Application.Robot
             robotRepository = RobotRepository.GetInstance();
         }
 
-        public RotationResult Rotate(RobotBase robot, Rotation rotation)
+        public RotationResult Rotate(IRobot robot, Rotation rotation)
         {
             RotationResult rotationResult = exoplanetService.RotateOnExoplanetService.Rotate(robot, rotation);
 
@@ -36,7 +36,7 @@ namespace ExoplanetGame.Application.Robot
             return rotationResult;
         }
 
-        private void updatePosition(RobotBase robot, RotationResult rotationResult)
+        private void updatePosition(IRobot robot, RotationResult rotationResult)
         {
             Position newPosition = new(robot.RobotInformation.Position.X, robot.RobotInformation.Position.Y, rotationResult.Direction);
             robot.RobotInformation.Position = newPosition;

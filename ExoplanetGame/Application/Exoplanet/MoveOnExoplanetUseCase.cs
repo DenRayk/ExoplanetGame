@@ -5,6 +5,6 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     public interface MoveOnExoplanetUseCase
     {
-        public PositionResult MoveRobot(RobotBase robot);
+        public PositionResult MoveRobot(IRobot robot);
     }
 }

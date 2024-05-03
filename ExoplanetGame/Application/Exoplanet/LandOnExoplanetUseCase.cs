@@ -6,6 +6,6 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     public interface LandOnExoplanetUseCase
     {
-        PositionResult LandExoplanet(RobotBase robot, Position landPosition);
+        PositionResult LandExoplanet(IRobot robot, Position landPosition);
     }
 }

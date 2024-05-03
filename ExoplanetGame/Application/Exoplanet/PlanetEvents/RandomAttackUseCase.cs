@@ -5,6 +5,6 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
 {
     public interface RandomAttackUseCase
     {
-        RobotResultBase HandleMysteriousAttack(RobotBase robot);
+        RobotResultBase HandleMysteriousAttack(IRobot robot);
     }
 }

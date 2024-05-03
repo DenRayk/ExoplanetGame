@@ -16,14 +16,14 @@ namespace ExoplanetGame.Application.Robot
             this.robotRepository = RobotRepository.GetInstance();
         }
 
-        public LoadResult LoadEnergy(RobotBase robotBase, int seconds)
+        public LoadResult LoadEnergy(IRobot robot, int seconds)
         {
-            LoadResult loadResult = exoplanetService.LoadOnExoplanetService.LoadEnergy(robotBase, seconds);
+            LoadResult loadResult = exoplanetService.LoadOnExoplanetService.LoadEnergy(robot, seconds);
 
             if (!loadResult.HasRobotSurvived)
             {
-                exoplanetService.RobotPostionsService.RemoveRobot(robotBase);
-                robotRepository.RemoveRobot(robotBase);
+                exoplanetService.RobotPostionsService.RemoveRobot(robot);
+                robotRepository.RemoveRobot(robot);
             }
 
             return loadResult;

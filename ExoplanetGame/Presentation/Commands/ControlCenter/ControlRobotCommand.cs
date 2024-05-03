@@ -38,7 +38,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
         {
             Dictionary<string, BaseCommand> robotsToControl = new();
 
-            foreach (KeyValuePair<RobotBase, Position> robot in ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots())
+            foreach (KeyValuePair<IRobot, Position> robot in ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots())
             {
                 if (robot.Key.HasLanded())
                 {

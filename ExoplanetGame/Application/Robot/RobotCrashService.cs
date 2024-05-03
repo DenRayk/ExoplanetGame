@@ -16,7 +16,7 @@ namespace ExoplanetGame.Application.Robot
             robotRepository = RobotRepository.GetInstance();
         }
 
-        public RobotResultBase Crash(RobotBase robot)
+        public RobotResultBase Crash(IRobot robot)
         {
             robotRepository.RemoveRobot(robot);
             exoplanetService.RobotPostionsService.RemoveRobot(robot);

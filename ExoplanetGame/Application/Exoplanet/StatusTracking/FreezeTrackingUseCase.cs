@@ -4,12 +4,12 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {
     public interface FreezeTrackingUseCase
     {
-        void FreezeRobot(RobotBase robot);
+        void FreezeRobot(IRobot robot);
 
-        bool IsFrozen(RobotBase robot);
+        bool IsFrozen(IRobot robot);
 
-        void UpdateLastMove(RobotBase robot);
+        void UpdateLastMove(IRobot robot);
 
-        DateTime GetLastMove(RobotBase robot);
+        DateTime GetLastMove(IRobot robot);
     }
 }

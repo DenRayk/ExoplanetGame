@@ -11,7 +11,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     internal class SelectRobotActionCommand : BaseCommand
     {
         private UCCollection ucCollection;
-        private RobotBase robotBase;
+        private IRobot robot;
 
         private readonly string helpText =
             "Robot Menu Information\n" +
@@ -22,10 +22,10 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             "Load:\t\t Load energy to the robot\n" +
             "Crash:\t\t Crash the robot\n";
 
-        public SelectRobotActionCommand(UCCollection ucCollection, RobotBase robotBase)
+        public SelectRobotActionCommand(UCCollection ucCollection, IRobot robot)
         {
             this.ucCollection = ucCollection;
-            this.robotBase = robotBase;
+            this.robot = robot;
         }
 
         public override void Execute()
@@ -33,10 +33,10 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             BaseCommand baseCommand;
             do
             {
-                Console.WriteLine($"{robotBase.GetLanderName()} Menu");
+                Console.WriteLine($"{robot.GetLanderName()} Menu");
 
                 PlanetMap planetMap = ucCollection.UcCollectionControlCenter.GetPlanetMapUseCase.GetPlanetMap();
-                Dictionary<RobotBase, Position> robots = ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots();
+                Dictionary<IRobot, Position> robots = ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots();
                 Weather weather = ucCollection.UcCollectionControlCenter.GetCurrentWeatherUseCase.GetCurrentWeather();
 
                 Console.WriteLine($"Current weather: {weather.GetDescriptionFromEnum()}");
@@ -71,12 +71,12 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         {
             var options = new Dictionary<string, BaseCommand>
             {
-                { "Position", new GetPositionCommand(robotBase, ucCollection) },
-                { "Scan", new ScanCommand(robotBase, ucCollection) },
-                { "Move", new MoveCommand(robotBase, ucCollection) },
-                { "Rotate", new ShowRotationOptionsCommand(robotBase, ucCollection) },
-                { "Load", new LoadCommand(robotBase, ucCollection) },
-                { "Crash", new CrashCommand(robotBase, ucCollection) },
+                { "Position", new GetPositionCommand(robot, ucCollection) },
+                { "Scan", new ScanCommand(robot, ucCollection) },
+                { "Move", new MoveCommand(robot, ucCollection) },
+                { "Rotate", new ShowRotationOptionsCommand(robot, ucCollection) },
+                { "Load", new LoadCommand(robot, ucCollection) },
+                { "Crash", new CrashCommand(robot, ucCollection) },
                 { "Back", new BackCommand() }
             };
 

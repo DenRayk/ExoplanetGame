@@ -7,7 +7,7 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
     {
         private static readonly int volcanicEruptionChance = 5;
 
-        public RobotResultBase HandleVolcanicEruption(RobotBase robot)
+        public RobotResultBase HandleVolcanicEruption(IRobot robot)
         {
             RobotResultBase robotResult = new RobotResultBase();
 

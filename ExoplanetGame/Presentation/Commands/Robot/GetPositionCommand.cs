@@ -7,17 +7,17 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     internal class GetPositionCommand : RobotCommand
     {
         private UCCollection ucCollection;
-        private RobotBase robotBase;
+        private IRobot robot;
 
-        public GetPositionCommand(RobotBase robotBase, UCCollection ucCollection)
+        public GetPositionCommand(IRobot robot, UCCollection ucCollection)
         {
-            this.robotBase = robotBase;
+            this.robot = robot;
             this.ucCollection = ucCollection;
         }
 
         public override void Execute()
         {
-            PositionResult positionResult = ucCollection.UcCollectionRobot.GetPositionService.GetPosition(robotBase);
+            PositionResult positionResult = ucCollection.UcCollectionRobot.GetPositionService.GetPosition(robot);
             RobotResult = positionResult;
 
             if (positionResult.IsSuccess)

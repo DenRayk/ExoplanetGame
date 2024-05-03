@@ -5,7 +5,7 @@ using ExoplanetGame.Helper;
 
 namespace ExoplanetGame.Domain.Robot
 {
-    public class RobotBase
+    public class RobotBase : IRobot
     {
         protected readonly ExoPlanetBase exoPlanet;
         private RobotRepository robotRepository;
@@ -44,11 +44,11 @@ namespace ExoplanetGame.Domain.Robot
             RobotInformation.OtherRobotPositions[e.Robot] = e.NewPosition;
         }
 
-        protected bool Equals(RobotBase other)
+        protected bool Equals(RobotBase robotBase)
         {
-            return exoPlanet.Equals(other.exoPlanet) &&
-                   RobotInformation.Equals(other.RobotInformation) &&
-                   RobotVariant == other.RobotVariant;
+            return exoPlanet.Equals(robotBase.exoPlanet) &&
+                   RobotInformation.Equals(robotBase.RobotInformation) &&
+                   RobotVariant == robotBase.RobotVariant;
         }
 
         public override bool Equals(object? obj)

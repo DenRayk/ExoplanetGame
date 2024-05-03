@@ -5,7 +5,7 @@ namespace ExoplanetGame.Domain.Exoplanet
 {
     public class RobotPositionManager
     {
-        public Dictionary<RobotBase, Position> Robots { get; set; }
+        public Dictionary<IRobot, Position> Robots { get; set; }
 
         public RobotStatusManager RobotStatusManager { get; }
 
@@ -14,7 +14,7 @@ namespace ExoplanetGame.Domain.Exoplanet
         public RobotPositionManager(ExoPlanetBase exoPlanet)
         {
             this.exoPlanet = exoPlanet;
-            Robots = new Dictionary<RobotBase, Position>();
+            Robots = new Dictionary<IRobot, Position>();
 
             RobotStatusManager = new RobotStatusManager();
         }

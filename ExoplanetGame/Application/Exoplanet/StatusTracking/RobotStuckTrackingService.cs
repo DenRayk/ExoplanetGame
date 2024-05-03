@@ -15,7 +15,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             this.exoplanetService = exoplanetService;
         }
 
-        public void CheckIfRobotGetsStuck(RobotBase robot, Topography topography, Position position)
+        public void CheckIfRobotGetsStuck(IRobot robot, Topography topography, Position position)
         {
             if (robot.RobotVariant == RobotVariant.MUD)
                 return;
@@ -28,7 +28,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             }
         }
 
-        public void RobotGetStuckRandomly(RobotBase robot)
+        public void RobotGetStuckRandomly(IRobot robot)
         {
             if (random.Next(0, 100) < 30)
             {
@@ -36,12 +36,12 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             }
         }
 
-        public bool IsRobotStuck(RobotBase robot)
+        public bool IsRobotStuck(IRobot robot)
         {
             return exoplanetService.ExoPlanet.RobotStatusManager.RobotsStuck.ContainsKey(robot) && exoplanetService.ExoPlanet.RobotStatusManager.RobotsStuck[robot];
         }
 
-        public void UnstuckRobot(RobotBase robot)
+        public void UnstuckRobot(IRobot robot)
         {
             exoplanetService.ExoPlanet.RobotStatusManager.RobotsStuck[robot] = false;
         }

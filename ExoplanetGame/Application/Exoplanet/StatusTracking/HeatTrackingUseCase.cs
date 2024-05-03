@@ -7,10 +7,10 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {
     public interface HeatTrackingUseCase
     {
-        void PerformAction(RobotBase robot, RobotAction robotAction, Topography topography);
+        void PerformAction(IRobot robot, RobotAction robotAction, Topography topography);
 
-        void PerformAction(RobotBase robot, RobotAction robotAction, Topography topography, Position landPosition);
+        void PerformAction(IRobot robot, RobotAction robotAction, Topography topography, Position landPosition);
 
-        void WaterCoolDown(RobotBase robot);
+        void WaterCoolDown(IRobot robot);
     }
 }
