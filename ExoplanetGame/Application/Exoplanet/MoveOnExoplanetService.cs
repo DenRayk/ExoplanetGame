@@ -8,8 +8,8 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     internal class MoveOnExoplanetService : MoveOnExoplanetUseCase
     {
-        private ExoplanetService exoplanetService;
-        private PlanetEventsService planetEventsService;
+        private readonly ExoplanetService exoplanetService;
+        private readonly PlanetEventsService planetEventsService;
 
         public MoveOnExoplanetService(ExoplanetService exoplanetService, PlanetEventsService planetEventsService)
         {
@@ -19,37 +19,15 @@ namespace ExoplanetGame.Application.Exoplanet
 
         public PositionResult MoveRobot(IRobot robot)
         {
-            RobotResultBase robotResult = planetEventsService.ExecutePlanetEvents(robot);
+            var robotResult = planetEventsService.ExecutePlanetEvents(robot);
 
-            if (robotResult.IsSuccess == false)
-            {
-                return new PositionResult(robotResult);
-            }
-
-            PositionResult moveResult = new(robotResult);
-            Position robotPosition = exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot];
-
-            if (!CanRobotMove(robot, ref moveResult))
+            if (!IsRobotReadyToMove(robot, robotResult, out var moveResult))
                 return moveResult;
 
-            Position newPosition = robotPosition.GetAdjacentPosition();
-            Position waterDriftPosition = exoplanetService.RobotPostionsService.WaterDrift(robot, newPosition, exoplanetService.ExoPlanet.Topography);
+            var newPosition = GetNewRobotPosition(robot, moveResult);
 
-            if (!Equals(waterDriftPosition, newPosition))
-            {
-                moveResult.AddMessage("Robot landed in water and drifted to a safe position.");
-                newPosition = waterDriftPosition;
-            }
-
-            if (!exoplanetService.RobotPostionsService.IsPositionSafeForRobot(robot, newPosition, exoplanetService.ExoPlanet.Topography, ref moveResult))
-                return moveResult;
-
-            exoplanetService.HeatTracking.PerformAction(robot, RobotAction.MOVE, exoplanetService.ExoPlanet.Topography);
-            exoplanetService.RobotPartsTracking.RobotPartDamage(robot, RobotPart.MOVEMENTSENSOR);
-            exoplanetService.EnergyTracking.ConsumeEnergy(robot, RobotAction.MOVE);
-
-            exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot] = newPosition;
-            exoplanetService.RobotStuckTracking.CheckIfRobotGetsStuck(robot, exoplanetService.ExoPlanet.Topography, newPosition);
+            ApplyMovementEffects(robot, newPosition);
+            UpdateRobotPosition(robot, newPosition);
 
             moveResult.IsSuccess = true;
             moveResult.HasRobotSurvived = true;
@@ -58,43 +36,98 @@ namespace ExoplanetGame.Application.Exoplanet
             return moveResult;
         }
 
-        private bool CanRobotMove(IRobot robot, ref PositionResult positionResult)
+        private bool IsRobotReadyToMove(IRobot robot, RobotResultBase robotResult, out PositionResult moveResult)
         {
-            bool isMovementSensorDamaged = exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.MOVEMENTSENSOR);
-            bool areWheelsDamaged = exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.WHEELS);
-            bool isRobotStuck = exoplanetService.RobotStuckTracking.IsRobotStuck(robot);
-            bool doesRobotHaveEnergy = exoplanetService.EnergyTracking.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.MOVE);
+            moveResult = new PositionResult(robotResult);
 
-            if (isMovementSensorDamaged)
+            if (IsRobotUnableToMove(robot, moveResult))
+                return false;
+
+            if (IsRobotStuck(robot, moveResult))
+                return false;
+
+            if (!DoesRobotHaveEnoughEnergy(robot, moveResult))
+                return false;
+
+            return true;
+        }
+
+        private bool IsRobotUnableToMove(IRobot robot, PositionResult moveResult)
+        {
+            if (IsMovementSensorDamaged(robot, moveResult))
+                return true;
+
+            if (AreWheelsDamaged(robot, moveResult))
+                return true;
+
+            return false;
+        }
+
+        private bool IsMovementSensorDamaged(IRobot robot, PositionResult moveResult)
+        {
+            if (exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.MOVEMENTSENSOR))
             {
-                positionResult.Message = "Movement sensor is damaged. Please repair in Control Center.\n";
+                moveResult.Message = "Movement sensor is damaged. Please repair in Control Center.\n";
+                return true;
+            }
+            return false;
+        }
+
+        private bool AreWheelsDamaged(IRobot robot, PositionResult moveResult)
+        {
+            if (exoplanetService.RobotPartsTracking.IsRobotPartDamaged(robot, RobotPart.WHEELS))
+            {
+                moveResult.Message += "Wheels are damaged. Please repair in Control Center.\n";
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsRobotStuck(IRobot robot, PositionResult moveResult)
+        {
+            if (exoplanetService.RobotStuckTracking.IsRobotStuck(robot))
+            {
+                moveResult.Message += "Robot is stuck. Try to rotate.\n";
+                return true;
+            }
+            return false;
+        }
+
+        private bool DoesRobotHaveEnoughEnergy(IRobot robot, PositionResult moveResult)
+        {
+            if (!exoplanetService.EnergyTracking.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.MOVE))
+            {
+                moveResult.Message += "Robot does not have enough energy to move.\n";
+                return false;
+            }
+            return true;
+        }
+
+        private Position GetNewRobotPosition(IRobot robot, PositionResult moveResult)
+        {
+            var newPosition = exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot].GetAdjacentPosition();
+            var waterDriftPosition = exoplanetService.RobotPostionsService.WaterDrift(robot, newPosition, exoplanetService.ExoPlanet.Topography);
+
+            if (!Equals(waterDriftPosition, newPosition))
+            {
+                moveResult.AddMessage("Robot landed in water and drifted to a safe position.");
+                newPosition = waterDriftPosition;
             }
 
-            if (areWheelsDamaged)
-            {
-                positionResult.Message += "Wheels are damaged. Please repair in Control Center.\n";
-            }
+            return newPosition;
+        }
 
-            if (isRobotStuck)
-            {
-                positionResult.Message += "Robot is stuck. Try to rotate.\n";
-            }
+        private void ApplyMovementEffects(IRobot robot, Position newPosition)
+        {
+            exoplanetService.HeatTracking.PerformAction(robot, RobotAction.MOVE, exoplanetService.ExoPlanet.Topography);
+            exoplanetService.RobotPartsTracking.RobotPartDamage(robot, RobotPart.MOVEMENTSENSOR);
+            exoplanetService.EnergyTracking.ConsumeEnergy(robot, RobotAction.MOVE);
+            exoplanetService.RobotStuckTracking.CheckIfRobotGetsStuck(robot, exoplanetService.ExoPlanet.Topography, newPosition);
+        }
 
-            if (!doesRobotHaveEnergy)
-            {
-                positionResult.Message += "Robot does not have enough energy to move.\n";
-            }
-
-            bool canMove = !isMovementSensorDamaged && !areWheelsDamaged && !isRobotStuck && doesRobotHaveEnergy;
-
-            if (!canMove)
-            {
-                positionResult.Message += "Robot cannot move due to the above problem(s).";
-                positionResult.IsSuccess = false;
-                positionResult.HasRobotSurvived = true;
-            }
-
-            return canMove;
+        private void UpdateRobotPosition(IRobot robot, Position newPosition)
+        {
+            exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot] = newPosition;
         }
     }
 }
