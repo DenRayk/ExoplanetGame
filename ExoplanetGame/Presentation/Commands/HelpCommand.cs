@@ -2,7 +2,7 @@
 {
     internal class HelpCommand : BaseCommand
     {
-        public HelpCommand(BaseCommand previousCommand)
+        public HelpCommand()
         {
         }
 
@@ -12,8 +12,12 @@
         {
             Console.WriteLine(HelpText);
 
-            Console.WriteLine("Press any key to leave...");
-            Console.ReadKey();
+            Console.WriteLine("Press any enter to leave...");
+
+            while (Console.ReadKey().Key != ConsoleKey.Enter)
+            {
+            }
+
             Console.Clear();
         }
     }

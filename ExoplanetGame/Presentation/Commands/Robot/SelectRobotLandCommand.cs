@@ -19,7 +19,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             "Land:\t Land the robot on the planet\n" +
             "Back:\t Return to the control center\n";
 
-        public SelectRobotLandCommand(UCCollection ucCollection, RobotBase robotBase, ExoplanetService exoplanetService, BaseCommand previousCommand)
+        public SelectRobotLandCommand(UCCollection ucCollection, RobotBase robotBase, ExoplanetService exoplanetService)
         {
             this.ucCollection = ucCollection;
             this.robotBase = robotBase;
@@ -28,20 +28,21 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            PlanetMap planetMap = ucCollection.UcCollectionControlCenter.GetPlanetMapUseCase.GetPlanetMap();
-            Dictionary<RobotBase, Position> robots = ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots();
-            Weather weather = ucCollection.UcCollectionControlCenter.GetCurrentWeatherUseCase.GetCurrentWeather();
-
-            Console.WriteLine($"Current weather: {weather.GetDescriptionFromEnum()}");
-            Console.WriteLine($"Discovered area of the planet: {planetMap.GetPercentageOfExploredArea()}");
-            MapPrinter.PrintMap(robots, planetMap);
-
-            Console.WriteLine("Pre-Landing Options (press F1 for help):");
             var options = getLandOptions();
 
             BaseCommand baseCommand;
             do
             {
+                PlanetMap planetMap = ucCollection.UcCollectionControlCenter.GetPlanetMapUseCase.GetPlanetMap();
+                Dictionary<RobotBase, Position> robots = ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots();
+                Weather weather = ucCollection.UcCollectionControlCenter.GetCurrentWeatherUseCase.GetCurrentWeather();
+
+                Console.WriteLine($"Current weather: {weather.GetDescriptionFromEnum()}");
+                Console.WriteLine($"Discovered area of the planet: {planetMap.GetPercentageOfExploredArea()}");
+                MapPrinter.PrintMap(robots, planetMap);
+
+                Console.WriteLine("Pre-Landing Options (press F1 for help):");
+
                 baseCommand = ReadUserInputWithOptions(options);
 
                 if (baseCommand is HelpCommand helpCommand)

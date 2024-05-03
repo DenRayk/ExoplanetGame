@@ -23,14 +23,13 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
         public override void Execute()
         {
-            Console.WriteLine("Robot Variant Menu");
-            Console.WriteLine("Select a robot variant (press F1 for help):\n");
-
             var options = getRobotOptions();
 
             BaseCommand baseCommand;
             do
             {
+                Console.WriteLine("Robot Variant Menu");
+                Console.WriteLine("Select a robot variant (press F1 for help):\n");
                 baseCommand = ReadUserInputWithOptions(options);
 
                 if (baseCommand is HelpCommand helpCommand)

@@ -19,7 +19,7 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
             $"{PlanetVariant.LAVARIA.GetDescriptionFromEnum()}:\t Expert level\n" +
             $"{PlanetVariant.TROPICA.GetDescriptionFromEnum()}:\t Grandmaster level\n";
 
-        public ShowPlanetSelectionCommand(UCCollection ucCollection, ExoplanetService exoplanetService, BaseCommand previousCommand)
+        public ShowPlanetSelectionCommand(UCCollection ucCollection, ExoplanetService exoplanetService)
         {
             this.ucCollection = ucCollection;
             this.exoplanetService = exoplanetService;
@@ -27,13 +27,12 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 
         public override void Execute()
         {
-            Console.WriteLine("Choose a destination planet (press F1 for help):\n");
-
             var options = getPlanetOptions();
 
             BaseCommand baseCommand;
             do
             {
+                Console.WriteLine("Choose a destination planet (press F1 for help):\n");
                 baseCommand = ReadUserInputWithOptions(options);
 
                 if (baseCommand is HelpCommand helpCommand)

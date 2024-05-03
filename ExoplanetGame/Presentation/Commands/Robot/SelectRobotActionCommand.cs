@@ -22,7 +22,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             "Load:\t\t Load energy to the robot\n" +
             "Crash:\t\t Crash the robot\n";
 
-        public SelectRobotActionCommand(UCCollection ucCollection, RobotBase robotBase, BaseCommand previousCommand)
+        public SelectRobotActionCommand(UCCollection ucCollection, RobotBase robotBase)
         {
             this.ucCollection = ucCollection;
             this.robotBase = robotBase;
@@ -50,7 +50,6 @@ namespace ExoplanetGame.Presentation.Commands.Robot
                 if (baseCommand is HelpCommand helpCommand)
                 {
                     helpCommand.HelpText = helpText;
-                    helpCommand.Execute();
                 }
                 baseCommand.Execute();
             } while (baseCommand is not CrashCommand && baseCommand is not BackCommand && HasRobotSurvived(baseCommand));

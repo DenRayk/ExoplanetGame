@@ -34,7 +34,6 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
                 if (baseCommand is HelpCommand helpCommand)
                 {
                     helpCommand.HelpText = helpText;
-                    helpCommand.Execute();
                 }
 
                 baseCommand.Execute();

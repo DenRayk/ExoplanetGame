@@ -11,7 +11,7 @@ public abstract class BaseCommand
 
         if (input == (int)ConsoleKey.F1)
         {
-            return new HelpCommand(this);
+            return new HelpCommand();
         }
 
         if (input == (int)ConsoleKey.Escape)

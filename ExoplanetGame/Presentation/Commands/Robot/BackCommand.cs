@@ -8,7 +8,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 {
     internal class BackCommand : BaseCommand
     {
-        public BackCommand(BaseCommand previousCommand)
+        public BackCommand()
         {
         }
 

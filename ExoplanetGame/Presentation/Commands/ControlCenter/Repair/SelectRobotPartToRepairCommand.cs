@@ -9,7 +9,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
         private UCCollection ucCollection;
         private RobotBase robotBase;
 
-        public SelectRobotPartToRepairCommand(BaseCommand previousCommand, RobotBase robotBase, UCCollection ucCollection)
+        public SelectRobotPartToRepairCommand(RobotBase robotBase, UCCollection ucCollection)
         {
             this.robotBase = robotBase;
             this.ucCollection = ucCollection;
@@ -32,7 +32,6 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             {
                 Console.WriteLine($"{robotBase.GetLanderName()} has not used any parts yet. \n");
             }
-
         }
 
         private Dictionary<string, BaseCommand> getRobotPartOptions(Dictionary<RobotPart, int> robotParts)
