@@ -128,12 +128,12 @@ namespace ExoplanetGame.Application.Exoplanet
 
             while (position.Y < exoplanet.Topography.PlanetSize.Height - 1 && exoplanet.Topography.GetMeasureAtPosition(position).Ground == Ground.WATER)
             {
-                position = new Position(position.X, position.Y + 1);
+                position = new Position(position.X, position.Y + 1, robot.RobotInformation.Position.Direction);
             }
 
             while (position.Y == exoplanet.Topography.PlanetSize.Height - 1 && exoplanet.Topography.GetMeasureAtPosition(position).Ground == Ground.WATER)
             {
-                position = new Position(position.X + 1, position.Y);
+                position = new Position(position.X + 1, position.Y, robot.RobotInformation.Position.Direction);
             }
 
             return position;
