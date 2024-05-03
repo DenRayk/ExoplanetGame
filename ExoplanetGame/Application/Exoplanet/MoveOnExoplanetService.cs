@@ -26,6 +26,15 @@ namespace ExoplanetGame.Application.Exoplanet
 
             var newPosition = GetNewRobotPosition(robot, moveResult);
 
+            if (IsAnotherRobotAlreadyAtThePosition(newPosition))
+            {
+                moveResult.HasRobotSurvived = false;
+                moveResult.IsSuccess = false;
+                moveResult.AddMessage($"Another robot was already at the position.\n");
+                moveResult.AddMessage($"{robot.GetLanderName()} crashed.");
+                return moveResult;
+            }
+
             ApplyMovementEffects(robot, newPosition);
             UpdateRobotPosition(robot, newPosition);
 
@@ -34,6 +43,11 @@ namespace ExoplanetGame.Application.Exoplanet
             moveResult.Position = newPosition;
 
             return moveResult;
+        }
+
+        private bool IsAnotherRobotAlreadyAtThePosition(Position newPosition)
+        {
+            return exoplanetService.ExoPlanet.RobotPositionManager.Robots.ContainsValue(newPosition);
         }
 
         private bool IsRobotReadyToMove(IRobot robot, RobotResultBase robotResult, out PositionResult moveResult)

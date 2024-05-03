@@ -8,7 +8,6 @@ namespace ExoplanetGame.Domain.Robot
     public class RobotBase : IRobot
     {
         protected readonly ExoPlanetBase exoPlanet;
-        private RobotRepository robotRepository;
         public RobotInformation RobotInformation { get; }
         public RobotVariant RobotVariant { get; }
 
@@ -16,8 +15,6 @@ namespace ExoplanetGame.Domain.Robot
             RobotVariant robotVariant)
         {
             this.exoPlanet = exoPlanet;
-            robotRepository = RobotRepository.GetInstance();
-            robotRepository.RobotPositionUpdated += HandleOtherRobotPositionUpdated;
             RobotVariant = robotVariant;
 
             RobotInformation = new RobotInformation
@@ -34,14 +31,6 @@ namespace ExoplanetGame.Domain.Robot
         public virtual bool HasLanded()
         {
             return RobotInformation.Position != null;
-        }
-
-        private void HandleOtherRobotPositionUpdated(object? sender, RobotPositionEventArgs e)
-        {
-            if (e.Robot.Equals(this))
-                return;
-
-            RobotInformation.OtherRobotPositions[e.Robot] = e.NewPosition;
         }
 
         protected bool Equals(RobotBase robotBase)

@@ -8,13 +8,6 @@ namespace ExoplanetGame.Domain.ControlCenter
         private static RobotRepository instance;
         private Dictionary<IRobot, Position> robots;
 
-        public virtual void OnRobotPositionUpdated(IRobot robot, Position position)
-        {
-            RobotPositionUpdated?.Invoke(this, new RobotPositionEventArgs(robot, position));
-        }
-
-        public event EventHandler<RobotPositionEventArgs> RobotPositionUpdated;
-
         private RobotRepository()
         {
             robots = new Dictionary<IRobot, Position>();
@@ -42,7 +35,6 @@ namespace ExoplanetGame.Domain.ControlCenter
         public void MoveRobot(IRobot robot, Position position)
         {
             robots[robot] = position;
-            OnRobotPositionUpdated(robot, position);
         }
 
         public Position GetRobotPosition(RobotBase robot)
