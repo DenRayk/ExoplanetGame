@@ -13,17 +13,15 @@ namespace ExoplanetGame.Presentation.Commands.Robot
     {
         private UCCollection ucCollection;
         private RobotBase robotBase;
-        private ExoplanetService exoplanetService;
 
         private string helpText =
             "Land:\t Land the robot on the planet\n" +
             "Back:\t Return to the control center\n";
 
-        public SelectRobotLandCommand(UCCollection ucCollection, RobotBase robotBase, ExoplanetService exoplanetService)
+        public SelectRobotLandCommand(UCCollection ucCollection, RobotBase robotBase)
         {
             this.ucCollection = ucCollection;
             this.robotBase = robotBase;
-            this.exoplanetService = exoplanetService;
         }
 
         public override void Execute()

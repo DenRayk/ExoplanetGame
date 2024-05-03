@@ -77,7 +77,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
                 { "Rotate", new ShowRotationOptionsCommand(robotBase, ucCollection) },
                 { "Load", new LoadCommand(robotBase, ucCollection) },
                 { "Crash", new CrashCommand(robotBase, ucCollection) },
-                { "Back", new BackCommand(this) }
+                { "Back", new BackCommand() }
             };
 
             return options;

@@ -37,7 +37,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             Dictionary<string, BaseCommand> options = new();
             foreach (var robot in getAllRobots)
             {
-                options.Add(robot.Key.GetLanderName(), new SelectRobotPartToRepairCommand(this, robot.Key, ucCollection));
+                options.Add(robot.Key.GetLanderName(), new SelectRobotPartToRepairCommand(robot.Key, ucCollection));
             }
             return options;
         }

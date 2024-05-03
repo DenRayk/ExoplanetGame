@@ -42,11 +42,11 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             {
                 if (robot.Key.HasLanded())
                 {
-                    robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotActionCommand(ucCollection, robot.Key, this));
+                    robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotActionCommand(ucCollection, robot.Key));
                 }
                 else
                 {
-                    robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotLandCommand(ucCollection, robot.Key, exoplanetService, this));
+                    robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotLandCommand(ucCollection, robot.Key));
                 }
             }
 
