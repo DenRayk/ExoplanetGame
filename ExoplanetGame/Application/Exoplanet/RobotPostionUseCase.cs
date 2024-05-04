@@ -19,5 +19,7 @@ namespace ExoplanetGame.Application.Exoplanet
         void UpdateRobotPosition(RobotBase robot, Position newPosition);
 
         Position WaterDrift(IRobot robot, Position position, Topography topography);
+
+        public bool IsAnotherRobotAlreadyAtThisPosition(IRobot robot, Position position);
     }
 }

@@ -26,7 +26,7 @@ namespace ExoplanetGame.Application.Exoplanet
 
             var newPosition = GetNewRobotPosition(robot, moveResult);
 
-            if (IsAnotherRobotAlreadyAtThePosition(newPosition))
+            if (exoplanetService.RobotPostionsService.IsAnotherRobotAlreadyAtThisPosition(robot, newPosition))
             {
                 moveResult.HasRobotSurvived = false;
                 moveResult.IsSuccess = false;
@@ -43,11 +43,6 @@ namespace ExoplanetGame.Application.Exoplanet
             moveResult.Position = newPosition;
 
             return moveResult;
-        }
-
-        private bool IsAnotherRobotAlreadyAtThePosition(Position newPosition)
-        {
-            return exoplanetService.ExoPlanet.RobotPositionManager.Robots.ContainsValue(newPosition);
         }
 
         private bool IsRobotReadyToMove(IRobot robot, RobotResultBase robotResult, out PositionResult moveResult)

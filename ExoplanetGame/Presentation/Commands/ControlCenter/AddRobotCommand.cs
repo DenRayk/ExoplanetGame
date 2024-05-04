@@ -1,6 +1,5 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Domain.ControlCenter;
-using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Variants;
 using ExoplanetGame.Helper;
 

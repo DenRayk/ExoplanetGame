@@ -91,7 +91,7 @@ namespace ExoplanetGame.Application.Exoplanet
             return true;
         }
 
-        private bool IsAnotherRobotAlreadyAtThisPosition(IRobot robot, Position position)
+        public bool IsAnotherRobotAlreadyAtThisPosition(IRobot robot, Position position)
         {
             var robots = exoplanetService.ExoPlanet.RobotPositionManager.Robots;
             foreach (var otherRobot in robots.Keys)
@@ -128,12 +128,12 @@ namespace ExoplanetGame.Application.Exoplanet
 
             while (position.Y < exoplanet.Topography.PlanetSize.Height - 1 && exoplanet.Topography.GetMeasureAtPosition(position).Ground == Ground.WATER)
             {
-                position = new Position(position.X, position.Y + 1, robot.RobotInformation.Position.Direction);
+                position = robot.RobotInformation.Position != null ? new Position(position.X, position.Y + 1, robot.RobotInformation.Position.Direction) : new Position(position.X + 1, position.Y, Direction.NORTH);
             }
 
             while (position.Y == exoplanet.Topography.PlanetSize.Height - 1 && exoplanet.Topography.GetMeasureAtPosition(position).Ground == Ground.WATER)
             {
-                position = new Position(position.X + 1, position.Y, robot.RobotInformation.Position.Direction);
+                position = robot.RobotInformation.Position != null ? new Position(position.X + 1, position.Y, robot.RobotInformation.Position.Direction) : new Position(position.X + 1, position.Y, Direction.NORTH);
             }
 
             return position;
