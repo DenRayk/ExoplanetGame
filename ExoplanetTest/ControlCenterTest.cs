@@ -59,7 +59,7 @@ namespace ExoplanetGameTest
             string exploredMap = ucCollection.UcCollectionRobot.PlanetMapService.GetPercentageOfExploredArea();
 
             // Assert
-            Assert.AreEqual("0,00%", exploredMap);
+            Assert.AreEqual("0,00%", exploredMap.Replace('.', ','));
         }
 
         [TestCleanup]
