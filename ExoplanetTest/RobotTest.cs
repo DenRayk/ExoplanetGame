@@ -7,6 +7,7 @@ using ExoplanetGame.Domain.Robot;
 using ExoplanetGame.Domain.Robot.Variants;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
+using ExoplanetGameTest.Mocks;
 
 namespace ExoplanetGameTest
 {
@@ -57,7 +58,7 @@ namespace ExoplanetGameTest
         public void TestMove()
         {
             // Arrange
-            MockedPlanet mockedPlanet = new MockedPlanet();
+            RockPlanet mockedPlanet = new RockPlanet();
             UCCollection ucCollection = new UCCollection();
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.ExoPlanet = mockedPlanet;
@@ -78,7 +79,7 @@ namespace ExoplanetGameTest
         public void TestTurnLeft()
         {
             // Arrange
-            MockedPlanet mockedPlanet = new MockedPlanet();
+            RockPlanet mockedPlanet = new RockPlanet();
             UCCollection ucCollection = new UCCollection();
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.ExoPlanet = mockedPlanet;
@@ -99,7 +100,7 @@ namespace ExoplanetGameTest
         public void TestTurnRight()
         {
             // Arrange
-            MockedPlanet mockedPlanet = new MockedPlanet();
+            RockPlanet mockedPlanet = new RockPlanet();
             UCCollection ucCollection = new UCCollection();
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.ExoPlanet = mockedPlanet;
@@ -120,7 +121,7 @@ namespace ExoplanetGameTest
         public void TestCrash()
         {
             // Arrange
-            MockedPlanet mockedPlanet = new MockedPlanet();
+            RockPlanet mockedPlanet = new RockPlanet();
             UCCollection ucCollection = new UCCollection();
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.ExoPlanet = mockedPlanet;
@@ -141,7 +142,7 @@ namespace ExoplanetGameTest
         public void TestScan()
         {
             // Arrange
-            MockedPlanet mockedPlanet = new MockedPlanet();
+            RockPlanet mockedPlanet = new RockPlanet();
             UCCollection ucCollection = new UCCollection();
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.ExoPlanet = mockedPlanet;
