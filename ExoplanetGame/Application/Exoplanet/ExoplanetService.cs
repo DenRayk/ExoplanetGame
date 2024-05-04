@@ -8,7 +8,7 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     public class ExoplanetService
     {
-        private IExoPlanetBaseFactory exoPlanetFactory;
+        private ExoPlanetFactory exoPlanetFactory;
         public EnergyTrackingUseCase EnergyTracking { get; }
         public HeatTrackingUseCase HeatTracking { get; }
         public FreezeTrackingUseCase FreezeTracking { get; }
@@ -24,9 +24,7 @@ namespace ExoplanetGame.Application.Exoplanet
 
         public ExoplanetService()
         {
-            exoPlanetFactory = ExoPlanetFactory.GetInstance();
             PlanetEventsService = new PlanetEventsService(this);
-
             EnergyTracking = new EnergyTrackingService(this);
             HeatTracking = new HeatTrackingService(this);
             FreezeTracking = new FreezeTrackingService(this);
@@ -44,7 +42,34 @@ namespace ExoplanetGame.Application.Exoplanet
 
         public void CreateExoPlanet(PlanetVariant planetVariant)
         {
-            ExoPlanet = exoPlanetFactory.CreateExoPlanet(planetVariant);
+            switch (planetVariant)
+            {
+                case PlanetVariant.GAIA:
+                    exoPlanetFactory = new GaiaPlanetFactory();
+                    break;
+
+                case PlanetVariant.AQUATICA:
+                    exoPlanetFactory = new AquaticaPlanetFactory();
+                    break;
+
+                case PlanetVariant.TERRA:
+                    exoPlanetFactory = new TerraPlanetFactory();
+                    break;
+
+                case PlanetVariant.FROSTFELL:
+                    exoPlanetFactory = new FrostfellPlanetFactory();
+                    break;
+
+                case PlanetVariant.LAVARIA:
+                    exoPlanetFactory = new LavariaPlanetFactory();
+                    break;
+
+                case PlanetVariant.TROPICA:
+                    exoPlanetFactory = new TropicaPlanetFactory();
+                    break;
+            }
+
+            ExoPlanet = exoPlanetFactory.CreateExoPlanet();
         }
     }
 }
