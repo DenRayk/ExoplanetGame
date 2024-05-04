@@ -18,7 +18,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         public override void Execute()
         {
             Console.WriteLine("Enter the number of seconds to load energy:");
-            int seconds = GetMenuSelection(20);
+            int seconds = GetMenuSelection(0, 20);
 
             Console.WriteLine("Loading energy...");
             LoadResult loadResult = ucCollection.UcCollectionRobot.LoadRobotService.LoadEnergy(robot, seconds);

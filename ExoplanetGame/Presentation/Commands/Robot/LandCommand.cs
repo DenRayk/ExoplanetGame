@@ -50,10 +50,10 @@ namespace ExoplanetGame.Presentation.Commands.Robot
         private Position SelectLandPosition(PlanetMap planetMap)
         {
             Console.WriteLine("Enter the X coordinate:");
-            int x = GetMenuSelection(planetMap.PlanetSize.Width - 1);
+            int x = GetMenuSelection(0, planetMap.PlanetSize.Width - 1);
 
             Console.WriteLine("Enter the Y coordinate:");
-            int y = GetMenuSelection(planetMap.PlanetSize.Height - 1);
+            int y = GetMenuSelection(0, planetMap.PlanetSize.Height - 1);
 
             return new Position(x, y);
         }

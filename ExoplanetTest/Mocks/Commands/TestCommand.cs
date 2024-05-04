@@ -15,7 +15,7 @@ namespace ExoplanetGameTest.Mocks.Commands
             Console.WriteLine("Test command executed");
         }
 
-        public override int GetMenuSelection(int maxValue)
+        public override int GetMenuSelection(int minValue, int maxValue)
         {
             return 1;
         }

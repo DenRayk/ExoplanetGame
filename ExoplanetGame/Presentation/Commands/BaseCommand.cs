@@ -4,10 +4,10 @@ public abstract class BaseCommand
 {
     public abstract void Execute();
 
-    public BaseCommand ReadUserInputWithOptions(Dictionary<string, BaseCommand> options)
+    public BaseCommand ReadUserInputWithOptions(Dictionary<string, BaseCommand> options, int minValue = 1)
     {
         ShowOptions(options);
-        int input = GetMenuSelection(options.Count);
+        int input = GetMenuSelection(minValue, options.Count);
 
         if (input == (int)ConsoleKey.F1)
         {
@@ -32,7 +32,7 @@ public abstract class BaseCommand
         }
     }
 
-    public virtual int GetMenuSelection(int maxValue)
+    public virtual int GetMenuSelection(int minValue, int maxValue)
     {
         while (true)
         {
@@ -43,7 +43,7 @@ public abstract class BaseCommand
                 return (int)keyInfo.Key;
             }
 
-            if (int.TryParse(keyInfo.KeyChar.ToString(), out var choice) && choice >= 1 && choice <= maxValue)
+            if (int.TryParse(keyInfo.KeyChar.ToString(), out var choice) && choice >= minValue && choice <= maxValue)
             {
                 Console.Clear();
                 return choice;
