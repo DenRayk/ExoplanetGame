@@ -1,6 +1,6 @@
 ﻿namespace ExoplanetGame.Presentation.Commands
 {
-    internal class HelpCommand : BaseCommand
+    public class HelpCommand : BaseCommand
     {
         public HelpCommand()
         {

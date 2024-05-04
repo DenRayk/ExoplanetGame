@@ -3,7 +3,7 @@ using ExoplanetGame.Domain.Robot.Movement;
 
 namespace ExoplanetGame.Domain.ControlCenter
 {
-    internal class RobotRepository : IRobotRepository
+    public class RobotRepository : IRobotRepository
     {
         private static IRobotRepository instance;
         private Dictionary<IRobot, Position> robots;

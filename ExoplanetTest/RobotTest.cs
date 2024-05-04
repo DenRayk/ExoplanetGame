@@ -1,13 +1,16 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Application.Exoplanet;
 using ExoplanetGame.Domain.ControlCenter;
+using ExoplanetGame.Domain.Exoplanet;
 using ExoplanetGame.Domain.Exoplanet.Environment;
 using ExoplanetGame.Domain.Exoplanet.Variants;
 using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Factory;
 using ExoplanetGame.Domain.Robot.Variants;
 using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
-using ExoplanetGameTest.Mocks;
+using ExoplanetGameTest.Mocks.Planets;
+using ExoplanetGame.Domain.Exoplanet.Factory;
 
 namespace ExoplanetGameTest
 {
@@ -31,6 +34,27 @@ namespace ExoplanetGameTest
 
             // Assert
             Assert.IsTrue(robotBase.RobotInformation.HasLanded);
+        }
+
+        [TestMethod]
+        public void TestPosition()
+        {
+            // Arrange
+            RockPlanet mockedPlanet = new RockPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService();
+            exoplanetService.ExoPlanet = mockedPlanet;
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+            IRobot robot = new DefaultBot(exoplanetService.ExoPlanet, 0);
+
+            ucCollection.Init(exoplanetService);
+
+            // Act
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robot, new Position(1, 1));
+            PositionResult positionResult = ucCollection.UcCollectionRobot.GetPositionService.GetPosition(robot);
+
+            // Assert
+            Assert.AreEqual(new Position(1, 1), positionResult.Position);
         }
 
         [TestMethod]
@@ -160,6 +184,72 @@ namespace ExoplanetGameTest
             // Assert
             Measure actualMeasureAtRobotPosition = scanResult.Measures.Keys.First();
             Assert.AreEqual(expectedMeasureAtRobotposition, actualMeasureAtRobotPosition);
+        }
+
+        [TestMethod]
+        public void TestLoad()
+        {
+            // Arrange
+            RockPlanet mockedPlanet = new RockPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService { ExoPlanet = mockedPlanet };
+            DefaultBot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
+            Position landingPosition = new Position(1, 1);
+            ucCollection.Init(exoplanetService);
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+
+            // Act
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, landingPosition);
+            LoadResult loadResult = ucCollection.UcCollectionRobot.LoadRobotService.LoadEnergy(robotBase, 1);
+
+            // Assert
+            Assert.IsTrue(loadResult.IsSuccess);
+        }
+
+        [TestMethod]
+        public void TestFreezeShouldBeTrue()
+        {
+            // Arrange
+            ExoPlanetFactory frostfellFactory = new FrostfellPlanetFactory();
+            IExoPlanet exoPlanet = frostfellFactory.CreateExoPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService { ExoPlanet = exoPlanet };
+            DefaultBot robot = new DefaultBot(exoplanetService.ExoPlanet, 0);
+            Position landingPosition = new Position(1, 1);
+            ucCollection.Init(exoplanetService);
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+
+            // Act
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robot, landingPosition);
+            ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robot, Rotation.LEFT);
+            Thread.Sleep(30000);
+            ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robot, Rotation.LEFT);
+
+            // Assert
+            Assert.IsTrue(exoplanetService.FreezeTracking.IsFrozen(robot));
+        }
+
+        [TestMethod]
+        public void TestFreezeShouldBeFalse()
+        {
+            // Arrange
+            ExoPlanetFactory frostfellFactory = new FrostfellPlanetFactory();
+            IExoPlanet exoPlanet = frostfellFactory.CreateExoPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService { ExoPlanet = exoPlanet };
+            DefaultBot robot = new DefaultBot(exoplanetService.ExoPlanet, 0);
+            Position landingPosition = new Position(1, 1);
+            ucCollection.Init(exoplanetService);
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+
+            // Act
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robot, landingPosition);
+            ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robot, Rotation.LEFT);
+            Thread.Sleep(1000);
+            ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robot, Rotation.LEFT);
+
+            // Assert
+            Assert.IsFalse(exoplanetService.FreezeTracking.IsFrozen(robot));
         }
     }
 }

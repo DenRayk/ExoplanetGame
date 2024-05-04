@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Domain.Exoplanet;
+﻿using ExoplanetGame.Domain.Exoplanet;
 using ExoplanetGame.Domain.Exoplanet.Environment;
 
-namespace ExoplanetGameTest.Mocks
+namespace ExoplanetGameTest.Mocks.Planets
 {
-    internal class MudPlanet : IExoPlanet
+    internal class RockPlanet : IExoPlanet
     {
-        public MudPlanet()
+        public RockPlanet()
         {
             Topography = new Topography(new string[]
             {
                 "RRRRRRRRRRRRRRRRR",
-                "RMMMMMMMMMMMMMMMR",
-                "RMMMMMMMMMMMMMMMR",
-                "RMMMMMMMMMMMMMMMR",
-                "RMMMMMMMMMMMMMMMR",
+                "RRRRRRRRRRRRRRRRR",
+                "RRRRRRRRRRRRRRRRR",
+                "RRRRRRRRRRRRRRRRR",
+                "RRRRRRRRRRRRRRRRR",
                 "RRRRRRRRRRRRRRRRR",
             });
             RobotPositionManager = new RobotPositionManager();

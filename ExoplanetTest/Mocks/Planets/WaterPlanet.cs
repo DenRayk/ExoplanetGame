@@ -1,12 +1,7 @@
 ﻿using ExoplanetGame.Domain.Exoplanet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ExoplanetGame.Domain.Exoplanet.Environment;
 
-namespace ExoplanetGameTest.Mocks
+namespace ExoplanetGameTest.Mocks.Planets
 {
     internal class WaterPlanet : IExoPlanet
     {

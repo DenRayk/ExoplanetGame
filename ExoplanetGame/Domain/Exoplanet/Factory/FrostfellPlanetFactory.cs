@@ -2,7 +2,7 @@
 
 namespace ExoplanetGame.Domain.Exoplanet.Factory
 {
-    internal class FrostfellPlanetFactory : ExoPlanetFactory
+    public class FrostfellPlanetFactory : ExoPlanetFactory
     {
         public override IExoPlanet CreateExoPlanet()
         {

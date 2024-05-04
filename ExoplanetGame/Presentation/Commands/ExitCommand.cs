@@ -1,6 +1,6 @@
 ﻿namespace ExoplanetGame.Presentation.Commands
 {
-    internal class ExitCommand : BaseCommand
+    public class ExitCommand : BaseCommand
     {
         public override void Execute()
         {
