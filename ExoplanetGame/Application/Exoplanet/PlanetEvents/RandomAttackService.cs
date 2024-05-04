@@ -5,13 +5,13 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
 {
     internal class RandomAttackService : RandomAttackUseCase
     {
-        private static readonly int mysteriousAttackChance = 50;
+        private static readonly int mysteriousAttackChance = 5;
 
         public RobotResultBase HandleMysteriousAttack(IRobot robot)
         {
             RobotResultBase robotResult = new RobotResultBase();
 
-            if (!MysteriousAttack())
+            if (!DoesMysteriousAttackHappen())
             {
                 robotResult.IsSuccess = true;
                 robotResult.HasRobotSurvived = true;
@@ -52,14 +52,6 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
                 default:
                     return "a mysterious attack";
             }
-        }
-
-        private bool MysteriousAttack()
-        {
-            if (!DoesMysteriousAttackHappen())
-                return false;
-
-            return true;
         }
 
         private bool DoesMysteriousAttackHappen()
