@@ -11,7 +11,7 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
         {
             RobotResultBase robotResult = new RobotResultBase();
 
-            if (!VolcanicEruption())
+            if (!DoesVolcanicEruptionHappen())
             {
                 robotResult.IsSuccess = true;
                 robotResult.HasRobotSurvived = true;
@@ -25,14 +25,6 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
                 Message = $"{robot.GetLanderName()} was destroyed by a volcanic eruption."
             };
             return robotResult;
-        }
-
-        private bool VolcanicEruption()
-        {
-            if (!DoesVolcanicEruptionHappen())
-                return false;
-
-            return true;
         }
 
         public bool DoesVolcanicEruptionHappen()

@@ -40,7 +40,7 @@ namespace ExoplanetGame.Domain.ControlCenter
             {
                 for (int columnIndex = 0; columnIndex < PlanetSize.Width; columnIndex++)
                 {
-                    bool isAreaExplored = map[rowIndex, columnIndex] != Ground.NOTHING;
+                    bool isAreaExplored = getGround(rowIndex, columnIndex) != Ground.NOTHING;
 
                     if (isAreaExplored)
                     {
