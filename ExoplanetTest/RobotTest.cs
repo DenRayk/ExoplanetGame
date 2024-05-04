@@ -144,19 +144,22 @@ namespace ExoplanetGameTest
             // Arrange
             RockPlanet mockedPlanet = new RockPlanet();
             UCCollection ucCollection = new UCCollection();
-            ExoplanetService exoplanetService = new ExoplanetService();
-            exoplanetService.ExoPlanet = mockedPlanet;
-            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
-            IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
+            ExoplanetService exoplanetService = new ExoplanetService { ExoPlanet = mockedPlanet };
+            DefaultBot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
+            Position landingPosition = new Position(1, 1);
 
             ucCollection.Init(exoplanetService);
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+
+            Measure expectedMeasureAtRobotposition = mockedPlanet.Topography.GetMeasureAtPosition(landingPosition);
 
             // Act
-            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
+            ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, landingPosition);
             ScanResult scanResult = ucCollection.UcCollectionRobot.RobotScanService.Scan(robotBase);
 
             // Assert
-            Assert.AreEqual(new Measure(Ground.NOTHING, 0), scanResult.Measures.Keys.First());
+            Measure actualMeasureAtRobotPosition = scanResult.Measures.Keys.First();
+            Assert.AreEqual(expectedMeasureAtRobotposition, actualMeasureAtRobotPosition);
         }
     }
 }
