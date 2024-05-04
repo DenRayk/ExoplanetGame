@@ -4,7 +4,7 @@ using ExoplanetGame.Domain.Robot.RobotResults;
 
 namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
 {
-    public class PlanetEventsService
+    public class PlanetEventsService : PlanetEventsUseCase
     {
         private readonly IExoplanetService exoplanetService;
         public ChangeWeatherUseCase ChangeWeatherService { get; }

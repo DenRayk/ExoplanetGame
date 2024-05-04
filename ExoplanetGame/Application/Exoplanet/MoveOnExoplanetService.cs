@@ -9,9 +9,9 @@ namespace ExoplanetGame.Application.Exoplanet
     internal class MoveOnExoplanetService : MoveOnExoplanetUseCase
     {
         private readonly ExoplanetService exoplanetService;
-        private readonly PlanetEventsService planetEventsService;
+        private readonly PlanetEventsUseCase planetEventsService;
 
-        public MoveOnExoplanetService(ExoplanetService exoplanetService, PlanetEventsService planetEventsService)
+        public MoveOnExoplanetService(ExoplanetService exoplanetService, PlanetEventsUseCase planetEventsService)
         {
             this.exoplanetService = exoplanetService;
             this.planetEventsService = planetEventsService;

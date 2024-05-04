@@ -27,7 +27,7 @@ namespace ExoplanetGame.Application.Exoplanet
         public RandomAttackUseCase RandomAttackService { get; }
 
         public VolcanicEruptionUseCase VolcanicEruptionService { get; }
-        public PlanetEventsService PlanetEventsService { get; }
+        public PlanetEventsUseCase PlanetEventsService { get; }
 
         public ExoplanetService()
         {
