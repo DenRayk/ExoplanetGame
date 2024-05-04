@@ -5,13 +5,13 @@ namespace ExoplanetGame.Domain.ControlCenter;
 
 public interface IRobotRepository
 {
-    void AddRobot(RobotBase robot, Position position);
+    void AddRobot(IRobot robot, Position position);
 
     void RemoveRobot(IRobot robot);
 
     void MoveRobot(IRobot robot, Position position);
 
-    Position GetRobotPosition(RobotBase robot);
+    Position GetRobotPosition(IRobot robot);
 
     Dictionary<IRobot, Position> GetRobots();
 

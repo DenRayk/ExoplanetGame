@@ -2,12 +2,29 @@
 
 namespace ExoplanetGame.Domain.Robot.Variants
 {
-    public class ScoutBot : RobotBase
+    public class ScoutBot : IRobot
     {
-        public ScoutBot(ControlCenter.ControlCenter controlCenter, ExoPlanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId, RobotVariant.SCOUT)
+        public ExoPlanetBase ExoPlanet { get; }
+
+        public RobotInformation RobotInformation { get; }
+
+        public ScoutBot(ExoPlanetBase exoPlanet, int robotId)
         {
-            RobotInformation.RobotParts[RobotPart.SCANSENSOR] = 200;
-            RobotInformation.MaxEnergy = 200;
+            ExoPlanet = exoPlanet;
+            RobotInformation = new RobotInformation
+            {
+                RobotID = robotId,
+                RobotParts =
+                {
+                    [RobotPart.SCANSENSOR] = 200
+                },
+                MaxEnergy = 200
+            };
+        }
+
+        public string GetLanderName()
+        {
+            return $"Robot {RobotInformation.RobotID} ({GetType().Name})";
         }
     }
 }

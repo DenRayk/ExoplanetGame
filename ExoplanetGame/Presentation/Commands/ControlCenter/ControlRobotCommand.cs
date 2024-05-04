@@ -40,7 +40,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
             foreach (KeyValuePair<IRobot, Position> robot in ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots())
             {
-                if (robot.Key.HasLanded())
+                if (robot.Key.RobotInformation.HasLanded)
                 {
                     robotsToControl.Add($"{robot.Key.GetLanderName()}", new SelectRobotActionCommand(ucCollection, robot.Key));
                 }

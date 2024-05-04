@@ -22,7 +22,7 @@ namespace ExoplanetGame.Domain.ControlCenter
             return instance;
         }
 
-        public void AddRobot(RobotBase robot, Position position)
+        public void AddRobot(IRobot robot, Position position)
         {
             robots.Add(robot, position);
         }
@@ -37,7 +37,7 @@ namespace ExoplanetGame.Domain.ControlCenter
             robots[robot] = position;
         }
 
-        public Position GetRobotPosition(RobotBase robot)
+        public Position GetRobotPosition(IRobot robot)
         {
             return robots[robot];
         }

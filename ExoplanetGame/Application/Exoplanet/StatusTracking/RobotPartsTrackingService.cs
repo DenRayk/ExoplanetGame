@@ -67,7 +67,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             return exoplanetService.ExoPlanet.RobotStatusManager.RobotPartsHealth.ContainsKey(robot);
         }
 
-        public int GetRobotPartHealth(RobotBase robot, RobotPart part)
+        public int GetRobotPartHealth(IRobot robot, RobotPart part)
         {
             if (!DoesRobotExist(robot))
             {

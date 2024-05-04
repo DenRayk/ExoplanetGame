@@ -8,7 +8,7 @@ namespace ExoplanetGame.Application.Exoplanet
 
         bool IsRobotPartDamaged(IRobot robot, RobotPart part);
 
-        int GetRobotPartHealth(RobotBase robot, RobotPart part);
+        int GetRobotPartHealth(IRobot robot, RobotPart part);
 
         Dictionary<RobotPart, int> GetRobotPartsByRobot(IRobot robot);
 

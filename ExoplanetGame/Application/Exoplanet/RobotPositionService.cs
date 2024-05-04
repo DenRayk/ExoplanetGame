@@ -72,7 +72,7 @@ namespace ExoplanetGame.Application.Exoplanet
                 return false;
             }
 
-            if (IsPositionLava(newPosition, topography) && robot.RobotVariant != RobotVariant.LAVA)
+            if (IsPositionLava(newPosition, topography) && robot is not LavaBot)
             {
                 positionResult.Message = "The position is lava.";
                 positionResult.IsSuccess = false;
@@ -111,7 +111,7 @@ namespace ExoplanetGame.Application.Exoplanet
             return topography.GetMeasureAtPosition(position).Ground == Ground.LAVA;
         }
 
-        public void UpdateRobotPosition(RobotBase robot, Position newPosition)
+        public void UpdateRobotPosition(IRobot robot, Position newPosition)
         {
             exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot] = newPosition;
         }
@@ -121,7 +121,7 @@ namespace ExoplanetGame.Application.Exoplanet
             ExoPlanetBase exoplanet = exoplanetService.ExoPlanet;
             exoplanetService.HeatTracking.WaterCoolDown(robot);
 
-            if (robot.RobotVariant == RobotVariant.AQUA)
+            if (robot is AquaBot)
             {
                 return position;
             }

@@ -2,10 +2,25 @@
 
 namespace ExoplanetGame.Domain.Robot.Variants
 {
-    public class AquaBot : RobotBase
+    public class AquaBot : IRobot
     {
-        public AquaBot(ControlCenter.ControlCenter controlCenter, ExoPlanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId, RobotVariant.AQUA)
+        public ExoPlanetBase ExoPlanet { get; }
+
+        public RobotInformation RobotInformation { get; }
+
+        public AquaBot(ExoPlanetBase exoPlanet, int robotID)
+
         {
+            ExoPlanet = exoPlanet;
+            RobotInformation = new RobotInformation
+            {
+                RobotID = robotID,
+            };
+        }
+
+        public string GetLanderName()
+        {
+            return $"Robot {RobotInformation.RobotID} ({GetType().Name})";
         }
     }
 }

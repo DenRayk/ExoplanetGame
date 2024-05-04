@@ -2,11 +2,25 @@
 
 namespace ExoplanetGame.Domain.Robot.Variants
 {
-    public class LavaBot : RobotBase
+    public class LavaBot : IRobot
     {
-        public LavaBot(ControlCenter.ControlCenter controlCenter, ExoPlanetBase exoPlanet, int robotId) : base(exoPlanet, controlCenter, robotId, RobotVariant.LAVA)
+        public ExoPlanetBase ExoPlanet { get; }
+
+        public RobotInformation RobotInformation { get; }
+
+        public LavaBot(ExoPlanetBase exoPlanet, int robotId)
         {
-            RobotInformation.MaxHeat = 200;
+            ExoPlanet = exoPlanet;
+            RobotInformation = new RobotInformation
+            {
+                RobotID = robotId,
+                MaxHeat = 200
+            };
+        }
+
+        public string GetLanderName()
+        {
+            return $"Robot {RobotInformation.RobotID} ({GetType().Name})";
         }
     }
 }

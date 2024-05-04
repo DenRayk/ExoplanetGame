@@ -16,7 +16,7 @@ namespace ExoplanetGame.Application.Exoplanet
         bool IsPositionSafeForRobot(IRobot robot, Position newPosition, Topography topography,
             ref PositionResult positionResult);
 
-        void UpdateRobotPosition(RobotBase robot, Position newPosition);
+        void UpdateRobotPosition(IRobot robot, Position newPosition);
 
         Position WaterDrift(IRobot robot, Position position, Topography topography);
 

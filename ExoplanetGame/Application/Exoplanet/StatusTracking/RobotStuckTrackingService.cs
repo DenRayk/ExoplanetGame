@@ -17,7 +17,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
         public void CheckIfRobotGetsStuck(IRobot robot, Topography topography, Position position)
         {
-            if (robot.RobotVariant == RobotVariant.MUD)
+            if (robot is MudBot)
                 return;
 
             Ground newGround = topography.GetMeasureAtPosition(position).Ground;

@@ -2,12 +2,28 @@
 
 namespace ExoplanetGame.Domain.Robot.Variants
 {
-    public class MudBot : RobotBase
+    public class MudBot : IRobot
     {
-        public MudBot(ControlCenter.ControlCenter controlCenter, ExoPlanetBase exoPlanet, int robotId) : base(exoPlanet,
-            controlCenter, robotId, RobotVariant.MUD)
+        public ExoPlanetBase ExoPlanet { get; }
+
+        public RobotInformation RobotInformation { get; }
+
+        public MudBot(ExoPlanetBase exoPlanet, int robotId)
         {
-            RobotInformation.RobotParts[RobotPart.WHEELS] = 200;
+            ExoPlanet = exoPlanet;
+            RobotInformation = new RobotInformation
+            {
+                RobotID = robotId,
+                RobotParts =
+                {
+                    [RobotPart.WHEELS] = 200,
+                }
+            };
+        }
+
+        public string GetLanderName()
+        {
+            return $"Robot {RobotInformation.RobotID} ({GetType().Name})";
         }
     }
 }
