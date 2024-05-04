@@ -6,8 +6,6 @@ namespace ExoplanetGame.Domain.ControlCenter
 {
     public class PlanetMap
     {
-        private PlanetMapUseCase planetMapUseCase = new PlanetMapService();
-
         public PlanetSize PlanetSize { get; set; }
         public Ground[,] map { get; set; }
 
@@ -24,19 +22,9 @@ namespace ExoplanetGame.Domain.ControlCenter
             }
         }
 
-        public void UpdateMap(Position position, Ground ground)
-        {
-            planetMapUseCase.UpdateMap(this, position, ground);
-        }
-
         public Ground getGround(int x, int y)
         {
             return map[x, y];
-        }
-
-        public string GetPercentageOfExploredArea()
-        {
-            return planetMapUseCase.GetPercentageOfExploredArea(this);
         }
     }
 }

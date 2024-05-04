@@ -40,7 +40,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
                 Weather weather = ucCollection.UcCollectionControlCenter.GetCurrentWeatherUseCase.GetCurrentWeather();
 
                 Console.WriteLine($"Current weather: {weather.GetDescriptionFromEnum()}");
-                Console.WriteLine($"Discovered area of the planet: {planetMap.GetPercentageOfExploredArea()}");
+                Console.WriteLine($"Discovered area of the planet: {ucCollection.UcCollectionRobot.PlanetMapService.GetPercentageOfExploredArea()}");
                 MapPrinter.PrintMap(robots, planetMap);
 
                 var options = GetRobotMenuOptions();

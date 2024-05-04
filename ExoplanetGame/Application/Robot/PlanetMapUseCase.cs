@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExoplanetGame.Application.ControlCenter
+namespace ExoplanetGame.Application.Robot
 {
-    internal interface PlanetMapUseCase
+    public interface PlanetMapUseCase
     {
-        void UpdateMap(PlanetMap map, Position position, Ground ground);
+        void UpdateMap(Position position, Ground ground);
 
-        string GetPercentageOfExploredArea(PlanetMap map);
+        string GetPercentageOfExploredArea();
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExoplanetGame.Application.Exoplanet;
+using ExoplanetGame.Application.Robot;
 
 namespace ExoplanetGame.Application.ControlCenter
 {
@@ -16,6 +17,7 @@ namespace ExoplanetGame.Application.ControlCenter
             this.GetRobotsService = new GetRobotsService();
             this.GetPlanetMapUseCase = new GetPlanetMapService();
             this.GetCurrentWeatherUseCase = new GetCurrentWeatherService();
+            this.PlanetMapUseCase = new PlanetMapService();
         }
 
         public SelectPlanetUseCase SelectPlanetUseCase { get; }
@@ -25,5 +27,7 @@ namespace ExoplanetGame.Application.ControlCenter
         public GetCurrentWeatherUseCase GetCurrentWeatherUseCase { get; }
 
         public GetPlanetMapUseCase GetPlanetMapUseCase { get; }
+
+        private PlanetMapUseCase PlanetMapUseCase { get; }
     }
 }

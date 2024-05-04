@@ -9,13 +9,13 @@ namespace ExoplanetGame.Application.Robot
     {
         private ExoplanetService exoplanetService;
         private RobotRepository robotRepository;
-        private Domain.ControlCenter.ControlCenter controlCenter;
+        private AddMeasureUseCase addMeasureService;
 
-        public RobotScanService(ExoplanetService exoplanetService)
+        public RobotScanService(ExoplanetService exoplanetService, AddMeasureUseCase addMeasureService)
         {
             this.exoplanetService = exoplanetService;
+            this.addMeasureService = addMeasureService;
             this.robotRepository = RobotRepository.GetInstance();
-            this.controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
         }
 
         public ScanResult Scan(IRobot robot)
@@ -24,16 +24,14 @@ namespace ExoplanetGame.Application.Robot
 
             if (scanResult.IsSuccess)
             {
-                controlCenter.AddMeasures(scanResult.Measures);
+                addMeasureService.AddMeasures(scanResult.Measures);
                 return scanResult;
             }
-            else
+
+            if (!scanResult.HasRobotSurvived)
             {
-                if (!scanResult.HasRobotSurvived)
-                {
-                    robotRepository.RemoveRobot(robot);
-                    exoplanetService.RobotPostionsService.RemoveRobot(robot);
-                }
+                robotRepository.RemoveRobot(robot);
+                exoplanetService.RobotPostionsService.RemoveRobot(robot);
             }
 
             return scanResult;

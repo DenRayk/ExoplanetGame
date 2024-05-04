@@ -22,19 +22,6 @@ namespace ExoplanetGame.Domain.ControlCenter
         {
         }
 
-        public void AddMeasure(Measure measure, Position position)
-        {
-            PlanetMap.UpdateMap(position, measure.Ground);
-        }
-
-        public void AddMeasures(Dictionary<Measure, Position> measures)
-        {
-            foreach (var measure in measures)
-            {
-                AddMeasure(measure.Key, measure.Value);
-            }
-        }
-
         public static ControlCenter GetInstance()
         {
             if (controlCenter == null)
