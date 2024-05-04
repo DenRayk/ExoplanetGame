@@ -1,10 +1,13 @@
-﻿using ExoplanetGame.Domain.Exoplanet.Environment;
+﻿using ExoplanetGame.Application.ControlCenter;
+using ExoplanetGame.Domain.Exoplanet.Environment;
 using ExoplanetGame.Domain.Robot.Movement;
 
 namespace ExoplanetGame.Domain.ControlCenter
 {
     public class PlanetMap
     {
+        private PlanetMapUseCase planetMapUseCase = new PlanetMapService();
+
         public PlanetSize PlanetSize { get; set; }
         public Ground[,] map { get; set; }
 
@@ -21,9 +24,9 @@ namespace ExoplanetGame.Domain.ControlCenter
             }
         }
 
-        public void updateMap(Position position, Ground ground)
+        public void UpdateMap(Position position, Ground ground)
         {
-            map[position.Y, position.X] = ground;
+            planetMapUseCase.UpdateMap(this, position, ground);
         }
 
         public Ground getGround(int x, int y)
@@ -33,26 +36,7 @@ namespace ExoplanetGame.Domain.ControlCenter
 
         public string GetPercentageOfExploredArea()
         {
-            int totalArea = PlanetSize.Height * PlanetSize.Width;
-            int exploredArea = 0;
-
-            for (int rowIndex = 0; rowIndex < PlanetSize.Height; rowIndex++)
-            {
-                for (int columnIndex = 0; columnIndex < PlanetSize.Width; columnIndex++)
-                {
-                    bool isAreaExplored = getGround(rowIndex, columnIndex) != Ground.NOTHING;
-
-                    if (isAreaExplored)
-                    {
-                        exploredArea++;
-                    }
-                }
-            }
-
-            double exploredAreaPercentage = (double)exploredArea / totalArea * 100;
-            string formattedPercentage = exploredAreaPercentage.ToString("0.00") + "%";
-
-            return formattedPercentage;
+            return planetMapUseCase.GetPercentageOfExploredArea(this);
         }
     }
 }

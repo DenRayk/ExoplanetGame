@@ -24,7 +24,7 @@ namespace ExoplanetGame.Domain.ControlCenter
 
         public void AddMeasure(Measure measure, Position position)
         {
-            PlanetMap.updateMap(position, measure.Ground);
+            PlanetMap.UpdateMap(position, measure.Ground);
         }
 
         public void AddMeasures(Dictionary<Measure, Position> measures)
