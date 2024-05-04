@@ -27,7 +27,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
                 Console.WriteLine("Control Center");
                 Console.WriteLine("Select an option (press F1 for help):\n");
 
-                var options = getControlCenterOptions();
+                var options = GetControlCenterOptions();
 
                 baseCommand = ReadUserInputWithOptions(options);
 
@@ -40,7 +40,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             } while (baseCommand is not ExitCommand);
         }
 
-        private Dictionary<string, BaseCommand> getControlCenterOptions()
+        private Dictionary<string, BaseCommand> GetControlCenterOptions()
         {
             var options = new Dictionary<string, BaseCommand>
             {

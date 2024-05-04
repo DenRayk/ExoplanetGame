@@ -13,7 +13,7 @@ namespace ExoplanetGame.Domain.ControlCenter
 
         public int MaxRobots => 5;
 
-        public int getRobotIDandIncrement()
+        public int GetRobotIDandIncrement()
         {
             return RobotId++;
         }

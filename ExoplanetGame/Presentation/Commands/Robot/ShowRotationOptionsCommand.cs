@@ -18,7 +18,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            var options = getRotationOptions();
+            var options = GetRotationOptions();
 
             BaseCommand baseCommand = ReadUserInputWithOptions(options);
 
@@ -26,7 +26,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             RobotResult = ((RobotCommand)baseCommand).RobotResult;
         }
 
-        private Dictionary<string, BaseCommand> getRotationOptions()
+        private Dictionary<string, BaseCommand> GetRotationOptions()
         {
             Dictionary<string, BaseCommand> options = new();
             foreach (Rotation rotation in Enum.GetValues(typeof(Rotation)))

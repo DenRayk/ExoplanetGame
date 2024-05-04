@@ -11,7 +11,7 @@ namespace ExoplanetGame.Application.Robot
 {
     public interface PlanetMapUseCase
     {
-        void UpdateMap(Position position, Ground ground);
+        void Map(Position position, Ground ground);
 
         string GetPercentageOfExploredArea();
     }

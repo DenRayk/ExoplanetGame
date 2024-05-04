@@ -23,7 +23,7 @@ namespace ExoplanetGame.Application.Robot
 
             if (rotationResult.IsSuccess)
             {
-                updatePosition(robot, rotationResult);
+                UpdatePosition(robot, rotationResult);
                 return rotationResult;
             }
 
@@ -36,7 +36,7 @@ namespace ExoplanetGame.Application.Robot
             return rotationResult;
         }
 
-        private void updatePosition(IRobot robot, RotationResult rotationResult)
+        private void UpdatePosition(IRobot robot, RotationResult rotationResult)
         {
             Position newPosition = new(robot.RobotInformation.Position.X, robot.RobotInformation.Position.Y, rotationResult.Direction);
             robot.RobotInformation.Position = newPosition;

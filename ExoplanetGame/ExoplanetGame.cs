@@ -13,7 +13,7 @@ namespace ExoplanetGame
             UCCollection ucCollection = new();
             ExoplanetService exoplanetService = new();
 
-            ucCollection.init(exoplanetService);
+            ucCollection.Init(exoplanetService);
 
             ShowPlanetSelectionCommand showPlanetSelectionCommand = new(ucCollection, exoplanetService);
             showPlanetSelectionCommand.Execute();

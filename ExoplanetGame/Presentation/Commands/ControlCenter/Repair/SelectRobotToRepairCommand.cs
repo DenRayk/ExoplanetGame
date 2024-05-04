@@ -18,7 +18,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             Console.WriteLine("Robot Repair Menu");
             Console.WriteLine("Select a robot to repair: \n");
 
-            var options = getRobotOptions(ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots());
+            var options = GetRobotOptions(ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots());
             if (options.Count != 0)
             {
                 BaseCommand baseCommand = ReadUserInputWithOptions(options);
@@ -32,7 +32,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             }
         }
 
-        private Dictionary<string, BaseCommand> getRobotOptions(Dictionary<IRobot, Position> getAllRobots)
+        private Dictionary<string, BaseCommand> GetRobotOptions(Dictionary<IRobot, Position> getAllRobots)
         {
             Dictionary<string, BaseCommand> options = new();
             foreach (var robot in getAllRobots)

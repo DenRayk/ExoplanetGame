@@ -27,7 +27,7 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 
         public override void Execute()
         {
-            var options = getPlanetOptions();
+            var options = GetPlanetOptions();
 
             BaseCommand baseCommand;
             do
@@ -45,7 +45,7 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
             baseCommand.Execute();
         }
 
-        private Dictionary<string, BaseCommand> getPlanetOptions()
+        private Dictionary<string, BaseCommand> GetPlanetOptions()
         {
             var options = new Dictionary<string, BaseCommand>();
 
@@ -53,11 +53,11 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
             {
                 options.Add(planetVariant.GetDescriptionFromEnum(), new SelectPlanetCommand(planetVariant, ucCollection, exoplanetService));
             }
-            options.Add("Random", new SelectPlanetCommand(getRandomPlanetVariant(), ucCollection, exoplanetService));
+            options.Add("Random", new SelectPlanetCommand(GetRandomPlanetVariant(), ucCollection, exoplanetService));
             return options;
         }
 
-        private PlanetVariant getRandomPlanetVariant()
+        private PlanetVariant GetRandomPlanetVariant()
         {
             Array values = Enum.GetValues(typeof(PlanetVariant));
             Random random = new Random();

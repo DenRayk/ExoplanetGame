@@ -23,7 +23,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 
         public override void Execute()
         {
-            var options = getRobotOptions();
+            var options = GetRobotOptions();
 
             BaseCommand baseCommand;
             do
@@ -42,7 +42,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             baseCommand.Execute();
         }
 
-        private Dictionary<string, BaseCommand> getRobotOptions()
+        private Dictionary<string, BaseCommand> GetRobotOptions()
         {
             var options = new Dictionary<string, BaseCommand>();
 
@@ -50,11 +50,11 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
             {
                 options.Add(planetVariant.GetDescriptionFromEnum(), new AddRobotCommand(planetVariant, ucCollection));
             }
-            options.Add("Random", new AddRobotCommand(getRandomRobotVariant(), ucCollection));
+            options.Add("Random", new AddRobotCommand(GetRandomRobotVariant(), ucCollection));
             return options;
         }
 
-        private RobotVariant getRandomRobotVariant()
+        private RobotVariant GetRandomRobotVariant()
         {
             Array values = Enum.GetValues(typeof(RobotVariant));
             Random random = new Random();

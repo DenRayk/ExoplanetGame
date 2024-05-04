@@ -23,7 +23,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             {
                 Console.WriteLine($"{robot.GetLanderName()} has used the following parts:");
                 Console.WriteLine("Select one to repair it \n");
-                var options = getRobotPartOptions(robotParts);
+                var options = GetRobotPartOptions(robotParts);
 
                 BaseCommand baseCommand = ReadUserInputWithOptions(options);
                 baseCommand.Execute();
@@ -34,7 +34,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
             }
         }
 
-        private Dictionary<string, BaseCommand> getRobotPartOptions(Dictionary<RobotPart, int> robotParts)
+        private Dictionary<string, BaseCommand> GetRobotPartOptions(Dictionary<RobotPart, int> robotParts)
         {
             Dictionary<string, BaseCommand> options = new();
             foreach (var robotPart in robotParts)

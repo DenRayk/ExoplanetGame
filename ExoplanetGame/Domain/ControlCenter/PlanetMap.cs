@@ -22,7 +22,7 @@ namespace ExoplanetGame.Domain.ControlCenter
             }
         }
 
-        public Ground getGround(int x, int y)
+        public Ground GetGround(int x, int y)
         {
             return map[x, y];
         }

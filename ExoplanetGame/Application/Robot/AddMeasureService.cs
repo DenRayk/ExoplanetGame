@@ -19,7 +19,7 @@ namespace ExoplanetGame.Application.Robot
 
         public void AddMeasure(Measure measure, Position position)
         {
-            planetMapService.UpdateMap(position, measure.Ground);
+            planetMapService.Map(position, measure.Ground);
         }
 
         public void AddMeasures(Dictionary<Measure, Position> measures)

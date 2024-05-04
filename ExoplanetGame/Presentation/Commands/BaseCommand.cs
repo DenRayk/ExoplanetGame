@@ -6,7 +6,7 @@ public abstract class BaseCommand
 
     public BaseCommand ReadUserInputWithOptions(Dictionary<string, BaseCommand> options)
     {
-        showOptions(options);
+        ShowOptions(options);
         int input = GetMenuSelection(options.Count);
 
         if (input == (int)ConsoleKey.F1)
@@ -22,7 +22,7 @@ public abstract class BaseCommand
         return options.Values.ElementAt(input - 1);
     }
 
-    private void showOptions(Dictionary<string, BaseCommand> options)
+    private void ShowOptions(Dictionary<string, BaseCommand> options)
     {
         int i = 1;
         foreach (var option in options)

@@ -21,20 +21,20 @@ namespace ExoplanetGame.Presentation
 
                             if (robot.Value.X == j && robot.Value.Y == i)
                             {
-                                printGroundWithRobot(planetMap.map[i, j], robot.Key);
+                                PrintGroundWithRobot(planetMap.map[i, j], robot.Key);
                             }
                         }
                     }
                     else
                     {
-                        printGround(planetMap.map[i, j]);
+                        PrintGround(planetMap.map[i, j]);
                     }
                 }
                 Console.WriteLine();
             }
         }
 
-        public static void printGround(Ground ground)
+        public static void PrintGround(Ground ground)
         {
             switch (ground)
             {
@@ -86,7 +86,7 @@ namespace ExoplanetGame.Presentation
             Console.ResetColor();
         }
 
-        public static void printGroundWithRobot(Ground ground, IRobot robot)
+        public static void PrintGroundWithRobot(Ground ground, IRobot robot)
         {
             switch (ground)
             {

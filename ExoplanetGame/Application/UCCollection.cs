@@ -14,7 +14,7 @@ namespace ExoplanetGame.Application
         public UCCollectionControlCenter UcCollectionControlCenter { get; }
         public UCCollectionRobot UcCollectionRobot { get; set; }
 
-        public void init(ExoplanetService exoplanetService)
+        public void Init(ExoplanetService exoplanetService)
         {
             UcCollectionRobot = new UCCollectionRobot(exoplanetService);
         }

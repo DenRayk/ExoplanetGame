@@ -23,7 +23,7 @@ namespace ExoplanetGameTest
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
             IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
-            ucCollection.init(exoplanetService);
+            ucCollection.Init(exoplanetService);
 
             // Act
             ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
@@ -43,7 +43,7 @@ namespace ExoplanetGameTest
             IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
             IRobot robotBase2 = new DefaultBot(exoplanetService.ExoPlanet, 1);
 
-            ucCollection.init(exoplanetService);
+            ucCollection.Init(exoplanetService);
 
             // Act
             ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
@@ -64,7 +64,7 @@ namespace ExoplanetGameTest
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
             IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
-            ucCollection.init(exoplanetService);
+            ucCollection.Init(exoplanetService);
 
             // Act
             ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
@@ -85,7 +85,7 @@ namespace ExoplanetGameTest
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
             IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
-            ucCollection.init(exoplanetService);
+            ucCollection.Init(exoplanetService);
 
             // Act
             ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
@@ -106,7 +106,7 @@ namespace ExoplanetGameTest
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
             IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
-            ucCollection.init(exoplanetService);
+            ucCollection.Init(exoplanetService);
 
             // Act
             ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
@@ -127,7 +127,7 @@ namespace ExoplanetGameTest
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
             IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
-            ucCollection.init(exoplanetService);
+            ucCollection.Init(exoplanetService);
 
             // Act
             ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
@@ -148,7 +148,7 @@ namespace ExoplanetGameTest
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
             IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
-            ucCollection.init(exoplanetService);
+            ucCollection.Init(exoplanetService);
 
             // Act
             ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));

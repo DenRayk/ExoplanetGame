@@ -18,7 +18,7 @@ namespace ExoplanetGame.Application.Robot
             controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
         }
 
-        public void UpdateMap(Position position, Ground ground)
+        public void Map(Position position, Ground ground)
         {
             controlCenter.PlanetMap.map[position.Y, position.X] = ground;
         }
@@ -32,7 +32,7 @@ namespace ExoplanetGame.Application.Robot
             {
                 for (int columnIndex = 0; columnIndex < controlCenter.PlanetMap.PlanetSize.Width; columnIndex++)
                 {
-                    bool isAreaExplored = controlCenter.PlanetMap.getGround(rowIndex, columnIndex) != Ground.NOTHING;
+                    bool isAreaExplored = controlCenter.PlanetMap.GetGround(rowIndex, columnIndex) != Ground.NOTHING;
 
                     if (isAreaExplored)
                     {

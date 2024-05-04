@@ -26,7 +26,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            var options = getLandOptions();
+            var options = GetLandOptions();
 
             BaseCommand baseCommand;
             do
@@ -53,7 +53,7 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             baseCommand.Execute();
         }
 
-        private Dictionary<string, BaseCommand> getLandOptions()
+        private Dictionary<string, BaseCommand> GetLandOptions()
         {
             var options = new Dictionary<string, BaseCommand>();
             options.Add("Land", new LandCommand(robot, ucCollection));
