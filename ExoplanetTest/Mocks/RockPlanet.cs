@@ -1,16 +1,20 @@
 ﻿using ExoplanetGame.Domain.Exoplanet;
 using ExoplanetGame.Domain.Exoplanet.Environment;
 
-namespace ExoplanetGameTest
+namespace ExoplanetGameTest.Mocks
 {
-    internal class MockedPlanet : IExoPlanet
+    internal class RockPlanet : IExoPlanet
     {
-        public MockedPlanet()
+        public RockPlanet()
         {
             Topography = new Topography(new string[]
             {
-                "FFFFFFFF",
-                "FFFFFFFF",
+                "RRRRRRRRRRRRRRRRR",
+                "RRRRRRRRRRRRRRRRR",
+                "RRRRRRRRRRRRRRRRR",
+                "RRRRRRRRRRRRRRRRR",
+                "RRRRRRRRRRRRRRRRR",
+                "RRRRRRRRRRRRRRRRR",
             });
             RobotPositionManager = new RobotPositionManager();
             RobotStatusManager = new RobotStatusManager();
