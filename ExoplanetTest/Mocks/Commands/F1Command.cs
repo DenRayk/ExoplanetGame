@@ -14,7 +14,7 @@ namespace ExoplanetGameTest.Mocks.Commands
             throw new NotImplementedException();
         }
 
-        public override int GetMenuSelection(int maxValue)
+        public override int GetMenuSelection(int minvalue, int maxValue)
         {
             return (int)ConsoleKey.F1;
         }
