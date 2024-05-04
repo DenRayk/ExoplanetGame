@@ -5,13 +5,13 @@ namespace ExoplanetGame.Domain.ControlCenter
 {
     public class Measure
     {
-        public Ground Ground { get; set; }
-        public double Temperature { get; set; } // Temperature property
+        public Ground Ground { get; }
+        public double Temperature { get; }
 
         public Measure()
         {
             Ground = Ground.NOTHING;
-            Temperature = 0.0; // Default temperature value
+            Temperature = 0.0;
         }
 
         public Measure(Ground ground, double temperature)
@@ -49,28 +49,6 @@ namespace ExoplanetGame.Domain.ControlCenter
             sb.Append(Temperature.ToString("0.##"));
             sb.Append("°C");
             return sb.ToString();
-        }
-
-        public static Measure Parse(string data)
-        {
-            string[] parts = data.Split('|');
-            if (parts.Length != 3) // Check if parts contain both Ground and Temperature
-            {
-                throw new ArgumentException("Invalid measure data: " + data);
-            }
-
-            if (parts[0] != "MEASURE")
-            {
-                throw new ArgumentException("Invalid measure data: " + data);
-            }
-
-            // Parse temperature value
-            if (!double.TryParse(parts[2], out double temperature))
-            {
-                throw new ArgumentException("Invalid temperature value: " + parts[2]);
-            }
-
-            return new Measure((Ground)Enum.Parse(typeof(Ground), parts[1]), temperature);
         }
     }
 }
