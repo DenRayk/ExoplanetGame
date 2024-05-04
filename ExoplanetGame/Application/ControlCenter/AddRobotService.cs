@@ -8,7 +8,7 @@ namespace ExoplanetGame.Application.ControlCenter
     {
         private readonly Domain.ControlCenter.ControlCenter controlCenter;
         private readonly RobotFactory robotFactory;
-        private readonly RobotRepository robotRepository;
+        private readonly IRobotRepository robotRepository;
 
         public AddRobotService()
         {

@@ -5,7 +5,7 @@ namespace ExoplanetGame.Domain.ControlCenter
 {
     internal class RobotRepository : IRobotRepository
     {
-        private static RobotRepository instance;
+        private static IRobotRepository instance;
         private Dictionary<IRobot, Position> robots;
 
         private RobotRepository()
@@ -13,7 +13,7 @@ namespace ExoplanetGame.Domain.ControlCenter
             robots = new Dictionary<IRobot, Position>();
         }
 
-        public static RobotRepository GetInstance()
+        public static IRobotRepository GetInstance()
         {
             if (instance == null)
             {

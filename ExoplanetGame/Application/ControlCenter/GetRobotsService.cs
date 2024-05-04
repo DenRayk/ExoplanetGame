@@ -6,7 +6,7 @@ namespace ExoplanetGame.Application.ControlCenter
 {
     public class GetRobotsService
     {
-        private RobotRepository robotRepository;
+        private IRobotRepository robotRepository;
 
         public GetRobotsService()
         {

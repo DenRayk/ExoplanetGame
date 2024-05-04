@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ExoplanetGame.Application.ControlCenter.UCCollectionControlCenter">
+    <Position X="7.25" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAEQAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Application\ControlCenter\UCCollectionControlCenter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AddRobotUseCase" />
+      <Property Name="GetCurrentWeatherUseCase" />
+      <Property Name="GetPlanetMapUseCase" />
+      <Property Name="SelectPlanetUseCase" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ExoplanetGame.Application.ControlCenter.AddRobotService" Collapsed="true">
+    <Position X="2.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAQAAAAAgAAAAAgAAAAAA=</HashCode>
+      <FileName>Application\ControlCenter\AddRobotService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExoplanetGame.Application.ControlCenter.GetCurrentWeatherService" Collapsed="true">
+    <Position X="11.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\ControlCenter\GetCurrentWeatherService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExoplanetGame.Application.ControlCenter.GetPlanetMapService" Collapsed="true">
+    <Position X="10" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\ControlCenter\GetPlanetMapService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExoplanetGame.Application.ControlCenter.SelectPlanetService" Collapsed="true">
+    <Position X="7" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAgAAAAAAAAA=</HashCode>
+      <FileName>Application\ControlCenter\SelectPlanetService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ExoplanetGame.Application.ControlCenter.AddRobotUseCase" Collapsed="true">
+    <Position X="4" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\ControlCenter\AddRobotUseCase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ExoplanetGame.Application.ControlCenter.GetCurrentWeatherUseCase" Collapsed="true">
+    <Position X="11.5" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\ControlCenter\GetCurrentWeatherUseCase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ExoplanetGame.Application.ControlCenter.GetPlanetMapUseCase" Collapsed="true">
+    <Position X="10" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\ControlCenter\GetPlanetMapUseCase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ExoplanetGame.Application.ControlCenter.SelectPlanetUseCase" Collapsed="true">
+    <Position X="7" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Application\ControlCenter\SelectPlanetUseCase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

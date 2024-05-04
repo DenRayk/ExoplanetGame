@@ -8,7 +8,7 @@ namespace ExoplanetGame.Application.Robot
     internal class GetPositionService : GetPositionUseCase
     {
         private ExoplanetService exoplanetService;
-        private RobotRepository robotRepository;
+        private IRobotRepository robotRepository;
 
         public GetPositionService(ExoplanetService exoplanetService)
         {
