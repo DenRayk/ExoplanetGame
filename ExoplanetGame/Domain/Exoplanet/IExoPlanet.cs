@@ -1,10 +1,4 @@
 ﻿using ExoplanetGame.Domain.Exoplanet.Environment;
-using ExoplanetGame.Domain.Exoplanet.Variants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExoplanetGame.Domain.Exoplanet
 {

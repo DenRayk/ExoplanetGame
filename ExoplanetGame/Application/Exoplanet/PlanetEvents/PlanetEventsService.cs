@@ -6,7 +6,7 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
 {
     public class PlanetEventsService
     {
-        private ExoplanetService exoplanetService;
+        private readonly IExoplanetService exoplanetService;
         public ChangeWeatherUseCase ChangeWeatherService { get; }
         public FreezeUseCase FreezeService { get; }
 
@@ -14,13 +14,13 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
 
         public VolcanicEruptionUseCase VolcanicEruptionService { get; }
 
-        public PlanetEventsService(ExoplanetService exoplanetService)
+        public PlanetEventsService(IExoplanetService exoplanetService, ChangeWeatherUseCase changeWeatherService, FreezeUseCase freezeService, RandomAttackUseCase randomAttackService, VolcanicEruptionUseCase volcanicEruptionService)
         {
             this.exoplanetService = exoplanetService;
-            ChangeWeatherService = new ChangeWeatherService(exoplanetService);
-            FreezeService = new FreezeService(exoplanetService);
-            RandomAttackService = new RandomAttackService();
-            VolcanicEruptionService = new VolcanicEruptionService();
+            ChangeWeatherService = changeWeatherService;
+            FreezeService = freezeService;
+            RandomAttackService = randomAttackService;
+            VolcanicEruptionService = volcanicEruptionService;
         }
 
         public RobotResultBase ExecutePlanetEvents(IRobot robot)

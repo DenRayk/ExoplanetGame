@@ -6,7 +6,7 @@ using ExoplanetGame.Domain.Exoplanet.Variants;
 
 namespace ExoplanetGame.Application.Exoplanet
 {
-    public class ExoplanetService
+    public class ExoplanetService : IExoplanetService
     {
         private ExoPlanetFactory exoPlanetFactory;
         public EnergyTrackingUseCase EnergyTracking { get; }
@@ -20,11 +20,17 @@ namespace ExoplanetGame.Application.Exoplanet
         public LandOnExoplanetUseCase LandOnExoplanetService { get; }
         public RotateOnExoplanetUseCase RotateOnExoplanetService { get; }
         public LoadOnExoplanetUseCase LoadOnExoplanetService { get; }
+
+        public ChangeWeatherUseCase ChangeWeatherService { get; }
+        public FreezeUseCase FreezeService { get; }
+
+        public RandomAttackUseCase RandomAttackService { get; }
+
+        public VolcanicEruptionUseCase VolcanicEruptionService { get; }
         public PlanetEventsService PlanetEventsService { get; }
 
         public ExoplanetService()
         {
-            PlanetEventsService = new PlanetEventsService(this);
             EnergyTracking = new EnergyTrackingService(this);
             HeatTracking = new HeatTrackingService(this);
             FreezeTracking = new FreezeTrackingService(this);
@@ -32,6 +38,16 @@ namespace ExoplanetGame.Application.Exoplanet
             RobotPartsTracking = new RobotPartsTrackingService(this);
             RobotPostionsService = new RobotPositionService(this);
             ScanOnExoplanetService = new ScanOnExoplanetService(this);
+            ChangeWeatherService = new ChangeWeatherService(this);
+            FreezeService = new FreezeService(this);
+            RandomAttackService = new RandomAttackService();
+            VolcanicEruptionService = new VolcanicEruptionService();
+            PlanetEventsService = new PlanetEventsService(
+                this,
+                ChangeWeatherService,
+                FreezeService,
+                RandomAttackService,
+                VolcanicEruptionService);
             MoveOnExoplanetService = new MoveOnExoplanetService(this, PlanetEventsService);
             LandOnExoplanetService = new LandOnExoplanetService(this);
             RotateOnExoplanetService = new RotateOnExoplanetService(this, PlanetEventsService);

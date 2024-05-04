@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Factory.ExoPlanetFactory">
+    <Position X="9.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Factory\ExoPlanetFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Factory.GaiaPlanetFactory">
+    <Position X="8.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Factory\GaiaPlanetFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Factory.AquaticaPlanetFactory">
+    <Position X="13.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Factory\AquaticaPlanetFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Factory.FrostfellPlanetFactory">
+    <Position X="4.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Factory\FrostfellPlanetFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Factory.LavariaPlanetFactory">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Factory\LavariaPlanetFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Factory.TerraPlanetFactory">
+    <Position X="15.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Factory\TerraPlanetFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Factory.TropicaPlanetFactory">
+    <Position X="6.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Factory\TropicaPlanetFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ExoplanetGame.Domain.Exoplanet.IExoPlanet" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAABBAAAAAAAAgAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\IExoPlanet.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

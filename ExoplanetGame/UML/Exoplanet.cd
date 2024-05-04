@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Variants.Aquatica" BaseTypeListCollapsed="true">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAABFAAAAAAAAgAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Variants\Aquatica.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Variants.Frostfell" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAABBAAAAAAAAwAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Variants\Frostfell.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Variants.Gaia" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAABBAAAAAAAAgAAAAAAQAAAAAAAAQAA=</HashCode>
+      <FileName>Domain\Exoplanet\Variants\Gaia.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Variants.Lavaria" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAABFAAAAAAAAgAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Variants\Lavaria.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Variants.Terra" BaseTypeListCollapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAABBAAAAAAAAgAAAAAAQAgAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\Variants\Terra.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExoplanetGame.Domain.Exoplanet.Variants.Tropica" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAABBAAAAAAAAgAAAAAAQAAAAAAAAAAg=</HashCode>
+      <FileName>Domain\Exoplanet\Variants\Tropica.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ExoplanetGame.Domain.Exoplanet.IExoPlanet">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAABBAAAAAAAAgAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Exoplanet\IExoPlanet.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

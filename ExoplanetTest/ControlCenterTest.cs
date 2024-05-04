@@ -12,7 +12,6 @@ namespace ExoplanetGameTest
         {
             // Arrange
             UCCollection ucCollection = new UCCollection();
-
             AddRobotCommand addRobotCommand = new AddRobotCommand(RobotVariant.DEFAULT, ucCollection);
 
             // Act
