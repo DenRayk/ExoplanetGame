@@ -21,7 +21,7 @@ namespace ExoplanetGameTest
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.CreateExoPlanet(PlanetVariant.GAIA);
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
-            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+            IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
             ucCollection.init(exoplanetService);
 
@@ -29,7 +29,7 @@ namespace ExoplanetGameTest
             ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase, new Position(1, 1));
 
             // Assert
-            Assert.IsTrue(robotBase.HasLanded());
+            Assert.IsTrue(robotBase.RobotInformation.HasLanded);
         }
 
         [TestMethod]
@@ -40,8 +40,8 @@ namespace ExoplanetGameTest
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.CreateExoPlanet(PlanetVariant.GAIA);
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
-            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
-            RobotBase robotBase2 = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 1, RobotVariant.DEFAULT);
+            IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
+            IRobot robotBase2 = new DefaultBot(exoplanetService.ExoPlanet, 1);
 
             ucCollection.init(exoplanetService);
 
@@ -50,7 +50,7 @@ namespace ExoplanetGameTest
             ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robotBase2, new Position(1, 1));
 
             // Assert
-            Assert.IsFalse(robotBase2.HasLanded());
+            Assert.IsFalse(robotBase2.RobotInformation.HasLanded);
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace ExoplanetGameTest
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.ExoPlanet = mockedPlanet;
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
-            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+            IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
             ucCollection.init(exoplanetService);
 
@@ -83,7 +83,7 @@ namespace ExoplanetGameTest
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.ExoPlanet = mockedPlanet;
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
-            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+            IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
             ucCollection.init(exoplanetService);
 
@@ -104,7 +104,7 @@ namespace ExoplanetGameTest
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.ExoPlanet = mockedPlanet;
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
-            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+            IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
             ucCollection.init(exoplanetService);
 
@@ -125,7 +125,7 @@ namespace ExoplanetGameTest
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.ExoPlanet = mockedPlanet;
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
-            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+            IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
             ucCollection.init(exoplanetService);
 
@@ -146,7 +146,7 @@ namespace ExoplanetGameTest
             ExoplanetService exoplanetService = new ExoplanetService();
             exoplanetService.ExoPlanet = mockedPlanet;
             ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
-            RobotBase robotBase = new RobotBase(exoplanetService.ExoPlanet, ControlCenter.GetInstance(), 0, RobotVariant.DEFAULT);
+            IRobot robotBase = new DefaultBot(exoplanetService.ExoPlanet, 0);
 
             ucCollection.init(exoplanetService);
 
