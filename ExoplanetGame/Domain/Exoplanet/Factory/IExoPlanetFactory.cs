@@ -4,6 +4,6 @@ namespace ExoplanetGame.Domain.Exoplanet.Factory
 {
     internal interface IExoPlanetBaseFactory
     {
-        ExoPlanetBase CreateExoPlanet(PlanetVariant planetVariant);
+        IExoPlanet CreateExoPlanet(PlanetVariant planetVariant);
     }
 }

@@ -10,7 +10,7 @@ namespace ExoplanetGame.Domain.Robot
 {
     public interface IRobot
     {
-        ExoPlanetBase ExoPlanet { get; }
+        IExoPlanet ExoPlanet { get; }
         RobotInformation RobotInformation { get; }
 
         string GetLanderName();

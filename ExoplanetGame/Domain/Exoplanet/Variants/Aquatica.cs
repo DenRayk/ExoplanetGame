@@ -2,10 +2,8 @@
 
 namespace ExoplanetGame.Domain.Exoplanet.Variants
 {
-    public class Aquatica : ExoPlanetBase
+    public class Aquatica : IExoPlanet
     {
-        private Random random = new();
-
         private readonly List<string[]> aquaticaVariants = new()
         {
             new string[]
@@ -69,19 +67,27 @@ namespace ExoplanetGame.Domain.Exoplanet.Variants
             }
         };
 
-        public Aquatica() : base(PlanetVariant.AQUATICA)
+        public Aquatica()
         {
             Weather = Weather.RAINY;
 
+            Random random = new();
             int randomVariant = random.Next(0, aquaticaVariants.Count);
 
             Topography = new Topography(aquaticaVariants[randomVariant]);
 
-            RobotPositionManager = new RobotPositionManager(this);
+            RobotPositionManager = new RobotPositionManager();
+            RobotStatusManager = new RobotStatusManager();
         }
 
-        public override void ChangeWeather()
+        public Weather Weather { get; private set; }
+        public RobotPositionManager RobotPositionManager { get; }
+        public RobotStatusManager RobotStatusManager { get; }
+        public Topography Topography { get; }
+
+        public void ChangeWeather()
         {
+            Random random = new();
             int weatherChange = random.Next(1, 101);
 
             switch (weatherChange)

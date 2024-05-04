@@ -33,7 +33,7 @@ namespace ExoplanetGame.Application.Exoplanet
 
         public PositionResult GetRobotPosition(IRobot robot)
         {
-            ExoPlanetBase exoPlanet = exoplanetService.ExoPlanet;
+            IExoPlanet exoPlanet = exoplanetService.ExoPlanet;
             if (exoplanetService.EnergyTracking.DoesRobotHaveEnoughEneryToAction(robot, RobotAction.GETPOSITION))
             {
                 exoplanetService.HeatTracking.PerformAction(robot, RobotAction.GETPOSITION, exoPlanet.Topography);
@@ -118,7 +118,7 @@ namespace ExoplanetGame.Application.Exoplanet
 
         public Position WaterDrift(IRobot robot, Position position, Topography topography)
         {
-            ExoPlanetBase exoplanet = exoplanetService.ExoPlanet;
+            IExoPlanet exoplanet = exoplanetService.ExoPlanet;
             exoplanetService.HeatTracking.WaterCoolDown(robot);
 
             if (robot is AquaBot)

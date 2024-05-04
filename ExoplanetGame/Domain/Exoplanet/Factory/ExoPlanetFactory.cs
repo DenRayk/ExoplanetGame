@@ -6,7 +6,7 @@ namespace ExoplanetGame.Domain.Exoplanet.Factory
     {
         private static ExoPlanetFactory instance;
 
-        public ExoPlanetBase CreateExoPlanet(PlanetVariant planetVariant)
+        public IExoPlanet CreateExoPlanet(PlanetVariant planetVariant)
         {
             switch (planetVariant)
             {

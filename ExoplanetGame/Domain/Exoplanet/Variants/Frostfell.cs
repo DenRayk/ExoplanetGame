@@ -2,10 +2,8 @@
 
 namespace ExoplanetGame.Domain.Exoplanet.Variants
 {
-    public class Frostfell : ExoPlanetBase
+    public class Frostfell : IExoPlanet
     {
-        private Random random = new();
-
         private readonly List<string[]> frostfellVariants = new()
         {
             new string[]
@@ -69,18 +67,26 @@ namespace ExoplanetGame.Domain.Exoplanet.Variants
             }
         };
 
-        public Frostfell() : base(PlanetVariant.FROSTFELL)
+        public Frostfell()
         {
             Weather = Weather.SNOWY;
 
+            Random random = new();
             int randomVariant = random.Next(0, frostfellVariants.Count);
             Topography = new Topography(frostfellVariants[randomVariant]);
 
-            RobotPositionManager = new RobotPositionManager(this);
+            RobotPositionManager = new RobotPositionManager();
+            RobotStatusManager = new RobotStatusManager();
         }
 
-        public override void ChangeWeather()
+        public Weather Weather { get; private set; }
+        public RobotPositionManager RobotPositionManager { get; }
+        public RobotStatusManager RobotStatusManager { get; }
+        public Topography Topography { get; }
+
+        public void ChangeWeather()
         {
+            Random random = new();
             int weatherChange = random.Next(1, 101);
 
             switch (weatherChange)

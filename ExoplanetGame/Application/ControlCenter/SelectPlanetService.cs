@@ -12,7 +12,7 @@ namespace ExoplanetGame.Application.ControlCenter
             controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
         }
 
-        public void SelectPlanet(ExoPlanetBase exoPlanet)
+        public void SelectPlanet(IExoPlanet exoPlanet)
         {
             controlCenter.exoPlanet = exoPlanet;
             controlCenter.PlanetMap = new PlanetMap(exoPlanet.Topography.PlanetSize);

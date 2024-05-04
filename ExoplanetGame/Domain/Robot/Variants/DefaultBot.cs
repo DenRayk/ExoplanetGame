@@ -4,11 +4,11 @@ namespace ExoplanetGame.Domain.Robot.Variants
 {
     public class DefaultBot : IRobot
     {
-        public ExoPlanetBase ExoPlanet { get; }
+        public IExoPlanet ExoPlanet { get; }
 
         public RobotInformation RobotInformation { get; }
 
-        public DefaultBot(ExoPlanetBase exoPlanet, int robotID)
+        public DefaultBot(IExoPlanet exoPlanet, int robotID)
         {
             ExoPlanet = exoPlanet;
             RobotInformation = new RobotInformation

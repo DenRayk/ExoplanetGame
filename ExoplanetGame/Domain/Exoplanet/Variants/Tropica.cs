@@ -2,7 +2,7 @@
 
 namespace ExoplanetGame.Domain.Exoplanet.Variants
 {
-    public class Tropica : ExoPlanetBase
+    public class Tropica : IExoPlanet
     {
         private readonly List<string[]> tropicaVariants = new()
         {
@@ -77,7 +77,7 @@ namespace ExoplanetGame.Domain.Exoplanet.Variants
             }
         };
 
-        public Tropica() : base(PlanetVariant.TROPICA)
+        public Tropica()
         {
             Weather = Weather.SUNNY;
 
@@ -85,10 +85,16 @@ namespace ExoplanetGame.Domain.Exoplanet.Variants
             int randomVariant = random.Next(0, tropicaVariants.Count);
             Topography = new Topography(tropicaVariants[randomVariant]);
 
-            RobotPositionManager = new RobotPositionManager(this);
+            RobotPositionManager = new RobotPositionManager();
+            RobotStatusManager = new RobotStatusManager();
         }
 
-        public override void ChangeWeather()
+        public Weather Weather { get; private set; }
+        public RobotPositionManager RobotPositionManager { get; }
+        public RobotStatusManager RobotStatusManager { get; }
+        public Topography Topography { get; }
+
+        public void ChangeWeather()
         {
             Random random = new();
             int weatherChange = random.Next(1, 101);

@@ -7,16 +7,9 @@ namespace ExoplanetGame.Domain.Exoplanet
     {
         public Dictionary<IRobot, Position> Robots { get; set; }
 
-        public RobotStatusManager RobotStatusManager { get; }
-
-        private readonly ExoPlanetBase exoPlanet;
-
-        public RobotPositionManager(ExoPlanetBase exoPlanet)
+        public RobotPositionManager()
         {
-            this.exoPlanet = exoPlanet;
             Robots = new Dictionary<IRobot, Position>();
-
-            RobotStatusManager = new RobotStatusManager();
         }
     }
 }

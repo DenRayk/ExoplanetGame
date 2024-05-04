@@ -16,7 +16,7 @@ namespace ExoplanetGame.Application.Exoplanet
 
         public PositionResult LandExoplanet(IRobot robot, Position landPosition)
         {
-            ExoPlanetBase exoPlanet = exoplanetService.ExoPlanet;
+            IExoPlanet exoPlanet = exoplanetService.ExoPlanet;
             PositionResult landResult = new();
 
             Position waterDriftPosition = exoplanetService.RobotPostionsService.WaterDrift(robot, landPosition, exoPlanet.Topography);

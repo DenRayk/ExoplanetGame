@@ -4,6 +4,6 @@ namespace ExoplanetGame.Application.ControlCenter
 {
     public interface SelectPlanetUseCase
     {
-        void SelectPlanet(ExoPlanetBase exoPlanetBase);
+        void SelectPlanet(IExoPlanet exoPlanetBase);
     }
 }

@@ -7,7 +7,7 @@ namespace ExoplanetGame.Domain.ControlCenter
     {
         private static ControlCenter controlCenter;
         private static int RobotId = 1;
-        public ExoPlanetBase exoPlanet;
+        public IExoPlanet exoPlanet;
 
         public PlanetMap PlanetMap { get; set; }
 

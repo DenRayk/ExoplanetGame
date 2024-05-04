@@ -4,11 +4,11 @@ namespace ExoplanetGame.Domain.Robot.Variants
 {
     public class AquaBot : IRobot
     {
-        public ExoPlanetBase ExoPlanet { get; }
+        public IExoPlanet ExoPlanet { get; }
 
         public RobotInformation RobotInformation { get; }
 
-        public AquaBot(ExoPlanetBase exoPlanet, int robotID)
+        public AquaBot(IExoPlanet exoPlanet, int robotID)
 
         {
             ExoPlanet = exoPlanet;

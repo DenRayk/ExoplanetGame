@@ -2,10 +2,8 @@
 
 namespace ExoplanetGame.Domain.Exoplanet.Variants
 {
-    public class Terra : ExoPlanetBase
+    public class Terra : IExoPlanet
     {
-        private Random random = new();
-
         private readonly List<string[]> terraVariants = new()
         {
             new string[]
@@ -69,18 +67,27 @@ namespace ExoplanetGame.Domain.Exoplanet.Variants
             }
         };
 
-        public Terra() : base(PlanetVariant.TERRA)
+        public Terra()
         {
             Weather = Weather.WINDY;
 
+            Random random = new();
             int randomVariant = random.Next(0, terraVariants.Count);
             Topography = new Topography(terraVariants[randomVariant]);
 
-            RobotPositionManager = new RobotPositionManager(this);
+            RobotPositionManager = new RobotPositionManager();
+            RobotStatusManager = new RobotStatusManager();
         }
 
-        public override void ChangeWeather()
+        public Weather Weather { get; private set; }
+        public RobotPositionManager RobotPositionManager { get; }
+        public RobotStatusManager RobotStatusManager { get; }
+        public Topography Topography { get; }
+
+        public void ChangeWeather()
         {
+            Random random = new();
+
             int weatherChange = random.Next(1, 101);
 
             switch (weatherChange)

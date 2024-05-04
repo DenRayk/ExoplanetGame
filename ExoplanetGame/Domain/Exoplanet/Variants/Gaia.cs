@@ -2,10 +2,8 @@
 
 namespace ExoplanetGame.Domain.Exoplanet.Variants
 {
-    public class Gaia : ExoPlanetBase
+    public class Gaia : IExoPlanet
     {
-        private Random random = new();
-
         private readonly List<string[]> gaiaVariants = new()
         {
             new string[]
@@ -59,18 +57,26 @@ namespace ExoplanetGame.Domain.Exoplanet.Variants
             }
         };
 
-        public Gaia() : base(PlanetVariant.GAIA)
+        public Gaia()
         {
             Weather = Weather.SUNNY;
 
+            Random random = new();
             int randomVariant = random.Next(0, gaiaVariants.Count);
             Topography = new Topography(gaiaVariants[randomVariant]);
 
-            RobotPositionManager = new RobotPositionManager(this);
+            RobotPositionManager = new RobotPositionManager();
+            RobotStatusManager = new RobotStatusManager();
         }
 
-        public override void ChangeWeather()
+        public Weather Weather { get; private set; }
+        public RobotPositionManager RobotPositionManager { get; }
+        public RobotStatusManager RobotStatusManager { get; }
+        public Topography Topography { get; }
+
+        public void ChangeWeather()
         {
+            Random random = new();
             int weatherChange = random.Next(1, 101);
 
             switch (weatherChange)

@@ -40,7 +40,7 @@ namespace ExoplanetGame.Application.Exoplanet
             LoadOnExoplanetService = new LoadOnExoplanetService(this);
         }
 
-        public ExoPlanetBase ExoPlanet { get; set; }
+        public IExoPlanet ExoPlanet { get; set; }
 
         public void CreateExoPlanet(PlanetVariant planetVariant)
         {

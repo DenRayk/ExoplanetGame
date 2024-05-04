@@ -19,7 +19,7 @@ namespace ExoplanetGame.Domain.Robot.Factory
             return instance;
         }
 
-        public IRobot CreateRobot(ControlCenter.ControlCenter controlCenter, ExoPlanetBase exoPlanet, int robotID, RobotVariant robotVariant)
+        public IRobot CreateRobot(ControlCenter.ControlCenter controlCenter, IExoPlanet exoPlanet, int robotID, RobotVariant robotVariant)
         {
             IRobot robotBase;
 
