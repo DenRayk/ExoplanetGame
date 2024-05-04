@@ -18,7 +18,7 @@ namespace ExoplanetGame.Application.Robot
             controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
         }
 
-        public void Map(Position position, Ground ground)
+        public void UpdateMap(Position position, Ground ground)
         {
             controlCenter.PlanetMap.map[position.Y, position.X] = ground;
         }
