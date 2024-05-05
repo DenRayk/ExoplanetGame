@@ -60,8 +60,11 @@ namespace ExoplanetGame.Presentation.Commands.Robot
                 Message = exception.Message
             };
 
-            ucCollection.UcCollectionRobot.RobotCoolDownService.CoolDownRobot(robot, robot.RobotInformation.MaxHeat / 10);
-        }
+            Console.WriteLine("Cooling down the robot...");
 
+            ucCollection.UcCollectionRobot.RobotCoolDownService.CoolDownRobot(robot, robot.RobotInformation.MaxHeat / 10);
+
+            Console.Clear();
+        }
     }
 }

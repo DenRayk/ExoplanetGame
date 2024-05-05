@@ -9,12 +9,10 @@ namespace ExoplanetGame.Application.Robot
         private const int COOL_DOWN_RATE = 5;
 
         private readonly ExoplanetService exoplanetService;
-        private readonly IRobotRepository robotRepository;
 
         public RobotCoolDownService(ExoplanetService exoplanetService)
         {
             this.exoplanetService = exoplanetService;
-            robotRepository = RobotRepository.GetInstance();
         }
 
         public void CoolDownRobot(IRobot robot, int seconds)
@@ -27,8 +25,6 @@ namespace ExoplanetGame.Application.Robot
                 }
                 Thread.Sleep(200);
             }
-
-            Console.Clear();
         }
     }
 }
