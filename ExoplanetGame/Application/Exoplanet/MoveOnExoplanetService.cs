@@ -24,6 +24,9 @@ namespace ExoplanetGame.Application.Exoplanet
             if (!IsRobotReadyToMove(robot, robotResult, out var moveResult))
                 return moveResult;
 
+            if(!robotResult.IsSuccess)
+                return moveResult;
+
             var newPosition = GetNewRobotPosition(robot, moveResult);
 
             if (!exoplanetService.RobotPostionsService.IsPositionSafeForRobot(robot, newPosition,
