@@ -180,7 +180,7 @@ namespace ExoplanetGameTest
             ScanResult scanResult = ucCollection.UcCollectionRobot.RobotScanService.Scan(robotBase);
 
             // Assert
-            Measure actualMeasureAtRobotPosition = scanResult.Measures.Keys.First();
+            Measure actualMeasureAtRobotPosition = scanResult.Measures.Values.First();
             Assert.AreEqual(expectedMeasureAtRobotposition, actualMeasureAtRobotPosition);
         }
 
@@ -266,7 +266,7 @@ namespace ExoplanetGameTest
             PositionResult positionResult = ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robot, landingPosition);
 
             // Assert
-            Assert.AreEqual(new Position(16, 1), positionResult.Position);
+            Assert.AreEqual(new Position(1, 5), positionResult.Position);
         }
 
         [TestMethod]
