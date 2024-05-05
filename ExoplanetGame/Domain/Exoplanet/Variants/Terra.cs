@@ -90,28 +90,14 @@ namespace ExoplanetGame.Domain.Exoplanet.Variants
 
             int weatherChange = random.Next(1, 101);
 
-            switch (weatherChange)
+            Weather = weatherChange switch
             {
-                case <= 30:
-                    Weather = Weather.SUNNY;
-                    break;
-
-                case <= 50:
-                    Weather = Weather.RAINY;
-                    break;
-
-                case <= 70:
-                    Weather = Weather.CLOUDY;
-                    break;
-
-                case <= 90:
-                    Weather = Weather.WINDY;
-                    break;
-
-                default:
-                    Weather = Weather.FOGGY;
-                    break;
-            }
+                <= 30 => Weather.SUNNY,
+                <= 50 => Weather.RAINY,
+                <= 70 => Weather.CLOUDY,
+                <= 90 => Weather.WINDY,
+                _ => Weather.FOGGY
+            };
         }
     }
 }

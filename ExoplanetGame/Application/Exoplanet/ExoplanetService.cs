@@ -58,32 +58,16 @@ namespace ExoplanetGame.Application.Exoplanet
 
         public void CreateExoPlanet(PlanetVariant planetVariant)
         {
-            switch (planetVariant)
+            exoPlanetFactory = planetVariant switch
             {
-                case PlanetVariant.GAIA:
-                    exoPlanetFactory = new GaiaPlanetFactory();
-                    break;
-
-                case PlanetVariant.AQUATICA:
-                    exoPlanetFactory = new AquaticaPlanetFactory();
-                    break;
-
-                case PlanetVariant.TERRA:
-                    exoPlanetFactory = new TerraPlanetFactory();
-                    break;
-
-                case PlanetVariant.FROSTFELL:
-                    exoPlanetFactory = new FrostfellPlanetFactory();
-                    break;
-
-                case PlanetVariant.LAVARIA:
-                    exoPlanetFactory = new LavariaPlanetFactory();
-                    break;
-
-                case PlanetVariant.TROPICA:
-                    exoPlanetFactory = new TropicaPlanetFactory();
-                    break;
-            }
+                PlanetVariant.GAIA => new GaiaPlanetFactory(),
+                PlanetVariant.AQUATICA => new AquaticaPlanetFactory(),
+                PlanetVariant.TERRA => new TerraPlanetFactory(),
+                PlanetVariant.FROSTFELL => new FrostfellPlanetFactory(),
+                PlanetVariant.LAVARIA => new LavariaPlanetFactory(),
+                PlanetVariant.TROPICA => new TropicaPlanetFactory(),
+                _ => exoPlanetFactory
+            };
 
             ExoPlanet = exoPlanetFactory.CreateExoPlanet();
         }

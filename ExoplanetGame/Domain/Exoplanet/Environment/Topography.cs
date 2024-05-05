@@ -41,99 +41,37 @@ namespace ExoplanetGame.Domain.Exoplanet.Environment
 
         private Ground GroundFromChar(char g)
         {
-            Ground ground;
-
-            switch (g)
+            Ground ground = g switch
             {
-                case 'W':
-                    ground = Ground.WATER;
-                    break;
-
-                case 'R':
-                    ground = Ground.ROCK;
-                    break;
-
-                case 'S':
-                    ground = Ground.SAND;
-                    break;
-
-                case 'G':
-                    ground = Ground.GRAVEL;
-                    break;
-
-                case 'P':
-                    ground = Ground.PLANT;
-                    break;
-
-                case 'M':
-                    ground = Ground.MUD;
-                    break;
-
-                case 'L':
-                    ground = Ground.LAVA;
-                    break;
-
-                case 'I':
-                    ground = Ground.ICE;
-                    break;
-
-                case 'N':
-                    ground = Ground.SNOW;
-                    break;
-
-                default:
-                    ground = Ground.NOTHING;
-                    break;
-            }
+                'W' => Ground.WATER,
+                'R' => Ground.ROCK,
+                'S' => Ground.SAND,
+                'G' => Ground.GRAVEL,
+                'P' => Ground.PLANT,
+                'M' => Ground.MUD,
+                'L' => Ground.LAVA,
+                'I' => Ground.ICE,
+                'N' => Ground.SNOW,
+                _ => Ground.NOTHING
+            };
             return ground;
         }
 
         private double GetRandomTemperature(Ground ground, Random rand)
         {
-            double temperature;
-
-            switch (ground)
+            double temperature = ground switch
             {
-                case Ground.SAND:
-                    temperature = rand.Next(20, 35);
-                    break;
-
-                case Ground.GRAVEL:
-                    temperature = rand.Next(10, 25);
-                    break;
-
-                case Ground.ROCK:
-                    temperature = rand.Next(0, 15);
-                    break;
-
-                case Ground.WATER:
-                    temperature = rand.Next(0, 10);
-                    break;
-
-                case Ground.PLANT:
-                    temperature = rand.Next(5, 25);
-                    break;
-
-                case Ground.MUD:
-                    temperature = rand.Next(5, 20);
-                    break;
-
-                case Ground.LAVA:
-                    temperature = rand.Next(800, 1500);
-                    break;
-
-                case Ground.SNOW:
-                    temperature = rand.Next(0, 5);
-                    break;
-
-                case Ground.ICE:
-                    temperature = rand.Next(-5, 0);
-                    break;
-
-                default:
-                    temperature = 0;
-                    break;
-            }
+                Ground.SAND => rand.Next(20, 35),
+                Ground.GRAVEL => rand.Next(10, 25),
+                Ground.ROCK => rand.Next(0, 15),
+                Ground.WATER => rand.Next(0, 10),
+                Ground.PLANT => rand.Next(5, 25),
+                Ground.MUD => rand.Next(5, 20),
+                Ground.LAVA => rand.Next(800, 1500),
+                Ground.SNOW => rand.Next(0, 5),
+                Ground.ICE => rand.Next(-5, 0),
+                _ => 0
+            };
 
             return temperature;
         }

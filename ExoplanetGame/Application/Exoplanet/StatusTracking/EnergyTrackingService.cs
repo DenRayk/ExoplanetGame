@@ -53,29 +53,16 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
         private int CalculateEneryLoad(Weather weather)
         {
-            switch (weather)
+            return weather switch
             {
-                case Weather.SUNNY:
-                    return 10;
-
-                case Weather.WINDY:
-                    return 10;
-
-                case Weather.CLOUDY:
-                    return 3;
-
-                case Weather.RAINY:
-                    return 3;
-
-                case Weather.FOGGY:
-                    return 2;
-
-                case Weather.ASH_IN_THE_AIR:
-                    return 2;
-
-                default:
-                    return 5;
-            }
+                Weather.SUNNY => 10,
+                Weather.WINDY => 10,
+                Weather.CLOUDY => 3,
+                Weather.RAINY => 3,
+                Weather.FOGGY => 2,
+                Weather.ASH_IN_THE_AIR => 2,
+                _ => 5
+            };
         }
 
         public void ConsumeEnergy(IRobot robot, RobotAction robotAction)
@@ -92,26 +79,15 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
         private int CalculateEneryConsumtion(RobotAction robotAction)
         {
-            switch (robotAction)
+            return robotAction switch
             {
-                case RobotAction.LAND:
-                    return 5;
-
-                case RobotAction.MOVE:
-                    return 2;
-
-                case RobotAction.ROTATE:
-                    return 1;
-
-                case RobotAction.SCAN:
-                    return 2;
-
-                case RobotAction.GETPOSITION:
-                    return 1;
-
-                default:
-                    return 0;
-            }
+                RobotAction.LAND => 5,
+                RobotAction.MOVE => 2,
+                RobotAction.ROTATE => 1,
+                RobotAction.SCAN => 2,
+                RobotAction.GETPOSITION => 1,
+                _ => 0
+            };
         }
 
         public int GetRobotEnergy(IRobot robot)

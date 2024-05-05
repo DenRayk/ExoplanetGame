@@ -65,73 +65,29 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
         private double CalculateHeatGainDependentOnFieldAndAction(Position landPosition, RobotAction robotAction, Topography topography)
         {
-            double heatGain;
-
-            switch (topography.GetMeasureAtPosition(landPosition).Ground)
+            double heatGain = topography.GetMeasureAtPosition(landPosition).Ground switch
             {
-                case Ground.WATER:
-                    heatGain = 0;
-                    break;
+                Ground.WATER => 0,
+                Ground.ROCK => 5,
+                Ground.SAND => 10,
+                Ground.LAVA => 20,
+                Ground.GRAVEL => 5,
+                Ground.PLANT => 5,
+                Ground.MUD => 8,
+                Ground.SNOW => 0,
+                Ground.ICE => 0,
+                _ => 0
+            };
 
-                case Ground.ROCK:
-                    heatGain = 5;
-                    break;
-
-                case Ground.SAND:
-                    heatGain = 10;
-                    break;
-
-                case Ground.LAVA:
-                    heatGain = 20;
-                    break;
-
-                case Ground.GRAVEL:
-                    heatGain = 5;
-                    break;
-
-                case Ground.PLANT:
-                    heatGain = 5;
-                    break;
-
-                case Ground.MUD:
-                    heatGain = 8;
-                    break;
-
-                case Ground.SNOW:
-                    heatGain = 0;
-                    break;
-
-                case Ground.ICE:
-                    heatGain = 0;
-                    break;
-
-                default:
-                    heatGain = 0;
-                    break;
-            }
-
-            switch (robotAction)
-            {
-                case RobotAction.LAND:
-                    heatGain *= 1.5;
-                    break;
-
-                case RobotAction.MOVE:
-                    heatGain *= 1.2;
-                    break;
-
-                case RobotAction.ROTATE:
-                    heatGain *= 1.1;
-                    break;
-
-                case RobotAction.SCAN:
-                    heatGain *= 1.3;
-                    break;
-
-                case RobotAction.GETPOSITION:
-                    heatGain *= 1.1;
-                    break;
-            }
+            if (robotAction == RobotAction.LAND)
+                heatGain *= 1.5;
+            else if (robotAction == RobotAction.MOVE)
+                heatGain *= 1.2;
+            else if (robotAction == RobotAction.ROTATE)
+                heatGain *= 1.1;
+            else if (robotAction == RobotAction.SCAN)
+                heatGain *= 1.3;
+            else if (robotAction == RobotAction.GETPOSITION) heatGain *= 1.1;
 
             return heatGain;
         }

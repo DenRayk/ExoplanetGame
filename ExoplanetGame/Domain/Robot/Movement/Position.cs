@@ -25,30 +25,14 @@ public class Position
 
     public Position GetAdjacentPosition()
     {
-        Position adjacentPosition;
-
-        switch (Direction)
+        Position adjacentPosition = Direction switch
         {
-            case Direction.NORTH:
-                adjacentPosition = new Position(X, Y - 1, Direction);
-                break;
-
-            case Direction.EAST:
-                adjacentPosition = new Position(X + 1, Y, Direction);
-                break;
-
-            case Direction.SOUTH:
-                adjacentPosition = new Position(X, Y + 1, Direction);
-                break;
-
-            case Direction.WEST:
-                adjacentPosition = new Position(X - 1, Y, Direction);
-                break;
-
-            default:
-                adjacentPosition = this;
-                break;
-        }
+            Direction.NORTH => new Position(X, Y - 1, Direction),
+            Direction.EAST => new Position(X + 1, Y, Direction),
+            Direction.SOUTH => new Position(X, Y + 1, Direction),
+            Direction.WEST => new Position(X - 1, Y, Direction),
+            _ => this
+        };
 
         return adjacentPosition;
     }
@@ -57,45 +41,25 @@ public class Position
     {
         if (rotation == Rotation.LEFT)
         {
-            switch (Direction)
+            Direction = Direction switch
             {
-                case Direction.NORTH:
-                    Direction = Direction.WEST;
-                    break;
-
-                case Direction.WEST:
-                    Direction = Direction.SOUTH;
-                    break;
-
-                case Direction.SOUTH:
-                    Direction = Direction.EAST;
-                    break;
-
-                case Direction.EAST:
-                    Direction = Direction.NORTH;
-                    break;
-            }
+                Direction.NORTH => Direction.WEST,
+                Direction.WEST => Direction.SOUTH,
+                Direction.SOUTH => Direction.EAST,
+                Direction.EAST => Direction.NORTH,
+                _ => Direction
+            };
         }
         else
         {
-            switch (Direction)
+            Direction = Direction switch
             {
-                case Direction.NORTH:
-                    Direction = Direction.EAST;
-                    break;
-
-                case Direction.EAST:
-                    Direction = Direction.SOUTH;
-                    break;
-
-                case Direction.SOUTH:
-                    Direction = Direction.WEST;
-                    break;
-
-                case Direction.WEST:
-                    Direction = Direction.NORTH;
-                    break;
-            }
+                Direction.NORTH => Direction.EAST,
+                Direction.EAST => Direction.SOUTH,
+                Direction.SOUTH => Direction.WEST,
+                Direction.WEST => Direction.NORTH,
+                _ => Direction
+            };
         }
 
         return Direction;

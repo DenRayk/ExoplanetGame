@@ -35,23 +35,14 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
             Random random = new();
             int randomAttack = random.Next(1, 101);
 
-            switch (randomAttack)
+            return randomAttack switch
             {
-                case <= 20:
-                    return "a sudden surge of untraceable energy";
-
-                case <= 40:
-                    return "a trap set in the trees";
-
-                case <= 60:
-                    return "a large animal";
-
-                case <= 80:
-                    return "a mysterious jungle creature";
-
-                default:
-                    return "a mysterious attack";
-            }
+                <= 20 => "a sudden surge of untraceable energy",
+                <= 40 => "a trap set in the trees",
+                <= 60 => "a large animal",
+                <= 80 => "a mysterious jungle creature",
+                _ => "a mysterious attack"
+            };
         }
 
         private bool DoesMysteriousAttackHappen()

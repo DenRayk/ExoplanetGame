@@ -52,20 +52,13 @@ namespace ExoplanetGame.Application.Exoplanet.PlanetEvents
 
         private int GetFreezingTimeByWeatherConditions()
         {
-            switch (exoplanetService.ExoPlanet.Weather)
+            return exoplanetService.ExoPlanet.Weather switch
             {
-                case Weather.WINDY:
-                    return 15;
-
-                case Weather.SNOWY:
-                    return 20;
-
-                case Weather.SUNNY:
-                    return 30;
-
-                default:
-                    return 30;
-            }
+                Weather.WINDY => 15,
+                Weather.SNOWY => 20,
+                Weather.SUNNY => 30,
+                _ => 30
+            };
         }
 
         private void RobotFreeze(IRobot robot)

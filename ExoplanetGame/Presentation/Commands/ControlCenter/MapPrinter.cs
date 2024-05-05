@@ -36,104 +36,40 @@ namespace ExoplanetGame.Presentation
 
         public static void PrintGround(Ground ground)
         {
-            switch (ground)
+            Console.BackgroundColor = ground switch
             {
-                case Ground.NOTHING:
-                    Console.BackgroundColor = ConsoleColor.White;
-                    break;
-
-                case Ground.SAND:
-                    Console.BackgroundColor = ConsoleColor.Yellow;
-                    break;
-
-                case Ground.GRAVEL:
-                    Console.BackgroundColor = ConsoleColor.DarkGray;
-                    break;
-
-                case Ground.ROCK:
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    break;
-
-                case Ground.WATER:
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                    break;
-
-                case Ground.PLANT:
-                    Console.BackgroundColor = ConsoleColor.Green;
-                    break;
-
-                case Ground.MUD:
-                    Console.BackgroundColor = ConsoleColor.DarkYellow;
-                    break;
-
-                case Ground.LAVA:
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    break;
-
-                case Ground.SNOW:
-                    Console.BackgroundColor = ConsoleColor.Cyan;
-                    break;
-
-                case Ground.ICE:
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
-                    break;
-
-                default:
-                    Console.BackgroundColor = ConsoleColor.White;
-                    break;
-            }
+                Ground.NOTHING => ConsoleColor.White,
+                Ground.SAND => ConsoleColor.Yellow,
+                Ground.GRAVEL => ConsoleColor.DarkGray,
+                Ground.ROCK => ConsoleColor.Gray,
+                Ground.WATER => ConsoleColor.Blue,
+                Ground.PLANT => ConsoleColor.Green,
+                Ground.MUD => ConsoleColor.DarkYellow,
+                Ground.LAVA => ConsoleColor.Red,
+                Ground.SNOW => ConsoleColor.Cyan,
+                Ground.ICE => ConsoleColor.DarkCyan,
+                _ => ConsoleColor.White
+            };
             Console.Write("   ");
             Console.ResetColor();
         }
 
         public static void PrintGroundWithRobot(Ground ground, IRobot robot)
         {
-            switch (ground)
+            Console.BackgroundColor = ground switch
             {
-                case Ground.NOTHING:
-                    Console.BackgroundColor = ConsoleColor.White;
-                    break;
-
-                case Ground.SAND:
-                    Console.BackgroundColor = ConsoleColor.Yellow;
-                    break;
-
-                case Ground.GRAVEL:
-                    Console.BackgroundColor = ConsoleColor.DarkGray;
-                    break;
-
-                case Ground.ROCK:
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    break;
-
-                case Ground.WATER:
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                    break;
-
-                case Ground.PLANT:
-                    Console.BackgroundColor = ConsoleColor.Green;
-                    break;
-
-                case Ground.MUD:
-                    Console.BackgroundColor = ConsoleColor.DarkYellow;
-                    break;
-
-                case Ground.LAVA:
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    break;
-
-                case Ground.SNOW:
-                    Console.BackgroundColor = ConsoleColor.Cyan;
-                    break;
-
-                case Ground.ICE:
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
-                    break;
-
-                default:
-                    Console.BackgroundColor = ConsoleColor.White;
-                    break;
-            }
+                Ground.NOTHING => ConsoleColor.White,
+                Ground.SAND => ConsoleColor.Yellow,
+                Ground.GRAVEL => ConsoleColor.DarkGray,
+                Ground.ROCK => ConsoleColor.Gray,
+                Ground.WATER => ConsoleColor.Blue,
+                Ground.PLANT => ConsoleColor.Green,
+                Ground.MUD => ConsoleColor.DarkYellow,
+                Ground.LAVA => ConsoleColor.Red,
+                Ground.SNOW => ConsoleColor.Cyan,
+                Ground.ICE => ConsoleColor.DarkCyan,
+                _ => ConsoleColor.White
+            };
             Console.Write($" {robot.RobotInformation.RobotID} ");
             Console.ResetColor();
         }

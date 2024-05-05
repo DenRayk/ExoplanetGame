@@ -84,28 +84,14 @@ namespace ExoplanetGame.Domain.Exoplanet.Variants
             Random random = new();
             int weatherChange = random.Next(1, 101);
 
-            switch (weatherChange)
+            Weather = weatherChange switch
             {
-                case <= 25:
-                    Weather = Weather.SUNNY;
-                    break;
-
-                case <= 50:
-                    Weather = Weather.FOGGY;
-                    break;
-
-                case <= 75:
-                    Weather = Weather.ASH_IN_THE_AIR;
-                    break;
-
-                case <= 85:
-                    Weather = Weather.WINDY;
-                    break;
-
-                default:
-                    Weather = Weather.CLOUDY;
-                    break;
-            }
+                <= 25 => Weather.SUNNY,
+                <= 50 => Weather.FOGGY,
+                <= 75 => Weather.ASH_IN_THE_AIR,
+                <= 85 => Weather.WINDY,
+                _ => Weather.CLOUDY
+            };
         }
     }
 }

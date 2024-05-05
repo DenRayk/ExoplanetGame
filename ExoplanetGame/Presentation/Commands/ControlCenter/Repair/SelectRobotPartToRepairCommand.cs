@@ -46,26 +46,15 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
 
         private string GetDescriptionFromPartDurability(int durability)
         {
-            switch (durability)
+            return durability switch
             {
-                case <= 0:
-                    return "Broken";
-
-                case <= 25:
-                    return "Critical";
-
-                case <= 50:
-                    return "Damaged";
-
-                case <= 75:
-                    return "Worn";
-
-                case <= 90:
-                    return "Good";
-
-                default:
-                    return "Like new";
-            }
+                <= 0 => "Broken",
+                <= 25 => "Critical",
+                <= 50 => "Damaged",
+                <= 75 => "Worn",
+                <= 90 => "Good",
+                _ => "Like new"
+            };
         }
     }
 }

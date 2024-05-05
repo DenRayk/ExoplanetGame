@@ -21,34 +21,15 @@ namespace ExoplanetGame.Domain.Robot.Factory
 
         public IRobot CreateRobot(ControlCenter.ControlCenter controlCenter, IExoPlanet exoPlanet, int robotID, RobotVariant robotVariant)
         {
-            IRobot robotBase;
-
-            switch (robotVariant)
+            IRobot robotBase = robotVariant switch
             {
-                case RobotVariant.DEFAULT:
-                    robotBase = new DefaultBot(exoPlanet, robotID);
-                    break;
-
-                case RobotVariant.SCOUT:
-                    robotBase = new ScoutBot(exoPlanet, robotID);
-                    break;
-
-                case RobotVariant.LAVA:
-                    robotBase = new LavaBot(exoPlanet, robotID);
-                    break;
-
-                case RobotVariant.AQUA:
-                    robotBase = new AquaBot(exoPlanet, robotID);
-                    break;
-
-                case RobotVariant.MUD:
-                    robotBase = new MudBot(exoPlanet, robotID);
-                    break;
-
-                default:
-                    robotBase = new DefaultBot(exoPlanet, robotID);
-                    break;
-            }
+                RobotVariant.DEFAULT => new DefaultBot(exoPlanet, robotID),
+                RobotVariant.SCOUT => new ScoutBot(exoPlanet, robotID),
+                RobotVariant.LAVA => new LavaBot(exoPlanet, robotID),
+                RobotVariant.AQUA => new AquaBot(exoPlanet, robotID),
+                RobotVariant.MUD => new MudBot(exoPlanet, robotID),
+                _ => new DefaultBot(exoPlanet, robotID)
+            };
 
             return robotBase;
         }
