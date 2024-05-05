@@ -69,21 +69,22 @@ namespace ExoplanetGame.Application.Exoplanet
             if (isRightMotorDamaged && rotation == Rotation.RIGHT)
             {
                 rotationResult.Message = "Right motor is damaged. Please repair in Control Center.";
+                return false;
             }
 
             if (isLeftMotorDamaged && rotation == Rotation.LEFT)
             {
                 rotationResult.Message = "Left motor is damaged. Please repair in Control Center.";
+                return false;
             }
 
             if (!doesRobotHaveEnery)
             {
                 rotationResult.Message = "Robot does not have enough energy to rotate.";
+                return false;
             }
 
-            bool canRotate = !isRightMotorDamaged && !isLeftMotorDamaged && doesRobotHaveEnery;
-
-            return canRotate;
+            return true;
         }
     }
 }
