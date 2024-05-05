@@ -1,5 +1,6 @@
 ﻿using ExoplanetGame.Application;
 using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
@@ -17,17 +18,44 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
+            try
+            {
+                PositionResult positionResult = PerformRobotPositioning();
+
+                if (positionResult.IsSuccess)
+                {
+                    Console.WriteLine($"Robot is at {positionResult.Position}");
+                }
+                else
+                {
+                    Console.WriteLine(positionResult.Message);
+                }
+            }
+            catch (RobotOverheatException exception)
+            {
+                HandleRobotOverheatException(exception);
+            }
+        }
+
+        private PositionResult PerformRobotPositioning()
+        {
             PositionResult positionResult = ucCollection.UcCollectionRobot.GetPositionService.GetPosition(robot);
             RobotResult = positionResult;
+            return positionResult;
+        }
 
-            if (positionResult.IsSuccess)
+        private void HandleRobotOverheatException(RobotOverheatException exception)
+        {
+            Console.WriteLine(exception.Message);
+
+            RobotResult = new PositionResult
             {
-                Console.WriteLine($"Robot is at {positionResult.Position}");
-            }
-            else
-            {
-                Console.WriteLine($"{RobotResult.Message}");
-            }
+                IsSuccess = false,
+                HasRobotSurvived = true,
+                Message = exception.Message
+            };
+
+            ucCollection.UcCollectionRobot.RobotCoolDownService.CoolDownRobot(robot, robot.RobotInformation.MaxHeat / 10);
         }
     }
 }

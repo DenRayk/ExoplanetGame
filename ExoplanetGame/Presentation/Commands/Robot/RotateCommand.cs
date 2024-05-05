@@ -20,17 +20,44 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
+            try
+            {
+                RotationResult rotationResult = PerformRobotRotation();
+
+                if (rotationResult.IsSuccess)
+                {
+                    Console.WriteLine($"Robot rotated to {rotationResult.Direction}");
+                }
+                else
+                {
+                    Console.WriteLine(rotationResult.Message);
+                }
+            }
+            catch (RobotOverheatException exception)
+            {
+                HandleRobotOverheatException(exception);
+            }
+        }
+
+        private RotationResult PerformRobotRotation()
+        {
             RotationResult rotationResult = ucCollection.UcCollectionRobot.RotateRobotService.Rotate(robot, rotation);
             RobotResult = rotationResult;
+            return rotationResult;
+        }
 
-            if (rotationResult.IsSuccess)
+        private void HandleRobotOverheatException(RobotOverheatException exception)
+        {
+            Console.WriteLine(exception.Message);
+
+            RobotResult = new RotationResult
             {
-                Console.WriteLine($"Robot rotated to {rotationResult.Direction}");
-            }
-            else
-            {
-                Console.WriteLine($"{rotationResult.Message}");
-            }
+                IsSuccess = false,
+                HasRobotSurvived = true,
+                Message = exception.Message
+            };
+
+            ucCollection.UcCollectionRobot.RobotCoolDownService.CoolDownRobot(robot, robot.RobotInformation.MaxHeat / 10);
         }
     }
 }

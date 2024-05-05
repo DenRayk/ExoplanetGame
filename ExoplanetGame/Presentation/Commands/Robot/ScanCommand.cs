@@ -1,5 +1,7 @@
 ﻿using ExoplanetGame.Application;
+using ExoplanetGame.Domain.ControlCenter;
 using ExoplanetGame.Domain.Robot;
+using ExoplanetGame.Domain.Robot.Movement;
 using ExoplanetGame.Domain.Robot.RobotResults;
 
 namespace ExoplanetGame.Presentation.Commands.Robot
@@ -17,20 +19,47 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
         public override void Execute()
         {
-            ScanResult scanResult = ucCollection.UcCollectionRobot.RobotScanService.Scan(robot);
-            RobotResult = scanResult;
-
-            if (scanResult.IsSuccess)
+            try
             {
-                foreach (var measure in scanResult.Measures)
+                ScanResult scanResult = PerformRobotScan();
+
+                if (scanResult.IsSuccess)
                 {
-                    Console.WriteLine($"Scanned {measure.Key} at {measure.Value}");
+                    foreach (KeyValuePair<Measure, Position> measure in scanResult.Measures)
+                    {
+                        Console.WriteLine($"Scanned {measure.Key} at {measure.Value}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(scanResult.Message);
                 }
             }
-            else
+            catch (RobotOverheatException exception)
             {
-                Console.WriteLine($"{scanResult.Message}");
+                HandleRobotOverheatException(exception);
             }
+        }
+
+        private ScanResult PerformRobotScan()
+        {
+            ScanResult scanResult = ucCollection.UcCollectionRobot.RobotScanService.Scan(robot);
+            RobotResult = scanResult;
+            return scanResult;
+        }
+
+        private void HandleRobotOverheatException(RobotOverheatException exception)
+        {
+            Console.WriteLine(exception.Message);
+
+            RobotResult = new ScanResult
+            {
+                IsSuccess = false,
+                HasRobotSurvived = true,
+                Message = exception.Message
+            };
+
+            ucCollection.UcCollectionRobot.RobotCoolDownService.CoolDownRobot(robot, robot.RobotInformation.MaxHeat / 10);
         }
     }
 }

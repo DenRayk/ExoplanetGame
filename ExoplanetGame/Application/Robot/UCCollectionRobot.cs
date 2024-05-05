@@ -14,6 +14,7 @@ namespace ExoplanetGame.Application.Robot
         public RobotPartsHealthUseCase RobotPartsHealthService;
         public PlanetMapUseCase PlanetMapService;
         public AddMeasureUseCase AddMeasureService;
+        public RobotCoolDownUseCase RobotCoolDownService;
 
         public UCCollectionRobot(ExoplanetService exoplanetService)
         {
@@ -27,6 +28,7 @@ namespace ExoplanetGame.Application.Robot
             CrashRobotService = new RobotCrashService(exoplanetService);
             LoadRobotService = new RobotLoadService(exoplanetService);
             RobotPartsHealthService = new RobotPartsHealthService(exoplanetService);
+            RobotCoolDownService = new RobotCoolDownService(exoplanetService);
         }
     }
 }

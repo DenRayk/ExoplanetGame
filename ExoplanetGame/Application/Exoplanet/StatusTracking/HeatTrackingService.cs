@@ -7,8 +7,6 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {
     internal class HeatTrackingService : HeatTrackingUseCase
     {
-        private const int COOL_DOWN_RATE = 10;
-
         private ExoplanetService exoplanetService;
 
         public HeatTrackingService(ExoplanetService exoplanetService)
@@ -29,7 +27,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
             if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] >= robot.RobotInformation.MaxHeat)
             {
-                CoolDown(robot, robot.RobotInformation.MaxHeat / 10);
+                throw new RobotOverheatException($"{robot.GetLanderName()} has overheated, please wait...");
             }
         }
 
@@ -46,7 +44,7 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 
             if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] >= robot.RobotInformation.MaxHeat)
             {
-                CoolDown(robot, robot.RobotInformation.MaxHeat / 10);
+                throw new RobotOverheatException($"{robot.GetLanderName()} has overheated, please wait...");
             }
         }
 
@@ -90,20 +88,6 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
             else if (robotAction == RobotAction.GETPOSITION) heatGain *= 1.1;
 
             return heatGain;
-        }
-
-        private void CoolDown(IRobot robot, int seconds)
-        {
-            for (int i = 0; i < seconds; i++)
-            {
-                if (exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] > 0)
-                {
-                    exoplanetService.ExoPlanet.RobotStatusManager.RobotHeatLevels[robot] -= COOL_DOWN_RATE;
-                }
-                Thread.Sleep(200);
-            }
-
-            Console.Clear();
         }
     }
 }
