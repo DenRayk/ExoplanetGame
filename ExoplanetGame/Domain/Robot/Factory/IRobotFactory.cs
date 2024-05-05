@@ -1,9 +1,8 @@
 ﻿using ExoplanetGame.Domain.Exoplanet;
-using ExoplanetGame.Domain.Robot.Variants;
 
 namespace ExoplanetGame.Domain.Robot.Factory;
 
-public interface IRobotFactory
+public abstract class RobotFactory
 {
-    IRobot CreateRobot(ControlCenter.ControlCenter controlCenter, IExoPlanet exoPlanet, int robotID, RobotVariant robotVariant);
+    public abstract IRobot CreateRobot(IExoPlanet exoPlanet, int robotID);
 }

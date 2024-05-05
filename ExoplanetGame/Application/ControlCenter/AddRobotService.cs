@@ -7,13 +7,12 @@ namespace ExoplanetGame.Application.ControlCenter
     internal class AddRobotService : AddRobotUseCase
     {
         private readonly Domain.ControlCenter.ControlCenter controlCenter;
-        private readonly RobotFactory robotFactory;
+        private RobotFactory robotFactory;
         private readonly IRobotRepository robotRepository;
 
         public AddRobotService()
         {
             controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
-            robotFactory = RobotFactory.GetInstance();
             robotRepository = RobotRepository.GetInstance();
         }
 
@@ -21,7 +20,16 @@ namespace ExoplanetGame.Application.ControlCenter
         {
             if (robotRepository.GetRobotCount() < controlCenter.MaxRobots)
             {
-                var robotBase = robotFactory.CreateRobot(controlCenter, controlCenter.exoPlanet, controlCenter.GetRobotIDandIncrement(), robotVariant);
+                robotFactory = robotVariant switch
+                {
+                    RobotVariant.DEFAULT => new DefaultRobotFactory(),
+                    RobotVariant.SCOUT => new ScoutBotFactory(),
+                    RobotVariant.MUD => new MudBotFactory(),
+                    RobotVariant.LAVA => new LavaBotFactory(),
+                    RobotVariant.AQUA => new AquaBotFactory()
+                };
+
+                var robotBase = robotFactory.CreateRobot(controlCenter.exoPlanet, controlCenter.GetRobotIDandIncrement());
 
                 robotRepository.AddRobot(robotBase, null);
             }
