@@ -14,7 +14,9 @@ ExoplanetGame is a console-based game developed in C# that focuses on the explor
 
 
 ## Installation
-TODO
+docker build -t exoplanetgame .
+
+docker run -ti exoplanetgame
 
 
 ## Communication
