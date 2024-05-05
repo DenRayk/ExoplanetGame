@@ -33,7 +33,9 @@ namespace ExoplanetGame.Presentation.Commands.Robot
             BaseCommand baseCommand;
             do
             {
-                Console.WriteLine($"{robot.GetLanderName()} Menu");
+                Console.WriteLine(Console.CursorTop == 0
+                    ? $"{robot.GetLanderName()} Menu"
+                    : $"\n{robot.GetLanderName()} Menu");
 
                 PlanetMap planetMap = ucCollection.UcCollectionControlCenter.GetPlanetMapUseCase.GetPlanetMap();
                 Dictionary<IRobot, Position> robots = ucCollection.UcCollectionControlCenter.GetRobotsService.GetAllRobots();
