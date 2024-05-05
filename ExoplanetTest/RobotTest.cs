@@ -249,5 +249,43 @@ namespace ExoplanetGameTest
             // Assert
             Assert.IsFalse(exoplanetService.FreezeTracking.IsFrozen(robot));
         }
+
+        [TestMethod]
+        public void TestLandOnWater()
+        {
+            // Arrange
+            WaterPlanet mockedPlanet = new WaterPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService { ExoPlanet = mockedPlanet };
+            DefaultBot robot = new DefaultBot(exoplanetService.ExoPlanet, 0);
+            Position landingPosition = new Position(1, 1);
+            ucCollection.Init(exoplanetService);
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+
+            // Act
+            PositionResult positionResult = ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robot, landingPosition);
+
+            // Assert
+            Assert.AreEqual(new Position(16, 1), positionResult.Position);
+        }
+
+        [TestMethod]
+        public void TestLandOnLava()
+        {
+            // Arrange
+            LavaPlanet mockedPlanet = new LavaPlanet();
+            UCCollection ucCollection = new UCCollection();
+            ExoplanetService exoplanetService = new ExoplanetService { ExoPlanet = mockedPlanet };
+            DefaultBot robot = new DefaultBot(exoplanetService.ExoPlanet, 0);
+            Position landingPosition = new Position(1, 1);
+            ucCollection.Init(exoplanetService);
+            ucCollection.UcCollectionControlCenter.SelectPlanetUseCase.SelectPlanet(exoplanetService.ExoPlanet);
+
+            // Act
+            PositionResult positionResult = ucCollection.UcCollectionRobot.RobotLandService.LandRobot(robot, landingPosition);
+
+            // Assert
+            Assert.IsFalse(positionResult.IsSuccess);
+        }
     }
 }
