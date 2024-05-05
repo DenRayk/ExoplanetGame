@@ -16,6 +16,6 @@ namespace ExoplanetGame.Domain.Robot.RobotResults
             Message = robotResultBase.Message;
         }
 
-        public Dictionary<Measure, Position> Measures { get; set; } = new();
+        public Dictionary<Position, Measure> Measures { get; set; } = new();
     }
 }

@@ -12,6 +12,6 @@ namespace ExoplanetGame.Application.Robot
     {
         void AddMeasure(Measure measure, Position position);
 
-        public void AddMeasures(Dictionary<Measure, Position> measures);
+        public void AddMeasures(Dictionary<Position, Measure > measures);
     }
 }

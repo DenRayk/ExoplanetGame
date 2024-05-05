@@ -22,11 +22,11 @@ namespace ExoplanetGame.Application.Robot
             planetMapService.UpdateMap(position, measure.Ground);
         }
 
-        public void AddMeasures(Dictionary<Measure, Position> measures)
+        public void AddMeasures(Dictionary<Position, Measure > measures)
         {
             foreach (var measure in measures)
             {
-                AddMeasure(measure.Key, measure.Value);
+                AddMeasure(measure.Value, measure.Key);
             }
         }
     }

@@ -25,9 +25,9 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 
                 if (scanResult.IsSuccess)
                 {
-                    foreach (KeyValuePair<Measure, Position> measure in scanResult.Measures)
+                    foreach (KeyValuePair<Position, Measure> measure in scanResult.Measures)
                     {
-                        Console.WriteLine($"Scanned {measure.Key} at {measure.Value}");
+                        Console.WriteLine($"Scanned {measure.Value} at {measure.Key}");
                     }
                 }
                 else

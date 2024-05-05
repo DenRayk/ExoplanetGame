@@ -33,7 +33,7 @@ namespace ExoplanetGame.Application.Exoplanet
             Measure currentMeasure = exoplanetService.ExoPlanet.Topography.GetMeasureAtPosition(currentRobotPosition);
 
             ScanResult scanResult = new(robotResult);
-            scanResult.Measures.Add(currentMeasure, currentRobotPosition);
+            scanResult.Measures.Add(currentRobotPosition, currentMeasure);
 
             if (robot is not ScoutBot)
             {
@@ -55,13 +55,13 @@ namespace ExoplanetGame.Application.Exoplanet
             if (isFirstPositionValid)
             {
                 Measure firstPositionMeasure = exoplanetService.ExoPlanet.Topography.GetMeasureAtPosition(firstForwardPosition);
-                scanResult.Measures.Add(firstPositionMeasure, firstForwardPosition);
+                scanResult.Measures.Add(firstForwardPosition, firstPositionMeasure);
             }
 
             if (isSecondPositionValid)
             {
                 Measure secondPositionMeasure = exoplanetService.ExoPlanet.Topography.GetMeasureAtPosition(secondForwardPosition);
-                scanResult.Measures.Add(secondPositionMeasure, secondForwardPosition);
+                scanResult.Measures.Add(secondForwardPosition, secondPositionMeasure);
             }
 
             exoplanetService.HeatTracking.PerformAction(robot, RobotAction.SCAN, exoplanetService.ExoPlanet.Topography);
