@@ -7,8 +7,8 @@ namespace ExoplanetGame.Application.Exoplanet.StatusTracking
 {
     internal class RobotStuckTrackingService : RobotStuckTrackingUseCase
     {
-        private ExoplanetService exoplanetService;
-        private Random random = new();
+        private readonly ExoplanetService exoplanetService;
+        private readonly Random random = new();
 
         public RobotStuckTrackingService(ExoplanetService exoplanetService)
         {

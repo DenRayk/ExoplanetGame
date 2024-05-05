@@ -10,7 +10,7 @@ namespace ExoplanetGame.Application.Robot
 {
     internal class AddMeasureService : AddMeasureUseCase
     {
-        private PlanetMapUseCase planetMapService;
+        private readonly PlanetMapUseCase planetMapService;
 
         public AddMeasureService(PlanetMapUseCase planetMapService)
         {

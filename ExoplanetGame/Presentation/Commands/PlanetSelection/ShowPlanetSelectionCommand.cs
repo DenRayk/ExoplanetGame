@@ -7,8 +7,8 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 {
     internal class ShowPlanetSelectionCommand : BaseCommand
     {
-        private UCCollection ucCollection;
-        private ExoplanetService exoplanetService;
+        private readonly UCCollection ucCollection;
+        private readonly ExoplanetService exoplanetService;
 
         private readonly string helpText =
             "Exoplanet Menu Information\n" +

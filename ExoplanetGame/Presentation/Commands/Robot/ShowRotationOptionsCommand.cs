@@ -7,8 +7,8 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 {
     internal class ShowRotationOptionsCommand : RobotCommand
     {
-        private IRobot robot;
-        private UCCollection ucCollection;
+        private readonly IRobot robot;
+        private readonly UCCollection ucCollection;
 
         public ShowRotationOptionsCommand(IRobot robot, UCCollection ucCollection)
         {

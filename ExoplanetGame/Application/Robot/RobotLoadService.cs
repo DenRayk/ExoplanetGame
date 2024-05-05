@@ -7,13 +7,13 @@ namespace ExoplanetGame.Application.Robot
 {
     internal class RobotLoadService : RobotLoadUseCase
     {
-        private ExoplanetService exoplanetService;
-        private IRobotRepository robotRepository;
+        private readonly ExoplanetService exoplanetService;
+        private readonly IRobotRepository robotRepository;
 
         public RobotLoadService(ExoplanetService exoplanetService)
         {
             this.exoplanetService = exoplanetService;
-            this.robotRepository = RobotRepository.GetInstance();
+            robotRepository = RobotRepository.GetInstance();
         }
 
         public LoadResult LoadEnergy(IRobot robot, int seconds)

@@ -7,8 +7,8 @@ namespace ExoplanetGame.Application.Robot
 {
     internal class RobotMoveService : RobotMoveUseCase
     {
-        private ExoplanetService exoplanetService;
-        private IRobotRepository robotRepository;
+        private readonly ExoplanetService exoplanetService;
+        private readonly IRobotRepository robotRepository;
 
         public RobotMoveService(ExoplanetService exoplanetService)
         {

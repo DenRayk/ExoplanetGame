@@ -10,8 +10,8 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 {
     internal class SelectRobotActionCommand : BaseCommand
     {
-        private UCCollection ucCollection;
-        private IRobot robot;
+        private readonly UCCollection ucCollection;
+        private readonly IRobot robot;
 
         private readonly string helpText =
             "Robot Menu Information\n" +

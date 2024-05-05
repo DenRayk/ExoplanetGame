@@ -6,8 +6,8 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 {
     internal class MoveCommand : RobotCommand
     {
-        private UCCollection ucCollection;
-        private IRobot robot;
+        private readonly UCCollection ucCollection;
+        private readonly IRobot robot;
 
         public MoveCommand(IRobot robot, UCCollection ucCollection)
         {

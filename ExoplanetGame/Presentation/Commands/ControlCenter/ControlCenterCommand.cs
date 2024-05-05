@@ -5,7 +5,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
     public class ControlCenterCommand : BaseCommand
     {
-        private UCCollection ucCollection;
+        private readonly UCCollection ucCollection;
 
         private readonly string helpText =
             "Control Center Menu Information\n" +

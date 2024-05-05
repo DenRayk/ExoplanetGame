@@ -7,9 +7,9 @@ namespace ExoplanetGame.Application.Robot
 {
     internal class RobotScanService : RobotScanUseCase
     {
-        private ExoplanetService exoplanetService;
-        private IRobotRepository robotRepository;
-        private AddMeasureUseCase addMeasureService;
+        private readonly ExoplanetService exoplanetService;
+        private readonly IRobotRepository robotRepository;
+        private readonly AddMeasureUseCase addMeasureService;
 
         public RobotScanService(ExoplanetService exoplanetService, AddMeasureUseCase addMeasureService)
         {

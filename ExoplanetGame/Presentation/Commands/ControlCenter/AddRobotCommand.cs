@@ -7,9 +7,9 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
     public class AddRobotCommand : BaseCommand
     {
-        private UCCollection ucCollection;
+        private readonly UCCollection ucCollection;
 
-        private RobotVariant robotVariant;
+        private readonly RobotVariant robotVariant;
 
         public AddRobotCommand(RobotVariant robotVariant, UCCollection ucCollection)
         {

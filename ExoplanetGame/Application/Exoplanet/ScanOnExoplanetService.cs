@@ -9,7 +9,7 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     internal class ScanOnExoplanetService : ScanOnExoplanetUseCase
     {
-        private ExoplanetService exoplanetService;
+        private readonly ExoplanetService exoplanetService;
 
         public ScanOnExoplanetService(ExoplanetService exoplanetService)
         {

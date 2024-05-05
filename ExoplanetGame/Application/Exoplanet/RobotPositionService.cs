@@ -9,7 +9,7 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     internal class RobotPositionService : RobotPostionUseCase
     {
-        private ExoplanetService exoplanetService;
+        private readonly ExoplanetService exoplanetService;
 
         public RobotPositionService(ExoplanetService exoplanetService)
         {

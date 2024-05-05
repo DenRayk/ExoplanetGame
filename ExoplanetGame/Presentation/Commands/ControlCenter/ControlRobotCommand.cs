@@ -8,8 +8,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
     public class ControlRobotCommand : BaseCommand
     {
-        private UCCollection ucCollection;
-        private ExoplanetService exoplanetService;
+        private readonly UCCollection ucCollection;
 
         public ControlRobotCommand(UCCollection ucCollection)
         {

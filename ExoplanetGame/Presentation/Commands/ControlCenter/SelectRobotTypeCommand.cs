@@ -6,7 +6,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
     internal class SelectRobotTypeCommand : BaseCommand
     {
-        private UCCollection ucCollection;
+        private readonly UCCollection ucCollection;
 
         private readonly string helpText =
             "Robot Variant Information\n" +

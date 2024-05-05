@@ -5,7 +5,7 @@ namespace ExoplanetGame.Application.Robot
 {
     internal class RobotPartsHealthService : RobotPartsHealthUseCase
     {
-        private ExoplanetService exoplanetService;
+        private readonly ExoplanetService exoplanetService;
 
         public RobotPartsHealthService(ExoplanetService exoplanetService)
         {

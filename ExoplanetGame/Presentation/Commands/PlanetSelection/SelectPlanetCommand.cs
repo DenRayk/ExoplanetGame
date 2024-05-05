@@ -7,11 +7,11 @@ namespace ExoplanetGame.Presentation.Commands.PlanetSelection
 {
     public class SelectPlanetCommand : BaseCommand
     {
-        private PlanetVariant planetVariant;
+        private readonly PlanetVariant planetVariant;
 
-        private UCCollection ucCollection;
+        private readonly UCCollection ucCollection;
 
-        private ExoplanetService exoplanetService;
+        private readonly ExoplanetService exoplanetService;
 
         public SelectPlanetCommand(PlanetVariant planetVariant, UCCollection ucCollection, ExoplanetService exoplanetService)
         {

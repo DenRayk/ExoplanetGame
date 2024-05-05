@@ -9,7 +9,7 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter
 {
     internal class PrintMapCommand : BaseCommand
     {
-        private UCCollection ucCollection;
+        private readonly UCCollection ucCollection;
 
         public PrintMapCommand(UCCollection ucCollection)
         {

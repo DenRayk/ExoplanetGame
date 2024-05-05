@@ -9,9 +9,9 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 {
     public class LandCommand : RobotCommand
     {
-        private UCCollection ucCollection;
-        private IRobot robot;
-        private IRobotRepository robotRepository;
+        private readonly UCCollection ucCollection;
+        private readonly IRobot robot;
+        private readonly IRobotRepository robotRepository;
 
         public LandCommand(IRobot robot, UCCollection ucCollection)
         {

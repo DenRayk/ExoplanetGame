@@ -11,10 +11,10 @@ namespace ExoplanetGame.Presentation.Commands.Robot
 {
     internal class SelectRobotLandCommand : BaseCommand
     {
-        private UCCollection ucCollection;
-        private IRobot robot;
+        private readonly UCCollection ucCollection;
+        private readonly IRobot robot;
 
-        private string helpText =
+        private readonly string helpText =
             "Land:\t Land the robot on the planet\n" +
             "Back:\t Return to the control center\n";
 

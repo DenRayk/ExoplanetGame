@@ -6,8 +6,8 @@ namespace ExoplanetGame.Presentation.Commands.ControlCenter.Repair
 {
     internal class SelectRobotPartToRepairCommand : BaseCommand
     {
-        private UCCollection ucCollection;
-        private IRobot robot;
+        private readonly UCCollection ucCollection;
+        private readonly IRobot robot;
 
         public SelectRobotPartToRepairCommand(IRobot robot, UCCollection ucCollection)
         {

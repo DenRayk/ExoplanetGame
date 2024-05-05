@@ -4,7 +4,7 @@ namespace ExoplanetGame.Application.ControlCenter
 {
     internal class GetPlanetMapService : GetPlanetMapUseCase
     {
-        private Domain.ControlCenter.ControlCenter controlCenter;
+        private readonly Domain.ControlCenter.ControlCenter controlCenter;
 
         public GetPlanetMapService()
         {

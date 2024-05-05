@@ -4,11 +4,11 @@ namespace ExoplanetGame.Application.ControlCenter
 {
     internal class GetCurrentWeatherService : GetCurrentWeatherUseCase
     {
-        private Domain.ControlCenter.ControlCenter controlCenter;
+        private readonly Domain.ControlCenter.ControlCenter controlCenter;
 
         public GetCurrentWeatherService()
         {
-            this.controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
+            controlCenter = Domain.ControlCenter.ControlCenter.GetInstance();
         }
 
         public Weather GetCurrentWeather()

@@ -6,7 +6,7 @@ namespace ExoplanetGame.Domain.ControlCenter
     public class RobotRepository : IRobotRepository
     {
         private static IRobotRepository instance;
-        private Dictionary<IRobot, Position> robots;
+        private readonly Dictionary<IRobot, Position> robots;
 
         private RobotRepository()
         {

@@ -8,8 +8,8 @@ namespace ExoplanetGame.Application.Exoplanet
 {
     internal class RotateOnExoplanetService : RotateOnExoplanetUseCase
     {
-        private ExoplanetService exoplanetService;
-        private PlanetEventsUseCase planetEventsService;
+        private readonly ExoplanetService exoplanetService;
+        private readonly PlanetEventsUseCase planetEventsService;
 
         public RotateOnExoplanetService(ExoplanetService exoplanetService, PlanetEventsUseCase planetEventsService)
         {

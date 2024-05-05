@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Presentation.Commands;
+﻿using ExoplanetGame.Presentation.Commands;
 using ExoplanetGameTest.Mocks.Commands;
 
 namespace ExoplanetGameTest

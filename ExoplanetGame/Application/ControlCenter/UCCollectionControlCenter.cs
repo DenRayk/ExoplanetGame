@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExoplanetGame.Application.Exoplanet;
-using ExoplanetGame.Application.Robot;
-
-namespace ExoplanetGame.Application.ControlCenter
+﻿namespace ExoplanetGame.Application.ControlCenter
 {
     public class UCCollectionControlCenter
     {
         public UCCollectionControlCenter()
         {
-            this.SelectPlanetUseCase = new SelectPlanetService();
-            this.AddRobotUseCase = new AddRobotService();
-            this.GetRobotsService = new GetRobotsService();
-            this.GetPlanetMapUseCase = new GetPlanetMapService();
-            this.GetCurrentWeatherUseCase = new GetCurrentWeatherService();
+            SelectPlanetUseCase = new SelectPlanetService();
+            AddRobotUseCase = new AddRobotService();
+            GetRobotsService = new GetRobotsService();
+            GetPlanetMapUseCase = new GetPlanetMapService();
+            GetCurrentWeatherUseCase = new GetCurrentWeatherService();
         }
 
         public SelectPlanetUseCase SelectPlanetUseCase { get; }
