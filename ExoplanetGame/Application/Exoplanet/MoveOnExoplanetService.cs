@@ -44,14 +44,13 @@ namespace ExoplanetGame.Application.Exoplanet
         {
             moveResult = new PositionResult(robotResult);
 
-            if (IsRobotUnableToMove(robot, moveResult))
+            if (IsRobotUnableToMove(robot, moveResult) || IsRobotStuck(robot, moveResult) || !DoesRobotHaveEnoughEnergy(robot, moveResult))
+            {
+                moveResult.Position = exoplanetService.ExoPlanet.RobotPositionManager.Robots[robot];
+                moveResult.IsSuccess = false;
+                moveResult.HasRobotSurvived = true;
                 return false;
-
-            if (IsRobotStuck(robot, moveResult))
-                return false;
-
-            if (!DoesRobotHaveEnoughEnergy(robot, moveResult))
-                return false;
+            }
 
             return true;
         }
