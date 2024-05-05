@@ -122,21 +122,29 @@ namespace ExoplanetGame.Application.Exoplanet
         public Position WaterDrift(IRobot robot, Position position, Topography topography)
         {
             IExoPlanet exoplanet = exoplanetService.ExoPlanet;
-            exoplanetService.HeatTracking.WaterCoolDown(robot);
+
+            Ground currentRobotGround = exoplanet.Topography.GetMeasureAtPosition(position).Ground;
+
+            if (currentRobotGround == Ground.WATER)
+            {
+                exoplanetService.HeatTracking.WaterCoolDown(robot);
+            }
 
             if (robot is AquaBot)
             {
                 return position;
             }
 
-            while (position.Y < exoplanet.Topography.PlanetSize.Height - 1 && exoplanet.Topography.GetMeasureAtPosition(position).Ground == Ground.WATER)
+            while (position.Y < exoplanet.Topography.PlanetSize.Height - 1 && currentRobotGround == Ground.WATER)
             {
-                position = robot.RobotInformation.Position != null ? new Position(position.X, position.Y + 1, robot.RobotInformation.Position.Direction) : new Position(position.X + 1, position.Y, Direction.NORTH);
+                position = new Position(position.X, position.Y + 1, robot.RobotInformation.Position?.Direction ?? Direction.NORTH);
+                currentRobotGround = exoplanet.Topography.GetMeasureAtPosition(position).Ground;
             }
 
-            while (position.Y == exoplanet.Topography.PlanetSize.Height - 1 && exoplanet.Topography.GetMeasureAtPosition(position).Ground == Ground.WATER)
+            while (position.Y == exoplanet.Topography.PlanetSize.Height - 1 && currentRobotGround == Ground.WATER)
             {
-                position = robot.RobotInformation.Position != null ? new Position(position.X + 1, position.Y, robot.RobotInformation.Position.Direction) : new Position(position.X + 1, position.Y, Direction.NORTH);
+                position = new Position(position.X + 1, position.Y, robot.RobotInformation.Position?.Direction ?? Direction.NORTH);
+                currentRobotGround = exoplanet.Topography.GetMeasureAtPosition(position).Ground;
             }
 
             return position;
